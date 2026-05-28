@@ -1,253 +1,209 @@
-﻿# Orion Safe - User Guide
+﻿# Stellar Vault User Guide
+
+This guide covers all vault operations in detail.
+
+---
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Creating a Vault](#creating-a-vault)
-4. [Managing Assets](#managing-assets)
-5. [Transactions & Proposals](#transactions--proposals)
-6. [Time Locks & Vesting](#time-locks--vesting)
-7. [Public Access & Sharing](#public-access--sharing)
-8. [Settings & Administration](#settings--administration)
+1. [Dashboard Overview](#dashboard-overview)
+2. [Managing Assets](#managing-assets)
+3. [Creating Transactions](#creating-transactions)
+4. [Time-Locks](#time-locks)
+5. [Vesting Schedules](#vesting-schedules)
+6. [Managing Signers](#managing-signers)
+7. [Bulk Operations](#bulk-operations)
 
 ---
 
-## Introduction
+## Dashboard Overview
 
-Orion Safe is a multi-signature vault solution built on the Stellar blockchain using Soroban smart contracts. It enables teams, DAOs, and organizations to securely manage digital assets with customizable approval thresholds.
+When you open your vault, you'll see:
 
-### Key Features
-- **Multi-signature security**: Require multiple approvals for transactions
-- **Role-based access**: Admin, Executor, and Viewer roles
-- **Time Locks**: Lock assets until a specific date
-- **Vesting Schedules**: Gradual token release over time
-- **Public Sharing**: Share vault status without exposing private keys
-- **Threshold-based approvals**: All actions (transfers, locks, vestings) require threshold approval
+┌─────────────────────────────────────────────────────┐ 
+│             VAULT OVERVIEW                          │
+├── Total Balance: $125,000 across 4 tokens           │
+├── Pending Transactions: 3 awaiting approval         │
+├── Active Time-Locks: 5 scheduled releases           │
+├── Team Members: 4 signers (2-of-4 threshold)        │ 
+└─────────────────────────────────────────────────────┘
 
----
 
-## Getting Started
-
-### Prerequisites
-- A Stellar wallet (Freighter, xBull, Lobstr, or Albedo)
-- Some XLM for transaction fees (minimum 10 XLM recommended)
-- Testnet XLM for testing (use Stellar Friendbot)
-
-### Connecting Your Wallet
-1. Visit the Orion Safe dashboard
-2. Click "Connect Wallet"
-3. Select your preferred wallet provider
-4. Approve the connection request in your wallet
-5. You're now connected!
-
----
-
-## Creating a Vault
-
-### Step 1: Initiate Vault Creation
-1. Click "Create Your First Vault" or the "+" button in the sidebar
-2. Enter a name for your vault (e.g., "Team Treasury")
-
-### Step 2: Add Signers
-1. Your address is automatically added as the first signer (Admin)
-2. Click "Add Signer" to add additional signers
-3. Enter the Stellar address (starts with G...)
-4. You can add signers from your contacts list
-
-### Step 3: Set Threshold
-1. Choose the approval threshold (1 to N signers)
-2. Example: 2-of-3 means 2 approvals needed out of 3 signers
-3. Higher thresholds = more security, slower execution
-
-### Step 4: Pay Creation Fee
-1. Review the vault creation fee (10 XLM)
-2. Confirm the transaction in your wallet
-3. Wait for confirmation (~5 seconds)
-
-### Step 5: Vault Ready!
-Your vault is now created and ready to receive assets.
+### Navigation
+- **Assets** — View balances, deposit/withdraw
+- **Transactions** — Propose, approve, execute transfers
+- **Time-Locks** — Lock tokens until a future date
+- **Vesting** — Set up gradual token releases
+- **Members** — Manage signers and roles
+- **Settings** — Vault configuration
 
 ---
 
 ## Managing Assets
 
-### Depositing Assets
-1. Go to "Assets" view
-2. Click "Deposit"
-3. Select the token (XLM, USDC, etc.)
-4. Enter the amount
-5. Confirm in your wallet
-
 ### Viewing Balances
-The Assets view shows:
-- **Total Balance**: Your vault's holdings
-- **Locked Amount**: Assets in time locks or vesting
-- **Available Balance**: Assets available for transactions
+The Assets page shows all tokens in your vault with:
+- Current balance
+- USD value (when available)
+- Recent transaction history
 
-### Adding Custom Tokens
-1. Click "Add Token" in Assets view
-2. Enter the token contract address
-3. The token will appear in your asset list
+### Depositing Funds
+1.  your vault address from the dashboard
+2. Send tokens from any Stellar wallet
+3. Funds appear within ~5 seconds
 
----
-
-## Transactions & Proposals
-
-### How Proposals Work
-All outgoing transactions require threshold approval:
-1. **Propose**: Any signer creates a proposal
-2. **Approve**: Signers vote to approve
-3. **Execute**: Once threshold is met, execute the transfer
-
-### Creating a Transaction Proposal
-1. Click "New Transaction"
-2. Select the token to send
+### Withdrawing Funds
+Withdrawals require a transaction proposal:
+1. Go to **Transactions** → **New**
+2. Select the token and amount
 3. Enter the recipient address
-4. Enter the amount (cannot exceed available balance)
-5. Click "Create Proposal"
-
-### Approving Proposals
-1. Go to "Transactions" view
-2. Find pending proposals
-3. Click "Approve" to add your approval
-4. Progress shows as "X/Y approvals"
-
-### Executing Proposals
-1. Once threshold is met, "Execute" button appears
-2. Click "Execute" to complete the transfer
-3. Transaction is broadcast to the network
-
-### Rejecting Proposals
-1. Click "Reject" on a pending proposal
-2. Other signers can also vote to reject
-3. Once rejection threshold is met, proposal is cancelled
+4. Submit for approval
 
 ---
 
-## Time Locks & Vesting
+## Creating Transactions
 
-### Time Locks
-Lock assets until a specific date. Useful for:
-- Scheduled payments
-- Escrow arrangements
-- Self-custody lockups
+### Standard Transfer
+1. Click **"New Transaction"**
+2. Fill in:
+   - **Token**: Select from your vault's assets
+   - **Amount**: How much to send
+   - **Recipient**: Destination wallet address
+   - **Memo** (optional): Note for record-keeping
+3. Click **"Submit Proposal"**
 
-**Creating a Time Lock Proposal:**
-1. Go to "Locks" view
-2. Click "Create Time Lock"
-3. Select beneficiary (who receives the funds)
-4. Select token and amount
-5. Set unlock date/time
-6. Choose if revocable (can be cancelled by admin)
-7. Submit - creates a proposal requiring threshold approval
+### Approval Process
+Proposal Created → Signers Approve → Threshold Met → Execute (You) (Team) (Auto) (Anyone)
 
-### Vesting Schedules
-Gradual release of tokens over time. Useful for:
-- Employee token grants
-- Investor allocations
-- Advisor compensation
 
-**Creating a Vesting Proposal:**
-1. Go to "Vesting" view
-2. Click "Create Vesting"
-3. Configure:
-   - Beneficiary address
-   - Token and total amount
-   - Start date
-   - Cliff period (initial lockup)
-   - Total duration
-   - Release intervals (monthly, weekly, etc.)
-4. Submit - creates a proposal requiring threshold approval
-
-### Claiming Locked/Vested Assets
-Beneficiaries can claim available funds:
-1. Connect wallet as beneficiary
-2. Go to Claims page or use public link
-3. Click "Claim" on available locks
-4. Funds transfer to beneficiary wallet
+### Checking Proposal Status
+Each proposal shows:
+- ✅ Who has approved
+- ⏳ Who hasn't responded yet
+- 📊 Progress toward threshold (e.g., "2 of 3 approved")
 
 ---
 
-## Public Access & Sharing
+## Time-Locks
 
-### Public View Links
-Share your vault's status without exposing control:
+Time-locks let you schedule token releases for a future date.
 
-https://orionsafe.app/?vault=CXXX...&view=public
+### Creating a Time-Lock
+1. Go to **Time-Locks** → **Create**
+2. Enter:
+   - **Beneficiary**: Who receives the tokens
+   - **Token & Amount**: What to lock
+   - **Unlock Date**: When they can claim
+   - **Revocable**: Can the vault cancel this?
+3. Submit (requires signer approval)
 
+### Use Cases
+- **Employee bonuses** — Lock until performance review
+- **Grant milestones** — Release when deliverables complete
+- **Escrow** — Hold funds until conditions are met
 
-Public view shows:
-- Vault balances
-- Active locks and vesting schedules
-- Lock/vesting progress and timelines
-- No ability to modify or transact
-
-### Claim Links
-Beneficiaries can claim from a direct link:
-https://orionsafe.app/?view=claim
-
----
-
-## Settings & Administration
-
-### Managing Signers
-**Add Signer (Admin only):**
-1. Go to Settings
-2. Enter new signer address
-3. Select role (Admin, Executor, Viewer)
-4. Confirm transaction
-
-**Remove Signer (Admin only):**
-1. Go to Settings
-2. Click remove on the signer
-3. Cannot remove last admin
-4. Cannot reduce below threshold
-
-### Changing Roles
-- **Admin**: Full control, can manage signers and settings
-- **Executor**: Can propose and approve transactions
-- **Viewer**: Read-only access
-
-### Adjusting Threshold
-1. Go to Settings
-2. Adjust threshold slider
-3. Cannot exceed signer count
-4. Confirm transaction
-
-### Leaving a Vault
-Signers can voluntarily leave:
-1. Go to Settings
-2. Click "Leave Vault"
-3. Confirm transaction
-4. You lose access to the vault
+### Claiming Locked Tokens
+Beneficiaries can claim once the unlock date passes:
+1. Open the dashboard (with beneficiary wallet connected)
+2. Go to **Time-Locks**
+3. Click **"Claim"** on any unlocked entries
 
 ---
 
-## Troubleshooting
+## Vesting Schedules
 
-### Transaction Failed
-- Check you have enough XLM for fees
-- Verify the recipient address is correct
-- Ensure you have sufficient available balance
+Vesting releases tokens gradually over time — perfect for team compensation or investor allocations.
 
-### Wallet Won't Connect
-- Refresh the page
-- Check wallet extension is enabled
-- Try a different browser
+### Creating a Vesting Schedule
+1. Go to **Vesting** → **Create**
+2. Configure:
+   - **Beneficiary**: Token recipient
+   - **Total Amount**: Full vesting allocation
+   - **Cliff Period**: Days before any tokens release
+   - **Vesting Duration**: Total days to full release
+   - **Release Interval**: How often tokens unlock (daily, weekly, monthly)
+3. Submit for approval
 
-### Proposal Stuck
-- Ensure threshold approvals are met
-- Check if proposal was rejected
-- Verify vault has sufficient balance
+### Example: 4-Year Employee Vesting
+Total: 100,000 tokens Cliff: 365 days (1 year) Duration: 1,460 days (4 years) Interval: 30 days (monthly)
+
+Result:
+
+Day 1-364: Nothing vests
+Day 365: 25,000 tokens unlock (1-year cliff)
+Day 395: ~2,083 more tokens unlock
+Day 425: ~2,083 more tokens unlock
+... continues monthly until Day 1,460
+
+### Claiming Vested Tokens
+1. Connect with beneficiary wallet
+2. Go to **Vesting**
+3. See "Available to Claim" amount
+4. Click **"Claim"**
 
 ---
 
-## Support
+## Managing Signers
 
-- GitHub: https://github.com/your-org/orion-safe
-- Discord: https://discord.gg/orionsafe
-- Email: support@orionsafe.app
+### Adding a New Signer
+1. Go to **Members** → **Add Signer**
+2. Enter their wallet address
+3. Assign a role (SuperAdmin, Admin, Executor, Viewer)
+4. Submit for approval (requires existing signer threshold)
+
+### Removing a Signer
+1. Go to **Members**
+2. Click **"Remove"** next to the signer
+3. Confirm and submit for approval
+
+> ⚠️ **Warning:** Ensure you maintain enough signers to meet your threshold. If you have a 2-of-3 threshold and remove a signer, you'll need 2-of-2.
+
+### Changing Threshold
+1. Go to **Settings** → **Security**
+2. Adjust the approval threshold
+3. Submit for approval
 
 ---
 
-*Orion Safe v1.0 - Built on Stellar Soroban*
+## Bulk Operations
+
+For efficiency, you can create multiple time-locks or vesting schedules at once.
+
+### CSV Import
+1. Click **"Bulk Create"** in Time-Locks or Vesting
+2. Download the template CSV
+3. Fill in your data:
+   ```csv
+   beneficiary,amount,token,unlock_date,revocable,description
+   GABC...,1000,USDC,2026-12-31,true,Q4 Bonus
+   GDEF...,2000,USDC,2026-12-31,true,Q4 Bonus
+Upload the CSV
+Review and confirm
+Submit for approval
+Batch Limits
+Maximum 10 entries per batch (to stay within Stellar transaction limits)
+Process multiple batches for larger distributions
+Best Practices
+Security
+✅ Use hardware wallets for signer keys
+✅ Keep threshold at least 2 (never single-signer)
+✅ Regularly audit signer list
+✅ Use separate vaults for different purposes
+Operations
+✅ Add descriptions to all transactions
+✅ Use time-locks for anything date-sensitive
+✅ Review pending transactions daily
+✅ Export transaction history for accounting
+Troubleshooting
+Transaction stuck in pending?
+
+Check that enough signers have approved
+Ensure signers are using the correct wallet
+Can't see my vault?
+
+Confirm you're connected with a signer wallet
+Check you're on the correct network (testnet vs mainnet)
+Token balance not showing?
+
+Click "Refresh" to update balances
+Some new tokens may need the trustline added first
+Need more help? Open an issue on GitHub
