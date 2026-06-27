@@ -18,6 +18,7 @@ import { Settings } from './components/views/Settings';
 import { Contacts } from './components/views/Contacts';
 import Locks from './components/views/Locks';
 import Vesting from './components/views/Vesting';
+import { FiatRamp } from './components/FiatRamp';
 import { NewTransactionModal } from './components/modals/NewTransactionModal';
 import { DepositModal } from './components/modals/DepositModal';
 import CreateVaultModal from './components/CreateVaultModal';
@@ -738,6 +739,15 @@ function App() {
                       preselectedToken={selectedTokenForLock}
                     />
                   )}
+
+                  {activeView === 'fiat' && (
+                    <FiatRamp
+                      userPublicKey={vault.publicKey!}
+                      vaultAddress={vault.vaultAddress!}
+                      onWithdrawProposed={() => vault.loadVaultData()}
+                    />
+                  )}
+
                   {activeView === 'docs' && <Docs />}
                 </>
               )}

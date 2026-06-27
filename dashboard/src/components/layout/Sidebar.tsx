@@ -38,6 +38,12 @@ const AssetsIcon = () => (
   </svg>
 );
 
+const FiatIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+  </svg>
+);
+
 const TransactionsIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
@@ -135,6 +141,19 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
+// Nav item shape
+interface NavItem {
+  id: ActiveView;
+  label: string;
+  icon: React.ReactNode;
+  badge?: number;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
 export const Sidebar: React.FC<SidebarProps> = ({
   collapsed,
   activeView,
@@ -174,15 +193,42 @@ export const Sidebar: React.FC<SidebarProps> = ({
     setTimeout(() => setShowShareToast(false), 2000);
   };
 
-  const navItems = [
-    { id: 'dashboard' as ActiveView, label: 'Dashboard', icon: <HomeIcon /> },
-    { id: 'assets' as ActiveView, label: 'Assets', icon: <AssetsIcon /> },
-    { id: 'transactions' as ActiveView, label: 'Transactions', icon: <TransactionsIcon />, badge: pendingCount + approvedCount },
-    { id: 'locks' as ActiveView, label: 'Locks', icon: <LocksIcon /> },
-    { id: 'vesting' as ActiveView, label: 'Vesting', icon: <VestingIcon /> },
-    { id: 'members' as ActiveView, label: 'Members', icon: <MembersIcon /> },
-    { id: 'contacts' as ActiveView, label: 'Contacts', icon: <ContactsIcon /> },
-    { id: 'settings' as ActiveView, label: 'Settings', icon: <SettingsIcon /> },
+  // Grouped navigation
+  const navGroups: NavGroup[] = [
+    {
+      title: 'Overview',
+      items: [
+        { id: 'dashboard', label: 'Dashboard', icon: <HomeIcon /> },
+      ],
+    },
+    {
+      title: 'Money',
+      items: [
+        { id: 'assets', label: 'Assets', icon: <AssetsIcon /> },
+        { id: 'fiat', label: 'Fiat Ramp', icon: <FiatIcon /> },
+        { id: 'transactions', label: 'Transactions', icon: <TransactionsIcon />, badge: pendingCount + approvedCount },
+      ],
+    },
+    {
+      title: 'Vesting & Locks',
+      items: [
+        { id: 'locks', label: 'Locks', icon: <LocksIcon /> },
+        { id: 'vesting', label: 'Vesting', icon: <VestingIcon /> },
+      ],
+    },
+    {
+      title: 'Team',
+      items: [
+        { id: 'members', label: 'Members', icon: <MembersIcon /> },
+        { id: 'contacts', label: 'Contacts', icon: <ContactsIcon /> },
+      ],
+    },
+    {
+      title: 'System',
+      items: [
+        { id: 'settings', label: 'Settings', icon: <SettingsIcon /> },
+      ],
+    },
   ];
 
   const handleNavClick = (view: ActiveView) => {
@@ -195,6 +241,101 @@ export const Sidebar: React.FC<SidebarProps> = ({
       onShowClaimPage();
       setMobileMenuOpen(false);
     }
+  };
+
+  const itemClasses = (active: boolean, centered: boolean) =>
+    `w-full flex items-center ${centered ? 'justify-center' : 'justify-between'} px-4 py-3 rounded-xl transition-all ${
+      active
+        ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
+        : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
+    }`;
+
+  // Renders the grouped nav. `mobile` flag controls click handler + always-expanded layout.
+  const renderNavGroups = (mobile: boolean) => {
+    const isCollapsed = !mobile && collapsed;
+    const onClick = mobile ? handleNavClick : onViewChange;
+
+    return navGroups.map((group, gi) => (
+      <div key={group.title} className={gi > 0 ? 'mt-4' : ''}>
+        {isCollapsed ? (
+          gi > 0 && <div className="my-2 border-t border-blue-900/30"></div>
+        ) : (
+          <p className="px-4 mb-1 text-[10px] font-semibold uppercase tracking-wider text-blue-400/50">
+            {group.title}
+          </p>
+        )}
+        <div className="space-y-1">
+          {group.items.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => onClick(item.id)}
+              className={itemClasses(activeView === item.id, isCollapsed)}
+              title={isCollapsed ? item.label : undefined}
+            >
+              <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+                {item.icon}
+                {!isCollapsed && <span className="font-medium">{item.label}</span>}
+              </div>
+              {!isCollapsed && item.badge && item.badge > 0 && (
+                <span className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs text-white">
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+    ));
+  };
+
+  // Renders the pinned secondary items (Docs / Admin / Claim).
+  const renderSecondary = (mobile: boolean) => {
+    const isCollapsed = !mobile && collapsed;
+    const onClick = mobile ? handleNavClick : onViewChange;
+
+    return (
+      <>
+        <div className="my-3 border-t border-blue-900/30"></div>
+
+        {/* Documentation Link */}
+        <button
+          onClick={() => onClick('docs')}
+          className={itemClasses(activeView === 'docs', isCollapsed)}
+          title={isCollapsed ? 'Documentation' : undefined}
+        >
+          <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+            <DocsIcon />
+            {!isCollapsed && <span className="font-medium">Documentation</span>}
+          </div>
+        </button>
+
+        {/* Admin Link */}
+        {isFactoryAdmin && (
+          <button
+            onClick={() => onClick('admin')}
+            className={itemClasses(activeView === 'admin', isCollapsed)}
+            title={isCollapsed ? 'Admin' : undefined}
+          >
+            <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+              <AdminIcon />
+              {!isCollapsed && <span className="font-medium">Admin</span>}
+            </div>
+          </button>
+        )}
+
+        {/* Claim Tokens Link */}
+        {hasBeneficiaryLocks && onShowClaimPage && (
+          <button
+            onClick={handleClaimClick}
+            className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-xl transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20`}
+            title={isCollapsed ? 'Claim Tokens' : undefined}
+          >
+            <ClaimIcon />
+            {!isCollapsed && <span className="font-medium">Claim Tokens</span>}
+          </button>
+        )}
+      </>
+    );
   };
 
   // Mobile Header Bar
@@ -340,70 +481,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
 
         {/* Navigation */}
-        <nav className="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-350px)]">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all ${
-                activeView === item.id
-                  ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                  : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                {item.icon}
-                <span className="font-medium">{item.label}</span>
-              </div>
-              {item.badge && item.badge > 0 && (
-                <span className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs text-white">
-                  {item.badge}
-                </span>
-              )}
-            </button>
-          ))}
-
-          {/* Divider before secondary items */}
-          <div className="my-3 border-t border-blue-900/30"></div>
-
-          {/* Documentation Link */}
-          <button
-            onClick={() => handleNavClick('docs')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
-              activeView === 'docs'
-                ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-            }`}
-          >
-            <DocsIcon />
-            <span className="font-medium">Documentation</span>
-          </button>
-
-          {/* Admin Link */}
-          {isFactoryAdmin && (
-            <button
-              onClick={() => handleNavClick('admin')}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
-                activeView === 'admin'
-                  ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                  : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-              }`}
-            >
-              <AdminIcon />
-              <span className="font-medium">Admin</span>
-            </button>
-          )}
-
-          {/* Claim Tokens Link */}
-          {hasBeneficiaryLocks && onShowClaimPage && (
-            <button
-              onClick={handleClaimClick}
-              className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20"
-            >
-              <ClaimIcon />
-              <span className="font-medium">Claim Tokens</span>
-            </button>
-          )}
+        <nav className="p-4 overflow-y-auto max-h-[calc(100vh-350px)]">
+          {renderNavGroups(true)}
+          {renderSecondary(true)}
         </nav>
 
         {/* User Section */}
@@ -568,74 +648,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onViewChange(item.id)}
-            className={`w-full flex items-center ${collapsed ? 'justify-center' : 'justify-between'} px-4 py-3 rounded-xl transition-all ${
-              activeView === item.id
-                ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-            }`}
-            title={collapsed ? item.label : undefined}
-          >
-            <div className={`flex items-center ${collapsed ? '' : 'space-x-3'}`}>
-              {item.icon}
-              {!collapsed && <span className="font-medium">{item.label}</span>}
-            </div>
-            {!collapsed && item.badge && item.badge > 0 && (
-              <span className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs text-white">
-                {item.badge}
-              </span>
-            )}
-          </button>
-        ))}
-
-        {/* Divider before secondary items */}
-        <div className="my-3 border-t border-blue-900/30"></div>
-
-        {/* Documentation Link */}
-        <button
-          onClick={() => onViewChange('docs')}
-          className={`w-full flex items-center ${collapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-xl transition-all ${
-            activeView === 'docs'
-              ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-              : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-          }`}
-          title={collapsed ? 'Documentation' : undefined}
-        >
-          <DocsIcon />
-          {!collapsed && <span className="font-medium">Documentation</span>}
-        </button>
-
-        {/* Admin Link */}
-        {isFactoryAdmin && (
-          <button
-            onClick={() => onViewChange('admin')}
-            className={`w-full flex items-center ${collapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-xl transition-all ${
-              activeView === 'admin'
-                ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-                : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
-            }`}
-            title={collapsed ? 'Admin' : undefined}
-          >
-            <AdminIcon />
-            {!collapsed && <span className="font-medium">Admin</span>}
-          </button>
-        )}
-
-        {/* Claim Tokens Link */}
-        {hasBeneficiaryLocks && onShowClaimPage && (
-          <button
-            onClick={handleClaimClick}
-            className={`w-full flex items-center ${collapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-xl transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20`}
-            title={collapsed ? 'Claim Tokens' : undefined}
-          >
-            <ClaimIcon />
-            {!collapsed && <span className="font-medium">Claim Tokens</span>}
-          </button>
-        )}
+      <nav className="flex-1 p-4 overflow-y-auto">
+        {renderNavGroups(false)}
+        {renderSecondary(false)}
       </nav>
 
       {/* User Section - Desktop */}
