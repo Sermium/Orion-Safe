@@ -244,7 +244,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const itemClasses = (active: boolean, centered: boolean) =>
-    `w-full flex items-center ${centered ? 'justify-center' : 'justify-between'} px-4 py-3 rounded-xl transition-all ${
+    `w-full flex items-center ${centered ? 'justify-center' : 'justify-between'} px-3 py-2 rounded-lg transition-all ${
       active
         ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
         : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
@@ -256,15 +256,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const onClick = mobile ? handleNavClick : onViewChange;
 
     return navGroups.map((group, gi) => (
-      <div key={group.title} className={gi > 0 ? 'mt-4' : ''}>
+      <div key={group.title} className={gi > 0 ? 'mt-2.5' : ''}>
         {isCollapsed ? (
-          gi > 0 && <div className="my-2 border-t border-blue-900/30"></div>
+          gi > 0 && <div className="my-1.5 border-t border-blue-900/30"></div>
         ) : (
-          <p className="px-4 mb-1 text-[10px] font-semibold uppercase tracking-wider text-blue-400/50">
+          <p className="px-3 mb-0.5 text-[9px] font-semibold uppercase tracking-wider text-blue-400/50">
             {group.title}
           </p>
         )}
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {group.items.map((item) => (
             <button
               key={item.id}
@@ -272,12 +272,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className={itemClasses(activeView === item.id, isCollapsed)}
               title={isCollapsed ? item.label : undefined}
             >
-              <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+              <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
                 {item.icon}
-                {!isCollapsed && <span className="font-medium">{item.label}</span>}
+                {!isCollapsed && <span className="text-sm font-medium">{item.label}</span>}
               </div>
               {!isCollapsed && item.badge && item.badge > 0 && (
-                <span className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-xs text-white">
+                <span className="px-1.5 py-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full text-[10px] text-white">
                   {item.badge}
                 </span>
               )}
@@ -295,7 +295,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     return (
       <>
-        <div className="my-3 border-t border-blue-900/30"></div>
+        <div className="my-2 border-t border-blue-900/30"></div>
 
         {/* Documentation Link */}
         <button
@@ -303,9 +303,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className={itemClasses(activeView === 'docs', isCollapsed)}
           title={isCollapsed ? 'Documentation' : undefined}
         >
-          <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+          <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
             <DocsIcon />
-            {!isCollapsed && <span className="font-medium">Documentation</span>}
+            {!isCollapsed && <span className="text-sm font-medium">Documentation</span>}
           </div>
         </button>
 
@@ -316,9 +316,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className={itemClasses(activeView === 'admin', isCollapsed)}
             title={isCollapsed ? 'Admin' : undefined}
           >
-            <div className={`flex items-center ${isCollapsed ? '' : 'space-x-3'}`}>
+            <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
               <AdminIcon />
-              {!isCollapsed && <span className="font-medium">Admin</span>}
+              {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
             </div>
           </button>
         )}
@@ -327,11 +327,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {hasBeneficiaryLocks && onShowClaimPage && (
           <button
             onClick={handleClaimClick}
-            className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'space-x-3'} px-4 py-3 rounded-xl transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20`}
+            className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'space-x-2.5'} px-3 py-2 rounded-lg transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20`}
             title={isCollapsed ? 'Claim Tokens' : undefined}
           >
             <ClaimIcon />
-            {!isCollapsed && <span className="font-medium">Claim Tokens</span>}
+            {!isCollapsed && <span className="text-sm font-medium">Claim Tokens</span>}
           </button>
         )}
       </>
