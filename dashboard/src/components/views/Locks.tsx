@@ -1,12 +1,14 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { getContacts, Contact } from '../../services/contactsService';
-import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, RefreshCw } from 'lucide-react';
+import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy } from 'lucide-react';
 
 // Constants for batch limits
 const MAX_BATCH_SIZE = 10;
 const BATCH_DELAY_MS = 3000;
 
-// CSV Example Template for Time Locks
+// CSV Example Template — on garde les en-têtes en anglais (le parser s'appuie dessus)
 const CSV_TIMELOCK_EXAMPLE = `# Bulk Time Lock Template - Orion Safe
 # Maximum ${MAX_BATCH_SIZE} locks per batch to avoid network overload
 #
@@ -114,6 +116,18 @@ function getStatusString(status: any): string {
   return 'Unknown';
 }
 
+// Libellé traduit du statut (l'identité interne reste celle de getStatusString)
+function getStatusLabel(status: any, t: TFunction): string {
+  const s = getStatusString(status);
+  switch (s) {
+    case 'Active': return t('locks.statuses.active');
+    case 'PartiallyReleased': return t('locks.statuses.partiallyReleased');
+    case 'FullyReleased': return t('locks.statuses.fullyReleased');
+    case 'Cancelled': return t('locks.statuses.cancelled');
+    default: return t('locks.statuses.unknown');
+  }
+}
+
 const Locks: React.FC<LocksProps> = ({
   vaultAddress,
   locks: allLocks,
@@ -128,6 +142,7 @@ const Locks: React.FC<LocksProps> = ({
   preselectedToken,
   isPublicView = false,
 }) => {
+  const { t, i18n } = useTranslation();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showBulkModal, setShowBulkModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -180,20 +195,20 @@ const Locks: React.FC<LocksProps> = ({
   };
 
   const truncateAddress = (addr: string): string => addr ? addr.slice(0, 6) + '...' + addr.slice(-4) : '';
-  
+
   const getAvailableBalance = (tokenAddress: string): bigint => {
     const token = vaultBalance.find(t => t.address === tokenAddress);
     if (!token) return BigInt(0);
-    
+
     const totalBalance = token.balance;
     const lockedAmount = allLocks
       .filter(l => l.token === tokenAddress && getStatusString(l.status) === 'Active')
       .reduce((sum, l) => sum + BigInt(l.total_amount || 0) - BigInt(l.released_amount || 0), BigInt(0));
-    
+
     const pendingAmount = proposals
       .filter(p => p.token === tokenAddress && (Number(p.status) === 0 || Number(p.status) === 1))
       .reduce((sum, p) => sum + BigInt(p.amount || 0), BigInt(0));
-    
+
     const reserved = lockedAmount + pendingAmount;
     return totalBalance > reserved ? totalBalance - reserved : BigInt(0);
   };
@@ -223,16 +238,18 @@ const Locks: React.FC<LocksProps> = ({
 
   const canUserClaim = (lock: Lock): boolean => !!(publicKey && isLockClaimable(lock) && lock.beneficiary === publicKey);
   const canUserCancel = (lock: Lock): boolean => !!(publicKey && isAdmin && lock.revocable && ['Active', 'PartiallyReleased'].includes(getStatusString(lock.status)));
-  const getProgressPercent = (lock: Lock): number => { const t = safeBigInt(lock.total_amount); return t === BigInt(0) ? 0 : Number((safeBigInt(lock.released_amount) * BigInt(100)) / t); };
+  const getProgressPercent = (lock: Lock): number => { const tot = safeBigInt(lock.total_amount); return tot === BigInt(0) ? 0 : Number((safeBigInt(lock.released_amount) * BigInt(100)) / tot); };
 
   const getTimeRemaining = (lock: Lock): string => {
     const now = Math.floor(Date.now() / 1000);
     const target = Number(lock.end_time);
-    if (now >= target) return 'Unlocked';
+    if (now >= target) return t('locks.time.unlocked');
     const diff = target - now;
     const days = Math.floor(diff / 86400);
     const hours = Math.floor((diff % 86400) / 3600);
-    return days > 0 ? days + 'd ' + hours + 'h remaining' : hours + 'h remaining';
+    return days > 0
+      ? t('locks.time.remainingDays', { days, hours })
+      : t('locks.time.remainingHours', { hours });
   };
 
   const getStatusColor = (status: any) => {
@@ -246,28 +263,28 @@ const Locks: React.FC<LocksProps> = ({
   };
 
   const handleCreateLock = async () => {
-    if (!selectedToken || !beneficiary || !amount) { setError('Please fill in all required fields'); return; }
-    if (!beneficiary.startsWith('G') || beneficiary.length !== 56) { setError('Invalid beneficiary address'); return; }
+    if (!selectedToken || !beneficiary || !amount) { setError(t('locks.errors.fillRequired')); return; }
+    if (!beneficiary.startsWith('G') || beneficiary.length !== 56) { setError(t('locks.errors.invalidBeneficiary')); return; }
     setLoading(true); setError(null);
     try {
       const unlockTime = Math.floor(new Date(unlockDate).getTime() / 1000);
-      if (unlockTime <= Math.floor(Date.now() / 1000)) { setError('Unlock time must be in the future'); setLoading(false); return; }
-      await onCreateTimeLock(beneficiary, selectedToken, amount, unlockTime, revocable, description || 'Time Lock');
+      if (unlockTime <= Math.floor(Date.now() / 1000)) { setError(t('locks.errors.unlockFuture')); setLoading(false); return; }
+      await onCreateTimeLock(beneficiary, selectedToken, amount, unlockTime, revocable, description || t('locks.defaultDescription'));
       setShowCreateModal(false); resetForm(); onRefresh();
-    } catch (err: any) { setError(err.message || 'Failed to create lock'); } finally { setLoading(false); }
+    } catch (err: any) { setError(err.message || t('locks.errors.createFailed')); } finally { setLoading(false); }
   };
 
   const handleClaim = async (lockId: number | bigint) => {
     setLoading(true); setError(null);
     try { await onClaimLock(typeof lockId === 'bigint' ? Number(lockId) : lockId); onRefresh(); }
-    catch (err: any) { setError(err.message || 'Failed to claim'); } finally { setLoading(false); }
+    catch (err: any) { setError(err.message || t('locks.errors.claimFailed')); } finally { setLoading(false); }
   };
 
   const handleCancel = async (lockId: number | bigint) => {
-    if (!window.confirm('Are you sure you want to cancel this lock?')) return;
+    if (!window.confirm(t('locks.confirmCancel'))) return;
     setLoading(true); setError(null);
     try { await onCancelLock(typeof lockId === 'bigint' ? Number(lockId) : lockId); onRefresh(); }
-    catch (err: any) { setError(err.message || 'Failed to cancel lock'); } finally { setLoading(false); }
+    catch (err: any) { setError(err.message || t('locks.errors.cancelFailed')); } finally { setLoading(false); }
   };
 
   const resetForm = () => { setBeneficiary(''); setContactSearch(''); setSelectedToken(''); setAmount(''); setUnlockDate(''); setRevocable(true); setDescription(''); setShowContactDropdown(false); };
@@ -277,7 +294,7 @@ const Locks: React.FC<LocksProps> = ({
 
   const addBulkEntry = () => {
     if (bulkEntries.filter(e => e.status === 'pending').length >= MAX_BATCH_SIZE) {
-      alert(`Maximum ${MAX_BATCH_SIZE} time locks per batch to avoid network overload.`);
+      alert(t('locks.bulk.maxReachedAlert', { max: MAX_BATCH_SIZE }));
       return;
     }
     const newEntry: BulkLockEntry = {
@@ -300,7 +317,7 @@ const Locks: React.FC<LocksProps> = ({
   };
 
   const updateBulkEntry = (id: string, field: keyof BulkLockEntry, value: any) => {
-    setBulkEntries(prev => prev.map(e => 
+    setBulkEntries(prev => prev.map(e =>
       e.id === id ? { ...e, [field]: value } : e
     ));
   };
@@ -318,30 +335,29 @@ const Locks: React.FC<LocksProps> = ({
 
   const validateBulkEntry = (entry: BulkLockEntry): string | null => {
     if (!entry.beneficiary || entry.beneficiary.length !== 56 || !entry.beneficiary.startsWith('G')) {
-      return 'Invalid beneficiary address';
+      return t('locks.errors.invalidBeneficiary');
     }
     if (!entry.amount || parseFloat(entry.amount) <= 0) {
-      return 'Invalid amount';
+      return t('locks.errors.invalidAmount');
     }
     if (!entry.token) {
-      return 'Token not selected';
+      return t('locks.errors.tokenNotSelected');
     }
     if (!entry.unlockDate) {
-      return 'Unlock date required';
+      return t('locks.errors.unlockRequired');
     }
     if (new Date(entry.unlockDate).getTime() <= Date.now()) {
-      return 'Unlock date must be in the future';
+      return t('locks.errors.unlockFuture');
     }
     return null;
   };
 
   const handleBulkProcessAll = async () => {
-    // Validate all entries first
     const validationErrors: { [key: string]: string } = {};
     bulkEntries.forEach(entry => {
-      const error = validateBulkEntry(entry);
-      if (error) {
-        validationErrors[entry.id] = error;
+      const err = validateBulkEntry(entry);
+      if (err) {
+        validationErrors[entry.id] = err;
       }
     });
 
@@ -359,9 +375,8 @@ const Locks: React.FC<LocksProps> = ({
     for (let i = 0; i < bulkEntries.length; i++) {
       setBulkCurrentIndex(i);
       const entry = bulkEntries[i];
-      
-      // Update status to processing
-      setBulkEntries(prev => prev.map(e => 
+
+      setBulkEntries(prev => prev.map(e =>
         e.id === entry.id ? { ...e, status: 'processing' } : e
       ));
 
@@ -373,20 +388,19 @@ const Locks: React.FC<LocksProps> = ({
           entry.amount,
           unlockTime,
           entry.revocable,
-          entry.description || 'Bulk Time Lock'
+          entry.description || t('locks.bulk.defaultDescription')
         );
 
-        setBulkEntries(prev => prev.map(e => 
+        setBulkEntries(prev => prev.map(e =>
           e.id === entry.id ? { ...e, status: 'success' } : e
         ));
 
-        // Small delay between transactions
         if (i < bulkEntries.length - 1) {
           await new Promise(resolve => setTimeout(resolve, BATCH_DELAY_MS));
         }
-      } catch (error: any) {
-        setBulkEntries(prev => prev.map(e => 
-          e.id === entry.id ? { ...e, status: 'error', error: error.message || 'Failed to create proposal' } : e
+      } catch (err: any) {
+        setBulkEntries(prev => prev.map(e =>
+          e.id === entry.id ? { ...e, status: 'error', error: err.message || t('locks.errors.proposalFailed') } : e
         ));
       }
     }
@@ -404,13 +418,12 @@ const Locks: React.FC<LocksProps> = ({
       const text = e.target?.result as string;
       const lines = text.split('\n')
         .map(line => line.trim())
-        .filter(line => line && !line.startsWith('#')); // Skip empty lines and comments
-      
-      // Skip header row if it looks like a header
+        .filter(line => line && !line.startsWith('#'));
+
       const dataLines = lines[0]?.toLowerCase().includes('beneficiary') ? lines.slice(1) : lines;
-      
+
       if (dataLines.length > MAX_BATCH_SIZE) {
-        alert(`CSV contains ${dataLines.length} entries. Maximum ${MAX_BATCH_SIZE} per batch. Only the first ${MAX_BATCH_SIZE} will be imported.`);
+        alert(t('locks.bulk.csvTooMany', { count: dataLines.length, max: MAX_BATCH_SIZE }));
       }
 
       const newEntries: BulkLockEntry[] = dataLines.slice(0, MAX_BATCH_SIZE).map(line => {
@@ -473,15 +486,15 @@ const Locks: React.FC<LocksProps> = ({
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3 flex-wrap">
-              <span className="text-lg font-semibold text-white">Lock #{getLockId(lock)}</span>
-              <span className={'px-2 py-1 rounded text-xs ' + getStatusColor(lock.status)}>{getStatusString(lock.status)}</span>
-              <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400">⏰ Time Lock</span>
-              {lock.revocable && !isArchived && <span className="px-2 py-1 rounded text-xs bg-orange-500/20 text-orange-400">Revocable</span>}
-              {showClaimButton && claimable && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse">✓ Ready to Claim</span>}
+              <span className="text-lg font-semibold text-white">{t('locks.lockNumber', { id: getLockId(lock) })}</span>
+              <span className={'px-2 py-1 rounded text-xs ' + getStatusColor(lock.status)}>{getStatusLabel(lock.status, t)}</span>
+              <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400">⏰ {t('locks.timeLockBadge')}</span>
+              {lock.revocable && !isArchived && <span className="px-2 py-1 rounded text-xs bg-orange-500/20 text-orange-400">{t('locks.revocableBadge')}</span>}
+              {showClaimButton && claimable && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse">✓ {t('locks.readyToClaim')}</span>}
             </div>
             <div className="mb-3">
               <div className="flex justify-between text-xs text-gray-400 mb-1">
-                <span>Released: {formatAmount(released, getTokenDecimals(lock.token))} / {formatAmount(total, getTokenDecimals(lock.token))}</span>
+                <span>{t('locks.releasedLabel')}: {formatAmount(released, getTokenDecimals(lock.token))} / {formatAmount(total, getTokenDecimals(lock.token))}</span>
                 <span>{getProgressPercent(lock)}%</span>
               </div>
               <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
@@ -489,26 +502,26 @@ const Locks: React.FC<LocksProps> = ({
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div><p className="text-gray-400">Token</p><p className="text-white font-medium">{getTokenSymbol(lock.token)}</p></div>
-              <div><p className="text-gray-400">Remaining</p><p className={'font-medium ' + (remaining > BigInt(0) ? 'text-yellow-400' : 'text-gray-500')}>{formatAmount(remaining, getTokenDecimals(lock.token))}</p></div>
-              <div><p className="text-gray-400">Time Status</p><p className={'font-medium ' + (claimable ? 'text-green-400' : 'text-white')}>{getTimeRemaining(lock)}</p></div>
-              <div><p className="text-gray-400">Unlock Date</p><p className="text-white">{new Date(Number(lock.end_time) * 1000).toLocaleDateString()}</p></div>
-              <div><p className="text-gray-400">Beneficiary</p>
+              <div><p className="text-gray-400">{t('locks.fields.token')}</p><p className="text-white font-medium">{getTokenSymbol(lock.token)}</p></div>
+              <div><p className="text-gray-400">{t('locks.fields.remaining')}</p><p className={'font-medium ' + (remaining > BigInt(0) ? 'text-yellow-400' : 'text-gray-500')}>{formatAmount(remaining, getTokenDecimals(lock.token))}</p></div>
+              <div><p className="text-gray-400">{t('locks.fields.timeStatus')}</p><p className={'font-medium ' + (claimable ? 'text-green-400' : 'text-white')}>{getTimeRemaining(lock)}</p></div>
+              <div><p className="text-gray-400">{t('locks.fields.unlockDate')}</p><p className="text-white">{new Date(Number(lock.end_time) * 1000).toLocaleDateString(i18n.language)}</p></div>
+              <div><p className="text-gray-400">{t('locks.fields.beneficiary')}</p>
                 <div className="flex items-center gap-2">
                   {beneficiaryName ? <><span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded text-xs">{beneficiaryName}</span><span className="text-gray-500 text-xs">{truncateAddress(lock.beneficiary)}</span></> : <span className="text-white font-mono text-xs">{truncateAddress(lock.beneficiary)}</span>}
-                  {lock.beneficiary === publicKey && <span className="px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 rounded text-xs">You</span>}
+                  {lock.beneficiary === publicKey && <span className="px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 rounded text-xs">{t('locks.you')}</span>}
                 </div>
               </div>
-              <div><p className="text-gray-400">Creator</p>
+              <div><p className="text-gray-400">{t('locks.fields.creator')}</p>
                 <div className="flex items-center gap-2">{creatorName ? <span className="px-2 py-0.5 bg-blue-500/20 text-blue-300 rounded text-xs">{creatorName}</span> : <span className="text-white font-mono text-xs">{truncateAddress(lock.creator)}</span>}</div>
               </div>
-              {lock.description && <div className="col-span-2"><p className="text-gray-400">Description</p><p className="text-white">{lock.description}</p></div>}
+              {lock.description && <div className="col-span-2"><p className="text-gray-400">{t('locks.fields.description')}</p><p className="text-white">{lock.description}</p></div>}
             </div>
           </div>
           {!isPublicView && !isArchived && (
             <div className="flex flex-col gap-2 ml-4">
-              {canUserClaim(lock) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-green-500/25">{loading ? '...' : '💰 Claim'}</button>}
-              {canUserCancel(lock) && <button onClick={() => handleCancel(lock.id)} disabled={loading} className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded text-sm disabled:opacity-50 transition-colors">Cancel</button>}
+              {canUserClaim(lock) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-green-500/25">{loading ? '...' : `💰 ${t('locks.claim')}`}</button>}
+              {canUserCancel(lock) && <button onClick={() => handleCancel(lock.id)} disabled={loading} className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded text-sm disabled:opacity-50 transition-colors">{t('locks.cancel')}</button>}
             </div>
           )}
         </div>
@@ -520,30 +533,30 @@ const Locks: React.FC<LocksProps> = ({
     <div className="p-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">⏰ Time Locks</h1>
-          <p className="text-gray-400 text-sm sm:text-base mt-1">Lock assets until a specific date</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">⏰ {t('locks.title')}</h1>
+          <p className="text-gray-400 text-sm sm:text-base mt-1">{t('locks.subtitle')}</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
-          <button 
-            onClick={onRefresh} 
+          <button
+            onClick={onRefresh}
             className="w-full sm:w-auto px-4 py-2.5 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition-colors"
           >
-            Refresh
+            {t('common.refresh')}
           </button>
           {isAdmin && !isPublicView && (
             <>
-              <button 
-                onClick={() => setShowBulkModal(true)} 
+              <button
+                onClick={() => setShowBulkModal(true)}
                 className="w-full sm:w-auto px-4 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-lg text-blue-400 transition-colors flex items-center justify-center gap-2"
               >
                 <Upload className="w-4 h-4" />
-                Bulk Create
+                {t('locks.bulkCreate')}
               </button>
-              <button 
-                onClick={() => setShowCreateModal(true)} 
+              <button
+                onClick={() => setShowCreateModal(true)}
                 className="w-full sm:w-auto px-4 py-2.5 bg-purple-600 hover:bg-purple-500 rounded-lg text-white transition-colors"
               >
-                + Create Time Lock
+                + {t('locks.createTimeLock')}
               </button>
             </>
           )}
@@ -553,41 +566,41 @@ const Locks: React.FC<LocksProps> = ({
       {error && <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400">{error}<button onClick={() => setError(null)} className="ml-2 text-red-300 hover:text-white">✕</button></div>}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">Total Time Locks</p><p className="text-2xl font-bold text-white">{locks.length}</p></div>
-        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">Active</p><p className="text-2xl font-bold text-green-400">{activeLocks.length + myClaimableLocks.filter(l => getStatusString(l.status) === 'Active').length}</p></div>
-        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">Unlocked</p><p className="text-2xl font-bold text-purple-400">{locks.filter(l => isLockClaimable(l)).length}</p></div>
-        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">Your Locks</p><p className="text-2xl font-bold text-cyan-400">{locks.filter(l => l.beneficiary === publicKey).length}</p></div>
+        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('locks.stats.total')}</p><p className="text-2xl font-bold text-white">{locks.length}</p></div>
+        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('locks.stats.active')}</p><p className="text-2xl font-bold text-green-400">{activeLocks.length + myClaimableLocks.filter(l => getStatusString(l.status) === 'Active').length}</p></div>
+        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('locks.stats.unlocked')}</p><p className="text-2xl font-bold text-purple-400">{locks.filter(l => isLockClaimable(l)).length}</p></div>
+        <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('locks.stats.yourLocks')}</p><p className="text-2xl font-bold text-cyan-400">{locks.filter(l => l.beneficiary === publicKey).length}</p></div>
       </div>
 
-      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🎁</span>Your Time Locks</h2><div className="space-y-4">{myClaimableLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
-      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🔒</span>Active Time Locks</h2><div className="space-y-4">{activeLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
-      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">⏳</span>Pending Completion</h2><div className="space-y-4">{pendingCompletion.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🎁</span>{t('locks.sections.yours')}</h2><div className="space-y-4">{myClaimableLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
+      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🔒</span>{t('locks.sections.active')}</h2><div className="space-y-4">{activeLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">⏳</span>{t('locks.sections.pendingCompletion')}</h2><div className="space-y-4">{pendingCompletion.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
 
-      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><span className="text-3xl">⏰</span></div><p className="text-gray-400 mb-4">No time locks created yet</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-white">Create Your First Time Lock</button>}</div>}
+      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><span className="text-3xl">⏰</span></div><p className="text-gray-400 mb-4">{t('locks.empty')}</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-white">{t('locks.createFirst')}</button>}</div>}
 
-      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><span className="text-xl">📦</span><span className="text-lg font-semibold text-gray-300">Archived</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><svg className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
+      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><span className="text-xl">📦</span><span className="text-lg font-semibold text-gray-300">{t('locks.archived')}</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><svg className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
 
       {/* Single Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 rounded-xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white">⏳ Create Time Lock</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
+            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white">⏳ {t('locks.createTimeLock')}</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
             <div className="space-y-4">
-              <div><label className="block text-sm text-gray-400 mb-1">Token</label><select value={selectedToken} onChange={e => setSelectedToken(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none"><option value="">Select token</option>{vaultBalance.map(token => <option key={token.address} value={token.address}>{token.symbol} - {formatAmount(getAvailableBalance(token.address || ``), token.decimals)} available</option>)}</select></div>
-              <div><label className="block text-sm text-gray-400 mb-1">Amount</label><input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="0.00" step="any" min="0" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
+              <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.token')}</label><select value={selectedToken} onChange={e => setSelectedToken(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none"><option value="">{t('locks.selectToken')}</option>{vaultBalance.map(token => <option key={token.address} value={token.address}>{token.symbol} - {t('locks.available', { amount: formatAmount(getAvailableBalance(token.address || ''), token.decimals) })}</option>)}</select></div>
+              <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.amount')}</label><input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="0.00" step="any" min="0" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
               <div className="relative">
-                <label className="block text-sm text-gray-400 mb-1">Beneficiary</label>
-                {contacts.length > 0 && <div className="flex gap-2 mb-2 flex-wrap"><span className="text-xs text-gray-500">Quick select:</span>{contacts.slice(0,5).map(c => <button key={c.id} type="button" onClick={() => handleSelectContact(c)} className={'px-2 py-1 text-xs rounded-full transition-colors ' + (beneficiary === c.address ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600')}>{c.name}</button>)}</div>}
-                <input type="text" value={beneficiary.startsWith('G') ? beneficiary : contactSearch} onChange={e => handleBeneficiaryChange(e.target.value)} onFocus={() => { if (contacts.length > 0 && !beneficiary.startsWith('G')) setShowContactDropdown(true); }} placeholder="Search contacts or enter G... address" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" />
+                <label className="block text-sm text-gray-400 mb-1">{t('locks.fields.beneficiary')}</label>
+                {contacts.length > 0 && <div className="flex gap-2 mb-2 flex-wrap"><span className="text-xs text-gray-500">{t('locks.quickSelect')}</span>{contacts.slice(0,5).map(c => <button key={c.id} type="button" onClick={() => handleSelectContact(c)} className={'px-2 py-1 text-xs rounded-full transition-colors ' + (beneficiary === c.address ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600')}>{c.name}</button>)}</div>}
+                <input type="text" value={beneficiary.startsWith('G') ? beneficiary : contactSearch} onChange={e => handleBeneficiaryChange(e.target.value)} onFocus={() => { if (contacts.length > 0 && !beneficiary.startsWith('G')) setShowContactDropdown(true); }} placeholder={t('locks.beneficiaryPlaceholder')} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" />
                 {showContactDropdown && filteredContacts.length > 0 && <div className="absolute z-10 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-lg max-h-48 overflow-y-auto">{filteredContacts.map(c => <button key={c.id} type="button" onClick={() => handleSelectContact(c)} className="w-full px-4 py-3 text-left hover:bg-gray-700 transition-colors flex items-center gap-3"><div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center font-bold text-sm">{c.name.charAt(0).toUpperCase()}</div><div className="flex-1 min-w-0"><p className="text-white font-medium truncate">{c.name}</p><p className="text-gray-400 text-xs font-mono truncate">{c.address}</p></div></button>)}</div>}
                 {beneficiary.startsWith('G') && <p className="text-xs text-gray-500 mt-1 font-mono truncate">{beneficiary}</p>}
               </div>
-              <div><label className="block text-sm text-gray-400 mb-1">Unlock Date & Time</label><input type="datetime-local" value={unlockDate} onChange={e => setUnlockDate(e.target.value)} min={new Date().toISOString().slice(0,16)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
-              <div><label className="block text-sm text-gray-400 mb-1">Description (optional)</label><input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder="e.g., Team allocation" maxLength={32} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
-              <div className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg"><input type="checkbox" id="revocable" checked={revocable} onChange={e => setRevocable(e.target.checked)} className="w-4 h-4 rounded" /><label htmlFor="revocable" className="text-gray-300 flex-1"><span className="font-medium">Revocable</span><p className="text-xs text-gray-500">Admin can cancel and return funds to vault</p></label></div>
-              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded">⚠️ A 10 XLM fee will be charged for creating the lock.</p>
+              <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.unlockDateTime')}</label><input type="datetime-local" value={unlockDate} onChange={e => setUnlockDate(e.target.value)} min={new Date().toISOString().slice(0,16)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
+              <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.descriptionOptional')}</label><input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder={t('locks.descriptionPlaceholder')} maxLength={32} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
+              <div className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg"><input type="checkbox" id="revocable" checked={revocable} onChange={e => setRevocable(e.target.checked)} className="w-4 h-4 rounded" /><label htmlFor="revocable" className="text-gray-300 flex-1"><span className="font-medium">{t('locks.revocableLabel')}</span><p className="text-xs text-gray-500">{t('locks.revocableHint')}</p></label></div>
+              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded">⚠️ {t('locks.feeWarning')}</p>
               {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={handleCreateLock} disabled={loading || !selectedToken || !beneficiary || !amount || !unlockDate} className="w-full py-3 bg-purple-600 hover:bg-purple-500 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg text-white font-semibold transition-colors">{loading ? 'Creating...' : 'Create Time Lock'}</button>
+              <button onClick={handleCreateLock} disabled={loading || !selectedToken || !beneficiary || !amount || !unlockDate} className="w-full py-3 bg-purple-600 hover:bg-purple-500 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg text-white font-semibold transition-colors">{loading ? t('locks.creating') : t('locks.createTimeLock')}</button>
             </div>
           </div>
         </div>
@@ -596,23 +609,20 @@ const Locks: React.FC<LocksProps> = ({
       {/* Bulk Create Modal */}
       {showBulkModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={!bulkProcessing ? () => { setShowBulkModal(false); resetBulkModal(); } : undefined}
           />
-          
-          {/* Modal */}
+
           <div className="relative w-full max-w-5xl max-h-[90vh] bg-gray-900 rounded-2xl border border-blue-900/30 shadow-2xl overflow-hidden flex flex-col mx-4">
             {/* Header */}
             <div className="p-6 border-b border-gray-800">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="min-w-0">
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">⏰ Bulk Create Time Locks</h2>
-                  <p className="text-gray-400 text-sm mt-1">Create multiple time locks at once (max {MAX_BATCH_SIZE} per batch)</p>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">⏰ {t('locks.bulk.title')}</h2>
+                  <p className="text-gray-400 text-sm mt-1">{t('locks.bulk.subtitle', { max: MAX_BATCH_SIZE })}</p>
                 </div>
-                
-                {/* CSV Buttons */}
+
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
                   <button
                     onClick={handleExportTemplate}
@@ -620,11 +630,11 @@ const Locks: React.FC<LocksProps> = ({
                     className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Download Template</span>
+                    <span>{t('locks.bulk.downloadTemplate')}</span>
                   </button>
                   <label className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-400 rounded-lg transition-colors cursor-pointer">
                     <Upload className="w-4 h-4" />
-                    <span>Import CSV</span>
+                    <span>{t('locks.bulk.importCsv')}</span>
                     <input
                       type="file"
                       accept=".csv"
@@ -646,17 +656,17 @@ const Locks: React.FC<LocksProps> = ({
               {/* Stats */}
               <div className="flex flex-wrap gap-4 mt-4 text-sm">
                 <span className="text-gray-400">
-                  Total: <span className="text-white font-medium">{bulkEntries.length}</span>
+                  {t('locks.bulk.statsTotal')}: <span className="text-white font-medium">{bulkEntries.length}</span>
                 </span>
                 <span className="text-gray-400">
-                  Pending: <span className="text-yellow-400 font-medium">{bulkPendingCount}</span>
+                  {t('locks.bulk.statsPending')}: <span className="text-yellow-400 font-medium">{bulkPendingCount}</span>
                 </span>
                 <span className="text-gray-400">
-                  Success: <span className="text-green-400 font-medium">{bulkSuccessCount}</span>
+                  {t('locks.bulk.statsSuccess')}: <span className="text-green-400 font-medium">{bulkSuccessCount}</span>
                 </span>
                 {bulkErrorCount > 0 && (
                   <span className="text-gray-400">
-                    Errors: <span className="text-red-400 font-medium">{bulkErrorCount}</span>
+                    {t('locks.bulk.statsErrors')}: <span className="text-red-400 font-medium">{bulkErrorCount}</span>
                   </span>
                 )}
               </div>
@@ -665,7 +675,7 @@ const Locks: React.FC<LocksProps> = ({
               {bulkPendingCount >= MAX_BATCH_SIZE && (
                 <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg flex items-center gap-2 text-yellow-400 text-sm">
                   <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>Maximum batch size reached ({MAX_BATCH_SIZE} locks). Process these before adding more.</span>
+                  <span>{t('locks.bulk.maxReachedWarning', { max: MAX_BATCH_SIZE })}</span>
                 </div>
               )}
             </div>
@@ -686,27 +696,18 @@ const Locks: React.FC<LocksProps> = ({
                   }`}
                 >
                   <div className="flex items-start gap-4">
-                    {/* Index & Status */}
                     <div className="flex flex-col items-center gap-2">
                       <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 text-gray-300 text-sm font-semibold">
                         {index + 1}
                       </span>
-                      {entry.status === 'processing' && (
-                        <Loader2 className="w-5 h-5 text-blue-400 animate-spin" />
-                      )}
-                      {entry.status === 'success' && (
-                        <CheckCircle className="w-5 h-5 text-green-400" />
-                      )}
-                      {entry.status === 'error' && (
-                        <AlertCircle className="w-5 h-5 text-red-400" />
-                      )}
+                      {entry.status === 'processing' && (<Loader2 className="w-5 h-5 text-blue-400 animate-spin" />)}
+                      {entry.status === 'success' && (<CheckCircle className="w-5 h-5 text-green-400" />)}
+                      {entry.status === 'error' && (<AlertCircle className="w-5 h-5 text-red-400" />)}
                     </div>
 
-                    {/* Form Fields */}
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {/* Beneficiary */}
                       <div className="lg:col-span-2">
-                        <label className="block text-xs text-gray-400 mb-1">Beneficiary Address</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('locks.fields.beneficiaryAddress')}</label>
                         <div className="relative">
                           <input
                             type="text"
@@ -718,9 +719,7 @@ const Locks: React.FC<LocksProps> = ({
                             list={`contacts-${entry.id}`}
                           />
                           <datalist id={`contacts-${entry.id}`}>
-                            {contacts.map(c => (
-                              <option key={c.address} value={c.address}>{c.name}</option>
-                            ))}
+                            {contacts.map(c => (<option key={c.address} value={c.address}>{c.name}</option>))}
                           </datalist>
                           {getContactName(entry.beneficiary) && (
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-purple-400">
@@ -730,9 +729,8 @@ const Locks: React.FC<LocksProps> = ({
                         </div>
                       </div>
 
-                      {/* Amount */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Amount</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('locks.fields.amount')}</label>
                         <input
                           type="number"
                           value={entry.amount}
@@ -745,9 +743,8 @@ const Locks: React.FC<LocksProps> = ({
                         />
                       </div>
 
-                      {/* Token */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Token</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('locks.fields.token')}</label>
                         <select
                           value={entry.token}
                           onChange={(e) => updateBulkEntry(entry.id, 'token', e.target.value)}
@@ -762,9 +759,8 @@ const Locks: React.FC<LocksProps> = ({
                         </select>
                       </div>
 
-                      {/* Unlock Date */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Unlock Date</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('locks.fields.unlockDate')}</label>
                         <input
                           type="datetime-local"
                           value={entry.unlockDate}
@@ -775,21 +771,19 @@ const Locks: React.FC<LocksProps> = ({
                         />
                       </div>
 
-                      {/* Description */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Description</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('locks.fields.description')}</label>
                         <input
                           type="text"
                           value={entry.description}
                           onChange={(e) => updateBulkEntry(entry.id, 'description', e.target.value)}
-                          placeholder="Optional"
+                          placeholder={t('locks.optional')}
                           maxLength={32}
                           disabled={entry.status !== 'pending' || bulkProcessing}
                           className="w-full px-4 py-2 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 disabled:opacity-50"
                         />
                       </div>
 
-                      {/* Revocable */}
                       <div className="flex items-center gap-2">
                         <input
                           type="checkbox"
@@ -800,18 +794,17 @@ const Locks: React.FC<LocksProps> = ({
                           className="w-4 h-4 rounded border-gray-700 bg-gray-900/50 text-purple-500 focus:ring-purple-500/50"
                         />
                         <label htmlFor={`revocable-${entry.id}`} className="text-sm text-gray-400">
-                          Revocable
+                          {t('locks.revocableLabel')}
                         </label>
                       </div>
                     </div>
 
-                    {/* Actions */}
                     <div className="flex flex-col gap-2">
                       <button
                         onClick={() => duplicateBulkEntry(entry)}
                         disabled={entry.status !== 'pending' || bulkProcessing}
                         className="p-2 hover:bg-gray-700 rounded-lg transition-colors text-blue-400 disabled:opacity-50"
-                        title="Duplicate"
+                        title={t('locks.bulk.duplicate')}
                       >
                         <Copy className="w-4 h-4" />
                       </button>
@@ -819,14 +812,13 @@ const Locks: React.FC<LocksProps> = ({
                         onClick={() => removeBulkEntry(entry.id)}
                         disabled={bulkEntries.length <= 1 || entry.status !== 'pending' || bulkProcessing}
                         className="p-2 hover:bg-red-900/30 rounded-lg transition-colors text-red-400 disabled:opacity-50"
-                        title="Remove"
+                        title={t('locks.bulk.remove')}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
 
-                  {/* Error Message */}
                   {entry.error && (
                     <div className="mt-3 flex items-center gap-2 text-sm text-red-400">
                       <AlertCircle className="w-4 h-4" />
@@ -836,14 +828,13 @@ const Locks: React.FC<LocksProps> = ({
                 </div>
               ))}
 
-              {/* Add Entry Button */}
               <button
                 onClick={addBulkEntry}
                 disabled={bulkProcessing}
                 className="w-full p-4 border-2 border-dashed border-gray-700 rounded-xl text-gray-400 hover:bg-gray-800/50 hover:border-purple-500/50 hover:text-purple-400 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <Plus className="w-5 h-5" />
-                <span>Add Time Lock</span>
+                <span>{t('locks.bulk.addEntry')}</span>
               </button>
             </div>
 
@@ -854,12 +845,12 @@ const Locks: React.FC<LocksProps> = ({
                   {bulkProcessing ? (
                     <span className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
-                      Processing {bulkCurrentIndex + 1} of {bulkEntries.length}...
+                      {t('locks.bulk.processing', { current: bulkCurrentIndex + 1, total: bulkEntries.length })}
                     </span>
                   ) : (
                     <span>
-                      {bulkPendingCount} lock{bulkPendingCount !== 1 ? 's' : ''} ready to create
-                      {bulkPendingCount > 0 && <span className="text-yellow-400 ml-2">• Fee: {bulkPendingCount * 10} XLM total</span>}
+                      {t('locks.bulk.readyCount', { count: bulkPendingCount })}
+                      {bulkPendingCount > 0 && <span className="text-yellow-400 ml-2">{t('locks.bulk.feeTotal', { fee: bulkPendingCount * 10 })}</span>}
                     </span>
                   )}
                 </div>
@@ -869,7 +860,7 @@ const Locks: React.FC<LocksProps> = ({
                     disabled={bulkProcessing}
                     className="px-6 py-2 text-gray-400 hover:text-white transition-colors disabled:opacity-50"
                   >
-                    {bulkSuccessCount === bulkEntries.length && bulkEntries.length > 0 ? 'Close' : 'Cancel'}
+                    {bulkSuccessCount === bulkEntries.length && bulkEntries.length > 0 ? t('locks.close') : t('locks.cancel')}
                   </button>
                   <button
                     onClick={handleBulkProcessAll}
@@ -879,10 +870,10 @@ const Locks: React.FC<LocksProps> = ({
                     {bulkProcessing ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Creating Proposals...</span>
+                        <span>{t('locks.bulk.creatingProposals')}</span>
                       </>
                     ) : (
-                      <span>Create {bulkPendingCount} Proposal{bulkPendingCount !== 1 ? 's' : ''}</span>
+                      <span>{t('locks.bulk.createCount', { count: bulkPendingCount })}</span>
                     )}
                   </button>
                 </div>

@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Visão geral",
+    "money": "Dinheiro",
+    "vestingLocks": "Vesting e Bloqueios",
+    "team": "Equipa",
+    "system": "Sistema",
+    "dashboard": "Painel",
+    "assets": "Ativos",
+    "fiat": "Rampa Fiat",
+    "transactions": "Transações",
+    "locks": "Bloqueios",
+    "vesting": "Vesting",
+    "members": "Membros",
+    "contacts": "Contactos",
+    "settings": "Definições",
+    "docs": "Documentação",
+    "admin": "Administração",
+    "claim": "Reclamar tokens"
+  },
+  "fiat": {
+    "title": "Rampa Fiat",
+    "deposit": "Depositar",
+    "withdraw": "Levantar",
+    "amount": "Montante",
+    "provider": "Fornecedor",
+    "fee": "Comissão da plataforma",
+    "destination": "Cofre de destino",
+    "comingSoon": "Em breve"
+  },
+  "sidebar": {
+    "currentVault": "Cofre atual",
+    "selectVault": "Selecionar cofre",
+    "createNewVault": "Criar novo cofre",
+    "sharePublicView": "Partilhar vista pública",
+    "disconnect": "Desligar",
+    "connected": "Ligado",
+    "linkCopied": "Ligação pública copiada!"
+  },
+  "header": {
+    "timeLocks": "Bloqueios temporais",
+    "deposit": "Depositar",
+    "send": "Enviar"
+  },
+  "settings": {
+    "title": "Definições do cofre",
+    "subtitle": "Faça a gestão da configuração e dos membros do seu cofre",
+    "language": "Idioma",
+    "languageAuto": "Automático (idioma do dispositivo)",
+    "languageHint": "Automático segue o idioma do seu dispositivo e recorre ao inglês se não for suportado.",
+    "tabs": {
+      "general": "Geral",
+      "members": "Membros e funções",
+      "advanced": "Avançado"
+    },
+    "vaultInfo": "Informações do cofre",
+    "vaultName": "Nome do cofre",
+    "vaultAddress": "Endereço do cofre",
+    "notSelected": "Não selecionado",
+    "yourRole": "A sua função",
+    "members": "Membros",
+    "threshold": "Limiar",
+    "superAdmins": "Superadministradores",
+    "connectedWallet": "Carteira ligada",
+    "publicKey": "Chave pública",
+    "approvalThreshold": "Limiar de aprovação",
+    "thresholdDesc": "São necessárias {{threshold}} de {{total}} assinaturas para executar transações",
+    "vaultMembers": "Membros do cofre",
+    "vaultMembersDesc": "Faça a gestão de quem pode aceder e controlar este cofre",
+    "addMember": "Adicionar membro",
+    "you": "Você",
+    "copyAddress": "Copiar endereço",
+    "removeMember": "Remover membro",
+    "rolePermissions": "Permissões de função",
+    "adminsOnly": "Apenas os administradores do cofre podem gerir membros e funções.",
+    "contractDetails": "Detalhes do contrato",
+    "contractType": "Tipo de contrato",
+    "sorobanContract": "Contrato inteligente Soroban",
+    "network": "Rede",
+    "testnet": "Testnet",
+    "actions": "Ações",
+    "exportData": "Exportar dados do cofre",
+    "exportDataDesc": "Transferir configuração e histórico de transações",
+    "export": "Exportar",
+    "viewExplorer": "Ver no explorador",
+    "viewExplorerDesc": "Abrir o contrato do cofre no Stellar Expert",
+    "dangerZone": "Zona de perigo",
+    "leaveVault": "Sair do cofre",
+    "leaveVaultDesc": "Remova-se como signatário. Esta ação não pode ser anulada.",
+    "leaveLastWarning": "É o último membro — ao sair, o cofre será abandonado!",
+    "leaving": "A sair...",
+    "leave": "Sair",
+    "addNewMember": "Adicionar novo membro",
+    "addNewMemberDesc": "Selecione dos contactos ou introduza o endereço manualmente",
+    "fromContacts": "Dos contactos",
+    "enterAddress": "Introduzir endereço",
+    "searchContacts": "Pesquisar contactos...",
+    "noContactsAvailable": "Não há contactos disponíveis (todos já são membros)",
+    "noContactsFound": "Não foram encontrados contactos",
+    "allContactsMembers": "Todos os seus contactos já são membros do cofre. Use «Introduzir endereço» para adicionar um novo membro.",
+    "stellarAddress": "Endereço Stellar",
+    "role": "Função",
+    "adding": "A adicionar...",
+    "changeThreshold": "Alterar limiar de aprovação",
+    "requiredSignatures": "Assinaturas necessárias: {{threshold}} de {{total}}",
+    "thresholdWarning": "Alterar o limiar afeta a segurança. Um limiar mais elevado requer mais assinaturas, mas pode atrasar as operações.",
+    "updating": "A atualizar...",
+    "roles": {
+      "superAdmin": "Superadministrador",
+      "admin": "Administrador",
+      "executor": "Executor"
+    },
+    "roleOptions": {
+      "superAdmin": "Superadministrador - Controlo total",
+      "admin": "Administrador - Gerir membros",
+      "executor": "Executor - Pode transacionar"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Controlo total do cofre",
+        "2": "Gerir todos os membros e funções",
+        "3": "Alterar o limiar",
+        "4": "Criar e executar transações"
+      },
+      "admin": {
+        "1": "Gerir executores",
+        "2": "Alterar o limiar",
+        "3": "Criar e aprovar transações",
+        "4": "Gerir bloqueios"
+      },
+      "executor": {
+        "1": "Criar transações",
+        "2": "Aprovar transações",
+        "3": "Executar transações aprovadas",
+        "4": "Ver toda a atividade"
+      }
+    },
+    "success": {
+      "memberAdded": "Membro adicionado com sucesso!",
+      "memberRemoved": "Membro removido com sucesso!",
+      "roleUpdated": "Função atualizada com sucesso!",
+      "thresholdUpdated": "Limiar atualizado com sucesso!",
+      "leftVault": "Saiu do cofre com sucesso!"
+    },
+    "errors": {
+      "invalidAddress": "Endereço Stellar inválido",
+      "alreadyMember": "O endereço já é um membro",
+      "addFailed": "Falha ao adicionar membro",
+      "removeBreaksThreshold": "Não é possível remover o membro: violaria o requisito de limiar",
+      "lastSuperAdminRemove": "Não é possível remover o último superadministrador",
+      "removeFailed": "Falha ao remover membro",
+      "needOneSuperAdmin": "Não é possível alterar a função: o cofre deve ter pelo menos um superadministrador",
+      "roleFailed": "Falha ao alterar a função",
+      "thresholdMin": "O limiar deve ser pelo menos 1",
+      "thresholdMax": "O limiar não pode exceder o número de membros",
+      "thresholdFailed": "Falha ao atualizar o limiar",
+      "leaveLastSuperAdmin": "É o último superadministrador. Atribua outro superadministrador antes de sair, ou remova primeiro todos os outros membros.",
+      "leaveBreaksThreshold": "Não é possível sair: violaria o requisito de limiar. O limiar atual é {{threshold}}, mas apenas {{remaining}} membros permaneceriam.",
+      "leaveFailed": "Falha ao sair do cofre"
+    },
+    "confirm": {
+      "removeMember": "Remover {{name}} do cofre?",
+      "leaveDefault": "Tem a certeza de que pretende sair deste cofre? Esta ação não pode ser anulada.",
+      "leaveLastMember": "AVISO: É o ÚLTIMO membro deste cofre. Ao sair, o cofre será ABANDONADO permanentemente. Quaisquer fundos restantes ficarão inacessíveis. Tem a certeza absoluta?",
+      "leaveFinalWarning": "Este é o seu AVISO FINAL. O cofre será abandonado permanentemente. Continuar?"
+    }
+  },
+  "assets": {
+    "title": "Ativos",
+    "subtitle": "Faça a gestão dos ativos do seu cofre",
+    "addToken": "Adicionar token",
+    "authorize": "Autorizar",
+    "totalBalance": "Saldo total",
+    "remainingDailySpend": "Gasto diário restante",
+    "yourAssets": "Os seus ativos",
+    "clickToManage": "Clique num ativo para o gerir",
+    "noAssets": "Ainda não há ativos",
+    "noAssetsDesc": "Deposite alguns tokens para começar",
+    "makeFirstDeposit": "Fazer o primeiro depósito",
+    "availableBalance": "Saldo disponível",
+    "actions": {
+      "deposit": "Depositar",
+      "depositDesc": "Adicionar mais {{symbol}} ao cofre",
+      "send": "Enviar",
+      "sendDesc": "Propor uma transferência de {{symbol}}",
+      "timeLock": "Bloqueio temporal",
+      "timeLockDesc": "Bloquear até uma data específica",
+      "vesting": "Vesting",
+      "vestingDesc": "Criar um plano de vesting com cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Calendário de bloqueios e vesting",
+    "summary": "{{timeLocks}} bloqueios temporais, {{vestings}} vestings",
+    "viewCalendar": "Calendário",
+    "viewList": "Lista",
+    "filterType": "Tipo",
+    "filterStatus": "Estado",
+    "timeLocks": "Bloqueios temporais",
+    "vestings": "Vestings",
+    "timeLock": "Bloqueio temporal",
+    "vesting": "Vesting",
+    "noLocks": "Não há bloqueios ou vestings para mostrar",
+    "today": "Hoje",
+    "now": "Agora",
+    "cliff": "Cliff",
+    "claimable": "Reclamável",
+    "progress": "Progresso",
+    "start": "Início",
+    "end": "Fim",
+    "unlock": "Desbloqueio",
+    "beneficiary": "Beneficiário",
+    "locked": "bloqueado",
+    "vestingLabel": "vesting",
+    "released": "Libertado",
+    "active": "Ativo",
+    "completedCount": "{{count}} concluídos",
+    "status": {
+      "active": "Ativo",
+      "partiallyReleased": "Parcialmente libertado",
+      "fullyReleased": "Totalmente libertado",
+      "cancelled": "Cancelado"
+    },
+    "statusFilter": {
+      "active": "Ativo",
+      "completed": "Concluído"
+    },
+    "events": {
+      "start": "início",
+      "cliff": "cliff",
+      "end": "fim"
+    }
+  },
+  "claim": {
+    "title": "Reclame os seus tokens",
+    "subtitleVault": "A ver bloqueios do cofre {{address}}",
+    "subtitleAll": "Veja e reclame os bloqueios atribuídos a si",
+    "disconnect": "Desligar",
+    "connectWallet": "Ligar carteira",
+    "connectTitle": "Ligue a sua carteira",
+    "connectDescVault": "Ligue a sua carteira para ver todos os bloqueios temporais e planos de vesting atribuídos a si neste cofre.",
+    "connectDescAll": "Ligue a sua carteira para ver todos os bloqueios temporais e planos de vesting atribuídos a si em todos os Stellar Vaults.",
+    "loadingVault": "A carregar bloqueios do cofre...",
+    "loadingAll": "A procurar os seus bloqueios nos cofres...",
+    "scanProgress": "Verificados {{scanned}} de {{total}} cofres",
+    "unknownVault": "Cofre desconhecido",
+    "tokensAmount": "{{amount}} tokens",
+    "claimNow": "Reclamar agora",
+    "claiming": "A reclamar...",
+    "refreshLocks": "Atualizar bloqueios",
+    "claimSuccess": "{{amount}} tokens reclamados com sucesso!",
+    "errorLoad": "Falha ao carregar bloqueios",
+    "errorClaim": "Falha ao reclamar",
+    "stats": {
+      "readyToClaim": "Prontos para reclamar",
+      "pending": "Pendentes",
+      "completed": "Concluídos"
+    },
+    "sections": {
+      "readyToClaim": "Prontos para reclamar",
+      "pending": "Pendentes"
+    },
+    "fields": {
+      "fromVault": "Do cofre",
+      "totalAmount": "Montante total",
+      "description": "Descrição",
+      "timeRemaining": "Tempo restante",
+      "unlockDate": "Data de desbloqueio"
+    },
+    "types": {
+      "timeLock": "Bloqueio temporal",
+      "vesting": "Vesting",
+      "unknown": "Desconhecido"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "fullyVested": "Totalmente consolidado",
+      "remaining": "{{days}}d {{hours}}h restantes",
+      "toCliff": "{{days}}d {{hours}}h até ao cliff"
+    },
+    "empty": {
+      "title": "Não foram encontrados bloqueios",
+      "descVault": "Não tem quaisquer bloqueios atribuídos neste cofre.",
+      "descAll": "Não tem quaisquer bloqueios temporais ou planos de vesting atribuídos."
+    }
+  },
+  "contacts": {
+    "title": "Livro de contactos",
+    "subtitle": "Guarde endereços usados frequentemente para acesso rápido",
+    "addContact": "Adicionar contacto",
+    "searchPlaceholder": "Pesquisar contactos...",
+    "savedCount_one": "{{count}} contacto guardado",
+    "savedCount_other": "{{count}} contactos guardados",
+    "confirmDelete": "Eliminar «{{name}}» dos contactos?",
+    "errors": {
+      "nameRequired": "O nome é obrigatório",
+      "addressRequired": "O endereço é obrigatório",
+      "invalidAddress": "Endereço Stellar inválido",
+      "duplicate": "Este endereço já está nos seus contactos"
+    },
+    "empty": {
+      "noMatch": "Nenhum contacto corresponde à sua pesquisa",
+      "none": "Ainda não há contactos",
+      "addFirst": "Adicione o seu primeiro contacto →"
+    },
+    "actions": {
+      "copy": "Copiar endereço",
+      "edit": "Editar contacto",
+      "delete": "Eliminar contacto"
+    },
+    "modal": {
+      "addTitle": "Adicionar novo contacto",
+      "editTitle": "Editar contacto",
+      "nameLabel": "Nome *",
+      "namePlaceholder": "p. ex., Alice, Tesouraria, Exchange",
+      "addressLabel": "Endereço Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "O endereço não pode ser alterado",
+      "notesLabel": "Notas (opcional)",
+      "notesPlaceholder": "Adicione quaisquer notas sobre este contacto...",
+      "saveChanges": "Guardar alterações"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Saldo total",
+      "threshold": "Limiar",
+      "signaturesRequired": "assinaturas necessárias",
+      "pending": "Pendentes",
+      "awaitingApproval": "a aguardar aprovação",
+      "readyToExecute": "Pronto para executar",
+      "fullyApproved": "totalmente aprovado"
+    },
+    "activeProposals": "Propostas ativas",
+    "viewAll": "Ver tudo",
+    "noProposals": "Ainda não há propostas",
+    "createFirst": "Crie a sua primeira transação →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Para {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} aprovações",
+    "status": {
+      "pending": "Pendente",
+      "approved": "Aprovada",
+      "executed": "Executada",
+      "rejected": "Rejeitada",
+      "unknown": "Desconhecido"
+    },
+    "types": {
+      "transfer": "Transferência",
+      "timeLock": "Bloqueio temporal",
+      "vesting": "Vesting",
+      "unknown": "Desconhecido"
+    }
+  },
+  "locks": {
+    "title": "Bloqueios temporais",
+    "subtitle": "Bloqueie ativos até uma data específica",
+    "bulkCreate": "Criação em massa",
+    "createTimeLock": "Criar bloqueio temporal",
+    "creating": "A criar...",
+    "createFirst": "Crie o seu primeiro bloqueio temporal",
+    "empty": "Ainda não foram criados bloqueios temporais",
+    "archived": "Arquivado",
+    "selectToken": "Selecionar token",
+    "available": "{{amount}} disponível",
+    "quickSelect": "Seleção rápida:",
+    "beneficiaryPlaceholder": "Pesquise contactos ou introduza um endereço G...",
+    "descriptionPlaceholder": "p. ex., Alocação da equipa",
+    "optional": "Opcional",
+    "revocableLabel": "Revogável",
+    "revocableHint": "O administrador pode cancelar e devolver os fundos ao cofre",
+    "feeWarning": "Será cobrada uma comissão de 10 XLM pela criação do bloqueio.",
+    "defaultDescription": "Bloqueio temporal",
+    "lockNumber": "Bloqueio n.º {{id}}",
+    "timeLockBadge": "Bloqueio temporal",
+    "revocableBadge": "Revogável",
+    "readyToClaim": "Pronto para reclamar",
+    "releasedLabel": "Libertado",
+    "you": "Você",
+    "claim": "Reclamar",
+    "cancel": "Cancelar",
+    "close": "Fechar",
+    "confirmCancel": "Tem a certeza de que pretende cancelar este bloqueio?",
+    "stats": {
+      "total": "Total de bloqueios temporais",
+      "active": "Ativos",
+      "unlocked": "Desbloqueados",
+      "yourLocks": "Os seus bloqueios"
+    },
+    "sections": {
+      "yours": "Os seus bloqueios temporais",
+      "active": "Bloqueios temporais ativos",
+      "pendingCompletion": "A aguardar conclusão"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Montante",
+      "beneficiary": "Beneficiário",
+      "beneficiaryAddress": "Endereço do beneficiário",
+      "remaining": "Restante",
+      "timeStatus": "Estado temporal",
+      "unlockDate": "Data de desbloqueio",
+      "unlockDateTime": "Data e hora de desbloqueio",
+      "creator": "Criador",
+      "description": "Descrição",
+      "descriptionOptional": "Descrição (opcional)"
+    },
+    "statuses": {
+      "active": "Ativo",
+      "partiallyReleased": "Parcialmente libertado",
+      "fullyReleased": "Totalmente libertado",
+      "cancelled": "Cancelado",
+      "unknown": "Desconhecido"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "remainingDays": "{{days}}d {{hours}}h restantes",
+      "remainingHours": "{{hours}}h restantes"
+    },
+    "errors": {
+      "fillRequired": "Preencha todos os campos obrigatórios",
+      "invalidBeneficiary": "Endereço do beneficiário inválido",
+      "unlockFuture": "A hora de desbloqueio deve ser no futuro",
+      "createFailed": "Falha ao criar o bloqueio",
+      "claimFailed": "Falha ao reclamar",
+      "cancelFailed": "Falha ao cancelar o bloqueio",
+      "invalidAmount": "Montante inválido",
+      "tokenNotSelected": "Token não selecionado",
+      "unlockRequired": "Data de desbloqueio obrigatória",
+      "proposalFailed": "Falha ao criar a proposta"
+    },
+    "bulk": {
+      "title": "Criar bloqueios temporais em massa",
+      "subtitle": "Crie vários bloqueios temporais de uma vez (máx. {{max}} por lote)",
+      "downloadTemplate": "Transferir modelo",
+      "importCsv": "Importar CSV",
+      "statsTotal": "Total",
+      "statsPending": "Pendentes",
+      "statsSuccess": "Bem-sucedidos",
+      "statsErrors": "Erros",
+      "maxReachedAlert": "Máximo de {{max}} bloqueios temporais por lote para evitar a sobrecarga da rede.",
+      "maxReachedWarning": "Tamanho máximo do lote atingido ({{max}} bloqueios). Processe estes antes de adicionar mais.",
+      "csvTooMany": "O CSV contém {{count}} entradas. Máximo {{max}} por lote. Apenas as primeiras {{max}} serão importadas.",
+      "duplicate": "Duplicar",
+      "remove": "Remover",
+      "addEntry": "Adicionar bloqueio temporal",
+      "processing": "A processar {{current}} de {{total}}...",
+      "readyCount_one": "{{count}} bloqueio pronto para criar",
+      "readyCount_other": "{{count}} bloqueios prontos para criar",
+      "feeTotal": "• Comissão: {{fee}} XLM no total",
+      "creatingProposals": "A criar propostas...",
+      "createCount_one": "Criar {{count}} proposta",
+      "createCount_other": "Criar {{count}} propostas",
+      "defaultDescription": "Bloqueio temporal em massa"
+    }
+  },
+  "members": {
+    "title": "Membros do cofre",
+    "subtitle_one": "{{count}} membro • Limiar: {{threshold}} de {{total}}",
+    "subtitle_other": "{{count}} membros • Limiar: {{threshold}} de {{total}}",
+    "searchPlaceholder": "Pesquisar membros por endereço, nome ou função...",
+    "manageHint": "Para gerir membros (adicionar, remover, alterar funções), vá a <strong>Definições → Membros e funções</strong>",
+    "you": "Você",
+    "addToContacts": "Adicionar aos contactos",
+    "noResults": "Não foram encontrados membros correspondentes à sua pesquisa.",
+    "stats": {
+      "totalMembers": "Total de membros",
+      "superAdmins": "Superadministradores",
+      "admins": "Administradores",
+      "executors": "Executores"
+    },
+    "roles": {
+      "superAdmin": "Superadministrador",
+      "admin": "Administrador",
+      "executor": "Executor"
+    },
+    "permissions": {
+      "title": "Permissões de função",
+      "superAdmin": "Controlo total, incluindo a gestão de outros administradores e definições críticas",
+      "admin": "Pode gerir as definições do cofre, os membros e aprovar transações",
+      "executor": "Pode criar, aprovar e executar transações"
+    },
+    "addContactModal": {
+      "title": "Adicionar aos contactos",
+      "addressLabel": "Endereço",
+      "nameLabel": "Nome",
+      "namePlaceholder": "Introduza um nome para este contacto",
+      "save": "Guardar contacto"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Vista pública",
+    "loading": "A carregar dados do cofre...",
+    "noLocks": "Ainda não foram criados bloqueios",
+    "noAssets": "Não foram encontrados ativos",
+    "revocable": "Revogável",
+    "released": "Libertado",
+    "allLocks": "Todos os bloqueios ({{count}})",
+    "toBeneficiary": "Para: {{address}}",
+    "errors": {
+      "title": "Falha ao carregar o cofre",
+      "loadFailed": "Falha ao carregar os dados do cofre"
+    },
+    "tabs": {
+      "overview": "Visão geral",
+      "locks": "Bloqueios",
+      "calendar": "Calendário",
+      "assets": "Ativos"
+    },
+    "stats": {
+      "signers": "Signatários",
+      "threshold": "Limiar: {{count}}",
+      "totalLocks": "Total de bloqueios",
+      "activeCount": "{{count}} ativos",
+      "assets": "Ativos",
+      "tokensHeld": "tokens detidos",
+      "lockedValue": "Valor bloqueado",
+      "totalLocked": "total bloqueado"
+    },
+    "sections": {
+      "signers": "Signatários",
+      "recentLocks": "Bloqueios recentes",
+      "assets": "Ativos"
+    },
+    "fields": {
+      "amount": "Montante",
+      "beneficiary": "Beneficiário",
+      "unlockDate": "Data de desbloqueio",
+      "timeRemaining": "Tempo restante"
+    },
+    "status": {
+      "active": "Ativo",
+      "partiallyReleased": "Parcialmente libertado",
+      "fullyReleased": "Totalmente libertado",
+      "cancelled": "Cancelado"
+    },
+    "lockType": {
+      "timeLock": "Bloqueio temporal",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "cliffPassed": "Cliff ultrapassado",
+      "remaining": "{{days}}d {{hours}}h restantes",
+      "toCliff": "{{days}}d {{hours}}h até ao cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Vista pública",
+      "poweredBy": "Desenvolvido com Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transações",
+    "subtitle": "Veja e faça a gestão das propostas e transferências do cofre",
+    "bulkTransfer": "Transferência em massa",
+    "newTransaction": "Nova transação",
+    "createFirst": "Criar a primeira proposta",
+    "completedProposals": "Propostas concluídas",
+    "noHistory": "Não foi encontrado histórico de transações",
+    "noHistoryNote": "Nota: as transações do contrato Soroban aparecem através das propostas executadas",
+    "received": "Recebido",
+    "sent": "Enviado",
+    "onChainPayments_one": "{{count}} pagamento on-chain",
+    "onChainPayments_other": "{{count}} pagamentos on-chain",
+    "approvalsCount": "{{count}}/{{threshold}} aprovações",
+    "rejectionsCount": "{{count}}/{{threshold}} rejeições",
+    "tabs": {
+      "proposals": "Propostas ({{count}})",
+      "history": "Histórico ({{count}})"
+    },
+    "filters": {
+      "all": "Todas",
+      "pending": "Pendentes",
+      "approved": "Aprovadas"
+    },
+    "empty": {
+      "all": "Não foram encontradas propostas",
+      "filtered": "Não foram encontradas propostas {{filter}}"
+    },
+    "status": {
+      "pending": "Pendente",
+      "approved": "Aprovada",
+      "executed": "Executada",
+      "rejected": "Rejeitada"
+    },
+    "types": {
+      "transfer": "Transferência",
+      "timeLock": "Bloqueio temporal",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Para:",
+      "from": "De:",
+      "by": "Por:",
+      "beneficiary": "Beneficiário:",
+      "created": "Criada:",
+      "approvals": "Aprovações:",
+      "unlockDate": "Data de desbloqueio:",
+      "cliffDate": "Data do cliff:",
+      "endDate": "Data de fim:"
+    },
+    "actions": {
+      "approve": "Aprovar",
+      "execute": "Executar",
+      "reject": "Rejeitar",
+      "confirmReject": "Confirmar rejeição"
+    },
+    "bulk": {
+      "title": "Transferência em massa",
+      "subtitle": "Crie várias propostas de transferência em lote (máx. {{max}} por lote)",
+      "importCsv": "Importar CSV",
+      "downloadTemplate": "Transferir modelo",
+      "csvHelp": "Ajuda sobre o formato CSV",
+      "totalLabel": "Total:",
+      "successLabel": "Bem-sucedidas:",
+      "failedLabel": "Falhadas:",
+      "csvFormatTitle": "Formato CSV",
+      "csvFormatNote": "Use «native» para XLM ou o endereço completo do contrato do token.",
+      "maxBatchWarning": "Máximo de {{max}} transferências por lote para evitar a sobrecarga da rede. Crie outro lote para mais.",
+      "recipientLabel": "Endereço do destinatário",
+      "amountLabel": "Montante",
+      "tokenLabel": "Token",
+      "duplicate": "Duplicar",
+      "remove": "Remover",
+      "addTransfer": "Adicionar transferência",
+      "processing": "A processar {{current}} de {{total}}... ({{delay}}s de atraso entre transações)",
+      "readyCount_one": "{{count}} transferência pronta",
+      "readyCount_other": "{{count}} transferências prontas",
+      "totalTokens": "• Total: ~{{amount}} tokens",
+      "creatingProposals": "A criar propostas...",
+      "createProposals_one": "Criar {{count}} proposta",
+      "createProposals_other": "Criar {{count}} propostas",
+      "maxBatchAlert": "Máximo de {{max}} transferências por lote para evitar a sobrecarga da rede.",
+      "maxBatchShortAlert": "Máximo de {{max}} transferências por lote.",
+      "csvTooManyAlert": "O CSV contém {{count}} entradas. Máximo {{max}} por lote. Apenas as primeiras {{max}} serão importadas.",
+      "errors": {
+        "invalidRecipient": "Endereço do destinatário inválido",
+        "invalidAmount": "Montante inválido",
+        "noToken": "Token não selecionado",
+        "transferUnavailable": "Função de transferência não disponível",
+        "createFailed": "Falha ao criar a proposta"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Planos de vesting",
+    "subtitle": "Vesting de tokens com períodos de cliff e libertação gradual",
+    "bulkCreate": "Criação em massa",
+    "createVesting": "Criar vesting",
+    "createFirst": "Crie o seu primeiro plano de vesting",
+    "empty": "Ainda não foram criados planos de vesting",
+    "archived": "Arquivado",
+    "revocable": "Revogável",
+    "badge": "Vesting",
+    "you": "Você",
+    "claimButton": "💰 Reclamar",
+    "cardTitle": "Vesting n.º {{id}}",
+    "claimableBadge": "{{amount}} reclamável",
+    "vestedLabel": "Consolidado: {{vested}} / {{total}}",
+    "releasedLabel": "Libertado: {{released}}",
+    "daysValue": "{{count}} dias",
+    "defaultDescription": "Plano de vesting",
+    "confirmCancel": "Tem a certeza de que pretende cancelar este plano de vesting?",
+    "stats": {
+      "totalVesting": "Total de vesting",
+      "active": "Ativos",
+      "claimable": "Reclamável",
+      "yourVesting": "O seu vesting"
+    },
+    "sections": {
+      "yours": "Os seus planos de vesting",
+      "active": "Planos de vesting ativos",
+      "pendingCompletion": "A aguardar conclusão"
+    },
+    "status": {
+      "active": "Ativo",
+      "partiallyReleased": "Parcialmente libertado",
+      "fullyReleased": "Totalmente libertado",
+      "cancelled": "Cancelado"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}h até ao cliff",
+      "fullyVested": "Totalmente consolidado",
+      "remaining": "{{days}}d {{hours}}h restantes"
+    },
+    "interval": {
+      "daily": "Diário",
+      "weekly": "Semanal",
+      "monthly": "Mensal",
+      "quarterly": "Trimestral"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Restante",
+      "status": "Estado",
+      "cliffDate": "Data do cliff",
+      "endDate": "Data de fim",
+      "releaseInterval": "Intervalo de libertação",
+      "beneficiary": "Beneficiário",
+      "creator": "Criador",
+      "description": "Descrição"
+    },
+    "errors": {
+      "fillRequired": "Preencha todos os campos obrigatórios",
+      "invalidBeneficiary": "Endereço do beneficiário inválido",
+      "durationPositive": "A duração do vesting deve ser superior a 0",
+      "cliffShorter": "O cliff deve ser mais curto do que a duração total",
+      "createFailed": "Falha ao criar o vesting",
+      "claimFailed": "Falha ao reclamar",
+      "cancelFailed": "Falha ao cancelar"
+    },
+    "modal": {
+      "title": "Criar plano de vesting",
+      "token": "Token",
+      "selectToken": "Selecionar token",
+      "tokenOption": "{{symbol}} - {{amount}} disponível",
+      "totalAmount": "Montante total",
+      "beneficiary": "Beneficiário",
+      "quickSelect": "Seleção rápida:",
+      "beneficiaryPlaceholder": "Pesquise contactos ou introduza um endereço G...",
+      "cliffDays": "Cliff (dias)",
+      "cliffHint": "Sem libertação antes do cliff",
+      "durationDays": "Duração (dias)",
+      "durationHint": "Período total de vesting",
+      "intervalDays": "Intervalo (dias)",
+      "intervalHint": "Frequência de libertação",
+      "descriptionLabel": "Descrição (opcional)",
+      "descriptionPlaceholder": "p. ex., Vesting de colaboradores, Alocação de consultores",
+      "revocableHint": "O administrador pode cancelar e devolver os fundos não consolidados",
+      "previewTitle": "Pré-visualização do vesting",
+      "previewCliff": "• O cliff termina: {{date}}",
+      "previewVested": "• Totalmente consolidado: {{date}}",
+      "previewReleases": "• Libertações a cada {{days}} dias após o cliff",
+      "feeNotice": "⚠️ Será cobrada uma comissão de 0,1 XLM pela criação do plano de vesting.",
+      "creating": "A criar...",
+      "createButton": "Criar plano de vesting"
+    },
+    "bulk": {
+      "title": "Criar vesting em massa",
+      "subtitle": "Crie vários planos de vesting de uma vez (máx. {{max}} por lote)",
+      "downloadTemplate": "Transferir modelo",
+      "importCsv": "Importar CSV",
+      "totalLabel": "Total:",
+      "pendingLabel": "Pendentes:",
+      "successLabel": "Bem-sucedidos:",
+      "errorsLabel": "Erros:",
+      "maxBatchWarning": "Tamanho máximo do lote atingido ({{max}} planos). Processe estes antes de adicionar mais.",
+      "beneficiaryLabel": "Endereço do beneficiário",
+      "amountLabel": "Montante",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (dias)",
+      "durationLabel": "Duração (dias)",
+      "intervalLabel": "Intervalo (dias)",
+      "descriptionLabel": "Descrição",
+      "optionalPlaceholder": "Opcional",
+      "duplicate": "Duplicar",
+      "remove": "Remover",
+      "addSchedule": "Adicionar plano de vesting",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Fim: {{date}}",
+      "previewReleases": "Libertações a cada {{days}} dias",
+      "processing": "A processar {{current}} de {{total}}...",
+      "readyCount_one": "{{count}} plano pronto para criar",
+      "readyCount_other": "{{count}} planos prontos para criar",
+      "feeTotal": "• Comissão: {{fee}} XLM no total",
+      "creatingProposals": "A criar propostas...",
+      "createProposals_one": "Criar {{count}} proposta",
+      "createProposals_other": "Criar {{count}} propostas",
+      "defaultDescription": "Plano de vesting em massa",
+      "maxBatchAlert": "Máximo de {{max}} planos de vesting por lote para evitar a sobrecarga da rede.",
+      "csvTooManyAlert": "O CSV contém {{count}} entradas. Máximo {{max}} por lote. Apenas as primeiras {{max}} serão importadas.",
+      "errors": {
+        "invalidBeneficiary": "Endereço do beneficiário inválido",
+        "invalidAmount": "Montante inválido",
+        "noToken": "Token não selecionado",
+        "durationPositive": "A duração do vesting deve ser superior a 0",
+        "invalidCliff": "Período de cliff inválido",
+        "cliffShorter": "O cliff deve ser mais curto do que a duração total",
+        "invalidInterval": "Intervalo de libertação inválido",
+        "createFailed": "Falha ao criar a proposta"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Criar novo cofre",
+    "defaultName": "O meu cofre",
+    "defaultNameNumbered": "O meu cofre {{number}}",
+    "vaultName": "Nome do cofre",
+    "youOwner": "Você (proprietário)",
+    "add": "Adicionar",
+    "addSignerPlaceholder": "Adicionar endereço do signatário (G...)",
+    "hideContacts": "Ocultar contactos",
+    "addFromContacts": "Adicionar dos contactos",
+    "signers_one": "Signatários ({{count}})",
+    "signers_other": "Signatários ({{count}})",
+    "thresholdLabel": "Limiar de aprovação: {{threshold}} de {{total}}",
+    "thresholdHint_one": "{{count}} assinatura necessária para aprovar transações",
+    "thresholdHint_other": "{{count}} assinaturas necessárias para aprovar transações",
+    "creating": "A criar...",
+    "checking": "A verificar...",
+    "insufficientBalanceShort": "Saldo insuficiente",
+    "createButton": "Criar cofre",
+    "balance": {
+      "insufficientTitle": "Saldo de XLM insuficiente",
+      "needAtLeast": "Precisa de pelo menos <b>{{amount}} XLM</b> para criar um cofre.",
+      "current": "O seu saldo atual: <b>{{amount}} XLM</b>",
+      "coversFee": "Isto cobre a comissão de criação de {{fee}} XLM mais os custos de transação.",
+      "getFriendbot": "Obter XLM de testnet do Friendbot",
+      "checking": "A verificar saldo..."
+    },
+    "fee": {
+      "creationFee": "Comissão de criação do cofre:",
+      "yourBalance": "O seu saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Endereço Stellar inválido",
+      "signerExists": "Signatário já adicionado",
+      "insufficientBalance": "Saldo de XLM insuficiente. Precisa de pelo menos {{amount}} XLM.",
+      "signersBelowThreshold": "O número de signatários deve ser pelo menos igual ao limiar",
+      "factoryNotConfigured": "Factory não configurado",
+      "transactionFailed": "A transação falhou",
+      "noReturnValue": "Sem valor de retorno da transação",
+      "parseFailed": "Não foi possível analisar o endereço do cofre a partir do resultado",
+      "noAddress": "Não foi possível obter o endereço do cofre a partir do resultado",
+      "invalidVaultAddress": "Formato de endereço do cofre inválido",
+      "createFailed": "Falha ao criar o cofre"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampa de entrada/saída fiat",
+    "subtitle": "Transfira dinheiro entre fiat e USDC. Os fundos são creditados diretamente no seu cofre.",
+    "soon": "Em breve",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Cartão e banco → USDC, entregue diretamente no cofre."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Depósito/levantamento em numerário em agências físicas em todo o mundo."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Cartão e banco → USDC através do Stripe, entregue no cofre."
+      }
+    },
+    "mode": {
+      "cashToVault": "Numerário → Cofre",
+      "vaultToCash": "Cofre → Numerário"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Montante (USDC)",
+      "amountOptional": "Montante (USDC) — opcional",
+      "amountWidgetPlaceholder": "Deixe em branco para escolher no widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limites: {{min}}–{{max}} USDC por transação",
+      "outOfRange": "O montante deve estar entre {{min}} e {{max}} USDC."
+    },
+    "actions": {
+      "working": "A processar…",
+      "buyWithTransak": "Comprar USDC com Transak",
+      "buyWithStripe": "Comprar USDC com Stripe",
+      "startDeposit": "Iniciar depósito em numerário",
+      "startWithdrawal": "Iniciar levantamento em numerário"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL da API não configurado — defina REACT_APP_API_URL assim que o servidor estiver implementado.",
+      "serverDisabled": "Este fornecedor ainda não está ativado no servidor."
+    },
+    "status": {
+      "anchorStatus": "Estado do anchor: {{status}}",
+      "creatingTransak": "A criar uma sessão segura do Transak…",
+      "openingTransak": "A abrir o Transak…",
+      "transakClosed": "Janela do Transak fechada.",
+      "transakSuccess": "Pedido Transak concluído. O USDC está a ser entregue no cofre. ID do pedido: {{orderId}}",
+      "creatingStripe": "A criar a sessão de onramp do Stripe…",
+      "stripeOpened": "Onramp do Stripe aberto.",
+      "authenticating": "A autenticar com o anchor…",
+      "openingCashIn": "A abrir a janela de depósito em numerário…",
+      "openingCashOut": "A abrir a janela de KYC/levantamento em numerário…",
+      "creatingProposals": "A criar propostas multisig (levantamento + comissão de 0,3%)…",
+      "proposalsCreated": "Propostas criadas. Levantamento n.º {{withdrawId}}, comissão n.º {{feeId}}. Recolha aprovações para executar."
+    },
+    "errors": {
+      "apiUrlMissing": "O URL da API não está configurado (REACT_APP_API_URL).",
+      "sessionFailed": "A sessão falhou ({{status}})",
+      "noWidgetUrl": "Nenhum widgetUrl devolvido pelo backend",
+      "transakFailed": "O pedido Transak falhou.",
+      "openTransakFailed": "Falha ao abrir o Transak",
+      "stripeSessionFailed": "A sessão do Stripe falhou ({{status}})",
+      "noClientSecret": "Nenhum clientSecret devolvido pelo backend",
+      "startStripeFailed": "Falha ao iniciar o Stripe",
+      "depositFailed": "Falha ao iniciar o depósito",
+      "withdrawFailed": "Falha ao iniciar o levantamento"
+    },
+    "summary": {
+      "title": "Resumo",
+      "amount": "Montante",
+      "platformFee": "Comissão da plataforma ({{pct}}%)",
+      "youReceive": "Recebe no cofre",
+      "sentToAnchor": "Enviado para o anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "As comissões do anchor e da rede são cobradas separadamente por {{provider}}.",
+      "theProvider": "o fornecedor"
+    },
+    "howItWorks": {
+      "title": "Como funciona",
+      "transak": "Pague com cartão ou transferência bancária. Após o KYC, o Transak entrega USDC na Stellar diretamente no endereço do seu cofre. Não é necessária aprovação multisig para os fundos recebidos.",
+      "moneygram": "Os depósitos chegam diretamente ao cofre. Os levantamentos criam duas propostas multisig — a transferência e a comissão da plataforma de 0,3% — que os seus signatários têm de aprovar antes de os fundos saírem do cofre.",
+      "stripe": "Pague com cartão ou banco através do Stripe. O Stripe trata do KYC e entrega USDC na Stellar diretamente no endereço do seu cofre."
+    },
+    "destination": {
+      "title": "Cofre de destino"
+    }
+  },
+  "common": {
+    "copy": "Copiar",
+    "share": "Partilhar",
+    "loading": "A carregar…",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "close": "Fechar",
+    "refresh": "Atualizar",
+    "unknown": "Desconhecido",
+    "change": "Alterar",
+    "open": "Abrir",
+    "update": "Atualizar",
+    "all": "Todos",
+    "notAvailable": "N/D"
+  }
+}

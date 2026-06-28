@@ -1,4 +1,5 @@
 ﻿import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { formatAmount } from '../../lib/utils';
 import { SUPPORTED_TOKENS, NATIVE_TOKEN } from '../../config';
 
@@ -91,10 +92,14 @@ const getStatusNum = (status: any): number => {
 };
 
 const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] }) => {
+  const { t, i18n } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>('calendar');
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [filterType, setFilterType] = useState<'all' | 'timelock' | 'vesting'>('all');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'completed'>('all');
+
+  // Use the active language for all date formatting.
+  const locale = i18n.language || 'en';
 
   // Separate Time Locks and Vestings
   const timeLocks = useMemo(() => locks.filter(l => getLockTypeNum(l.lock_type) === 0), [locks]);
@@ -111,11 +116,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
   const getStatusLabel = (status: any): string => {
     const num = getStatusNum(status);
     switch (num) {
-      case 0: return 'Active';
-      case 1: return 'Partially Released';
-      case 2: return 'Fully Released';
-      case 3: return 'Cancelled';
-      default: return 'Unknown';
+      case 0: return t('locksCalendar.status.active');
+      case 1: return t('locksCalendar.status.partiallyReleased');
+      case 2: return t('locksCalendar.status.fullyReleased');
+      case 3: return t('locksCalendar.status.cancelled');
+      default: return t('common.unknown');
     }
   };
 
@@ -132,8 +137,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
 
   const formatDate = (timestamp: any): string => {
     const ts = safeNumber(timestamp);
-    if (!ts) return 'N/A';
-    return new Date(ts * 1000).toLocaleDateString('en-US', {
+    if (!ts) return t('common.notAvailable');
+    return new Date(ts * 1000).toLocaleDateString(locale, {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -206,7 +211,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
     if (sortedLocks.length === 0) {
       return (
         <div className="text-center py-12 text-gray-400">
-          No locks or vestings to display
+          {t('locksCalendar.noLocks')}
         </div>
       );
     }
@@ -221,7 +226,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
       <div className="space-y-4">
         <div className="flex justify-between text-sm text-gray-400 mb-2">
           <span>{formatDate(minTime)}</span>
-          <span>Today</span>
+          <span>{t('locksCalendar.today')}</span>
           <span>{formatDate(maxTime)}</span>
         </div>
         
@@ -231,7 +236,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
             style={{ left: `${((now - minTime) / totalDuration) * 100}%` }}
           >
             <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-xs text-cyan-400 whitespace-nowrap">
-              Now
+              {t('locksCalendar.now')}
             </div>
           </div>
         </div>
@@ -241,7 +246,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-purple-400 mb-4 flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-purple-500"></span>
-              Time Locks ({timeLocks.filter(l => filterStatus === 'all' || 
+              {t('locksCalendar.timeLocks')} ({timeLocks.filter(l => filterStatus === 'all' || 
                 (filterStatus === 'active' && (getStatusNum(l.status) === 0 || getStatusNum(l.status) === 1)) ||
                 (filterStatus === 'completed' && (getStatusNum(l.status) === 2 || getStatusNum(l.status) === 3))
               ).length})
@@ -258,7 +263,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
           <div>
             <h3 className="text-lg font-semibold text-blue-400 mb-4 flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-blue-500"></span>
-              Vestings ({vestings.filter(l => filterStatus === 'all' || 
+              {t('locksCalendar.vestings')} ({vestings.filter(l => filterStatus === 'all' || 
                 (filterStatus === 'active' && (getStatusNum(l.status) === 0 || getStatusNum(l.status) === 1)) ||
                 (filterStatus === 'completed' && (getStatusNum(l.status) === 2 || getStatusNum(l.status) === 3))
               ).length})
@@ -281,7 +286,6 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
     const endPercent = ((endTime - minTime) / totalDuration) * 100;
     const width = Math.max(endPercent - startPercent, 2);
     const progress = calculateProgress(lock);
-    const vestedAmount = calculateVestedAmount(lock);
     const totalAmount = safeBigInt(lock.total_amount);
     const lockType = getLockTypeNum(lock.lock_type);
 
@@ -316,7 +320,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                 style={{ left: `${((cliffTime - startTime) / (endTime - startTime)) * 100}%` }}
               >
                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-xs text-yellow-400 whitespace-nowrap">
-                  Cliff
+                  {t('locksCalendar.cliff')}
                 </div>
               </div>
             )}
@@ -360,7 +364,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-gray-400">#{lock.id}</span>
                         <span className={`px-2 py-0.5 rounded text-xs ${lockType === 0 ? 'bg-purple-500/20 text-purple-400' : 'bg-blue-500/20 text-blue-400'}`}>
-                          {lockType === 0 ? 'Time Lock' : 'Vesting'}
+                          {lockType === 0 ? t('locksCalendar.timeLock') : t('locksCalendar.vesting')}
                         </span>
                         <span className={`px-2 py-0.5 rounded-full text-xs border ${getStatusColor(lock.status)}`}>
                           {getStatusLabel(lock.status)}
@@ -371,7 +375,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm text-gray-400">Claimable</div>
+                      <div className="text-sm text-gray-400">{t('locksCalendar.claimable')}</div>
                       <div className="text-lg font-semibold text-cyan-400">
                         {formatAmount(claimable, 7)} {getTokenSymbol(lock.token)}
                       </div>
@@ -380,7 +384,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
 
                   <div className="mb-3">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-gray-400">Progress</span>
+                      <span className="text-gray-400">{t('locksCalendar.progress')}</span>
                       <span className="text-white">{progress}%</span>
                     </div>
                     <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
@@ -393,21 +397,21 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                     <div>
-                      <div className="text-gray-500">Start</div>
+                      <div className="text-gray-500">{t('locksCalendar.start')}</div>
                       <div className="text-gray-300">{formatDate(lock.start_time)}</div>
                     </div>
                     {lockType === 1 && safeNumber(lock.cliff_time) > 0 && (
                       <div>
-                        <div className="text-gray-500">Cliff</div>
+                        <div className="text-gray-500">{t('locksCalendar.cliff')}</div>
                         <div className="text-yellow-400">{formatDate(lock.cliff_time)}</div>
                       </div>
                     )}
                     <div>
-                      <div className="text-gray-500">{lockType === 0 ? 'Unlock' : 'End'}</div>
+                      <div className="text-gray-500">{lockType === 0 ? t('locksCalendar.unlock') : t('locksCalendar.end')}</div>
                       <div className="text-gray-300">{formatDate(lock.end_time)}</div>
                     </div>
                     <div>
-                      <div className="text-gray-500">Beneficiary</div>
+                      <div className="text-gray-500">{t('locksCalendar.beneficiary')}</div>
                       <div className="text-gray-300 font-mono">{lock.beneficiary.slice(0, 8)}...</div>
                     </div>
                   </div>
@@ -434,12 +438,12 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
     return (
       <div>
         {(filterType === 'all' || filterType === 'timelock') && 
-          renderLockList(filteredTimeLocks, 'Time Locks', 'text-purple-400')}
+          renderLockList(filteredTimeLocks, t('locksCalendar.timeLocks'), 'text-purple-400')}
         {(filterType === 'all' || filterType === 'vesting') && 
-          renderLockList(filteredVestings, 'Vestings', 'text-blue-400')}
+          renderLockList(filteredVestings, t('locksCalendar.vestings'), 'text-blue-400')}
         {filteredTimeLocks.length === 0 && filteredVestings.length === 0 && (
           <div className="text-center py-12 text-gray-400">
-            No locks or vestings to display
+            {t('locksCalendar.noLocks')}
           </div>
         )}
       </div>
@@ -474,6 +478,16 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
       return events;
     };
 
+    // Localized event-type label for calendar chips/titles.
+    const eventTypeLabel = (type: 'start' | 'cliff' | 'end') => {
+      switch (type) {
+        case 'start': return t('locksCalendar.events.start');
+        case 'cliff': return t('locksCalendar.events.cliff');
+        case 'end': return t('locksCalendar.events.end');
+        default: return type;
+      }
+    };
+
     const days = [];
     
     for (let i = 0; i < firstDay; i++) {
@@ -502,9 +516,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                   className={`text-xs px-1 py-0.5 rounded truncate ${
                     event.type === 'cliff' ? 'bg-yellow-500/20 text-yellow-400' : bgColor
                   }`}
-                  title={`#${event.lock.id} - ${event.type}`}
+                  title={`#${event.lock.id} - ${eventTypeLabel(event.type)}`}
                 >
-                  #{event.lock.id} {event.type}
+                  #{event.lock.id} {eventTypeLabel(event.type)}
                 </div>
               );
             })}
@@ -512,6 +526,12 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
         </div>
       );
     }
+
+    // Localized weekday short names generated from Intl (no hardcoded list).
+    const weekdayNames = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(2024, 0, 7 + i); // 2024-01-07 is a Sunday
+      return d.toLocaleDateString(locale, { weekday: 'short' });
+    });
 
     return (
       <div>
@@ -525,7 +545,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
             </svg>
           </button>
           <h3 className="text-lg font-semibold">
-            {selectedMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            {selectedMonth.toLocaleDateString(locale, { month: 'long', year: 'numeric' })}
           </h3>
           <button
             onClick={() => setSelectedMonth(new Date(year, month + 1))}
@@ -538,8 +558,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
         </div>
 
         <div className="grid grid-cols-7 gap-px mb-px">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="text-center text-sm text-gray-400 py-2 bg-gray-800">
+          {weekdayNames.map((day, i) => (
+            <div key={i} className="text-center text-sm text-gray-400 py-2 bg-gray-800">
               {day}
             </div>
           ))}
@@ -552,15 +572,15 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
         <div className="flex gap-4 mt-4 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-purple-500/20 border border-purple-500/30" />
-            <span className="text-gray-400">Time Lock</span>
+            <span className="text-gray-400">{t('locksCalendar.timeLock')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-blue-500/20 border border-blue-500/30" />
-            <span className="text-gray-400">Vesting</span>
+            <span className="text-gray-400">{t('locksCalendar.vesting')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-yellow-500/20 border border-yellow-500/30" />
-            <span className="text-gray-400">Cliff</span>
+            <span className="text-gray-400">{t('locksCalendar.cliff')}</span>
           </div>
         </div>
       </div>
@@ -571,9 +591,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white">Locks & Vesting Calendar</h2>
+          <h2 className="text-2xl font-bold text-white">{t('locksCalendar.calendarTitle')}</h2>
           <p className="text-gray-400">
-            {timeLocks.length} time locks, {vestings.length} vestings
+            {t('locksCalendar.summary', { timeLocks: timeLocks.length, vestings: vestings.length })}
           </p>
         </div>
 
@@ -588,7 +608,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                   : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
               }`}
             >
-              {mode.charAt(0).toUpperCase() + mode.slice(1)}
+              {mode === 'calendar' ? t('locksCalendar.viewCalendar') : t('locksCalendar.viewList')}
             </button>
           ))}
         </div>
@@ -596,7 +616,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
 
       <div className="flex flex-wrap gap-4">
         <div className="flex gap-2">
-          <span className="text-gray-400 self-center">Type:</span>
+          <span className="text-gray-400 self-center">{t('locksCalendar.filterType')}:</span>
           {(['all', 'timelock', 'vesting'] as const).map((type) => (
             <button
               key={type}
@@ -607,12 +627,12 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                   : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50'
               }`}
             >
-              {type === 'all' ? 'All' : type === 'timelock' ? 'Time Locks' : 'Vestings'}
+              {type === 'all' ? t('common.all') : type === 'timelock' ? t('locksCalendar.timeLocks') : t('locksCalendar.vestings')}
             </button>
           ))}
         </div>
         <div className="flex gap-2">
-          <span className="text-gray-400 self-center">Status:</span>
+          <span className="text-gray-400 self-center">{t('locksCalendar.filterStatus')}:</span>
           {(['all', 'active', 'completed'] as const).map((status) => (
             <button
               key={status}
@@ -623,7 +643,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
                   : 'bg-gray-800/50 text-gray-400 hover:bg-gray-700/50'
               }`}
             >
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {status === 'all' ? t('common.all') : status === 'active' ? t('locksCalendar.statusFilter.active') : t('locksCalendar.statusFilter.completed')}
             </button>
           ))}
         </div>
@@ -637,32 +657,32 @@ const CalendarView: React.FC<CalendarViewProps> = ({ locks, vaultBalance = [] })
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-purple-500/10 rounded-xl p-4 border border-purple-500/30">
-          <div className="text-purple-400 text-sm">Time Locks</div>
+          <div className="text-purple-400 text-sm">{t('locksCalendar.timeLocks')}</div>
           <div className="text-xl font-bold text-white">{timeLocks.length}</div>
           <div className="text-sm text-gray-400">
-            {formatAmount(timeLocks.reduce((sum, l) => sum + safeBigInt(l.total_amount), BigInt(0)), 7)} locked
+            {formatAmount(timeLocks.reduce((sum, l) => sum + safeBigInt(l.total_amount), BigInt(0)), 7)} {t('locksCalendar.locked')}
           </div>
         </div>
         <div className="bg-blue-500/10 rounded-xl p-4 border border-blue-500/30">
-          <div className="text-blue-400 text-sm">Vestings</div>
+          <div className="text-blue-400 text-sm">{t('locksCalendar.vestings')}</div>
           <div className="text-xl font-bold text-white">{vestings.length}</div>
           <div className="text-sm text-gray-400">
-            {formatAmount(vestings.reduce((sum, l) => sum + safeBigInt(l.total_amount), BigInt(0)), 7)} vesting
+            {formatAmount(vestings.reduce((sum, l) => sum + safeBigInt(l.total_amount), BigInt(0)), 7)} {t('locksCalendar.vestingLabel')}
           </div>
         </div>
         <div className="bg-green-500/10 rounded-xl p-4 border border-green-500/30">
-          <div className="text-green-400 text-sm">Released</div>
+          <div className="text-green-400 text-sm">{t('locksCalendar.released')}</div>
           <div className="text-xl font-bold text-white">
             {formatAmount(locks.reduce((sum, l) => sum + safeBigInt(l.released_amount), BigInt(0)), 7)}
           </div>
         </div>
         <div className="bg-cyan-500/10 rounded-xl p-4 border border-cyan-500/30">
-          <div className="text-cyan-400 text-sm">Active</div>
+          <div className="text-cyan-400 text-sm">{t('locksCalendar.active')}</div>
           <div className="text-xl font-bold text-white">
             {locks.filter(l => getStatusNum(l.status) === 0 || getStatusNum(l.status) === 1).length}
           </div>
           <div className="text-sm text-gray-400">
-            {locks.filter(l => getStatusNum(l.status) === 2).length} completed
+            {t('locksCalendar.completedCount', { count: locks.filter(l => getStatusNum(l.status) === 2).length })}
           </div>
         </div>
       </div>

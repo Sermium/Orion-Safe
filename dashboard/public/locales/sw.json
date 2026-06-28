@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Muhtasari",
+    "money": "Pesa",
+    "vestingLocks": "Ugawaji na Vifungo",
+    "team": "Timu",
+    "system": "Mfumo",
+    "dashboard": "Dashibodi",
+    "assets": "Mali",
+    "fiat": "Lango la Fedha",
+    "transactions": "Miamala",
+    "locks": "Vifungo",
+    "vesting": "Ugawaji",
+    "members": "Wanachama",
+    "contacts": "Anwani",
+    "settings": "Mipangilio",
+    "docs": "Nyaraka",
+    "admin": "Msimamizi",
+    "claim": "Dai Tokeni"
+  },
+  "fiat": {
+    "title": "Lango la Fedha",
+    "deposit": "Weka",
+    "withdraw": "Toa",
+    "amount": "Kiasi",
+    "provider": "Mtoa huduma",
+    "fee": "Ada ya jukwaa",
+    "destination": "Hazina lengwa",
+    "comingSoon": "Hivi karibuni"
+  },
+  "sidebar": {
+    "currentVault": "Hazina ya Sasa",
+    "selectVault": "Chagua Hazina",
+    "createNewVault": "Unda Hazina Mpya",
+    "sharePublicView": "Shiriki Mwonekano wa Umma",
+    "disconnect": "Tenganisha",
+    "connected": "Imeunganishwa",
+    "linkCopied": "Kiungo cha umma kimenakiliwa!"
+  },
+  "header": {
+    "timeLocks": "Vifungo vya Muda",
+    "deposit": "Weka",
+    "send": "Tuma"
+  },
+  "settings": {
+    "title": "Mipangilio ya Hazina",
+    "subtitle": "Dhibiti usanidi na wanachama wa hazina yako",
+    "language": "Lugha",
+    "languageAuto": "Otomatiki (lugha ya kifaa)",
+    "languageHint": "Otomatiki hufuata lugha ya kifaa chako na hurejea Kiingereza ikiwa haitumiki.",
+    "tabs": {
+      "general": "Jumla",
+      "members": "Wanachama na Majukumu",
+      "advanced": "Kina"
+    },
+    "vaultInfo": "Taarifa za Hazina",
+    "vaultName": "Jina la Hazina",
+    "vaultAddress": "Anwani ya Hazina",
+    "notSelected": "Haijachaguliwa",
+    "yourRole": "Jukumu Lako",
+    "members": "Wanachama",
+    "threshold": "Kizingiti",
+    "superAdmins": "Wasimamizi Wakuu",
+    "connectedWallet": "Pochi Iliyounganishwa",
+    "publicKey": "Ufunguo wa Umma",
+    "approvalThreshold": "Kizingiti cha Idhini",
+    "thresholdDesc": "Saini {{threshold}} kati ya {{total}} zinahitajika kutekeleza miamala",
+    "vaultMembers": "Wanachama wa Hazina",
+    "vaultMembersDesc": "Dhibiti nani anaweza kufikia na kudhibiti hazina hii",
+    "addMember": "Ongeza Mwanachama",
+    "you": "Wewe",
+    "copyAddress": "Nakili anwani",
+    "removeMember": "Ondoa mwanachama",
+    "rolePermissions": "Ruhusa za Majukumu",
+    "adminsOnly": "Ni wasimamizi wa hazina pekee wanaoweza kudhibiti wanachama na majukumu.",
+    "contractDetails": "Maelezo ya Mkataba",
+    "contractType": "Aina ya Mkataba",
+    "sorobanContract": "Mkataba Mahiri wa Soroban",
+    "network": "Mtandao",
+    "testnet": "Testnet",
+    "actions": "Vitendo",
+    "exportData": "Hamisha Data ya Hazina",
+    "exportDataDesc": "Pakua usanidi na historia ya miamala",
+    "export": "Hamisha",
+    "viewExplorer": "Tazama kwenye Explorer",
+    "viewExplorerDesc": "Fungua mkataba wa hazina kwenye Stellar Expert",
+    "dangerZone": "Eneo la Hatari",
+    "leaveVault": "Ondoka kwenye Hazina",
+    "leaveVaultDesc": "Jiondoe kama mtia saini. Hili haliwezi kutenduliwa.",
+    "leaveLastWarning": "Wewe ndiye mwanachama wa mwisho - kuondoka kutaiacha hazina!",
+    "leaving": "Inaondoka...",
+    "leave": "Ondoka",
+    "addNewMember": "Ongeza Mwanachama Mpya",
+    "addNewMemberDesc": "Chagua kutoka kwa anwani au weka anwani mwenyewe",
+    "fromContacts": "Kutoka kwa Anwani",
+    "enterAddress": "Weka Anwani",
+    "searchContacts": "Tafuta anwani...",
+    "noContactsAvailable": "Hakuna anwani zinazopatikana (zote tayari ni wanachama)",
+    "noContactsFound": "Hakuna anwani zilizopatikana",
+    "allContactsMembers": "Anwani zako zote tayari ni wanachama wa hazina. Tumia \"Weka Anwani\" kuongeza mwanachama mpya.",
+    "stellarAddress": "Anwani ya Stellar",
+    "role": "Jukumu",
+    "adding": "Inaongeza...",
+    "changeThreshold": "Badilisha Kizingiti cha Idhini",
+    "requiredSignatures": "Saini zinazohitajika: {{threshold}} kati ya {{total}}",
+    "thresholdWarning": "Kubadilisha kizingiti huathiri usalama. Kizingiti cha juu kinahitaji saini zaidi lakini kinaweza kupunguza kasi ya shughuli.",
+    "updating": "Inasasisha...",
+    "roles": {
+      "superAdmin": "Msimamizi Mkuu",
+      "admin": "Msimamizi",
+      "executor": "Mtekelezaji"
+    },
+    "roleOptions": {
+      "superAdmin": "Msimamizi Mkuu - Udhibiti kamili",
+      "admin": "Msimamizi - Dhibiti wanachama",
+      "executor": "Mtekelezaji - Anaweza kufanya miamala"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Udhibiti kamili wa hazina",
+        "2": "Dhibiti wanachama na majukumu yote",
+        "3": "Badilisha kizingiti",
+        "4": "Unda na tekeleza miamala"
+      },
+      "admin": {
+        "1": "Dhibiti watekelezaji",
+        "2": "Badilisha kizingiti",
+        "3": "Unda na idhinisha miamala",
+        "4": "Dhibiti vifungo"
+      },
+      "executor": {
+        "1": "Unda miamala",
+        "2": "Idhinisha miamala",
+        "3": "Tekeleza miamala iliyoidhinishwa",
+        "4": "Tazama shughuli zote"
+      }
+    },
+    "success": {
+      "memberAdded": "Mwanachama ameongezwa kwa mafanikio!",
+      "memberRemoved": "Mwanachama ameondolewa kwa mafanikio!",
+      "roleUpdated": "Jukumu limesasishwa kwa mafanikio!",
+      "thresholdUpdated": "Kizingiti kimesasishwa kwa mafanikio!",
+      "leftVault": "Umeondoka kwenye hazina kwa mafanikio!"
+    },
+    "errors": {
+      "invalidAddress": "Anwani ya Stellar si sahihi",
+      "alreadyMember": "Anwani tayari ni mwanachama",
+      "addFailed": "Imeshindwa kuongeza mwanachama",
+      "removeBreaksThreshold": "Haiwezi kuondoa mwanachama: kutavunja sharti la kizingiti",
+      "lastSuperAdminRemove": "Haiwezi kuondoa msimamizi mkuu wa mwisho",
+      "removeFailed": "Imeshindwa kuondoa mwanachama",
+      "needOneSuperAdmin": "Haiwezi kubadilisha jukumu: hazina lazima iwe na angalau msimamizi mkuu mmoja",
+      "roleFailed": "Imeshindwa kubadilisha jukumu",
+      "thresholdMin": "Kizingiti lazima kiwe angalau 1",
+      "thresholdMax": "Kizingiti hakiwezi kuzidi idadi ya wanachama",
+      "thresholdFailed": "Imeshindwa kusasisha kizingiti",
+      "leaveLastSuperAdmin": "Wewe ndiye msimamizi mkuu wa mwisho. Tafadhali teua msimamizi mkuu mwingine kabla ya kuondoka, au ondoa wanachama wengine wote kwanza.",
+      "leaveBreaksThreshold": "Haiwezi kuondoka: kutavunja sharti la kizingiti. Kizingiti cha sasa ni {{threshold}}, lakini ni wanachama {{remaining}} pekee watakaobaki.",
+      "leaveFailed": "Imeshindwa kuondoka kwenye hazina"
+    },
+    "confirm": {
+      "removeMember": "Ondoa {{name}} kutoka kwenye hazina?",
+      "leaveDefault": "Una uhakika unataka kuondoka kwenye hazina hii? Kitendo hiki hakiwezi kutenduliwa.",
+      "leaveLastMember": "ONYO: Wewe ndiye mwanachama wa MWISHO wa hazina hii. Kuondoka kutaiacha hazina kabisa milele. Fedha zozote zilizobaki hazitafikika. Una uhakika kabisa?",
+      "leaveFinalWarning": "Hili ni onyo lako la MWISHO. Hazina itaachwa kabisa milele. Endelea?"
+    }
+  },
+  "assets": {
+    "title": "Mali",
+    "subtitle": "Dhibiti mali ya hazina yako",
+    "addToken": "Ongeza Tokeni",
+    "authorize": "Idhinisha",
+    "totalBalance": "Salio Jumla",
+    "remainingDailySpend": "Matumizi ya Kila Siku Yaliyobaki",
+    "yourAssets": "Mali Yako",
+    "clickToManage": "Bofya mali ili kuidhibiti",
+    "noAssets": "Bado hakuna mali",
+    "noAssetsDesc": "Weka baadhi ya tokeni ili kuanza",
+    "makeFirstDeposit": "Fanya Uwekaji wa Kwanza",
+    "availableBalance": "Salio Linalopatikana",
+    "actions": {
+      "deposit": "Weka",
+      "depositDesc": "Ongeza {{symbol}} zaidi kwenye hazina",
+      "send": "Tuma",
+      "sendDesc": "Pendekeza uhamisho wa {{symbol}}",
+      "timeLock": "Kifungo cha Muda",
+      "timeLockDesc": "Funga hadi tarehe maalum",
+      "vesting": "Ugawaji",
+      "vestingDesc": "Unda ratiba ya ugawaji yenye kipindi cha mwamba"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Kalenda ya Vifungo na Ugawaji",
+    "summary": "Vifungo vya muda {{timeLocks}}, ugawaji {{vestings}}",
+    "viewCalendar": "Kalenda",
+    "viewList": "Orodha",
+    "filterType": "Aina",
+    "filterStatus": "Hali",
+    "timeLocks": "Vifungo vya Muda",
+    "vestings": "Ugawaji",
+    "timeLock": "Kifungo cha Muda",
+    "vesting": "Ugawaji",
+    "noLocks": "Hakuna vifungo au ugawaji wa kuonyesha",
+    "today": "Leo",
+    "now": "Sasa",
+    "cliff": "Mwamba",
+    "claimable": "Inayodaiwa",
+    "progress": "Maendeleo",
+    "start": "Anza",
+    "end": "Mwisho",
+    "unlock": "Fungua",
+    "beneficiary": "Mnufaika",
+    "locked": "imefungwa",
+    "vestingLabel": "ugawaji",
+    "released": "Imetolewa",
+    "active": "Inatumika",
+    "completedCount": "{{count}} zimekamilika",
+    "status": {
+      "active": "Inatumika",
+      "partiallyReleased": "Imetolewa Kwa Sehemu",
+      "fullyReleased": "Imetolewa Kikamilifu",
+      "cancelled": "Imeghairiwa"
+    },
+    "statusFilter": {
+      "active": "Inatumika",
+      "completed": "Imekamilika"
+    },
+    "events": {
+      "start": "anza",
+      "cliff": "mwamba",
+      "end": "mwisho"
+    }
+  },
+  "claim": {
+    "title": "Dai Tokeni Zako",
+    "subtitleVault": "Unatazama vifungo kutoka hazina {{address}}",
+    "subtitleAll": "Tazama na udai vifungo ulivyopangiwa",
+    "disconnect": "Tenganisha",
+    "connectWallet": "Unganisha Pochi",
+    "connectTitle": "Unganisha Pochi Yako",
+    "connectDescVault": "Unganisha pochi yako ili kuona vifungo vyote vya muda na ratiba za ugawaji ulizopangiwa kutoka hazina hii.",
+    "connectDescAll": "Unganisha pochi yako ili kuona vifungo vyote vya muda na ratiba za ugawaji ulizopangiwa katika Hazina zote za Stellar.",
+    "loadingVault": "Inapakia vifungo kutoka hazina...",
+    "loadingAll": "Inachanganua hazina kutafuta vifungo vyako...",
+    "scanProgress": "Imekagua hazina {{scanned}} kati ya {{total}}",
+    "unknownVault": "Hazina Isiyojulikana",
+    "tokensAmount": "Tokeni {{amount}}",
+    "claimNow": "Dai Sasa",
+    "claiming": "Inadai...",
+    "refreshLocks": "Onyesha Upya Vifungo",
+    "claimSuccess": "Umedai tokeni {{amount}} kwa mafanikio!",
+    "errorLoad": "Imeshindwa kupakia vifungo",
+    "errorClaim": "Imeshindwa kudai",
+    "stats": {
+      "readyToClaim": "Tayari Kudaiwa",
+      "pending": "Inasubiri",
+      "completed": "Imekamilika"
+    },
+    "sections": {
+      "readyToClaim": "Tayari Kudaiwa",
+      "pending": "Inasubiri"
+    },
+    "fields": {
+      "fromVault": "Kutoka Hazina",
+      "totalAmount": "Kiasi Jumla",
+      "description": "Maelezo",
+      "timeRemaining": "Muda Uliosalia",
+      "unlockDate": "Tarehe ya Kufungua"
+    },
+    "types": {
+      "timeLock": "Kifungo cha Muda",
+      "vesting": "Ugawaji",
+      "unknown": "Isiyojulikana"
+    },
+    "time": {
+      "unlocked": "Imefunguliwa",
+      "fullyVested": "Imegawiwa kikamilifu",
+      "remaining": "Zimesalia siku {{days}} saa {{hours}}",
+      "toCliff": "Siku {{days}} saa {{hours}} hadi mwamba"
+    },
+    "empty": {
+      "title": "Hakuna vifungo vilivyopatikana",
+      "descVault": "Huna vifungo vyovyote ulivyopangiwa katika hazina hii.",
+      "descAll": "Huna vifungo vyovyote vya muda au ratiba za ugawaji ulizopangiwa."
+    }
+  },
+  "contacts": {
+    "title": "Kitabu cha Anwani",
+    "subtitle": "Hifadhi anwani zinazotumika mara kwa mara kwa ufikiaji wa haraka",
+    "addContact": "Ongeza Anwani",
+    "searchPlaceholder": "Tafuta anwani...",
+    "savedCount_one": "Anwani {{count}} imehifadhiwa",
+    "savedCount_other": "Anwani {{count}} zimehifadhiwa",
+    "confirmDelete": "Futa \"{{name}}\" kutoka kwa anwani?",
+    "errors": {
+      "nameRequired": "Jina linahitajika",
+      "addressRequired": "Anwani inahitajika",
+      "invalidAddress": "Anwani ya Stellar si sahihi",
+      "duplicate": "Anwani hii tayari iko kwenye anwani zako"
+    },
+    "empty": {
+      "noMatch": "Hakuna anwani zinazolingana na utafutaji wako",
+      "none": "Bado hakuna anwani",
+      "addFirst": "Ongeza anwani yako ya kwanza →"
+    },
+    "actions": {
+      "copy": "Nakili anwani",
+      "edit": "Hariri anwani",
+      "delete": "Futa anwani"
+    },
+    "modal": {
+      "addTitle": "Ongeza Anwani Mpya",
+      "editTitle": "Hariri Anwani",
+      "nameLabel": "Jina *",
+      "namePlaceholder": "k.m., Alice, Hazina, Soko",
+      "addressLabel": "Anwani ya Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Anwani haiwezi kubadilishwa",
+      "notesLabel": "Madokezo (hiari)",
+      "notesPlaceholder": "Ongeza madokezo yoyote kuhusu anwani hii...",
+      "saveChanges": "Hifadhi Mabadiliko"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Salio Jumla",
+      "threshold": "Kizingiti",
+      "signaturesRequired": "saini zinazohitajika",
+      "pending": "Inasubiri",
+      "awaitingApproval": "inasubiri idhini",
+      "readyToExecute": "Tayari Kutekelezwa",
+      "fullyApproved": "imeidhinishwa kikamilifu"
+    },
+    "activeProposals": "Mapendekezo Yanayotumika",
+    "viewAll": "Tazama Yote",
+    "noProposals": "Bado hakuna mapendekezo",
+    "createFirst": "Unda muamala wako wa kwanza →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Kwa {{address}}",
+    "approvalsCount": "Idhini {{count}}/{{threshold}}",
+    "status": {
+      "pending": "Inasubiri",
+      "approved": "Imeidhinishwa",
+      "executed": "Imetekelezwa",
+      "rejected": "Imekataliwa",
+      "unknown": "Isiyojulikana"
+    },
+    "types": {
+      "transfer": "Uhamisho",
+      "timeLock": "Kifungo cha Muda",
+      "vesting": "Ugawaji",
+      "unknown": "Isiyojulikana"
+    }
+  },
+  "locks": {
+    "title": "Vifungo vya Muda",
+    "subtitle": "Funga mali hadi tarehe maalum",
+    "bulkCreate": "Unda kwa Wingi",
+    "createTimeLock": "Unda Kifungo cha Muda",
+    "creating": "Inaunda...",
+    "createFirst": "Unda Kifungo Chako cha Kwanza cha Muda",
+    "empty": "Bado hakuna vifungo vya muda vilivyoundwa",
+    "archived": "Imehifadhiwa",
+    "selectToken": "Chagua tokeni",
+    "available": "{{amount}} inapatikana",
+    "quickSelect": "Chagua haraka:",
+    "beneficiaryPlaceholder": "Tafuta anwani au weka anwani ya G...",
+    "descriptionPlaceholder": "k.m., Mgao wa timu",
+    "optional": "Hiari",
+    "revocableLabel": "Inayoweza Kufutwa",
+    "revocableHint": "Msimamizi anaweza kughairi na kurudisha fedha kwenye hazina",
+    "feeWarning": "Ada ya 10 XLM itatozwa kwa kuunda kifungo.",
+    "defaultDescription": "Kifungo cha Muda",
+    "lockNumber": "Kifungo #{{id}}",
+    "timeLockBadge": "Kifungo cha Muda",
+    "revocableBadge": "Inayoweza Kufutwa",
+    "readyToClaim": "Tayari Kudaiwa",
+    "releasedLabel": "Imetolewa",
+    "you": "Wewe",
+    "claim": "Dai",
+    "cancel": "Ghairi",
+    "close": "Funga",
+    "confirmCancel": "Una uhakika unataka kughairi kifungo hiki?",
+    "stats": {
+      "total": "Jumla ya Vifungo vya Muda",
+      "active": "Inatumika",
+      "unlocked": "Imefunguliwa",
+      "yourLocks": "Vifungo Vyako"
+    },
+    "sections": {
+      "yours": "Vifungo Vyako vya Muda",
+      "active": "Vifungo vya Muda Vinavyotumika",
+      "pendingCompletion": "Vinasubiri Kukamilika"
+    },
+    "fields": {
+      "token": "Tokeni",
+      "amount": "Kiasi",
+      "beneficiary": "Mnufaika",
+      "beneficiaryAddress": "Anwani ya Mnufaika",
+      "remaining": "Kilichosalia",
+      "timeStatus": "Hali ya Muda",
+      "unlockDate": "Tarehe ya Kufungua",
+      "unlockDateTime": "Tarehe na Saa ya Kufungua",
+      "creator": "Muundaji",
+      "description": "Maelezo",
+      "descriptionOptional": "Maelezo (hiari)"
+    },
+    "statuses": {
+      "active": "Inatumika",
+      "partiallyReleased": "Imetolewa Kwa Sehemu",
+      "fullyReleased": "Imetolewa Kikamilifu",
+      "cancelled": "Imeghairiwa",
+      "unknown": "Isiyojulikana"
+    },
+    "time": {
+      "unlocked": "Imefunguliwa",
+      "remainingDays": "Zimesalia siku {{days}} saa {{hours}}",
+      "remainingHours": "Zimesalia saa {{hours}}"
+    },
+    "errors": {
+      "fillRequired": "Tafadhali jaza sehemu zote zinazohitajika",
+      "invalidBeneficiary": "Anwani ya mnufaika si sahihi",
+      "unlockFuture": "Muda wa kufungua lazima uwe wa baadaye",
+      "createFailed": "Imeshindwa kuunda kifungo",
+      "claimFailed": "Imeshindwa kudai",
+      "cancelFailed": "Imeshindwa kughairi kifungo",
+      "invalidAmount": "Kiasi si sahihi",
+      "tokenNotSelected": "Tokeni haijachaguliwa",
+      "unlockRequired": "Tarehe ya kufungua inahitajika",
+      "proposalFailed": "Imeshindwa kuunda pendekezo"
+    },
+    "bulk": {
+      "title": "Unda Vifungo vya Muda kwa Wingi",
+      "subtitle": "Unda vifungo vingi vya muda kwa mara moja (kiwango cha juu {{max}} kwa kundi)",
+      "downloadTemplate": "Pakua Kiolezo",
+      "importCsv": "Ingiza CSV",
+      "statsTotal": "Jumla",
+      "statsPending": "Inasubiri",
+      "statsSuccess": "Mafanikio",
+      "statsErrors": "Hitilafu",
+      "maxReachedAlert": "Kiwango cha juu cha vifungo {{max}} kwa kundi ili kuepuka kulemea mtandao.",
+      "maxReachedWarning": "Ukubwa wa juu wa kundi umefikiwa (vifungo {{max}}). Shughulikia hivi kabla ya kuongeza zaidi.",
+      "csvTooMany": "CSV ina ingizo {{count}}. Kiwango cha juu ni {{max}} kwa kundi. Ni {{max}} za kwanza pekee zitakazoingizwa.",
+      "duplicate": "Nakala",
+      "remove": "Ondoa",
+      "addEntry": "Ongeza Kifungo cha Muda",
+      "processing": "Inashughulikia {{current}} kati ya {{total}}...",
+      "readyCount_one": "Kifungo {{count}} tayari kuundwa",
+      "readyCount_other": "Vifungo {{count}} tayari kuundwa",
+      "feeTotal": "• Ada: {{fee}} XLM jumla",
+      "creatingProposals": "Inaunda Mapendekezo...",
+      "createCount_one": "Unda Pendekezo {{count}}",
+      "createCount_other": "Unda Mapendekezo {{count}}",
+      "defaultDescription": "Kifungo cha Muda cha Wingi"
+    }
+  },
+  "members": {
+    "title": "Wanachama wa Hazina",
+    "subtitle_one": "Mwanachama {{count}} • Kizingiti: {{threshold}} kati ya {{total}}",
+    "subtitle_other": "Wanachama {{count}} • Kizingiti: {{threshold}} kati ya {{total}}",
+    "searchPlaceholder": "Tafuta wanachama kwa anwani, jina, au jukumu...",
+    "manageHint": "Kudhibiti wanachama (ongeza, ondoa, badilisha majukumu), nenda <strong>Mipangilio → Wanachama na Majukumu</strong>",
+    "you": "Wewe",
+    "addToContacts": "Ongeza kwenye anwani",
+    "noResults": "Hakuna wanachama waliopatikana wanaolingana na utafutaji wako.",
+    "stats": {
+      "totalMembers": "Jumla ya Wanachama",
+      "superAdmins": "Wasimamizi Wakuu",
+      "admins": "Wasimamizi",
+      "executors": "Watekelezaji"
+    },
+    "roles": {
+      "superAdmin": "Msimamizi Mkuu",
+      "admin": "Msimamizi",
+      "executor": "Mtekelezaji"
+    },
+    "permissions": {
+      "title": "Ruhusa za Majukumu",
+      "superAdmin": "Udhibiti kamili ikiwa ni pamoja na kudhibiti wasimamizi wengine na mipangilio muhimu",
+      "admin": "Anaweza kudhibiti mipangilio ya hazina, wanachama, na kuidhinisha miamala",
+      "executor": "Anaweza kuunda, kuidhinisha, na kutekeleza miamala"
+    },
+    "addContactModal": {
+      "title": "Ongeza kwenye Anwani",
+      "addressLabel": "Anwani",
+      "nameLabel": "Jina",
+      "namePlaceholder": "Weka jina la anwani hii",
+      "save": "Hifadhi Anwani"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Hazina ya Stellar",
+    "publicViewBadge": "Mwonekano wa Umma",
+    "loading": "Inapakia data ya hazina...",
+    "noLocks": "Bado hakuna vifungo vilivyoundwa",
+    "noAssets": "Hakuna mali iliyopatikana",
+    "revocable": "Inayoweza Kufutwa",
+    "released": "Imetolewa",
+    "allLocks": "Vifungo Vyote ({{count}})",
+    "toBeneficiary": "Kwa: {{address}}",
+    "errors": {
+      "title": "Imeshindwa Kupakia Hazina",
+      "loadFailed": "Imeshindwa kupakia data ya hazina"
+    },
+    "tabs": {
+      "overview": "Muhtasari",
+      "locks": "Vifungo",
+      "calendar": "Kalenda",
+      "assets": "Mali"
+    },
+    "stats": {
+      "signers": "Watia saini",
+      "threshold": "Kizingiti: {{count}}",
+      "totalLocks": "Jumla ya Vifungo",
+      "activeCount": "{{count}} zinatumika",
+      "assets": "Mali",
+      "tokensHeld": "tokeni zilizohifadhiwa",
+      "lockedValue": "Thamani Iliyofungwa",
+      "totalLocked": "jumla iliyofungwa"
+    },
+    "sections": {
+      "signers": "Watia saini",
+      "recentLocks": "Vifungo vya Hivi Karibuni",
+      "assets": "Mali"
+    },
+    "fields": {
+      "amount": "Kiasi",
+      "beneficiary": "Mnufaika",
+      "unlockDate": "Tarehe ya Kufungua",
+      "timeRemaining": "Muda Uliosalia"
+    },
+    "status": {
+      "active": "Inatumika",
+      "partiallyReleased": "Imetolewa Kwa Sehemu",
+      "fullyReleased": "Imetolewa Kikamilifu",
+      "cancelled": "Imeghairiwa"
+    },
+    "lockType": {
+      "timeLock": "Kifungo cha Muda",
+      "vesting": "Ugawaji"
+    },
+    "time": {
+      "unlocked": "Imefunguliwa",
+      "cliffPassed": "Mwamba umepita",
+      "remaining": "Zimesalia siku {{days}} saa {{hours}}",
+      "toCliff": "Siku {{days}} saa {{hours}} hadi mwamba"
+    },
+    "footer": {
+      "title": "Hazina ya Stellar - Mwonekano wa Umma",
+      "poweredBy": "Inaendeshwa na Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Miamala",
+    "subtitle": "Tazama na udhibiti mapendekezo na uhamisho wa hazina",
+    "bulkTransfer": "Uhamisho wa Wingi",
+    "newTransaction": "Muamala Mpya",
+    "createFirst": "Unda Pendekezo la Kwanza",
+    "completedProposals": "Mapendekezo Yaliyokamilika",
+    "noHistory": "Hakuna historia ya miamala iliyopatikana",
+    "noHistoryNote": "Kumbuka: Miamala ya mkataba wa Soroban inaonekana kupitia mapendekezo yaliyotekelezwa",
+    "received": "Imepokelewa",
+    "sent": "Imetumwa",
+    "onChainPayments_one": "Malipo {{count}} ya mnyororo",
+    "onChainPayments_other": "Malipo {{count}} ya mnyororo",
+    "approvalsCount": "Idhini {{count}}/{{threshold}}",
+    "rejectionsCount": "Kukataa {{count}}/{{threshold}}",
+    "tabs": {
+      "proposals": "Mapendekezo ({{count}})",
+      "history": "Historia ({{count}})"
+    },
+    "filters": {
+      "all": "Yote",
+      "pending": "Inasubiri",
+      "approved": "Imeidhinishwa"
+    },
+    "empty": {
+      "all": "Hakuna mapendekezo yaliyopatikana",
+      "filtered": "Hakuna mapendekezo ya {{filter}} yaliyopatikana"
+    },
+    "status": {
+      "pending": "Inasubiri",
+      "approved": "Imeidhinishwa",
+      "executed": "Imetekelezwa",
+      "rejected": "Imekataliwa"
+    },
+    "types": {
+      "transfer": "Uhamisho",
+      "timeLock": "Kifungo cha Muda",
+      "vesting": "Ugawaji"
+    },
+    "fields": {
+      "to": "Kwa:",
+      "from": "Kutoka:",
+      "by": "Na:",
+      "beneficiary": "Mnufaika:",
+      "created": "Imeundwa:",
+      "approvals": "Idhini:",
+      "unlockDate": "Tarehe ya Kufungua:",
+      "cliffDate": "Tarehe ya Mwamba:",
+      "endDate": "Tarehe ya Mwisho:"
+    },
+    "actions": {
+      "approve": "Idhinisha",
+      "execute": "Tekeleza",
+      "reject": "Kataa",
+      "confirmReject": "Thibitisha Kukataa"
+    },
+    "bulk": {
+      "title": "Uhamisho wa Wingi",
+      "subtitle": "Unda mapendekezo mengi ya uhamisho kwa kundi (kiwango cha juu {{max}} kwa kundi)",
+      "importCsv": "Ingiza CSV",
+      "downloadTemplate": "Pakua Kiolezo",
+      "csvHelp": "Msaada wa Muundo wa CSV",
+      "totalLabel": "Jumla:",
+      "successLabel": "Mafanikio:",
+      "failedLabel": "Imeshindwa:",
+      "csvFormatTitle": "Muundo wa CSV",
+      "csvFormatNote": "Tumia \"native\" kwa XLM au anwani kamili ya mkataba wa tokeni.",
+      "maxBatchWarning": "Kiwango cha juu cha uhamisho {{max}} kwa kundi ili kuepuka kulemea mtandao. Unda kundi lingine kwa zaidi.",
+      "recipientLabel": "Anwani ya Mpokeaji",
+      "amountLabel": "Kiasi",
+      "tokenLabel": "Tokeni",
+      "duplicate": "Nakala",
+      "remove": "Ondoa",
+      "addTransfer": "Ongeza Uhamisho",
+      "processing": "Inashughulikia {{current}} kati ya {{total}}... (ucheleweshaji wa sekunde {{delay}} kati ya miamala)",
+      "readyCount_one": "Uhamisho {{count}} tayari",
+      "readyCount_other": "Uhamisho {{count}} tayari",
+      "totalTokens": "• Jumla: ~{{amount}} tokeni",
+      "creatingProposals": "Inaunda Mapendekezo...",
+      "createProposals_one": "Unda Pendekezo {{count}}",
+      "createProposals_other": "Unda Mapendekezo {{count}}",
+      "maxBatchAlert": "Kiwango cha juu cha uhamisho {{max}} kwa kundi ili kuepuka kulemea mtandao.",
+      "maxBatchShortAlert": "Kiwango cha juu cha uhamisho {{max}} kwa kundi.",
+      "csvTooManyAlert": "CSV ina ingizo {{count}}. Kiwango cha juu ni {{max}} kwa kundi. Ni {{max}} za kwanza pekee zitakazoingizwa.",
+      "errors": {
+        "invalidRecipient": "Anwani ya mpokeaji si sahihi",
+        "invalidAmount": "Kiasi si sahihi",
+        "noToken": "Tokeni haijachaguliwa",
+        "transferUnavailable": "Kazi ya uhamisho haipatikani",
+        "createFailed": "Imeshindwa kuunda pendekezo"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Ratiba za Ugawaji",
+    "subtitle": "Ugawaji wa tokeni wenye vipindi vya mwamba na utolewaji wa taratibu",
+    "bulkCreate": "Unda kwa Wingi",
+    "createVesting": "Unda Ugawaji",
+    "createFirst": "Unda Ratiba Yako ya Kwanza ya Ugawaji",
+    "empty": "Bado hakuna ratiba za ugawaji zilizoundwa",
+    "archived": "Imehifadhiwa",
+    "revocable": "Inayoweza Kufutwa",
+    "badge": "Ugawaji",
+    "you": "Wewe",
+    "claimButton": "💰 Dai",
+    "cardTitle": "Ugawaji #{{id}}",
+    "claimableBadge": "{{amount}} Inayodaiwa",
+    "vestedLabel": "Iliyogawiwa: {{vested}} / {{total}}",
+    "releasedLabel": "Iliyotolewa: {{released}}",
+    "daysValue": "Siku {{count}}",
+    "defaultDescription": "Ratiba ya Ugawaji",
+    "confirmCancel": "Una uhakika unataka kughairi ratiba hii ya ugawaji?",
+    "stats": {
+      "totalVesting": "Jumla ya Ugawaji",
+      "active": "Inatumika",
+      "claimable": "Inayodaiwa",
+      "yourVesting": "Ugawaji Wako"
+    },
+    "sections": {
+      "yours": "Ratiba Zako za Ugawaji",
+      "active": "Ratiba za Ugawaji Zinazotumika",
+      "pendingCompletion": "Zinasubiri Kukamilika"
+    },
+    "status": {
+      "active": "Inatumika",
+      "partiallyReleased": "Imetolewa Kwa Sehemu",
+      "fullyReleased": "Imetolewa Kikamilifu",
+      "cancelled": "Imeghairiwa"
+    },
+    "time": {
+      "toCliff": "Siku {{days}} saa {{hours}} hadi mwamba",
+      "fullyVested": "Imegawiwa kikamilifu",
+      "remaining": "Zimesalia siku {{days}} saa {{hours}}"
+    },
+    "interval": {
+      "daily": "Kila Siku",
+      "weekly": "Kila Wiki",
+      "monthly": "Kila Mwezi",
+      "quarterly": "Kila Robo Mwaka"
+    },
+    "fields": {
+      "token": "Tokeni",
+      "remaining": "Kilichosalia",
+      "status": "Hali",
+      "cliffDate": "Tarehe ya Mwamba",
+      "endDate": "Tarehe ya Mwisho",
+      "releaseInterval": "Kipindi cha Utolewaji",
+      "beneficiary": "Mnufaika",
+      "creator": "Muundaji",
+      "description": "Maelezo"
+    },
+    "errors": {
+      "fillRequired": "Tafadhali jaza sehemu zote zinazohitajika",
+      "invalidBeneficiary": "Anwani ya mnufaika si sahihi",
+      "durationPositive": "Muda wa ugawaji lazima uwe mkubwa kuliko 0",
+      "cliffShorter": "Mwamba lazima uwe mfupi kuliko muda wote",
+      "createFailed": "Imeshindwa kuunda ugawaji",
+      "claimFailed": "Imeshindwa kudai",
+      "cancelFailed": "Imeshindwa kughairi"
+    },
+    "modal": {
+      "title": "Unda Ratiba ya Ugawaji",
+      "token": "Tokeni",
+      "selectToken": "Chagua tokeni",
+      "tokenOption": "{{symbol}} - {{amount}} inapatikana",
+      "totalAmount": "Kiasi Jumla",
+      "beneficiary": "Mnufaika",
+      "quickSelect": "Chagua haraka:",
+      "beneficiaryPlaceholder": "Tafuta anwani au weka anwani ya G...",
+      "cliffDays": "Mwamba (siku)",
+      "cliffHint": "Hakuna utolewaji kabla ya mwamba",
+      "durationDays": "Muda (siku)",
+      "durationHint": "Kipindi chote cha ugawaji",
+      "intervalDays": "Kipindi (siku)",
+      "intervalHint": "Mara kwa mara ya utolewaji",
+      "descriptionLabel": "Maelezo (hiari)",
+      "descriptionPlaceholder": "k.m., Ugawaji wa mfanyakazi, Mgao wa mshauri",
+      "revocableHint": "Msimamizi anaweza kughairi na kurudisha fedha ambazo hazijagawiwa",
+      "previewTitle": "Hakikisho la Ugawaji",
+      "previewCliff": "• Mwamba unaisha: {{date}}",
+      "previewVested": "• Imegawiwa kikamilifu: {{date}}",
+      "previewReleases": "• Hutoa kila siku {{days}} baada ya mwamba",
+      "feeNotice": "⚠️ Ada ya 0.1 XLM itatozwa kwa kuunda ratiba ya ugawaji.",
+      "creating": "Inaunda...",
+      "createButton": "Unda Ratiba ya Ugawaji"
+    },
+    "bulk": {
+      "title": "Unda Ugawaji kwa Wingi",
+      "subtitle": "Unda ratiba nyingi za ugawaji kwa mara moja (kiwango cha juu {{max}} kwa kundi)",
+      "downloadTemplate": "Pakua Kiolezo",
+      "importCsv": "Ingiza CSV",
+      "totalLabel": "Jumla:",
+      "pendingLabel": "Inasubiri:",
+      "successLabel": "Mafanikio:",
+      "errorsLabel": "Hitilafu:",
+      "maxBatchWarning": "Ukubwa wa juu wa kundi umefikiwa (ratiba {{max}}). Shughulikia hizi kabla ya kuongeza zaidi.",
+      "beneficiaryLabel": "Anwani ya Mnufaika",
+      "amountLabel": "Kiasi",
+      "tokenLabel": "Tokeni",
+      "cliffLabel": "Mwamba (siku)",
+      "durationLabel": "Muda (siku)",
+      "intervalLabel": "Kipindi (siku)",
+      "descriptionLabel": "Maelezo",
+      "optionalPlaceholder": "Hiari",
+      "duplicate": "Nakala",
+      "remove": "Ondoa",
+      "addSchedule": "Ongeza Ratiba ya Ugawaji",
+      "previewCliff": "Mwamba: {{date}}",
+      "previewEnd": "Mwisho: {{date}}",
+      "previewReleases": "Hutoa kila siku {{days}}",
+      "processing": "Inashughulikia {{current}} kati ya {{total}}...",
+      "readyCount_one": "Ratiba {{count}} tayari kuundwa",
+      "readyCount_other": "Ratiba {{count}} tayari kuundwa",
+      "feeTotal": "• Ada: {{fee}} XLM jumla",
+      "creatingProposals": "Inaunda Mapendekezo...",
+      "createProposals_one": "Unda Pendekezo {{count}}",
+      "createProposals_other": "Unda Mapendekezo {{count}}",
+      "defaultDescription": "Ratiba ya Ugawaji ya Wingi",
+      "maxBatchAlert": "Kiwango cha juu cha ratiba za ugawaji {{max}} kwa kundi ili kuepuka kulemea mtandao.",
+      "csvTooManyAlert": "CSV ina ingizo {{count}}. Kiwango cha juu ni {{max}} kwa kundi. Ni {{max}} za kwanza pekee zitakazoingizwa.",
+      "errors": {
+        "invalidBeneficiary": "Anwani ya mnufaika si sahihi",
+        "invalidAmount": "Kiasi si sahihi",
+        "noToken": "Tokeni haijachaguliwa",
+        "durationPositive": "Muda wa ugawaji lazima uwe mkubwa kuliko 0",
+        "invalidCliff": "Kipindi cha mwamba si sahihi",
+        "cliffShorter": "Mwamba lazima uwe mfupi kuliko muda wote",
+        "invalidInterval": "Kipindi cha utolewaji si sahihi",
+        "createFailed": "Imeshindwa kuunda pendekezo"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Unda Hazina Mpya",
+    "defaultName": "Hazina Yangu",
+    "defaultNameNumbered": "Hazina Yangu {{number}}",
+    "vaultName": "Jina la Hazina",
+    "youOwner": "Wewe (Mmiliki)",
+    "add": "Ongeza",
+    "addSignerPlaceholder": "Ongeza anwani ya mtia saini (G...)",
+    "hideContacts": "Ficha anwani",
+    "addFromContacts": "Ongeza kutoka kwa anwani",
+    "signers_one": "Watia saini ({{count}})",
+    "signers_other": "Watia saini ({{count}})",
+    "thresholdLabel": "Kizingiti cha Idhini: {{threshold}} kati ya {{total}}",
+    "thresholdHint_one": "Saini {{count}} inahitajika kuidhinisha miamala",
+    "thresholdHint_other": "Saini {{count}} zinahitajika kuidhinisha miamala",
+    "creating": "Inaunda...",
+    "checking": "Inakagua...",
+    "insufficientBalanceShort": "Salio Halitoshi",
+    "createButton": "Unda Hazina",
+    "balance": {
+      "insufficientTitle": "Salio la XLM Halitoshi",
+      "needAtLeast": "Unahitaji angalau <b>{{amount}} XLM</b> kuunda hazina.",
+      "current": "Salio lako la sasa: <b>{{amount}} XLM</b>",
+      "coversFee": "Hii inashughulikia ada ya uundaji ya {{fee}} XLM pamoja na gharama za miamala.",
+      "getFriendbot": "Pata XLM ya testnet kutoka Friendbot",
+      "checking": "Inakagua salio..."
+    },
+    "fee": {
+      "creationFee": "Ada ya uundaji wa hazina:",
+      "yourBalance": "Salio lako:"
+    },
+    "errors": {
+      "invalidAddress": "Anwani ya Stellar si sahihi",
+      "signerExists": "Mtia saini tayari ameongezwa",
+      "insufficientBalance": "Salio la XLM halitoshi. Unahitaji angalau {{amount}} XLM.",
+      "signersBelowThreshold": "Idadi ya watia saini lazima iwe angalau sawa na kizingiti",
+      "factoryNotConfigured": "Factory haijasanidiwa",
+      "transactionFailed": "Muamala umeshindwa",
+      "noReturnValue": "Hakuna thamani iliyorejeshwa kutoka kwa muamala",
+      "parseFailed": "Haikuweza kuchanganua anwani ya hazina kutoka kwa matokeo",
+      "noAddress": "Haikuweza kupata anwani ya hazina kutoka kwa matokeo",
+      "invalidVaultAddress": "Muundo wa anwani ya hazina si sahihi",
+      "createFailed": "Imeshindwa kuunda hazina"
+    }
+  },
+  "fiatRamp": {
+    "title": "Lango la Kuingiza / Kutoa Fedha",
+    "subtitle": "Hamisha pesa kati ya fedha za kawaida na USDC. Fedha hutua moja kwa moja kwenye hazina yako.",
+    "soon": "Hivi karibuni",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Kadi na benki → USDC, hupelekwa moja kwa moja kwenye hazina."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Ingiza / toa pesa taslimu katika maeneo ya mawakala duniani kote."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Kadi na benki → USDC kupitia Stripe, hupelekwa kwenye hazina."
+      }
+    },
+    "mode": {
+      "cashToVault": "Pesa → Hazina",
+      "vaultToCash": "Hazina → Pesa"
+    },
+    "fields": {
+      "anchor": "Nanga",
+      "amount": "Kiasi (USDC)",
+      "amountOptional": "Kiasi (USDC) — hiari",
+      "amountWidgetPlaceholder": "Acha wazi ili kuchagua katika kifaa",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Vikomo: {{min}}–{{max}} USDC kwa muamala",
+      "outOfRange": "Kiasi lazima kiwe kati ya {{min}} na {{max}} USDC."
+    },
+    "actions": {
+      "working": "Inafanya kazi…",
+      "buyWithTransak": "Nunua USDC kwa Transak",
+      "buyWithStripe": "Nunua USDC kwa Stripe",
+      "startDeposit": "Anza uwekaji wa pesa",
+      "startWithdrawal": "Anza utoaji wa pesa"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL ya API haijasanidiwa — weka REACT_APP_API_URL mara seva itakapowekwa.",
+      "serverDisabled": "Mtoa huduma huyu bado hajawezeshwa kwenye seva."
+    },
+    "status": {
+      "anchorStatus": "Hali ya nanga: {{status}}",
+      "creatingTransak": "Inaunda kipindi salama cha Transak…",
+      "openingTransak": "Inafungua Transak…",
+      "transakClosed": "Dirisha la Transak limefungwa.",
+      "transakSuccess": "Agizo la Transak limekamilika. USDC inapelekwa kwenye hazina. Kitambulisho cha Agizo: {{orderId}}",
+      "creatingStripe": "Inaunda kipindi cha kuingiza cha Stripe…",
+      "stripeOpened": "Kuingiza kwa Stripe kumefunguliwa.",
+      "authenticating": "Inathibitisha utambulisho na nanga…",
+      "openingCashIn": "Inafungua dirisha la kuingiza pesa…",
+      "openingCashOut": "Inafungua dirisha la KYC / kutoa pesa…",
+      "creatingProposals": "Inaunda mapendekezo ya saini-nyingi (utoaji + ada ya 0.3%)…",
+      "proposalsCreated": "Mapendekezo yameundwa. Utoaji #{{withdrawId}}, ada #{{feeId}}. Kusanya idhini ili kutekeleza."
+    },
+    "errors": {
+      "apiUrlMissing": "URL ya API haijasanidiwa (REACT_APP_API_URL).",
+      "sessionFailed": "Kipindi kimeshindwa ({{status}})",
+      "noWidgetUrl": "Hakuna widgetUrl iliyorejeshwa na backend",
+      "transakFailed": "Agizo la Transak limeshindwa.",
+      "openTransakFailed": "Imeshindwa kufungua Transak",
+      "stripeSessionFailed": "Kipindi cha Stripe kimeshindwa ({{status}})",
+      "noClientSecret": "Hakuna clientSecret iliyorejeshwa na backend",
+      "startStripeFailed": "Imeshindwa kuanzisha Stripe",
+      "depositFailed": "Uwekaji umeshindwa kuanza",
+      "withdrawFailed": "Utoaji umeshindwa kuanza"
+    },
+    "summary": {
+      "title": "Muhtasari",
+      "amount": "Kiasi",
+      "platformFee": "Ada ya jukwaa ({{pct}}%)",
+      "youReceive": "Unapokea kwenye hazina",
+      "sentToAnchor": "Imetumwa kwa nanga",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Ada za nanga na mtandao hutozwa kando na {{provider}}.",
+      "theProvider": "mtoa huduma"
+    },
+    "howItWorks": {
+      "title": "Jinsi inavyofanya kazi",
+      "transak": "Lipa kwa kadi au uhamisho wa benki. Baada ya KYC, Transak hupeleka USDC kwenye Stellar moja kwa moja kwa anwani ya hazina yako. Hakuna idhini ya saini-nyingi inayohitajika kwa fedha zinazoingia.",
+      "moneygram": "Uwekaji hutua moja kwa moja kwenye hazina. Utoaji huunda mapendekezo mawili ya saini-nyingi — uhamisho na ada ya jukwaa ya 0.3% — ambayo watia saini wako lazima waidhinishe kabla fedha hazijaondoka kwenye hazina.",
+      "stripe": "Lipa kwa kadi au benki kupitia Stripe. Stripe hushughulikia KYC na hupeleka USDC kwenye Stellar moja kwa moja kwa anwani ya hazina yako."
+    },
+    "destination": {
+      "title": "Hazina lengwa"
+    }
+  },
+  "common": {
+    "copy": "Nakili",
+    "share": "Shiriki",
+    "loading": "Inapakia…",
+    "cancel": "Ghairi",
+    "confirm": "Thibitisha",
+    "save": "Hifadhi",
+    "close": "Funga",
+    "refresh": "Onyesha upya",
+    "unknown": "Isiyojulikana",
+    "change": "Badilisha",
+    "open": "Fungua",
+    "update": "Sasisha",
+    "all": "Yote",
+    "notAvailable": "Haipatikani"
+  }
+}

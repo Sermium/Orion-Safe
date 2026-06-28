@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Oorsig",
+    "money": "Geld",
+    "vestingLocks": "Vestiging & Slotte",
+    "team": "Span",
+    "system": "Stelsel",
+    "dashboard": "Kontroleskerm",
+    "assets": "Bates",
+    "fiat": "Fiat-oprit",
+    "transactions": "Transaksies",
+    "locks": "Slotte",
+    "vesting": "Vestiging",
+    "members": "Lede",
+    "contacts": "Kontakte",
+    "settings": "Instellings",
+    "docs": "Dokumentasie",
+    "admin": "Admin",
+    "claim": "Eis Tekens"
+  },
+  "fiat": {
+    "title": "Fiat-oprit",
+    "deposit": "Deponeer",
+    "withdraw": "Onttrek",
+    "amount": "Bedrag",
+    "provider": "Verskaffer",
+    "fee": "Platformfooi",
+    "destination": "Bestemmingskluis",
+    "comingSoon": "Binnekort"
+  },
+  "sidebar": {
+    "currentVault": "Huidige Kluis",
+    "selectVault": "Kies Kluis",
+    "createNewVault": "Skep Nuwe Kluis",
+    "sharePublicView": "Deel Openbare Aansig",
+    "disconnect": "Ontkoppel",
+    "connected": "Gekoppel",
+    "linkCopied": "Openbare skakel gekopieer!"
+  },
+  "header": {
+    "timeLocks": "Tydslotte",
+    "deposit": "Deponeer",
+    "send": "Stuur"
+  },
+  "settings": {
+    "title": "Kluisinstellings",
+    "subtitle": "Bestuur jou kluiskonfigurasie en lede",
+    "language": "Taal",
+    "languageAuto": "Outomaties (toestel se taal)",
+    "languageHint": "Outomaties volg jou toestel se taal en val terug na Engels indien nie ondersteun nie.",
+    "tabs": {
+      "general": "Algemeen",
+      "members": "Lede & Rolle",
+      "advanced": "Gevorderd"
+    },
+    "vaultInfo": "Kluisinligting",
+    "vaultName": "Kluisnaam",
+    "vaultAddress": "Kluisadres",
+    "notSelected": "Nie gekies nie",
+    "yourRole": "Jou Rol",
+    "members": "Lede",
+    "threshold": "Drempel",
+    "superAdmins": "Super-administrateurs",
+    "connectedWallet": "Gekoppelde Beursie",
+    "publicKey": "Publieke Sleutel",
+    "approvalThreshold": "Goedkeuringsdrempel",
+    "thresholdDesc": "{{threshold}} van {{total}} handtekeninge vereis om transaksies uit te voer",
+    "vaultMembers": "Kluislede",
+    "vaultMembersDesc": "Bestuur wie toegang tot hierdie kluis het en dit kan beheer",
+    "addMember": "Voeg Lid By",
+    "you": "Jy",
+    "copyAddress": "Kopieer adres",
+    "removeMember": "Verwyder lid",
+    "rolePermissions": "Rolregte",
+    "adminsOnly": "Slegs kluis-administrateurs kan lede en rolle bestuur.",
+    "contractDetails": "Kontrakbesonderhede",
+    "contractType": "Kontraktipe",
+    "sorobanContract": "Soroban Slimkontrak",
+    "network": "Netwerk",
+    "testnet": "Toetsnet",
+    "actions": "Aksies",
+    "exportData": "Voer Kluisdata Uit",
+    "exportDataDesc": "Laai konfigurasie en transaksiegeskiedenis af",
+    "export": "Voer uit",
+    "viewExplorer": "Bekyk op Verkenner",
+    "viewExplorerDesc": "Maak kluiskontrak op Stellar Expert oop",
+    "dangerZone": "Gevaarsone",
+    "leaveVault": "Verlaat Kluis",
+    "leaveVaultDesc": "Verwyder jouself as 'n ondertekenaar. Dit kan nie ongedaan gemaak word nie.",
+    "leaveLastWarning": "Jy is die laaste lid - om te verlaat sal die kluis laat vaar!",
+    "leaving": "Verlaat tans...",
+    "leave": "Verlaat",
+    "addNewMember": "Voeg Nuwe Lid By",
+    "addNewMemberDesc": "Kies uit kontakte of voer adres handmatig in",
+    "fromContacts": "Uit Kontakte",
+    "enterAddress": "Voer Adres In",
+    "searchContacts": "Soek kontakte...",
+    "noContactsAvailable": "Geen kontakte beskikbaar nie (almal is reeds lede)",
+    "noContactsFound": "Geen kontakte gevind nie",
+    "allContactsMembers": "Al jou kontakte is reeds kluislede. Gebruik \"Voer Adres In\" om 'n nuwe lid by te voeg.",
+    "stellarAddress": "Stellar-adres",
+    "role": "Rol",
+    "adding": "Voeg tans by...",
+    "changeThreshold": "Verander Goedkeuringsdrempel",
+    "requiredSignatures": "Vereiste handtekeninge: {{threshold}} van {{total}}",
+    "thresholdWarning": "Om die drempel te verander beïnvloed sekuriteit. 'n Hoër drempel vereis meer handtekeninge maar kan bewerkings vertraag.",
+    "updating": "Werk tans by...",
+    "roles": {
+      "superAdmin": "Super-administrateur",
+      "admin": "Administrateur",
+      "executor": "Uitvoerder"
+    },
+    "roleOptions": {
+      "superAdmin": "Super-administrateur - Volle beheer",
+      "admin": "Administrateur - Bestuur lede",
+      "executor": "Uitvoerder - Kan transaksies doen"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Volle kluisbeheer",
+        "2": "Bestuur alle lede & rolle",
+        "3": "Verander drempel",
+        "4": "Skep & voer transaksies uit"
+      },
+      "admin": {
+        "1": "Bestuur uitvoerders",
+        "2": "Verander drempel",
+        "3": "Skep & keur transaksies goed",
+        "4": "Bestuur slotte"
+      },
+      "executor": {
+        "1": "Skep transaksies",
+        "2": "Keur transaksies goed",
+        "3": "Voer goedgekeurde transaksies uit",
+        "4": "Bekyk alle aktiwiteit"
+      }
+    },
+    "success": {
+      "memberAdded": "Lid suksesvol bygevoeg!",
+      "memberRemoved": "Lid suksesvol verwyder!",
+      "roleUpdated": "Rol suksesvol bygewerk!",
+      "thresholdUpdated": "Drempel suksesvol bygewerk!",
+      "leftVault": "Jy het die kluis suksesvol verlaat!"
+    },
+    "errors": {
+      "invalidAddress": "Ongeldige Stellar-adres",
+      "alreadyMember": "Adres is reeds 'n lid",
+      "addFailed": "Kon nie lid byvoeg nie",
+      "removeBreaksThreshold": "Kan nie lid verwyder nie: sal drempelvereiste breek",
+      "lastSuperAdminRemove": "Kan nie die laaste super-administrateur verwyder nie",
+      "removeFailed": "Kon nie lid verwyder nie",
+      "needOneSuperAdmin": "Kan nie rol verander nie: kluis moet ten minste een super-administrateur hê",
+      "roleFailed": "Kon nie rol verander nie",
+      "thresholdMin": "Drempel moet ten minste 1 wees",
+      "thresholdMax": "Drempel kan nie die aantal lede oorskry nie",
+      "thresholdFailed": "Kon nie drempel bywerk nie",
+      "leaveLastSuperAdmin": "Jy is die laaste super-administrateur. Wys asseblief 'n ander super-administrateur aan voor jy verlaat, of verwyder eers alle ander lede.",
+      "leaveBreaksThreshold": "Kan nie verlaat nie: sal drempelvereiste breek. Huidige drempel is {{threshold}}, maar slegs {{remaining}} lede sal oorbly.",
+      "leaveFailed": "Kon nie kluis verlaat nie"
+    },
+    "confirm": {
+      "removeMember": "Verwyder {{name}} uit kluis?",
+      "leaveDefault": "Is jy seker jy wil hierdie kluis verlaat? Hierdie aksie kan nie ongedaan gemaak word nie.",
+      "leaveLastMember": "WAARSKUWING: Jy is die LAASTE lid van hierdie kluis. Om te verlaat sal die kluis permanent LAAT VAAR. Enige oorblywende fondse sal ontoeganklik wees. Is jy absoluut seker?",
+      "leaveFinalWarning": "Dit is jou LAASTE waarskuwing. Die kluis sal permanent laat vaar word. Gaan voort?"
+    }
+  },
+  "assets": {
+    "title": "Bates",
+    "subtitle": "Bestuur jou kluisbates",
+    "addToken": "Voeg Teken By",
+    "authorize": "Magtig",
+    "totalBalance": "Totale Saldo",
+    "remainingDailySpend": "Oorblywende Daaglikse Besteding",
+    "yourAssets": "Jou Bates",
+    "clickToManage": "Klik op 'n bate om dit te bestuur",
+    "noAssets": "Nog geen bates nie",
+    "noAssetsDesc": "Deponeer 'n paar tekens om te begin",
+    "makeFirstDeposit": "Maak Eerste Deposito",
+    "availableBalance": "Beskikbare Saldo",
+    "actions": {
+      "deposit": "Deponeer",
+      "depositDesc": "Voeg meer {{symbol}} by die kluis",
+      "send": "Stuur",
+      "sendDesc": "Stel 'n oordrag van {{symbol}} voor",
+      "timeLock": "Tydslot",
+      "timeLockDesc": "Sluit tot 'n spesifieke datum",
+      "vesting": "Vestiging",
+      "vestingDesc": "Skep 'n vestigingskedule met afgrond"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Slotte- & Vestigingskalender",
+    "summary": "{{timeLocks}} tydslotte, {{vestings}} vestigings",
+    "viewCalendar": "Kalender",
+    "viewList": "Lys",
+    "filterType": "Tipe",
+    "filterStatus": "Status",
+    "timeLocks": "Tydslotte",
+    "vestings": "Vestigings",
+    "timeLock": "Tydslot",
+    "vesting": "Vestiging",
+    "noLocks": "Geen slotte of vestigings om te wys nie",
+    "today": "Vandag",
+    "now": "Nou",
+    "cliff": "Afgrond",
+    "claimable": "Eisbaar",
+    "progress": "Vordering",
+    "start": "Begin",
+    "end": "Einde",
+    "unlock": "Ontsluit",
+    "beneficiary": "Begunstigde",
+    "locked": "gesluit",
+    "vestingLabel": "vestiging",
+    "released": "Vrygestel",
+    "active": "Aktief",
+    "completedCount": "{{count}} voltooi",
+    "status": {
+      "active": "Aktief",
+      "partiallyReleased": "Gedeeltelik Vrygestel",
+      "fullyReleased": "Volledig Vrygestel",
+      "cancelled": "Gekanselleer"
+    },
+    "statusFilter": {
+      "active": "Aktief",
+      "completed": "Voltooi"
+    },
+    "events": {
+      "start": "begin",
+      "cliff": "afgrond",
+      "end": "einde"
+    }
+  },
+  "claim": {
+    "title": "Eis Jou Tekens",
+    "subtitleVault": "Bekyk slotte van kluis {{address}}",
+    "subtitleAll": "Bekyk en eis slotte aan jou toegeken",
+    "disconnect": "Ontkoppel",
+    "connectWallet": "Koppel Beursie",
+    "connectTitle": "Koppel Jou Beursie",
+    "connectDescVault": "Koppel jou beursie om alle tydslotte en vestigingskedules te sien wat van hierdie kluis aan jou toegeken is.",
+    "connectDescAll": "Koppel jou beursie om alle tydslotte en vestigingskedules te sien wat oor alle Stellar-kluise aan jou toegeken is.",
+    "loadingVault": "Laai slotte van kluis...",
+    "loadingAll": "Skandeer kluise vir jou slotte...",
+    "scanProgress": "{{scanned}} van {{total}} kluise nagegaan",
+    "unknownVault": "Onbekende Kluis",
+    "tokensAmount": "{{amount}} tekens",
+    "claimNow": "Eis Nou",
+    "claiming": "Eis tans...",
+    "refreshLocks": "Verfris Slotte",
+    "claimSuccess": "{{amount}} tekens suksesvol geëis!",
+    "errorLoad": "Kon nie slotte laai nie",
+    "errorClaim": "Kon nie eis nie",
+    "stats": {
+      "readyToClaim": "Gereed om te Eis",
+      "pending": "Hangend",
+      "completed": "Voltooi"
+    },
+    "sections": {
+      "readyToClaim": "Gereed om te Eis",
+      "pending": "Hangend"
+    },
+    "fields": {
+      "fromVault": "Van Kluis",
+      "totalAmount": "Totale Bedrag",
+      "description": "Beskrywing",
+      "timeRemaining": "Tyd Oor",
+      "unlockDate": "Ontsluitdatum"
+    },
+    "types": {
+      "timeLock": "Tydslot",
+      "vesting": "Vestiging",
+      "unknown": "Onbekend"
+    },
+    "time": {
+      "unlocked": "Ontsluit",
+      "fullyVested": "Volledig gevestig",
+      "remaining": "{{days}}d {{hours}}u oor",
+      "toCliff": "{{days}}d {{hours}}u tot afgrond"
+    },
+    "empty": {
+      "title": "Geen slotte gevind nie",
+      "descVault": "Jy het geen slotte aan jou toegeken in hierdie kluis nie.",
+      "descAll": "Jy het geen tydslotte of vestigingskedules aan jou toegeken nie."
+    }
+  },
+  "contacts": {
+    "title": "Kontakboek",
+    "subtitle": "Stoor gereeld gebruikte adresse vir vinnige toegang",
+    "addContact": "Voeg Kontak By",
+    "searchPlaceholder": "Soek kontakte...",
+    "savedCount_one": "{{count}} kontak gestoor",
+    "savedCount_other": "{{count}} kontakte gestoor",
+    "confirmDelete": "Skrap \"{{name}}\" uit kontakte?",
+    "errors": {
+      "nameRequired": "Naam word vereis",
+      "addressRequired": "Adres word vereis",
+      "invalidAddress": "Ongeldige Stellar-adres",
+      "duplicate": "Hierdie adres is reeds in jou kontakte"
+    },
+    "empty": {
+      "noMatch": "Geen kontakte stem ooreen met jou soektog nie",
+      "none": "Nog geen kontakte nie",
+      "addFirst": "Voeg jou eerste kontak by →"
+    },
+    "actions": {
+      "copy": "Kopieer adres",
+      "edit": "Wysig kontak",
+      "delete": "Skrap kontak"
+    },
+    "modal": {
+      "addTitle": "Voeg Nuwe Kontak By",
+      "editTitle": "Wysig Kontak",
+      "nameLabel": "Naam *",
+      "namePlaceholder": "bv. Alice, Tesourie, Beurs",
+      "addressLabel": "Stellar-adres *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adres kan nie verander word nie",
+      "notesLabel": "Notas (opsioneel)",
+      "notesPlaceholder": "Voeg enige notas oor hierdie kontak by...",
+      "saveChanges": "Stoor Veranderinge"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Totale Saldo",
+      "threshold": "Drempel",
+      "signaturesRequired": "handtekeninge vereis",
+      "pending": "Hangend",
+      "awaitingApproval": "wag op goedkeuring",
+      "readyToExecute": "Gereed om Uit te Voer",
+      "fullyApproved": "volledig goedgekeur"
+    },
+    "activeProposals": "Aktiewe Voorstelle",
+    "viewAll": "Bekyk Alles",
+    "noProposals": "Nog geen voorstelle nie",
+    "createFirst": "Skep jou eerste transaksie →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Aan {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} goedkeurings",
+    "status": {
+      "pending": "Hangend",
+      "approved": "Goedgekeur",
+      "executed": "Uitgevoer",
+      "rejected": "Verwerp",
+      "unknown": "Onbekend"
+    },
+    "types": {
+      "transfer": "Oordrag",
+      "timeLock": "Tydslot",
+      "vesting": "Vestiging",
+      "unknown": "Onbekend"
+    }
+  },
+  "locks": {
+    "title": "Tydslotte",
+    "subtitle": "Sluit bates tot 'n spesifieke datum",
+    "bulkCreate": "Massaskep",
+    "createTimeLock": "Skep Tydslot",
+    "creating": "Skep tans...",
+    "createFirst": "Skep Jou Eerste Tydslot",
+    "empty": "Nog geen tydslotte geskep nie",
+    "archived": "Geargiveer",
+    "selectToken": "Kies teken",
+    "available": "{{amount}} beskikbaar",
+    "quickSelect": "Vinnige keuse:",
+    "beneficiaryPlaceholder": "Soek kontakte of voer G...-adres in",
+    "descriptionPlaceholder": "bv. Spantoekenning",
+    "optional": "Opsioneel",
+    "revocableLabel": "Herroepbaar",
+    "revocableHint": "Administrateur kan kanselleer en fondse na kluis terugstuur",
+    "feeWarning": "'n Fooi van 10 XLM sal gehef word vir die skep van die slot.",
+    "defaultDescription": "Tydslot",
+    "lockNumber": "Slot #{{id}}",
+    "timeLockBadge": "Tydslot",
+    "revocableBadge": "Herroepbaar",
+    "readyToClaim": "Gereed om te Eis",
+    "releasedLabel": "Vrygestel",
+    "you": "Jy",
+    "claim": "Eis",
+    "cancel": "Kanselleer",
+    "close": "Sluit",
+    "confirmCancel": "Is jy seker jy wil hierdie slot kanselleer?",
+    "stats": {
+      "total": "Totale Tydslotte",
+      "active": "Aktief",
+      "unlocked": "Ontsluit",
+      "yourLocks": "Jou Slotte"
+    },
+    "sections": {
+      "yours": "Jou Tydslotte",
+      "active": "Aktiewe Tydslotte",
+      "pendingCompletion": "Hangende Voltooiing"
+    },
+    "fields": {
+      "token": "Teken",
+      "amount": "Bedrag",
+      "beneficiary": "Begunstigde",
+      "beneficiaryAddress": "Begunstigde se Adres",
+      "remaining": "Oorblywend",
+      "timeStatus": "Tydstatus",
+      "unlockDate": "Ontsluitdatum",
+      "unlockDateTime": "Ontsluitdatum & -tyd",
+      "creator": "Skepper",
+      "description": "Beskrywing",
+      "descriptionOptional": "Beskrywing (opsioneel)"
+    },
+    "statuses": {
+      "active": "Aktief",
+      "partiallyReleased": "Gedeeltelik Vrygestel",
+      "fullyReleased": "Volledig Vrygestel",
+      "cancelled": "Gekanselleer",
+      "unknown": "Onbekend"
+    },
+    "time": {
+      "unlocked": "Ontsluit",
+      "remainingDays": "{{days}}d {{hours}}u oor",
+      "remainingHours": "{{hours}}u oor"
+    },
+    "errors": {
+      "fillRequired": "Vul asseblief alle vereiste velde in",
+      "invalidBeneficiary": "Ongeldige begunstigde se adres",
+      "unlockFuture": "Ontsluittyd moet in die toekoms wees",
+      "createFailed": "Kon nie slot skep nie",
+      "claimFailed": "Kon nie eis nie",
+      "cancelFailed": "Kon nie slot kanselleer nie",
+      "invalidAmount": "Ongeldige bedrag",
+      "tokenNotSelected": "Teken nie gekies nie",
+      "unlockRequired": "Ontsluitdatum vereis",
+      "proposalFailed": "Kon nie voorstel skep nie"
+    },
+    "bulk": {
+      "title": "Massaskep Tydslotte",
+      "subtitle": "Skep verskeie tydslotte op 'n slag (maks {{max}} per bondel)",
+      "downloadTemplate": "Laai Sjabloon Af",
+      "importCsv": "Voer CSV In",
+      "statsTotal": "Totaal",
+      "statsPending": "Hangend",
+      "statsSuccess": "Sukses",
+      "statsErrors": "Foute",
+      "maxReachedAlert": "Maksimum {{max}} tydslotte per bondel om netwerkoorlading te vermy.",
+      "maxReachedWarning": "Maksimum bondelgrootte bereik ({{max}} slotte). Verwerk hierdie voordat jy meer byvoeg.",
+      "csvTooMany": "CSV bevat {{count}} inskrywings. Maksimum {{max}} per bondel. Slegs die eerste {{max}} sal ingevoer word.",
+      "duplicate": "Duplikaat",
+      "remove": "Verwyder",
+      "addEntry": "Voeg Tydslot By",
+      "processing": "Verwerk tans {{current}} van {{total}}...",
+      "readyCount_one": "{{count}} slot gereed om te skep",
+      "readyCount_other": "{{count}} slotte gereed om te skep",
+      "feeTotal": "• Fooi: {{fee}} XLM totaal",
+      "creatingProposals": "Skep tans Voorstelle...",
+      "createCount_one": "Skep {{count}} Voorstel",
+      "createCount_other": "Skep {{count}} Voorstelle",
+      "defaultDescription": "Massa-tydslot"
+    }
+  },
+  "members": {
+    "title": "Kluislede",
+    "subtitle_one": "{{count}} lid • Drempel: {{threshold}} van {{total}}",
+    "subtitle_other": "{{count}} lede • Drempel: {{threshold}} van {{total}}",
+    "searchPlaceholder": "Soek lede volgens adres, naam of rol...",
+    "manageHint": "Om lede te bestuur (byvoeg, verwyder, rolle verander), gaan na <strong>Instellings → Lede & Rolle</strong>",
+    "you": "Jy",
+    "addToContacts": "Voeg by kontakte",
+    "noResults": "Geen lede gevind wat met jou soektog ooreenstem nie.",
+    "stats": {
+      "totalMembers": "Totale Lede",
+      "superAdmins": "Super-administrateurs",
+      "admins": "Administrateurs",
+      "executors": "Uitvoerders"
+    },
+    "roles": {
+      "superAdmin": "Super-administrateur",
+      "admin": "Administrateur",
+      "executor": "Uitvoerder"
+    },
+    "permissions": {
+      "title": "Rolregte",
+      "superAdmin": "Volle beheer insluitend die bestuur van ander administrateurs en kritieke instellings",
+      "admin": "Kan kluisinstellings, lede bestuur en transaksies goedkeur",
+      "executor": "Kan transaksies skep, goedkeur en uitvoer"
+    },
+    "addContactModal": {
+      "title": "Voeg by Kontakte",
+      "addressLabel": "Adres",
+      "nameLabel": "Naam",
+      "namePlaceholder": "Voer 'n naam vir hierdie kontak in",
+      "save": "Stoor Kontak"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar-kluis",
+    "publicViewBadge": "Openbare Aansig",
+    "loading": "Laai kluisdata...",
+    "noLocks": "Nog geen slotte geskep nie",
+    "noAssets": "Geen bates gevind nie",
+    "revocable": "Herroepbaar",
+    "released": "Vrygestel",
+    "allLocks": "Alle Slotte ({{count}})",
+    "toBeneficiary": "Aan: {{address}}",
+    "errors": {
+      "title": "Kon Nie Kluis Laai Nie",
+      "loadFailed": "Kon nie kluisdata laai nie"
+    },
+    "tabs": {
+      "overview": "Oorsig",
+      "locks": "Slotte",
+      "calendar": "Kalender",
+      "assets": "Bates"
+    },
+    "stats": {
+      "signers": "Ondertekenaars",
+      "threshold": "Drempel: {{count}}",
+      "totalLocks": "Totale Slotte",
+      "activeCount": "{{count}} aktief",
+      "assets": "Bates",
+      "tokensHeld": "tekens gehou",
+      "lockedValue": "Geslote Waarde",
+      "totalLocked": "totaal gesluit"
+    },
+    "sections": {
+      "signers": "Ondertekenaars",
+      "recentLocks": "Onlangse Slotte",
+      "assets": "Bates"
+    },
+    "fields": {
+      "amount": "Bedrag",
+      "beneficiary": "Begunstigde",
+      "unlockDate": "Ontsluitdatum",
+      "timeRemaining": "Tyd Oor"
+    },
+    "status": {
+      "active": "Aktief",
+      "partiallyReleased": "Gedeeltelik Vrygestel",
+      "fullyReleased": "Volledig Vrygestel",
+      "cancelled": "Gekanselleer"
+    },
+    "lockType": {
+      "timeLock": "Tydslot",
+      "vesting": "Vestiging"
+    },
+    "time": {
+      "unlocked": "Ontsluit",
+      "cliffPassed": "Afgrond verby",
+      "remaining": "{{days}}d {{hours}}u oor",
+      "toCliff": "{{days}}d {{hours}}u tot afgrond"
+    },
+    "footer": {
+      "title": "Stellar-kluis - Openbare Aansig",
+      "poweredBy": "Aangedryf deur Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transaksies",
+    "subtitle": "Bekyk en bestuur kluisvoorstelle en oordragte",
+    "bulkTransfer": "Massa-oordrag",
+    "newTransaction": "Nuwe Transaksie",
+    "createFirst": "Skep Eerste Voorstel",
+    "completedProposals": "Voltooide Voorstelle",
+    "noHistory": "Geen transaksiegeskiedenis gevind nie",
+    "noHistoryNote": "Let wel: Soroban-kontraktransaksies verskyn deur uitgevoerde voorstelle",
+    "received": "Ontvang",
+    "sent": "Gestuur",
+    "onChainPayments_one": "{{count}} op-ketting-betaling",
+    "onChainPayments_other": "{{count}} op-ketting-betalings",
+    "approvalsCount": "{{count}}/{{threshold}} goedkeurings",
+    "rejectionsCount": "{{count}}/{{threshold}} verwerpings",
+    "tabs": {
+      "proposals": "Voorstelle ({{count}})",
+      "history": "Geskiedenis ({{count}})"
+    },
+    "filters": {
+      "all": "Alles",
+      "pending": "Hangend",
+      "approved": "Goedgekeur"
+    },
+    "empty": {
+      "all": "Geen voorstelle gevind nie",
+      "filtered": "Geen {{filter}} voorstelle gevind nie"
+    },
+    "status": {
+      "pending": "Hangend",
+      "approved": "Goedgekeur",
+      "executed": "Uitgevoer",
+      "rejected": "Verwerp"
+    },
+    "types": {
+      "transfer": "Oordrag",
+      "timeLock": "Tydslot",
+      "vesting": "Vestiging"
+    },
+    "fields": {
+      "to": "Aan:",
+      "from": "Van:",
+      "by": "Deur:",
+      "beneficiary": "Begunstigde:",
+      "created": "Geskep:",
+      "approvals": "Goedkeurings:",
+      "unlockDate": "Ontsluitdatum:",
+      "cliffDate": "Afgronddatum:",
+      "endDate": "Einddatum:"
+    },
+    "actions": {
+      "approve": "Keur goed",
+      "execute": "Voer uit",
+      "reject": "Verwerp",
+      "confirmReject": "Bevestig Verwerping"
+    },
+    "bulk": {
+      "title": "Massa-oordrag",
+      "subtitle": "Skep verskeie oordragvoorstelle in 'n bondel (maks {{max}} per bondel)",
+      "importCsv": "Voer CSV In",
+      "downloadTemplate": "Laai Sjabloon Af",
+      "csvHelp": "CSV-formaat Hulp",
+      "totalLabel": "Totaal:",
+      "successLabel": "Sukses:",
+      "failedLabel": "Misluk:",
+      "csvFormatTitle": "CSV-formaat",
+      "csvFormatNote": "Gebruik \"native\" vir XLM of die volle teken-kontrakadres.",
+      "maxBatchWarning": "Maksimum {{max}} oordragte per bondel om netwerkoorlading te vermy. Skep nog 'n bondel vir meer.",
+      "recipientLabel": "Ontvanger se Adres",
+      "amountLabel": "Bedrag",
+      "tokenLabel": "Teken",
+      "duplicate": "Duplikaat",
+      "remove": "Verwyder",
+      "addTransfer": "Voeg Oordrag By",
+      "processing": "Verwerk tans {{current}} van {{total}}... ({{delay}}s vertraging tussen transaksies)",
+      "readyCount_one": "{{count}} oordrag gereed",
+      "readyCount_other": "{{count}} oordragte gereed",
+      "totalTokens": "• Totaal: ~{{amount}} tekens",
+      "creatingProposals": "Skep tans Voorstelle...",
+      "createProposals_one": "Skep {{count}} Voorstel",
+      "createProposals_other": "Skep {{count}} Voorstelle",
+      "maxBatchAlert": "Maksimum {{max}} oordragte per bondel om netwerkoorlading te vermy.",
+      "maxBatchShortAlert": "Maksimum {{max}} oordragte per bondel.",
+      "csvTooManyAlert": "CSV bevat {{count}} inskrywings. Maksimum {{max}} per bondel. Slegs die eerste {{max}} sal ingevoer word.",
+      "errors": {
+        "invalidRecipient": "Ongeldige ontvanger se adres",
+        "invalidAmount": "Ongeldige bedrag",
+        "noToken": "Teken nie gekies nie",
+        "transferUnavailable": "Oordragfunksie nie beskikbaar nie",
+        "createFailed": "Kon nie voorstel skep nie"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Vestigingskedules",
+    "subtitle": "Tekenvestiging met afgrondperiodes en geleidelike vrystelling",
+    "bulkCreate": "Massaskep",
+    "createVesting": "Skep Vestiging",
+    "createFirst": "Skep Jou Eerste Vestigingskedule",
+    "empty": "Nog geen vestigingskedules geskep nie",
+    "archived": "Geargiveer",
+    "revocable": "Herroepbaar",
+    "badge": "Vestiging",
+    "you": "Jy",
+    "claimButton": "💰 Eis",
+    "cardTitle": "Vestiging #{{id}}",
+    "claimableBadge": "{{amount}} Eisbaar",
+    "vestedLabel": "Gevestig: {{vested}} / {{total}}",
+    "releasedLabel": "Vrygestel: {{released}}",
+    "daysValue": "{{count}} dae",
+    "defaultDescription": "Vestigingskedule",
+    "confirmCancel": "Is jy seker jy wil hierdie vestigingskedule kanselleer?",
+    "stats": {
+      "totalVesting": "Totale Vestiging",
+      "active": "Aktief",
+      "claimable": "Eisbaar",
+      "yourVesting": "Jou Vestiging"
+    },
+    "sections": {
+      "yours": "Jou Vestigingskedules",
+      "active": "Aktiewe Vestigingskedules",
+      "pendingCompletion": "Hangende Voltooiing"
+    },
+    "status": {
+      "active": "Aktief",
+      "partiallyReleased": "Gedeeltelik Vrygestel",
+      "fullyReleased": "Volledig Vrygestel",
+      "cancelled": "Gekanselleer"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}u tot afgrond",
+      "fullyVested": "Volledig gevestig",
+      "remaining": "{{days}}d {{hours}}u oor"
+    },
+    "interval": {
+      "daily": "Daagliks",
+      "weekly": "Weekliks",
+      "monthly": "Maandeliks",
+      "quarterly": "Kwartaalliks"
+    },
+    "fields": {
+      "token": "Teken",
+      "remaining": "Oorblywend",
+      "status": "Status",
+      "cliffDate": "Afgronddatum",
+      "endDate": "Einddatum",
+      "releaseInterval": "Vrystellingsinterval",
+      "beneficiary": "Begunstigde",
+      "creator": "Skepper",
+      "description": "Beskrywing"
+    },
+    "errors": {
+      "fillRequired": "Vul asseblief alle vereiste velde in",
+      "invalidBeneficiary": "Ongeldige begunstigde se adres",
+      "durationPositive": "Vestigingsduur moet groter as 0 wees",
+      "cliffShorter": "Afgrond moet korter as totale duur wees",
+      "createFailed": "Kon nie vestiging skep nie",
+      "claimFailed": "Kon nie eis nie",
+      "cancelFailed": "Kon nie kanselleer nie"
+    },
+    "modal": {
+      "title": "Skep Vestigingskedule",
+      "token": "Teken",
+      "selectToken": "Kies teken",
+      "tokenOption": "{{symbol}} - {{amount}} beskikbaar",
+      "totalAmount": "Totale Bedrag",
+      "beneficiary": "Begunstigde",
+      "quickSelect": "Vinnige keuse:",
+      "beneficiaryPlaceholder": "Soek kontakte of voer G...-adres in",
+      "cliffDays": "Afgrond (dae)",
+      "cliffHint": "Geen vrystelling voor afgrond nie",
+      "durationDays": "Duur (dae)",
+      "durationHint": "Totale vestigingsperiode",
+      "intervalDays": "Interval (dae)",
+      "intervalHint": "Vrystellingsfrekwensie",
+      "descriptionLabel": "Beskrywing (opsioneel)",
+      "descriptionPlaceholder": "bv. Werknemervestiging, Adviseurtoekenning",
+      "revocableHint": "Administrateur kan kanselleer en ongevestigde fondse terugstuur",
+      "previewTitle": "Vestigingsvoorskou",
+      "previewCliff": "• Afgrond eindig: {{date}}",
+      "previewVested": "• Volledig gevestig: {{date}}",
+      "previewReleases": "• Stel vry elke {{days}} dae na afgrond",
+      "feeNotice": "⚠️ 'n Fooi van 0.1 XLM sal gehef word vir die skep van die vestigingskedule.",
+      "creating": "Skep tans...",
+      "createButton": "Skep Vestigingskedule"
+    },
+    "bulk": {
+      "title": "Massaskep Vestiging",
+      "subtitle": "Skep verskeie vestigingskedules op 'n slag (maks {{max}} per bondel)",
+      "downloadTemplate": "Laai Sjabloon Af",
+      "importCsv": "Voer CSV In",
+      "totalLabel": "Totaal:",
+      "pendingLabel": "Hangend:",
+      "successLabel": "Sukses:",
+      "errorsLabel": "Foute:",
+      "maxBatchWarning": "Maksimum bondelgrootte bereik ({{max}} skedules). Verwerk hierdie voordat jy meer byvoeg.",
+      "beneficiaryLabel": "Begunstigde se Adres",
+      "amountLabel": "Bedrag",
+      "tokenLabel": "Teken",
+      "cliffLabel": "Afgrond (dae)",
+      "durationLabel": "Duur (dae)",
+      "intervalLabel": "Interval (dae)",
+      "descriptionLabel": "Beskrywing",
+      "optionalPlaceholder": "Opsioneel",
+      "duplicate": "Duplikaat",
+      "remove": "Verwyder",
+      "addSchedule": "Voeg Vestigingskedule By",
+      "previewCliff": "Afgrond: {{date}}",
+      "previewEnd": "Einde: {{date}}",
+      "previewReleases": "Stel vry elke {{days}} dae",
+      "processing": "Verwerk tans {{current}} van {{total}}...",
+      "readyCount_one": "{{count}} skedule gereed om te skep",
+      "readyCount_other": "{{count}} skedules gereed om te skep",
+      "feeTotal": "• Fooi: {{fee}} XLM totaal",
+      "creatingProposals": "Skep tans Voorstelle...",
+      "createProposals_one": "Skep {{count}} Voorstel",
+      "createProposals_other": "Skep {{count}} Voorstelle",
+      "defaultDescription": "Massa-vestigingskedule",
+      "maxBatchAlert": "Maksimum {{max}} vestigingskedules per bondel om netwerkoorlading te vermy.",
+      "csvTooManyAlert": "CSV bevat {{count}} inskrywings. Maksimum {{max}} per bondel. Slegs die eerste {{max}} sal ingevoer word.",
+      "errors": {
+        "invalidBeneficiary": "Ongeldige begunstigde se adres",
+        "invalidAmount": "Ongeldige bedrag",
+        "noToken": "Teken nie gekies nie",
+        "durationPositive": "Vestigingsduur moet groter as 0 wees",
+        "invalidCliff": "Ongeldige afgrondperiode",
+        "cliffShorter": "Afgrond moet korter as totale duur wees",
+        "invalidInterval": "Ongeldige vrystellingsinterval",
+        "createFailed": "Kon nie voorstel skep nie"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Skep Nuwe Kluis",
+    "defaultName": "My Kluis",
+    "defaultNameNumbered": "My Kluis {{number}}",
+    "vaultName": "Kluisnaam",
+    "youOwner": "Jy (Eienaar)",
+    "add": "Voeg by",
+    "addSignerPlaceholder": "Voeg ondertekenaar-adres by (G...)",
+    "hideContacts": "Versteek kontakte",
+    "addFromContacts": "Voeg uit kontakte by",
+    "signers_one": "Ondertekenaars ({{count}})",
+    "signers_other": "Ondertekenaars ({{count}})",
+    "thresholdLabel": "Goedkeuringsdrempel: {{threshold}} van {{total}}",
+    "thresholdHint_one": "{{count}} handtekening vereis om transaksies goed te keur",
+    "thresholdHint_other": "{{count}} handtekeninge vereis om transaksies goed te keur",
+    "creating": "Skep tans...",
+    "checking": "Gaan tans na...",
+    "insufficientBalanceShort": "Onvoldoende Saldo",
+    "createButton": "Skep Kluis",
+    "balance": {
+      "insufficientTitle": "Onvoldoende XLM-saldo",
+      "needAtLeast": "Jy benodig ten minste <b>{{amount}} XLM</b> om 'n kluis te skep.",
+      "current": "Jou huidige saldo: <b>{{amount}} XLM</b>",
+      "coversFee": "Dit dek die {{fee}} XLM skeppingsfooi plus transaksiekoste.",
+      "getFriendbot": "Kry toetsnet-XLM van Friendbot",
+      "checking": "Gaan saldo na..."
+    },
+    "fee": {
+      "creationFee": "Kluisskeppingsfooi:",
+      "yourBalance": "Jou saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Ongeldige Stellar-adres",
+      "signerExists": "Ondertekenaar reeds bygevoeg",
+      "insufficientBalance": "Onvoldoende XLM-saldo. Jy benodig ten minste {{amount}} XLM.",
+      "signersBelowThreshold": "Aantal ondertekenaars moet ten minste gelyk aan drempel wees",
+      "factoryNotConfigured": "Factory nie gekonfigureer nie",
+      "transactionFailed": "Transaksie misluk",
+      "noReturnValue": "Geen terugkeerwaarde van transaksie nie",
+      "parseFailed": "Kon nie kluisadres uit resultaat ontleed nie",
+      "noAddress": "Kon nie kluisadres uit resultaat kry nie",
+      "invalidVaultAddress": "Ongeldige kluisadres-formaat",
+      "createFailed": "Kon nie kluis skep nie"
+    }
+  },
+  "fiatRamp": {
+    "title": "Fiat-op- / Af-oprit",
+    "subtitle": "Skuif geld tussen fiat en USDC. Fondse vereffen direk in jou kluis.",
+    "soon": "Binnekort",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Kaart & bank → USDC, direk na die kluis afgelewer."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Kontant in / uit by fisiese agentligging wêreldwyd."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Kaart & bank → USDC via Stripe, na die kluis afgelewer."
+      }
+    },
+    "mode": {
+      "cashToVault": "Kontant → Kluis",
+      "vaultToCash": "Kluis → Kontant"
+    },
+    "fields": {
+      "anchor": "Anker",
+      "amount": "Bedrag (USDC)",
+      "amountOptional": "Bedrag (USDC) — opsioneel",
+      "amountWidgetPlaceholder": "Laat leeg om in die legstuk te kies",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limiete: {{min}}–{{max}} USDC per transaksie",
+      "outOfRange": "Bedrag moet tussen {{min}} en {{max}} USDC wees."
+    },
+    "actions": {
+      "working": "Besig…",
+      "buyWithTransak": "Koop USDC met Transak",
+      "buyWithStripe": "Koop USDC met Stripe",
+      "startDeposit": "Begin kontantdeposito",
+      "startWithdrawal": "Begin kontantonttrekking"
+    },
+    "notEnabled": {
+      "noApiUrl": "API-URL nie gekonfigureer nie — stel REACT_APP_API_URL sodra die bediener ontplooi is.",
+      "serverDisabled": "Hierdie verskaffer is nog nie op die bediener geaktiveer nie."
+    },
+    "status": {
+      "anchorStatus": "Ankerstatus: {{status}}",
+      "creatingTransak": "Skep tans veilige Transak-sessie…",
+      "openingTransak": "Maak Transak oop…",
+      "transakClosed": "Transak-venster gesluit.",
+      "transakSuccess": "Transak-bestelling voltooi. USDC word na die kluis afgelewer. Bestelling-ID: {{orderId}}",
+      "creatingStripe": "Skep tans Stripe-oprit-sessie…",
+      "stripeOpened": "Stripe-oprit oopgemaak.",
+      "authenticating": "Verifieer tans met anker…",
+      "openingCashIn": "Maak kontant-in-venster oop…",
+      "openingCashOut": "Maak KYC- / kontant-uit-venster oop…",
+      "creatingProposals": "Skep tans multihandtekening-voorstelle (onttrekking + 0.3% fooi)…",
+      "proposalsCreated": "Voorstelle geskep. Onttrekking #{{withdrawId}}, fooi #{{feeId}}. Versamel goedkeurings om uit te voer."
+    },
+    "errors": {
+      "apiUrlMissing": "API-URL is nie gekonfigureer nie (REACT_APP_API_URL).",
+      "sessionFailed": "Sessie misluk ({{status}})",
+      "noWidgetUrl": "Geen widgetUrl deur backend teruggestuur nie",
+      "transakFailed": "Transak-bestelling misluk.",
+      "openTransakFailed": "Kon nie Transak oopmaak nie",
+      "stripeSessionFailed": "Stripe-sessie misluk ({{status}})",
+      "noClientSecret": "Geen clientSecret deur backend teruggestuur nie",
+      "startStripeFailed": "Kon nie Stripe begin nie",
+      "depositFailed": "Deposito kon nie begin nie",
+      "withdrawFailed": "Onttrekking kon nie begin nie"
+    },
+    "summary": {
+      "title": "Opsomming",
+      "amount": "Bedrag",
+      "platformFee": "Platformfooi ({{pct}}%)",
+      "youReceive": "Jy ontvang in kluis",
+      "sentToAnchor": "Na anker gestuur",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Anker- en netwerkfooie word afsonderlik deur {{provider}} gehef.",
+      "theProvider": "die verskaffer"
+    },
+    "howItWorks": {
+      "title": "Hoe dit werk",
+      "transak": "Betaal per kaart of bankoorplasing. Na KYC lewer Transak USDC op Stellar direk na jou kluisadres. Geen multihandtekening-goedkeuring is nodig vir inkomende fondse nie.",
+      "moneygram": "Deposito's land direk in die kluis. Onttrekkings skep twee multihandtekening-voorstelle — die oordrag en die 0.3% platformfooi — wat jou ondertekenaars moet goedkeur voordat fondse die kluis verlaat.",
+      "stripe": "Betaal per kaart of bank via Stripe. Stripe hanteer KYC en lewer USDC op Stellar direk na jou kluisadres."
+    },
+    "destination": {
+      "title": "Bestemmingskluis"
+    }
+  },
+  "common": {
+    "copy": "Kopieer",
+    "share": "Deel",
+    "loading": "Laai…",
+    "cancel": "Kanselleer",
+    "confirm": "Bevestig",
+    "save": "Stoor",
+    "close": "Sluit",
+    "refresh": "Verfris",
+    "unknown": "Onbekend",
+    "change": "Verander",
+    "open": "Maak oop",
+    "update": "Werk by",
+    "all": "Alles",
+    "notAvailable": "N.v.t."
+  }
+}

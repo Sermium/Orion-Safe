@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { CopyIcon } from '../icons';
 import { VaultConfig, Role, SignerWithRole } from '../../types';
 import { truncateAddress } from '../../lib/utils';
@@ -21,9 +22,10 @@ export const Members: React.FC<MembersProps> = ({
   userRole,
   onCopy,
 }) => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [contacts, setContacts] = useState<Contact[]>(getContacts());
-  
+
   const [showAddContactModal, setShowAddContactModal] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState('');
   const [contactName, setContactName] = useState('');
@@ -32,6 +34,16 @@ export const Members: React.FC<MembersProps> = ({
   const getSignerRole = (address: string): Role => {
     const found = signersWithRoles?.find(s => s.address === address);
     return found?.role || 'Executor';
+  };
+
+  // Translated display label for a role. The Role value itself stays untouched.
+  const getRoleLabel = (role: Role): string => {
+    switch (role) {
+      case 'SuperAdmin': return t('members.roles.superAdmin');
+      case 'Admin': return t('members.roles.admin');
+      case 'Executor': return t('members.roles.executor');
+      default: return t('common.unknown');
+    }
   };
 
   const getRoleBadgeStyle = (role: Role) => {
@@ -89,28 +101,32 @@ export const Members: React.FC<MembersProps> = ({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Vault Members</h1>
+          <h1 className="text-2xl font-bold">{t('members.title')}</h1>
           <p className="text-gray-400 mt-1">
-            {signers.length} member{signers.length !== 1 ? 's' : ''} • Threshold: {vaultConfig?.threshold || 1} of {signers.length}
+            {t('members.subtitle', {
+              count: signers.length,
+              threshold: vaultConfig?.threshold || 1,
+              total: signers.length,
+            })}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 p-4">
-          <p className="text-sm text-gray-400">Total Members</p>
+          <p className="text-sm text-gray-400">{t('members.stats.totalMembers')}</p>
           <p className="text-2xl font-bold">{signers.length}</p>
         </div>
         <div className="rounded-xl bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 p-4">
-          <p className="text-sm text-gray-400">Super Admins</p>
+          <p className="text-sm text-gray-400">{t('members.stats.superAdmins')}</p>
           <p className="text-2xl font-bold text-yellow-400">{superAdminCount}</p>
         </div>
         <div className="rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 p-4">
-          <p className="text-sm text-gray-400">Admins</p>
+          <p className="text-sm text-gray-400">{t('members.stats.admins')}</p>
           <p className="text-2xl font-bold text-purple-400">{adminCount}</p>
         </div>
         <div className="rounded-xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 p-4">
-          <p className="text-sm text-gray-400">Executors</p>
+          <p className="text-sm text-gray-400">{t('members.stats.executors')}</p>
           <p className="text-2xl font-bold text-blue-400">{executorCount}</p>
         </div>
       </div>
@@ -118,7 +134,7 @@ export const Members: React.FC<MembersProps> = ({
       <div className="relative">
         <input
           type="text"
-          placeholder="Search members by address, name, or role..."
+          placeholder={t('members.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full p-4 pl-12 rounded-xl bg-gray-800/50 border border-gray-700 focus:border-purple-500 focus:outline-none"
@@ -134,7 +150,10 @@ export const Members: React.FC<MembersProps> = ({
       </div>
 
       <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm">
-        To manage members (add, remove, change roles), go to <strong>Settings → Members & Roles</strong>
+        <Trans
+          i18nKey="members.manageHint"
+          components={{ strong: <strong /> }}
+        />
       </div>
 
       <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 overflow-hidden">
@@ -154,7 +173,7 @@ export const Members: React.FC<MembersProps> = ({
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
                       role === 'SuperAdmin'
                         ? 'bg-gradient-to-br from-yellow-500 to-orange-500'
-                        : role === 'Admin' 
+                        : role === 'Admin'
                         ? 'bg-gradient-to-br from-purple-500 to-pink-500'
                         : 'bg-gradient-to-br from-blue-500 to-cyan-500'
                     }`}>
@@ -176,11 +195,11 @@ export const Members: React.FC<MembersProps> = ({
                       <div className="flex items-center gap-2 mt-1">
                         {isCurrentUser && (
                           <span className="text-xs bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded-full">
-                            You
+                            {t('members.you')}
                           </span>
                         )}
                         <span className={`text-xs px-2 py-0.5 rounded-full border ${getRoleBadgeStyle(role)}`}>
-                          {role}
+                          {getRoleLabel(role)}
                         </span>
                       </div>
                     </div>
@@ -194,7 +213,7 @@ export const Members: React.FC<MembersProps> = ({
                           setShowAddContactModal(true);
                         }}
                         className="p-2 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition"
-                        title="Add to contacts"
+                        title={t('members.addToContacts')}
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -205,7 +224,7 @@ export const Members: React.FC<MembersProps> = ({
                     <button
                       onClick={() => onCopy(signer)}
                       className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
-                      title="Copy address"
+                      title={t('common.copyAddress')}
                     >
                       <CopyIcon />
                     </button>
@@ -217,34 +236,40 @@ export const Members: React.FC<MembersProps> = ({
 
           {filteredSigners.length === 0 && (
             <div className="p-8 text-center text-gray-400">
-              No members found matching your search.
+              {t('members.noResults')}
             </div>
           )}
         </div>
       </div>
 
       <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-        <h3 className="text-lg font-semibold mb-4">Role Permissions</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('members.permissions.title')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 text-sm font-medium">SuperAdmin</span>
+              <span className="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 text-sm font-medium">
+                {t('members.roles.superAdmin')}
+              </span>
             </div>
-            <p className="text-sm text-gray-400">Full control including managing other admins and critical settings</p>
+            <p className="text-sm text-gray-400">{t('members.permissions.superAdmin')}</p>
           </div>
-          
+
           <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20">
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-sm font-medium">Admin</span>
+              <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-sm font-medium">
+                {t('members.roles.admin')}
+              </span>
             </div>
-            <p className="text-sm text-gray-400">Can manage vault settings, members, and approve transactions</p>
+            <p className="text-sm text-gray-400">{t('members.permissions.admin')}</p>
           </div>
-          
+
           <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-sm font-medium">Executor</span>
+              <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-sm font-medium">
+                {t('members.roles.executor')}
+              </span>
             </div>
-            <p className="text-sm text-gray-400">Can create, approve, and execute transactions</p>
+            <p className="text-sm text-gray-400">{t('members.permissions.executor')}</p>
           </div>
         </div>
       </div>
@@ -253,30 +278,30 @@ export const Members: React.FC<MembersProps> = ({
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-[#12131a] rounded-2xl border border-gray-700 w-full max-w-md">
             <div className="p-6 border-b border-gray-700">
-              <h3 className="text-xl font-bold">Add to Contacts</h3>
+              <h3 className="text-xl font-bold">{t('members.addContactModal.title')}</h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Address</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('members.addContactModal.addressLabel')}</label>
                 <p className="font-mono text-sm bg-gray-800 p-3 rounded-xl break-all">
                   {selectedAddress}
                 </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Name</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('members.addContactModal.nameLabel')}</label>
                 <input
                   type="text"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  placeholder="Enter a name for this contact"
+                  placeholder={t('members.addContactModal.namePlaceholder')}
                   className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
                   autoFocus
                 />
               </div>
             </div>
-            
+
             <div className="p-6 border-t border-gray-700 flex gap-3">
               <button
                 onClick={() => {
@@ -286,14 +311,14 @@ export const Members: React.FC<MembersProps> = ({
                 }}
                 className="flex-1 px-4 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleAddToContacts}
                 disabled={!contactName.trim()}
                 className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 transition font-medium"
               >
-                Save Contact
+                {t('members.addContactModal.save')}
               </button>
             </div>
           </div>

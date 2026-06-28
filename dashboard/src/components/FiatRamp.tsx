@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   getAnchors,
   computePlatformFee,
@@ -26,41 +27,22 @@ interface FiatRampProps {
 }
 
 const USDC_CODE = 'USDC';
-const TRANSAK_API_KEY = process.env.REACT_APP_TRANSAK_API_KEY || '';
-// Production host. Use https://global-stg.transak.com for staging.
-const TRANSAK_BASE_URL = 'https://global.transak.com';
+// Backend base URL, e.g. https://api.orionsafe.app/api/v1
+const API_URL = process.env.REACT_APP_API_URL || '';
 
-// Provider metadata for the selector cards.
-const PROVIDERS: {
+interface ProviderMeta {
   id: Provider;
-  name: string;
-  blurb: string;
-  badge?: string;
-  enabled: boolean;
+  // Display name + blurb are resolved at render-time via i18n keys
+  // (providers.<id>.name / providers.<id>.blurb) so this metadata stays logical.
   supportsWithdraw: boolean;
-}[] = [
-  {
-    id: 'transak',
-    name: 'Transak',
-    blurb: 'Card & bank → USDC, delivered straight to the vault.',
-    enabled: !!TRANSAK_API_KEY,
-    supportsWithdraw: false,
-  },
-  {
-    id: 'moneygram',
-    name: 'MoneyGram',
-    blurb: 'Cash in / out at physical agent locations worldwide.',
-    enabled: true,
-    supportsWithdraw: true,
-  },
-  {
-    id: 'stripe',
-    name: 'Stripe',
-    blurb: 'Fiat onramp via Stripe. Requires server — coming soon.',
-    badge: 'Soon',
-    enabled: false,
-    supportsWithdraw: false,
-  },
+}
+
+// Static metadata. Whether transak/stripe are usable is resolved at runtime
+// from the backend /onramp/status endpoint. MoneyGram is always on (SEP-24).
+const PROVIDER_META: ProviderMeta[] = [
+  { id: 'transak', supportsWithdraw: false },
+  { id: 'moneygram', supportsWithdraw: true },
+  { id: 'stripe', supportsWithdraw: false },
 ];
 
 export const FiatRamp: React.FC<FiatRampProps> = ({
@@ -68,11 +50,26 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
   vaultAddress,
   onWithdrawProposed,
 }) => {
+  const { t } = useTranslation();
   const anchors = useMemo(() => getAnchors(), []);
-  // Default to the first ENABLED provider so the initial selection is always clickable.
-  const [provider, setProvider] = useState<Provider>(
-    () => (PROVIDERS.find((p) => p.enabled)?.id ?? 'moneygram')
+
+  // Runtime availability from the backend.
+  const [providerStatus, setProviderStatus] = useState<{ transak: boolean; stripe: boolean }>({
+    transak: false,
+    stripe: false,
+  });
+
+  const isEnabled = useCallback(
+    (id: Provider) => {
+      if (id === 'moneygram') return true;
+      if (id === 'transak') return providerStatus.transak;
+      if (id === 'stripe') return providerStatus.stripe;
+      return false;
+    },
+    [providerStatus]
   );
+
+  const [provider, setProvider] = useState<Provider>('moneygram');
   const [mode, setMode] = useState<Mode>('deposit');
   const [anchorId, setAnchorId] = useState<string>(anchors[0]?.id ?? '');
   const [amount, setAmount] = useState<string>('');
@@ -89,16 +86,37 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
   );
 
   const selectedAnchor: AnchorInfo | undefined = anchors.find((a) => a.id === anchorId);
-  const activeProvider = PROVIDERS.find((p) => p.id === provider)!;
+  const activeMeta = PROVIDER_META.find((p) => p.id === provider)!;
+
+  // Fetch provider availability from the backend on mount.
+  useEffect(() => {
+    if (!API_URL) return;
+    let cancelled = false;
+    fetch(`${API_URL}/onramp/status`)
+      .then((r) => r.json())
+      .then((s) => {
+        if (cancelled) return;
+        const next = { transak: !!s.transak, stripe: !!s.stripe };
+        setProviderStatus(next);
+        // Auto-select the first enabled provider (prefer Transak, then MoneyGram).
+        if (next.transak) setProvider('transak');
+      })
+      .catch(() => {
+        if (!cancelled) setProviderStatus({ transak: false, stripe: false });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Force deposit mode if the active provider can't withdraw.
   useEffect(() => {
-    if (!activeProvider.supportsWithdraw && mode === 'withdraw') {
+    if (!activeMeta.supportsWithdraw && mode === 'withdraw') {
       setMode('deposit');
     }
-  }, [activeProvider, mode]);
+  }, [activeMeta, mode]);
 
-  // MoneyGram limits (USDC). Transak handles its own limits in-widget.
+  // MoneyGram limits (USDC). Transak/Stripe handle their own limits in-widget.
   const limits =
     mode === 'deposit' ? { min: 5, max: 950 } : { min: 5, max: 2500 };
   const outOfRange =
@@ -126,7 +144,7 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
       pollRef.current = setInterval(async () => {
         try {
           const tx: any = await pollRampStatus(anchorId, userPublicKey, transactionId);
-          setStatus(`Anchor status: ${tx.status}`);
+          setStatus(t('fiatRamp.status.anchorStatus', { status: tx.status }));
           const terminal = ['completed', 'refunded', 'error', 'expired'];
           if (tx.status === 'pending_user_transfer_start') {
             onComplete?.(tx);
@@ -140,71 +158,111 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
         }
       }, 4000);
     },
-    [anchorId, userPublicKey]
+    [anchorId, userPublicKey, t]
   );
 
-  // ---- Transak (card/bank → USDC straight to the vault) ----
-  const handleTransak = useCallback(() => {
+  // ---- Transak (backend-signed widgetUrl → USDC straight to the vault) ----
+  const handleTransak = useCallback(async () => {
     setError('');
-    if (!TRANSAK_API_KEY) {
-      setError('Transak API key is not configured (REACT_APP_TRANSAK_API_KEY).');
+    if (!API_URL) {
+      setError(t('fiatRamp.errors.apiUrlMissing'));
       return;
     }
     try {
       setBusy(true);
-      setStatus('Opening Transak…');
+      setStatus(t('fiatRamp.status.creatingTransak'));
 
-      // Build the widget URL from query parameters (client-side method).
-      const params = new URLSearchParams({
-        apiKey: TRANSAK_API_KEY,
-        productsAvailed: 'BUY',
-        cryptoCurrencyCode: USDC_CODE,
-        network: 'stellar',
-        walletAddress: vaultAddress,          // deliver straight to the vault
-        disableWalletAddressForm: 'true',     // lock the destination
-        themeColor: '06b6d4',
+      const resp = await fetch(`${API_URL}/onramp/transak/session`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          walletAddress: vaultAddress,
+          cryptoCurrencyCode: USDC_CODE,
+          network: 'stellar',
+          ...(numericAmount > 0 ? { amount: numericAmount } : {}),
+        }),
       });
-      if (numericAmount > 0) {
-        params.set('defaultCryptoAmount', String(numericAmount));
+      if (!resp.ok) {
+        const j = await resp.json().catch(() => ({}));
+        throw new Error(j.error || t('fiatRamp.errors.sessionFailed', { status: resp.status }));
       }
+      const { widgetUrl } = await resp.json();
+      if (!widgetUrl) throw new Error(t('fiatRamp.errors.noWidgetUrl'));
 
-      const widgetUrl = `${TRANSAK_BASE_URL}?${params.toString()}`;
-
+      setStatus(t('fiatRamp.status.openingTransak'));
       const transakConfig: TransakConfig = { widgetUrl };
       const transak = new Transak(transakConfig);
-
       transak.init();
 
       Transak.on(Transak.EVENTS.TRANSAK_WIDGET_CLOSE, () => {
         setBusy(false);
-        setStatus('Transak window closed.');
+        setStatus(t('fiatRamp.status.transakClosed'));
         transak.close();
       });
 
       Transak.on(Transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData: any) => {
         setBusy(false);
         setStatus(
-          `Transak order completed. USDC is being delivered to the vault. ` +
-            `Order ID: ${orderData?.status?.id ?? orderData?.id ?? 'n/a'}`
+          t('fiatRamp.status.transakSuccess', {
+            orderId: orderData?.status?.id ?? orderData?.id ?? t('common.unknown'),
+          })
         );
         transak.close();
       });
 
       Transak.on(Transak.EVENTS.TRANSAK_ORDER_FAILED, () => {
         setBusy(false);
-        setError('Transak order failed.');
+        setError(t('fiatRamp.errors.transakFailed'));
       });
     } catch (e: any) {
       setBusy(false);
-      setError(e?.message || 'Failed to open Transak');
+      setError(e?.message || t('fiatRamp.errors.openTransakFailed'));
     }
-  }, [vaultAddress, numericAmount]);
+  }, [vaultAddress, numericAmount, t]);
+
+  // ---- Stripe (backend-created onramp session → USDC to the vault) ----
+  const handleStripe = useCallback(async () => {
+    setError('');
+    if (!API_URL) {
+      setError(t('fiatRamp.errors.apiUrlMissing'));
+      return;
+    }
+    try {
+      setBusy(true);
+      setStatus(t('fiatRamp.status.creatingStripe'));
+
+      const resp = await fetch(`${API_URL}/onramp/stripe/session`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          walletAddress: vaultAddress,
+          destinationCurrency: 'usdc',
+          destinationNetwork: 'stellar',
+          ...(numericAmount > 0 ? { amount: numericAmount } : {}),
+        }),
+      });
+      if (!resp.ok) {
+        const j = await resp.json().catch(() => ({}));
+        throw new Error(j.error || t('fiatRamp.errors.stripeSessionFailed', { status: resp.status }));
+      }
+      const { clientSecret } = await resp.json();
+      if (!clientSecret) throw new Error(t('fiatRamp.errors.noClientSecret'));
+
+      // Stripe-hosted onramp: open with the session secret.
+      openPopup(`https://crypto.link.com/?session=${encodeURIComponent(clientSecret)}`);
+      setBusy(false);
+      setStatus(t('fiatRamp.status.stripeOpened'));
+    } catch (e: any) {
+      setBusy(false);
+      setError(e?.message || t('fiatRamp.errors.startStripeFailed'));
+    }
+  }, [vaultAddress, numericAmount, t]);
 
   // ---- MoneyGram (SEP-24) deposit ----
   const handleDeposit = useCallback(async () => {
     setError('');
     setBusy(true);
-    setStatus('Authenticating with anchor…');
+    setStatus(t('fiatRamp.status.authenticating'));
     try {
       const session = await startDeposit({
         anchorId,
@@ -212,21 +270,21 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
         destination: vaultAddress, // USDC lands directly in the treasury
         amount: numericAmount || undefined,
       });
-      setStatus('Opening cash-in window…');
+      setStatus(t('fiatRamp.status.openingCashIn'));
       openPopup(session.url);
       beginPolling(session.transactionId);
     } catch (e: any) {
-      setError(e?.message || 'Deposit failed to start');
+      setError(e?.message || t('fiatRamp.errors.depositFailed'));
     } finally {
       setBusy(false);
     }
-  }, [anchorId, userPublicKey, vaultAddress, numericAmount, beginPolling]);
+  }, [anchorId, userPublicKey, vaultAddress, numericAmount, beginPolling, t]);
 
   // ---- MoneyGram (SEP-24) withdraw ----
   const handleWithdraw = useCallback(async () => {
     setError('');
     setBusy(true);
-    setStatus('Authenticating with anchor…');
+    setStatus(t('fiatRamp.status.authenticating'));
     try {
       const usdcContract = deriveSACAddress(
         USDC_CODE,
@@ -243,13 +301,13 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
         amount: numericAmount,
       });
 
-      setStatus('Opening KYC / cash-out window…');
+      setStatus(t('fiatRamp.status.openingCashOut'));
       openPopup(res.ramp.url);
 
       // Wait for the anchor to give us its receiving account + memo,
       // then create the multisig proposals (net withdrawal + 0.3% fee).
       beginPolling(res.ramp.transactionId, async (tx) => {
-        setStatus('Creating multisig proposals (withdrawal + 0.3% fee)…');
+        setStatus(t('fiatRamp.status.creatingProposals'));
         const anchorAccount = tx.withdraw_anchor_account || tx.to;
         const ids = await finalizeWithdraw({
           userPublicKey,
@@ -259,84 +317,90 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
           fee: res.fee,
         });
         setStatus(
-          `Proposals created. Withdrawal #${ids.withdrawProposalId}, ` +
-            `fee #${ids.feeProposalId}. Collect approvals to execute.`
+          t('fiatRamp.status.proposalsCreated', {
+            withdrawId: ids.withdrawProposalId,
+            feeId: ids.feeProposalId,
+          })
         );
         onWithdrawProposed?.(ids);
       });
     } catch (e: any) {
-      setError(e?.message || 'Withdrawal failed to start');
+      setError(e?.message || t('fiatRamp.errors.withdrawFailed'));
     } finally {
       setBusy(false);
     }
-  }, [anchorId, userPublicKey, vaultAddress, numericAmount, beginPolling, onWithdrawProposed]);
+  }, [anchorId, userPublicKey, vaultAddress, numericAmount, beginPolling, onWithdrawProposed, t]);
 
   // Primary action router based on provider + mode.
   const handlePrimary = () => {
     if (provider === 'transak') return handleTransak();
+    if (provider === 'stripe') return handleStripe();
     if (provider === 'moneygram') {
       return mode === 'deposit' ? handleDeposit() : handleWithdraw();
     }
-    // stripe is disabled
   };
 
   const showMoneyGramForm = provider === 'moneygram';
-  const showFee = numericAmount > 0 && (provider === 'moneygram');
+  const showFee = numericAmount > 0 && provider === 'moneygram';
+  const usesWidget = provider === 'transak' || provider === 'stripe';
 
   const canSubmit =
     !!userPublicKey &&
-    activeProvider.enabled &&
+    isEnabled(provider) &&
     !busy &&
-    (provider === 'transak'
+    (usesWidget
       ? true
       : !!anchorId && numericAmount >= limits.min && numericAmount <= limits.max);
 
   const primaryLabel = busy
-    ? 'Working…'
+    ? t('fiatRamp.actions.working')
     : provider === 'transak'
-    ? 'Buy USDC with Transak'
+    ? t('fiatRamp.actions.buyWithTransak')
+    : provider === 'stripe'
+    ? t('fiatRamp.actions.buyWithStripe')
     : mode === 'deposit'
-    ? 'Start cash deposit'
-    : 'Start cash withdrawal';
+    ? t('fiatRamp.actions.startDeposit')
+    : t('fiatRamp.actions.startWithdrawal');
 
   return (
     <div className="w-full max-w-5xl mx-auto p-4 sm:p-6">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-xl sm:text-2xl font-semibold text-white">Fiat On / Off Ramp</h2>
-        <p className="text-sm text-gray-400 mt-1">
-          Move money between fiat and USDC. Funds settle directly into your vault.
-        </p>
+        <h2 className="text-xl sm:text-2xl font-semibold text-white">{t('fiatRamp.title')}</h2>
+        <p className="text-sm text-gray-400 mt-1">{t('fiatRamp.subtitle')}</p>
       </div>
 
       {/* Provider selector cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-        {PROVIDERS.map((p) => {
+        {PROVIDER_META.map((p) => {
           const active = p.id === provider;
+          const enabled = isEnabled(p.id);
           return (
             <button
               key={p.id}
-              disabled={!p.enabled}
-              onClick={() => p.enabled && setProvider(p.id)}
+              disabled={!enabled}
+              onClick={() => enabled && setProvider(p.id)}
               className={`text-left rounded-xl border p-4 transition-all ${
                 active
                   ? 'border-cyan-500/60 bg-gradient-to-br from-blue-600/20 to-cyan-600/10'
-                  : p.enabled
+                  : enabled
                   ? 'border-gray-700 bg-gray-900/40 hover:border-blue-700/60 hover:bg-gray-800/40'
                   : 'border-gray-800 bg-gray-900/20 opacity-50 cursor-not-allowed'
               }`}
             >
               <div className="flex items-center justify-between mb-1">
                 <span className={`font-semibold ${active ? 'text-cyan-300' : 'text-white'}`}>
-                  {p.name}
+                  {t(`fiatRamp.providers.${p.id}.name`)}
                 </span>
-                {p.badge && (
+                {!enabled && p.id !== 'moneygram' && (
                   <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-gray-700 text-gray-300">
-                    {p.badge}
+                    {t('fiatRamp.soon')}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-gray-400 leading-snug">{p.blurb}</p>
+              <p className="text-xs text-gray-400 leading-snug">
+                {t(`fiatRamp.providers.${p.id}.blurb`)}
+              </p>
             </button>
           );
         })}
@@ -347,17 +411,19 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
         {/* Left: form */}
         <div className="lg:col-span-3 rounded-2xl border border-gray-700 bg-gray-900/60 p-5 sm:p-6">
           {/* Mode toggle (only for providers that support withdraw) */}
-          {activeProvider.supportsWithdraw && (
+          {activeMeta.supportsWithdraw && (
             <div className="flex rounded-lg bg-gray-800 p-1 mb-5">
               {(['deposit', 'withdraw'] as Mode[]).map((m) => (
                 <button
                   key={m}
                   onClick={() => setMode(m)}
-                  className={`flex-1 py-2 text-sm rounded-md capitalize transition-colors ${
+                  className={`flex-1 py-2 text-sm rounded-md transition-colors ${
                     mode === m ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:text-gray-200'
                   }`}
                 >
-                  {m === 'deposit' ? 'Cash → Vault' : 'Vault → Cash'}
+                  {m === 'deposit'
+                    ? t('fiatRamp.mode.cashToVault')
+                    : t('fiatRamp.mode.vaultToCash')}
                 </button>
               ))}
             </div>
@@ -366,7 +432,9 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
           {/* MoneyGram anchor picker */}
           {showMoneyGramForm && (
             <>
-              <label className="block text-xs text-gray-400 mb-1">Anchor</label>
+              <label className="block text-xs text-gray-400 mb-1">
+                {t('fiatRamp.fields.anchor')}
+              </label>
               <select
                 value={anchorId}
                 onChange={(e) => setAnchorId(e.target.value)}
@@ -383,7 +451,9 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
 
           {/* Amount */}
           <label className="block text-xs text-gray-400 mb-1">
-            Amount (USDC){provider === 'transak' ? ' — optional' : ''}
+            {usesWidget
+              ? t('fiatRamp.fields.amountOptional')
+              : t('fiatRamp.fields.amount')}
           </label>
           <input
             type="number"
@@ -391,21 +461,24 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder={
-              provider === 'transak'
-                ? 'Leave blank to choose in Transak'
-                : `${limits.min} – ${limits.max}`
+              usesWidget
+                ? t('fiatRamp.fields.amountWidgetPlaceholder')
+                : t('fiatRamp.fields.amountRangePlaceholder', {
+                    min: limits.min,
+                    max: limits.max,
+                  })
             }
             className="w-full rounded-lg bg-gray-800 text-white p-2.5 text-sm mb-1"
           />
           {provider === 'moneygram' && (
             <p className="text-xs text-gray-500 mb-3">
-              Limits: {limits.min}–{limits.max} USDC per transaction
+              {t('fiatRamp.fields.limits', { min: limits.min, max: limits.max })}
             </p>
           )}
 
           {outOfRange && (
             <p className="text-xs text-amber-400 mb-3">
-              Amount must be between {limits.min} and {limits.max} USDC.
+              {t('fiatRamp.fields.outOfRange', { min: limits.min, max: limits.max })}
             </p>
           )}
 
@@ -422,11 +495,11 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
             {primaryLabel}
           </button>
 
-          {!activeProvider.enabled && (
+          {!isEnabled(provider) && (
             <p className="text-xs text-amber-400 mt-3">
-              {provider === 'stripe'
-                ? 'Stripe requires the backend service. It will be enabled after server migration.'
-                : 'This provider is not configured.'}
+              {!API_URL
+                ? t('fiatRamp.notEnabled.noApiUrl')
+                : t('fiatRamp.notEnabled.serverDisabled')}
             </p>
           )}
 
@@ -439,55 +512,56 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
           {/* Fee breakdown (MoneyGram) */}
           {showFee && (
             <div className="rounded-2xl border border-gray-700 bg-gray-900/60 p-5">
-              <h4 className="text-sm font-semibold text-white mb-3">Summary</h4>
+              <h4 className="text-sm font-semibold text-white mb-3">
+                {t('fiatRamp.summary.title')}
+              </h4>
               <div className="text-sm space-y-2">
-                <Row label="Amount" value={`${fee.grossAmount.toFixed(2)} USDC`} />
                 <Row
-                  label={`Platform fee (${(PLATFORM_FEE_BPS / 100).toFixed(2)}%)`}
-                  value={`-${fee.platformFee.toFixed(4)} USDC`}
+                  label={t('fiatRamp.summary.amount')}
+                  value={t('fiatRamp.summary.usdcValue', { value: fee.grossAmount.toFixed(2) })}
+                />
+                <Row
+                  label={t('fiatRamp.summary.platformFee', {
+                    pct: (PLATFORM_FEE_BPS / 100).toFixed(2),
+                  })}
+                  value={`-${t('fiatRamp.summary.usdcValue', {
+                    value: fee.platformFee.toFixed(4),
+                  })}`}
                 />
                 <div className="border-t border-gray-700 my-1" />
                 <Row
-                  label={mode === 'deposit' ? 'You receive in vault' : 'Sent to anchor'}
-                  value={`${fee.netAmount.toFixed(4)} USDC`}
+                  label={
+                    mode === 'deposit'
+                      ? t('fiatRamp.summary.youReceive')
+                      : t('fiatRamp.summary.sentToAnchor')
+                  }
+                  value={t('fiatRamp.summary.usdcValue', { value: fee.netAmount.toFixed(4) })}
                   strong
                 />
               </div>
               <p className="text-[11px] text-gray-500 pt-3">
-                Anchor and network fees are charged separately by{' '}
-                {selectedAnchor?.name ?? 'the provider'}.
+                {t('fiatRamp.summary.anchorFeesNote', {
+                  provider: selectedAnchor?.name ?? t('fiatRamp.summary.theProvider'),
+                })}
               </p>
             </div>
           )}
 
           {/* Provider-specific info card */}
           <div className="rounded-2xl border border-gray-700 bg-gray-900/40 p-5">
-            <h4 className="text-sm font-semibold text-white mb-2">How it works</h4>
-            {provider === 'transak' && (
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Pay by card or bank transfer. After KYC, Transak delivers USDC on
-                Stellar directly to your vault address. No multisig approval is
-                needed for incoming funds.
-              </p>
-            )}
-            {provider === 'moneygram' && (
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Deposits land directly in the vault. Withdrawals create two
-                multisig proposals — the transfer and the 0.3% platform fee —
-                which your signers must approve before funds leave the vault.
-              </p>
-            )}
-            {provider === 'stripe' && (
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Stripe’s crypto onramp creates a session server-side. This will be
-                available once the Orion Safe API is deployed to a server.
-              </p>
-            )}
+            <h4 className="text-sm font-semibold text-white mb-2">
+              {t('fiatRamp.howItWorks.title')}
+            </h4>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              {t(`fiatRamp.howItWorks.${provider}`)}
+            </p>
           </div>
 
           {/* Destination card */}
           <div className="rounded-2xl border border-gray-700 bg-gray-900/40 p-5">
-            <h4 className="text-sm font-semibold text-white mb-2">Destination vault</h4>
+            <h4 className="text-sm font-semibold text-white mb-2">
+              {t('fiatRamp.destination.title')}
+            </h4>
             <p className="text-xs font-mono text-gray-400 break-all">{vaultAddress}</p>
           </div>
         </div>

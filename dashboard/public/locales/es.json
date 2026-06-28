@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Resumen",
+    "money": "Dinero",
+    "vestingLocks": "Vesting y Bloqueos",
+    "team": "Equipo",
+    "system": "Sistema",
+    "dashboard": "Panel",
+    "assets": "Activos",
+    "fiat": "Rampa Fiat",
+    "transactions": "Transacciones",
+    "locks": "Bloqueos",
+    "vesting": "Vesting",
+    "members": "Miembros",
+    "contacts": "Contactos",
+    "settings": "Configuración",
+    "docs": "Documentación",
+    "admin": "Administración",
+    "claim": "Reclamar tokens"
+  },
+  "fiat": {
+    "title": "Rampa Fiat",
+    "deposit": "Depositar",
+    "withdraw": "Retirar",
+    "amount": "Importe",
+    "provider": "Proveedor",
+    "fee": "Comisión de la plataforma",
+    "destination": "Bóveda de destino",
+    "comingSoon": "Pronto"
+  },
+  "sidebar": {
+    "currentVault": "Bóveda actual",
+    "selectVault": "Seleccionar bóveda",
+    "createNewVault": "Crear nueva bóveda",
+    "sharePublicView": "Compartir vista pública",
+    "disconnect": "Desconectar",
+    "connected": "Conectado",
+    "linkCopied": "¡Enlace público copiado!"
+  },
+  "header": {
+    "timeLocks": "Bloqueos temporales",
+    "deposit": "Depositar",
+    "send": "Enviar"
+  },
+  "settings": {
+    "title": "Configuración de la bóveda",
+    "subtitle": "Gestione la configuración y los miembros de su bóveda",
+    "language": "Idioma",
+    "languageAuto": "Automático (idioma del dispositivo)",
+    "languageHint": "Automático sigue el idioma de su dispositivo y recurre al inglés si no es compatible.",
+    "tabs": {
+      "general": "General",
+      "members": "Miembros y roles",
+      "advanced": "Avanzado"
+    },
+    "vaultInfo": "Información de la bóveda",
+    "vaultName": "Nombre de la bóveda",
+    "vaultAddress": "Dirección de la bóveda",
+    "notSelected": "No seleccionado",
+    "yourRole": "Su rol",
+    "members": "Miembros",
+    "threshold": "Umbral",
+    "superAdmins": "Superadministradores",
+    "connectedWallet": "Billetera conectada",
+    "publicKey": "Clave pública",
+    "approvalThreshold": "Umbral de aprobación",
+    "thresholdDesc": "Se requieren {{threshold}} de {{total}} firmas para ejecutar transacciones",
+    "vaultMembers": "Miembros de la bóveda",
+    "vaultMembersDesc": "Gestione quién puede acceder y controlar esta bóveda",
+    "addMember": "Añadir miembro",
+    "you": "Usted",
+    "copyAddress": "Copiar dirección",
+    "removeMember": "Eliminar miembro",
+    "rolePermissions": "Permisos de rol",
+    "adminsOnly": "Solo los administradores de la bóveda pueden gestionar miembros y roles.",
+    "contractDetails": "Detalles del contrato",
+    "contractType": "Tipo de contrato",
+    "sorobanContract": "Contrato inteligente Soroban",
+    "network": "Red",
+    "testnet": "Testnet",
+    "actions": "Acciones",
+    "exportData": "Exportar datos de la bóveda",
+    "exportDataDesc": "Descargar configuración e historial de transacciones",
+    "export": "Exportar",
+    "viewExplorer": "Ver en el explorador",
+    "viewExplorerDesc": "Abrir el contrato de la bóveda en Stellar Expert",
+    "dangerZone": "Zona de peligro",
+    "leaveVault": "Abandonar la bóveda",
+    "leaveVaultDesc": "Elimínese como firmante. Esto no se puede deshacer.",
+    "leaveLastWarning": "Usted es el último miembro: ¡al irse se abandonará la bóveda!",
+    "leaving": "Abandonando...",
+    "leave": "Abandonar",
+    "addNewMember": "Añadir nuevo miembro",
+    "addNewMemberDesc": "Seleccione de los contactos o introduzca la dirección manualmente",
+    "fromContacts": "De los contactos",
+    "enterAddress": "Introducir dirección",
+    "searchContacts": "Buscar contactos...",
+    "noContactsAvailable": "No hay contactos disponibles (todos ya son miembros)",
+    "noContactsFound": "No se encontraron contactos",
+    "allContactsMembers": "Todos sus contactos ya son miembros de la bóveda. Use «Introducir dirección» para añadir un nuevo miembro.",
+    "stellarAddress": "Dirección de Stellar",
+    "role": "Rol",
+    "adding": "Añadiendo...",
+    "changeThreshold": "Cambiar umbral de aprobación",
+    "requiredSignatures": "Firmas requeridas: {{threshold}} de {{total}}",
+    "thresholdWarning": "Cambiar el umbral afecta a la seguridad. Un umbral más alto requiere más firmas, pero puede ralentizar las operaciones.",
+    "updating": "Actualizando...",
+    "roles": {
+      "superAdmin": "Superadministrador",
+      "admin": "Administrador",
+      "executor": "Ejecutor"
+    },
+    "roleOptions": {
+      "superAdmin": "Superadministrador: control total",
+      "admin": "Administrador: gestionar miembros",
+      "executor": "Ejecutor: puede transaccionar"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Control total de la bóveda",
+        "2": "Gestionar todos los miembros y roles",
+        "3": "Cambiar el umbral",
+        "4": "Crear y ejecutar transacciones"
+      },
+      "admin": {
+        "1": "Gestionar ejecutores",
+        "2": "Cambiar el umbral",
+        "3": "Crear y aprobar transacciones",
+        "4": "Gestionar bloqueos"
+      },
+      "executor": {
+        "1": "Crear transacciones",
+        "2": "Aprobar transacciones",
+        "3": "Ejecutar transacciones aprobadas",
+        "4": "Ver toda la actividad"
+      }
+    },
+    "success": {
+      "memberAdded": "¡Miembro añadido correctamente!",
+      "memberRemoved": "¡Miembro eliminado correctamente!",
+      "roleUpdated": "¡Rol actualizado correctamente!",
+      "thresholdUpdated": "¡Umbral actualizado correctamente!",
+      "leftVault": "¡Ha abandonado la bóveda correctamente!"
+    },
+    "errors": {
+      "invalidAddress": "Dirección de Stellar no válida",
+      "alreadyMember": "La dirección ya es un miembro",
+      "addFailed": "No se pudo añadir el miembro",
+      "removeBreaksThreshold": "No se puede eliminar el miembro: incumpliría el requisito de umbral",
+      "lastSuperAdminRemove": "No se puede eliminar el último superadministrador",
+      "removeFailed": "No se pudo eliminar el miembro",
+      "needOneSuperAdmin": "No se puede cambiar el rol: la bóveda debe tener al menos un superadministrador",
+      "roleFailed": "No se pudo cambiar el rol",
+      "thresholdMin": "El umbral debe ser al menos 1",
+      "thresholdMax": "El umbral no puede superar el número de miembros",
+      "thresholdFailed": "No se pudo actualizar el umbral",
+      "leaveLastSuperAdmin": "Usted es el último superadministrador. Asigne otro superadministrador antes de irse, o elimine primero a todos los demás miembros.",
+      "leaveBreaksThreshold": "No se puede abandonar: incumpliría el requisito de umbral. El umbral actual es {{threshold}}, pero solo quedarían {{remaining}} miembros.",
+      "leaveFailed": "No se pudo abandonar la bóveda"
+    },
+    "confirm": {
+      "removeMember": "¿Eliminar a {{name}} de la bóveda?",
+      "leaveDefault": "¿Está seguro de que desea abandonar esta bóveda? Esta acción no se puede deshacer.",
+      "leaveLastMember": "ADVERTENCIA: Usted es el ÚLTIMO miembro de esta bóveda. Al irse, la bóveda se ABANDONARÁ de forma permanente. Los fondos restantes quedarán inaccesibles. ¿Está completamente seguro?",
+      "leaveFinalWarning": "Esta es su ADVERTENCIA FINAL. La bóveda se abandonará de forma permanente. ¿Continuar?"
+    }
+  },
+  "assets": {
+    "title": "Activos",
+    "subtitle": "Gestione los activos de su bóveda",
+    "addToken": "Añadir token",
+    "authorize": "Autorizar",
+    "totalBalance": "Saldo total",
+    "remainingDailySpend": "Gasto diario restante",
+    "yourAssets": "Sus activos",
+    "clickToManage": "Haga clic en un activo para gestionarlo",
+    "noAssets": "Aún no hay activos",
+    "noAssetsDesc": "Deposite algunos tokens para empezar",
+    "makeFirstDeposit": "Hacer el primer depósito",
+    "availableBalance": "Saldo disponible",
+    "actions": {
+      "deposit": "Depositar",
+      "depositDesc": "Añadir más {{symbol}} a la bóveda",
+      "send": "Enviar",
+      "sendDesc": "Proponer una transferencia de {{symbol}}",
+      "timeLock": "Bloqueo temporal",
+      "timeLockDesc": "Bloquear hasta una fecha específica",
+      "vesting": "Vesting",
+      "vestingDesc": "Crear un plan de vesting con cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Calendario de bloqueos y vesting",
+    "summary": "{{timeLocks}} bloqueos temporales, {{vestings}} vestings",
+    "viewCalendar": "Calendario",
+    "viewList": "Lista",
+    "filterType": "Tipo",
+    "filterStatus": "Estado",
+    "timeLocks": "Bloqueos temporales",
+    "vestings": "Vestings",
+    "timeLock": "Bloqueo temporal",
+    "vesting": "Vesting",
+    "noLocks": "No hay bloqueos ni vestings que mostrar",
+    "today": "Hoy",
+    "now": "Ahora",
+    "cliff": "Cliff",
+    "claimable": "Reclamable",
+    "progress": "Progreso",
+    "start": "Inicio",
+    "end": "Fin",
+    "unlock": "Desbloqueo",
+    "beneficiary": "Beneficiario",
+    "locked": "bloqueado",
+    "vestingLabel": "vesting",
+    "released": "Liberado",
+    "active": "Activo",
+    "completedCount": "{{count}} completados",
+    "status": {
+      "active": "Activo",
+      "partiallyReleased": "Parcialmente liberado",
+      "fullyReleased": "Totalmente liberado",
+      "cancelled": "Cancelado"
+    },
+    "statusFilter": {
+      "active": "Activo",
+      "completed": "Completado"
+    },
+    "events": {
+      "start": "inicio",
+      "cliff": "cliff",
+      "end": "fin"
+    }
+  },
+  "claim": {
+    "title": "Reclame sus tokens",
+    "subtitleVault": "Viendo bloqueos de la bóveda {{address}}",
+    "subtitleAll": "Vea y reclame los bloqueos asignados a usted",
+    "disconnect": "Desconectar",
+    "connectWallet": "Conectar billetera",
+    "connectTitle": "Conecte su billetera",
+    "connectDescVault": "Conecte su billetera para ver todos los bloqueos temporales y planes de vesting que se le han asignado en esta bóveda.",
+    "connectDescAll": "Conecte su billetera para ver todos los bloqueos temporales y planes de vesting que se le han asignado en todas las bóvedas de Stellar.",
+    "loadingVault": "Cargando bloqueos de la bóveda...",
+    "loadingAll": "Buscando sus bloqueos en las bóvedas...",
+    "scanProgress": "Comprobadas {{scanned}} de {{total}} bóvedas",
+    "unknownVault": "Bóveda desconocida",
+    "tokensAmount": "{{amount}} tokens",
+    "claimNow": "Reclamar ahora",
+    "claiming": "Reclamando...",
+    "refreshLocks": "Actualizar bloqueos",
+    "claimSuccess": "¡{{amount}} tokens reclamados correctamente!",
+    "errorLoad": "No se pudieron cargar los bloqueos",
+    "errorClaim": "No se pudo reclamar",
+    "stats": {
+      "readyToClaim": "Listos para reclamar",
+      "pending": "Pendientes",
+      "completed": "Completados"
+    },
+    "sections": {
+      "readyToClaim": "Listos para reclamar",
+      "pending": "Pendientes"
+    },
+    "fields": {
+      "fromVault": "Desde la bóveda",
+      "totalAmount": "Importe total",
+      "description": "Descripción",
+      "timeRemaining": "Tiempo restante",
+      "unlockDate": "Fecha de desbloqueo"
+    },
+    "types": {
+      "timeLock": "Bloqueo temporal",
+      "vesting": "Vesting",
+      "unknown": "Desconocido"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "fullyVested": "Totalmente consolidado",
+      "remaining": "{{days}}d {{hours}}h restantes",
+      "toCliff": "{{days}}d {{hours}}h hasta el cliff"
+    },
+    "empty": {
+      "title": "No se encontraron bloqueos",
+      "descVault": "No tiene ningún bloqueo asignado en esta bóveda.",
+      "descAll": "No tiene ningún bloqueo temporal ni plan de vesting asignado."
+    }
+  },
+  "contacts": {
+    "title": "Libreta de contactos",
+    "subtitle": "Guarde direcciones de uso frecuente para un acceso rápido",
+    "addContact": "Añadir contacto",
+    "searchPlaceholder": "Buscar contactos...",
+    "savedCount_one": "{{count}} contacto guardado",
+    "savedCount_other": "{{count}} contactos guardados",
+    "confirmDelete": "¿Eliminar «{{name}}» de los contactos?",
+    "errors": {
+      "nameRequired": "El nombre es obligatorio",
+      "addressRequired": "La dirección es obligatoria",
+      "invalidAddress": "Dirección de Stellar no válida",
+      "duplicate": "Esta dirección ya está en sus contactos"
+    },
+    "empty": {
+      "noMatch": "Ningún contacto coincide con su búsqueda",
+      "none": "Aún no hay contactos",
+      "addFirst": "Añada su primer contacto →"
+    },
+    "actions": {
+      "copy": "Copiar dirección",
+      "edit": "Editar contacto",
+      "delete": "Eliminar contacto"
+    },
+    "modal": {
+      "addTitle": "Añadir nuevo contacto",
+      "editTitle": "Editar contacto",
+      "nameLabel": "Nombre *",
+      "namePlaceholder": "p. ej., Alice, Tesorería, Exchange",
+      "addressLabel": "Dirección de Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "La dirección no se puede cambiar",
+      "notesLabel": "Notas (opcional)",
+      "notesPlaceholder": "Añada notas sobre este contacto...",
+      "saveChanges": "Guardar cambios"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Saldo total",
+      "threshold": "Umbral",
+      "signaturesRequired": "firmas requeridas",
+      "pending": "Pendientes",
+      "awaitingApproval": "en espera de aprobación",
+      "readyToExecute": "Listo para ejecutar",
+      "fullyApproved": "totalmente aprobado"
+    },
+    "activeProposals": "Propuestas activas",
+    "viewAll": "Ver todo",
+    "noProposals": "Aún no hay propuestas",
+    "createFirst": "Cree su primera transacción →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Para {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} aprobaciones",
+    "status": {
+      "pending": "Pendiente",
+      "approved": "Aprobada",
+      "executed": "Ejecutada",
+      "rejected": "Rechazada",
+      "unknown": "Desconocido"
+    },
+    "types": {
+      "transfer": "Transferencia",
+      "timeLock": "Bloqueo temporal",
+      "vesting": "Vesting",
+      "unknown": "Desconocido"
+    }
+  },
+  "locks": {
+    "title": "Bloqueos temporales",
+    "subtitle": "Bloquee activos hasta una fecha específica",
+    "bulkCreate": "Creación masiva",
+    "createTimeLock": "Crear bloqueo temporal",
+    "creating": "Creando...",
+    "createFirst": "Cree su primer bloqueo temporal",
+    "empty": "Aún no se han creado bloqueos temporales",
+    "archived": "Archivado",
+    "selectToken": "Seleccionar token",
+    "available": "{{amount}} disponible",
+    "quickSelect": "Selección rápida:",
+    "beneficiaryPlaceholder": "Busque contactos o introduzca una dirección G...",
+    "descriptionPlaceholder": "p. ej., Asignación del equipo",
+    "optional": "Opcional",
+    "revocableLabel": "Revocable",
+    "revocableHint": "El administrador puede cancelar y devolver los fondos a la bóveda",
+    "feeWarning": "Se cobrará una comisión de 10 XLM por crear el bloqueo.",
+    "defaultDescription": "Bloqueo temporal",
+    "lockNumber": "Bloqueo n.º {{id}}",
+    "timeLockBadge": "Bloqueo temporal",
+    "revocableBadge": "Revocable",
+    "readyToClaim": "Listo para reclamar",
+    "releasedLabel": "Liberado",
+    "you": "Usted",
+    "claim": "Reclamar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirmCancel": "¿Está seguro de que desea cancelar este bloqueo?",
+    "stats": {
+      "total": "Total de bloqueos temporales",
+      "active": "Activos",
+      "unlocked": "Desbloqueados",
+      "yourLocks": "Sus bloqueos"
+    },
+    "sections": {
+      "yours": "Sus bloqueos temporales",
+      "active": "Bloqueos temporales activos",
+      "pendingCompletion": "Pendientes de finalización"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Importe",
+      "beneficiary": "Beneficiario",
+      "beneficiaryAddress": "Dirección del beneficiario",
+      "remaining": "Restante",
+      "timeStatus": "Estado temporal",
+      "unlockDate": "Fecha de desbloqueo",
+      "unlockDateTime": "Fecha y hora de desbloqueo",
+      "creator": "Creador",
+      "description": "Descripción",
+      "descriptionOptional": "Descripción (opcional)"
+    },
+    "statuses": {
+      "active": "Activo",
+      "partiallyReleased": "Parcialmente liberado",
+      "fullyReleased": "Totalmente liberado",
+      "cancelled": "Cancelado",
+      "unknown": "Desconocido"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "remainingDays": "{{days}}d {{hours}}h restantes",
+      "remainingHours": "{{hours}}h restantes"
+    },
+    "errors": {
+      "fillRequired": "Rellene todos los campos obligatorios",
+      "invalidBeneficiary": "Dirección del beneficiario no válida",
+      "unlockFuture": "La hora de desbloqueo debe ser en el futuro",
+      "createFailed": "No se pudo crear el bloqueo",
+      "claimFailed": "No se pudo reclamar",
+      "cancelFailed": "No se pudo cancelar el bloqueo",
+      "invalidAmount": "Importe no válido",
+      "tokenNotSelected": "Token no seleccionado",
+      "unlockRequired": "Fecha de desbloqueo requerida",
+      "proposalFailed": "No se pudo crear la propuesta"
+    },
+    "bulk": {
+      "title": "Crear bloqueos temporales en masa",
+      "subtitle": "Cree varios bloqueos temporales a la vez (máx. {{max}} por lote)",
+      "downloadTemplate": "Descargar plantilla",
+      "importCsv": "Importar CSV",
+      "statsTotal": "Total",
+      "statsPending": "Pendientes",
+      "statsSuccess": "Correctos",
+      "statsErrors": "Errores",
+      "maxReachedAlert": "Máximo de {{max}} bloqueos temporales por lote para evitar la sobrecarga de la red.",
+      "maxReachedWarning": "Tamaño máximo de lote alcanzado ({{max}} bloqueos). Procese estos antes de añadir más.",
+      "csvTooMany": "El CSV contiene {{count}} entradas. Máximo {{max}} por lote. Solo se importarán las primeras {{max}}.",
+      "duplicate": "Duplicar",
+      "remove": "Eliminar",
+      "addEntry": "Añadir bloqueo temporal",
+      "processing": "Procesando {{current}} de {{total}}...",
+      "readyCount_one": "{{count}} bloqueo listo para crear",
+      "readyCount_other": "{{count}} bloqueos listos para crear",
+      "feeTotal": "• Comisión: {{fee}} XLM en total",
+      "creatingProposals": "Creando propuestas...",
+      "createCount_one": "Crear {{count}} propuesta",
+      "createCount_other": "Crear {{count}} propuestas",
+      "defaultDescription": "Bloqueo temporal masivo"
+    }
+  },
+  "members": {
+    "title": "Miembros de la bóveda",
+    "subtitle_one": "{{count}} miembro • Umbral: {{threshold}} de {{total}}",
+    "subtitle_other": "{{count}} miembros • Umbral: {{threshold}} de {{total}}",
+    "searchPlaceholder": "Buscar miembros por dirección, nombre o rol...",
+    "manageHint": "Para gestionar miembros (añadir, eliminar, cambiar roles), vaya a <strong>Configuración → Miembros y roles</strong>",
+    "you": "Usted",
+    "addToContacts": "Añadir a contactos",
+    "noResults": "No se encontraron miembros que coincidan con su búsqueda.",
+    "stats": {
+      "totalMembers": "Total de miembros",
+      "superAdmins": "Superadministradores",
+      "admins": "Administradores",
+      "executors": "Ejecutores"
+    },
+    "roles": {
+      "superAdmin": "Superadministrador",
+      "admin": "Administrador",
+      "executor": "Ejecutor"
+    },
+    "permissions": {
+      "title": "Permisos de rol",
+      "superAdmin": "Control total, incluida la gestión de otros administradores y configuraciones críticas",
+      "admin": "Puede gestionar la configuración de la bóveda, los miembros y aprobar transacciones",
+      "executor": "Puede crear, aprobar y ejecutar transacciones"
+    },
+    "addContactModal": {
+      "title": "Añadir a contactos",
+      "addressLabel": "Dirección",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Introduzca un nombre para este contacto",
+      "save": "Guardar contacto"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Vista pública",
+    "loading": "Cargando datos de la bóveda...",
+    "noLocks": "Aún no se han creado bloqueos",
+    "noAssets": "No se encontraron activos",
+    "revocable": "Revocable",
+    "released": "Liberado",
+    "allLocks": "Todos los bloqueos ({{count}})",
+    "toBeneficiary": "Para: {{address}}",
+    "errors": {
+      "title": "No se pudo cargar la bóveda",
+      "loadFailed": "No se pudieron cargar los datos de la bóveda"
+    },
+    "tabs": {
+      "overview": "Resumen",
+      "locks": "Bloqueos",
+      "calendar": "Calendario",
+      "assets": "Activos"
+    },
+    "stats": {
+      "signers": "Firmantes",
+      "threshold": "Umbral: {{count}}",
+      "totalLocks": "Total de bloqueos",
+      "activeCount": "{{count}} activos",
+      "assets": "Activos",
+      "tokensHeld": "tokens en posesión",
+      "lockedValue": "Valor bloqueado",
+      "totalLocked": "total bloqueado"
+    },
+    "sections": {
+      "signers": "Firmantes",
+      "recentLocks": "Bloqueos recientes",
+      "assets": "Activos"
+    },
+    "fields": {
+      "amount": "Importe",
+      "beneficiary": "Beneficiario",
+      "unlockDate": "Fecha de desbloqueo",
+      "timeRemaining": "Tiempo restante"
+    },
+    "status": {
+      "active": "Activo",
+      "partiallyReleased": "Parcialmente liberado",
+      "fullyReleased": "Totalmente liberado",
+      "cancelled": "Cancelado"
+    },
+    "lockType": {
+      "timeLock": "Bloqueo temporal",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Desbloqueado",
+      "cliffPassed": "Cliff superado",
+      "remaining": "{{days}}d {{hours}}h restantes",
+      "toCliff": "{{days}}d {{hours}}h hasta el cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Vista pública",
+      "poweredBy": "Con la tecnología de Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "subtitle": "Vea y gestione las propuestas y transferencias de la bóveda",
+    "bulkTransfer": "Transferencia masiva",
+    "newTransaction": "Nueva transacción",
+    "createFirst": "Crear la primera propuesta",
+    "completedProposals": "Propuestas completadas",
+    "noHistory": "No se encontró historial de transacciones",
+    "noHistoryNote": "Nota: las transacciones del contrato Soroban aparecen a través de las propuestas ejecutadas",
+    "received": "Recibido",
+    "sent": "Enviado",
+    "onChainPayments_one": "{{count}} pago en cadena",
+    "onChainPayments_other": "{{count}} pagos en cadena",
+    "approvalsCount": "{{count}}/{{threshold}} aprobaciones",
+    "rejectionsCount": "{{count}}/{{threshold}} rechazos",
+    "tabs": {
+      "proposals": "Propuestas ({{count}})",
+      "history": "Historial ({{count}})"
+    },
+    "filters": {
+      "all": "Todas",
+      "pending": "Pendientes",
+      "approved": "Aprobadas"
+    },
+    "empty": {
+      "all": "No se encontraron propuestas",
+      "filtered": "No se encontraron propuestas {{filter}}"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "approved": "Aprobada",
+      "executed": "Ejecutada",
+      "rejected": "Rechazada"
+    },
+    "types": {
+      "transfer": "Transferencia",
+      "timeLock": "Bloqueo temporal",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Para:",
+      "from": "De:",
+      "by": "Por:",
+      "beneficiary": "Beneficiario:",
+      "created": "Creada:",
+      "approvals": "Aprobaciones:",
+      "unlockDate": "Fecha de desbloqueo:",
+      "cliffDate": "Fecha del cliff:",
+      "endDate": "Fecha de finalización:"
+    },
+    "actions": {
+      "approve": "Aprobar",
+      "execute": "Ejecutar",
+      "reject": "Rechazar",
+      "confirmReject": "Confirmar rechazo"
+    },
+    "bulk": {
+      "title": "Transferencia masiva",
+      "subtitle": "Cree varias propuestas de transferencia en lote (máx. {{max}} por lote)",
+      "importCsv": "Importar CSV",
+      "downloadTemplate": "Descargar plantilla",
+      "csvHelp": "Ayuda sobre el formato CSV",
+      "totalLabel": "Total:",
+      "successLabel": "Correctas:",
+      "failedLabel": "Fallidas:",
+      "csvFormatTitle": "Formato CSV",
+      "csvFormatNote": "Use «native» para XLM o la dirección completa del contrato del token.",
+      "maxBatchWarning": "Máximo de {{max}} transferencias por lote para evitar la sobrecarga de la red. Cree otro lote para más.",
+      "recipientLabel": "Dirección del destinatario",
+      "amountLabel": "Importe",
+      "tokenLabel": "Token",
+      "duplicate": "Duplicar",
+      "remove": "Eliminar",
+      "addTransfer": "Añadir transferencia",
+      "processing": "Procesando {{current}} de {{total}}... ({{delay}}s de retraso entre transacciones)",
+      "readyCount_one": "{{count}} transferencia lista",
+      "readyCount_other": "{{count}} transferencias listas",
+      "totalTokens": "• Total: ~{{amount}} tokens",
+      "creatingProposals": "Creando propuestas...",
+      "createProposals_one": "Crear {{count}} propuesta",
+      "createProposals_other": "Crear {{count}} propuestas",
+      "maxBatchAlert": "Máximo de {{max}} transferencias por lote para evitar la sobrecarga de la red.",
+      "maxBatchShortAlert": "Máximo de {{max}} transferencias por lote.",
+      "csvTooManyAlert": "El CSV contiene {{count}} entradas. Máximo {{max}} por lote. Solo se importarán las primeras {{max}}.",
+      "errors": {
+        "invalidRecipient": "Dirección del destinatario no válida",
+        "invalidAmount": "Importe no válido",
+        "noToken": "Token no seleccionado",
+        "transferUnavailable": "Función de transferencia no disponible",
+        "createFailed": "No se pudo crear la propuesta"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Planes de vesting",
+    "subtitle": "Vesting de tokens con periodos de cliff y liberación gradual",
+    "bulkCreate": "Creación masiva",
+    "createVesting": "Crear vesting",
+    "createFirst": "Cree su primer plan de vesting",
+    "empty": "Aún no se han creado planes de vesting",
+    "archived": "Archivado",
+    "revocable": "Revocable",
+    "badge": "Vesting",
+    "you": "Usted",
+    "claimButton": "💰 Reclamar",
+    "cardTitle": "Vesting n.º {{id}}",
+    "claimableBadge": "{{amount}} reclamable",
+    "vestedLabel": "Consolidado: {{vested}} / {{total}}",
+    "releasedLabel": "Liberado: {{released}}",
+    "daysValue": "{{count}} días",
+    "defaultDescription": "Plan de vesting",
+    "confirmCancel": "¿Está seguro de que desea cancelar este plan de vesting?",
+    "stats": {
+      "totalVesting": "Total de vesting",
+      "active": "Activos",
+      "claimable": "Reclamable",
+      "yourVesting": "Su vesting"
+    },
+    "sections": {
+      "yours": "Sus planes de vesting",
+      "active": "Planes de vesting activos",
+      "pendingCompletion": "Pendientes de finalización"
+    },
+    "status": {
+      "active": "Activo",
+      "partiallyReleased": "Parcialmente liberado",
+      "fullyReleased": "Totalmente liberado",
+      "cancelled": "Cancelado"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}h hasta el cliff",
+      "fullyVested": "Totalmente consolidado",
+      "remaining": "{{days}}d {{hours}}h restantes"
+    },
+    "interval": {
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "quarterly": "Trimestral"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Restante",
+      "status": "Estado",
+      "cliffDate": "Fecha del cliff",
+      "endDate": "Fecha de finalización",
+      "releaseInterval": "Intervalo de liberación",
+      "beneficiary": "Beneficiario",
+      "creator": "Creador",
+      "description": "Descripción"
+    },
+    "errors": {
+      "fillRequired": "Rellene todos los campos obligatorios",
+      "invalidBeneficiary": "Dirección del beneficiario no válida",
+      "durationPositive": "La duración del vesting debe ser mayor que 0",
+      "cliffShorter": "El cliff debe ser más corto que la duración total",
+      "createFailed": "No se pudo crear el vesting",
+      "claimFailed": "No se pudo reclamar",
+      "cancelFailed": "No se pudo cancelar"
+    },
+    "modal": {
+      "title": "Crear plan de vesting",
+      "token": "Token",
+      "selectToken": "Seleccionar token",
+      "tokenOption": "{{symbol}} - {{amount}} disponible",
+      "totalAmount": "Importe total",
+      "beneficiary": "Beneficiario",
+      "quickSelect": "Selección rápida:",
+      "beneficiaryPlaceholder": "Busque contactos o introduzca una dirección G...",
+      "cliffDays": "Cliff (días)",
+      "cliffHint": "Sin liberación antes del cliff",
+      "durationDays": "Duración (días)",
+      "durationHint": "Periodo total de vesting",
+      "intervalDays": "Intervalo (días)",
+      "intervalHint": "Frecuencia de liberación",
+      "descriptionLabel": "Descripción (opcional)",
+      "descriptionPlaceholder": "p. ej., Vesting de empleados, Asignación de asesores",
+      "revocableHint": "El administrador puede cancelar y devolver los fondos no consolidados",
+      "previewTitle": "Vista previa del vesting",
+      "previewCliff": "• El cliff termina: {{date}}",
+      "previewVested": "• Totalmente consolidado: {{date}}",
+      "previewReleases": "• Liberaciones cada {{days}} días después del cliff",
+      "feeNotice": "⚠️ Se cobrará una comisión de 0,1 XLM por crear el plan de vesting.",
+      "creating": "Creando...",
+      "createButton": "Crear plan de vesting"
+    },
+    "bulk": {
+      "title": "Crear vesting en masa",
+      "subtitle": "Cree varios planes de vesting a la vez (máx. {{max}} por lote)",
+      "downloadTemplate": "Descargar plantilla",
+      "importCsv": "Importar CSV",
+      "totalLabel": "Total:",
+      "pendingLabel": "Pendientes:",
+      "successLabel": "Correctos:",
+      "errorsLabel": "Errores:",
+      "maxBatchWarning": "Tamaño máximo de lote alcanzado ({{max}} planes). Procese estos antes de añadir más.",
+      "beneficiaryLabel": "Dirección del beneficiario",
+      "amountLabel": "Importe",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (días)",
+      "durationLabel": "Duración (días)",
+      "intervalLabel": "Intervalo (días)",
+      "descriptionLabel": "Descripción",
+      "optionalPlaceholder": "Opcional",
+      "duplicate": "Duplicar",
+      "remove": "Eliminar",
+      "addSchedule": "Añadir plan de vesting",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Fin: {{date}}",
+      "previewReleases": "Liberaciones cada {{days}} días",
+      "processing": "Procesando {{current}} de {{total}}...",
+      "readyCount_one": "{{count}} plan listo para crear",
+      "readyCount_other": "{{count}} planes listos para crear",
+      "feeTotal": "• Comisión: {{fee}} XLM en total",
+      "creatingProposals": "Creando propuestas...",
+      "createProposals_one": "Crear {{count}} propuesta",
+      "createProposals_other": "Crear {{count}} propuestas",
+      "defaultDescription": "Plan de vesting masivo",
+      "maxBatchAlert": "Máximo de {{max}} planes de vesting por lote para evitar la sobrecarga de la red.",
+      "csvTooManyAlert": "El CSV contiene {{count}} entradas. Máximo {{max}} por lote. Solo se importarán las primeras {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Dirección del beneficiario no válida",
+        "invalidAmount": "Importe no válido",
+        "noToken": "Token no seleccionado",
+        "durationPositive": "La duración del vesting debe ser mayor que 0",
+        "invalidCliff": "Periodo de cliff no válido",
+        "cliffShorter": "El cliff debe ser más corto que la duración total",
+        "invalidInterval": "Intervalo de liberación no válido",
+        "createFailed": "No se pudo crear la propuesta"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Crear nueva bóveda",
+    "defaultName": "Mi bóveda",
+    "defaultNameNumbered": "Mi bóveda {{number}}",
+    "vaultName": "Nombre de la bóveda",
+    "youOwner": "Usted (propietario)",
+    "add": "Añadir",
+    "addSignerPlaceholder": "Añadir dirección del firmante (G...)",
+    "hideContacts": "Ocultar contactos",
+    "addFromContacts": "Añadir desde contactos",
+    "signers_one": "Firmantes ({{count}})",
+    "signers_other": "Firmantes ({{count}})",
+    "thresholdLabel": "Umbral de aprobación: {{threshold}} de {{total}}",
+    "thresholdHint_one": "{{count}} firma requerida para aprobar transacciones",
+    "thresholdHint_other": "{{count}} firmas requeridas para aprobar transacciones",
+    "creating": "Creando...",
+    "checking": "Comprobando...",
+    "insufficientBalanceShort": "Saldo insuficiente",
+    "createButton": "Crear bóveda",
+    "balance": {
+      "insufficientTitle": "Saldo de XLM insuficiente",
+      "needAtLeast": "Necesita al menos <b>{{amount}} XLM</b> para crear una bóveda.",
+      "current": "Su saldo actual: <b>{{amount}} XLM</b>",
+      "coversFee": "Esto cubre la comisión de creación de {{fee}} XLM más los costes de transacción.",
+      "getFriendbot": "Obtener XLM de testnet de Friendbot",
+      "checking": "Comprobando saldo..."
+    },
+    "fee": {
+      "creationFee": "Comisión de creación de la bóveda:",
+      "yourBalance": "Su saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Dirección de Stellar no válida",
+      "signerExists": "El firmante ya ha sido añadido",
+      "insufficientBalance": "Saldo de XLM insuficiente. Necesita al menos {{amount}} XLM.",
+      "signersBelowThreshold": "El número de firmantes debe ser al menos igual al umbral",
+      "factoryNotConfigured": "Factory no configurado",
+      "transactionFailed": "La transacción falló",
+      "noReturnValue": "Sin valor de retorno de la transacción",
+      "parseFailed": "No se pudo analizar la dirección de la bóveda a partir del resultado",
+      "noAddress": "No se pudo obtener la dirección de la bóveda a partir del resultado",
+      "invalidVaultAddress": "Formato de dirección de bóveda no válido",
+      "createFailed": "No se pudo crear la bóveda"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampa de entrada/salida fiat",
+    "subtitle": "Transfiera dinero entre fiat y USDC. Los fondos se asientan directamente en su bóveda.",
+    "soon": "Pronto",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Tarjeta y banco → USDC, entregado directamente a la bóveda."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Depósito/retiro en efectivo en agencias físicas de todo el mundo."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Tarjeta y banco → USDC mediante Stripe, entregado a la bóveda."
+      }
+    },
+    "mode": {
+      "cashToVault": "Efectivo → Bóveda",
+      "vaultToCash": "Bóveda → Efectivo"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Importe (USDC)",
+      "amountOptional": "Importe (USDC) — opcional",
+      "amountWidgetPlaceholder": "Deje en blanco para elegir en el widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Límites: {{min}}–{{max}} USDC por transacción",
+      "outOfRange": "El importe debe estar entre {{min}} y {{max}} USDC."
+    },
+    "actions": {
+      "working": "Procesando…",
+      "buyWithTransak": "Comprar USDC con Transak",
+      "buyWithStripe": "Comprar USDC con Stripe",
+      "startDeposit": "Iniciar depósito en efectivo",
+      "startWithdrawal": "Iniciar retiro en efectivo"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL de API no configurada — establezca REACT_APP_API_URL una vez que el servidor esté desplegado.",
+      "serverDisabled": "Este proveedor aún no está habilitado en el servidor."
+    },
+    "status": {
+      "anchorStatus": "Estado del anchor: {{status}}",
+      "creatingTransak": "Creando una sesión segura de Transak…",
+      "openingTransak": "Abriendo Transak…",
+      "transakClosed": "Ventana de Transak cerrada.",
+      "transakSuccess": "Pedido de Transak completado. El USDC se está entregando a la bóveda. ID del pedido: {{orderId}}",
+      "creatingStripe": "Creando sesión de onramp de Stripe…",
+      "stripeOpened": "Onramp de Stripe abierto.",
+      "authenticating": "Autenticando con el anchor…",
+      "openingCashIn": "Abriendo la ventana de depósito en efectivo…",
+      "openingCashOut": "Abriendo la ventana de KYC/retiro en efectivo…",
+      "creatingProposals": "Creando propuestas multifirma (retiro + comisión del 0,3 %)…",
+      "proposalsCreated": "Propuestas creadas. Retiro n.º {{withdrawId}}, comisión n.º {{feeId}}. Recopile aprobaciones para ejecutar."
+    },
+    "errors": {
+      "apiUrlMissing": "La URL de API no está configurada (REACT_APP_API_URL).",
+      "sessionFailed": "La sesión falló ({{status}})",
+      "noWidgetUrl": "El backend no devolvió widgetUrl",
+      "transakFailed": "El pedido de Transak falló.",
+      "openTransakFailed": "No se pudo abrir Transak",
+      "stripeSessionFailed": "La sesión de Stripe falló ({{status}})",
+      "noClientSecret": "El backend no devolvió clientSecret",
+      "startStripeFailed": "No se pudo iniciar Stripe",
+      "depositFailed": "No se pudo iniciar el depósito",
+      "withdrawFailed": "No se pudo iniciar el retiro"
+    },
+    "summary": {
+      "title": "Resumen",
+      "amount": "Importe",
+      "platformFee": "Comisión de la plataforma ({{pct}} %)",
+      "youReceive": "Recibe en la bóveda",
+      "sentToAnchor": "Enviado al anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Las comisiones del anchor y de la red las cobra por separado {{provider}}.",
+      "theProvider": "el proveedor"
+    },
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "transak": "Pague con tarjeta o transferencia bancaria. Tras el KYC, Transak entrega USDC en Stellar directamente a la dirección de su bóveda. No se necesita aprobación multifirma para los fondos entrantes.",
+      "moneygram": "Los depósitos llegan directamente a la bóveda. Los retiros crean dos propuestas multifirma — la transferencia y la comisión de la plataforma del 0,3 % — que sus firmantes deben aprobar antes de que los fondos salgan de la bóveda.",
+      "stripe": "Pague con tarjeta o banco a través de Stripe. Stripe gestiona el KYC y entrega USDC en Stellar directamente a la dirección de su bóveda."
+    },
+    "destination": {
+      "title": "Bóveda de destino"
+    }
+  },
+  "common": {
+    "copy": "Copiar",
+    "share": "Compartir",
+    "loading": "Cargando…",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "refresh": "Actualizar",
+    "unknown": "Desconocido",
+    "change": "Cambiar",
+    "open": "Abrir",
+    "update": "Actualizar",
+    "all": "Todos",
+    "notAvailable": "N/D"
+  }
+}

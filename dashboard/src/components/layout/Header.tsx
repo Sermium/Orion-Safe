@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronRightIcon, RefreshIcon, PlusIcon, SendIcon } from '../icons';
 import { ActiveView } from '../../types';
 
@@ -25,17 +26,22 @@ export const Header: React.FC<HeaderProps> = ({
   onDeposit,
   onNewTransaction,
 }) => {
+  const { t } = useTranslation();
+
   const getViewTitle = (view: ActiveView): string => {
     switch (view) {
-      case 'dashboard': return 'Dashboard';
-      case 'assets': return 'Assets';
-      case 'transactions': return 'Transactions';
-      case 'locks': return 'Time Locks';
-      case 'vesting': return 'Vesting';
-      case 'members': return 'Members';
-      case 'contacts': return 'Contacts';
-      case 'settings': return 'Settings';
-      default: return view.charAt(0).toUpperCase() + view.slice(1);
+      case 'dashboard': return t('nav.dashboard');
+      case 'assets': return t('nav.assets');
+      case 'transactions': return t('nav.transactions');
+      case 'members': return t('nav.members');
+      case 'contacts': return t('nav.contacts');
+      case 'admin': return t('nav.admin');
+      case 'settings': return t('nav.settings');
+      case 'locks': return t('header.timeLocks');
+      case 'vesting': return t('nav.vesting');
+      case 'docs': return t('nav.docs');
+      case 'fiat': return t('nav.fiat');
+      default: return view; // exhaustive: `view` is `never` here
     }
   };
 
@@ -60,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={onRefresh}
           disabled={loading}
           className="p-2 text-gray-400 hover:text-cyan-400 hover:bg-gray-800/50 rounded-lg transition disabled:opacity-50"
-          title="Refresh"
+          title={t('common.refresh')}
         >
           <RefreshIcon className={loading ? 'animate-spin' : ''} />
         </button>
@@ -71,14 +77,14 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 border border-gray-700/50 hover:border-cyan-500/30 hover:bg-gray-800 rounded-lg transition"
             >
               <PlusIcon className="w-4 h-4" />
-              <span className="hidden sm:inline">Deposit</span>
+              <span className="hidden sm:inline">{t('header.deposit')}</span>
             </button>
             <button
               onClick={onNewTransaction}
               className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-lg font-medium transition shadow-lg shadow-cyan-500/20"
             >
               <SendIcon className="w-4 h-4" />
-              <span className="hidden sm:inline">Send</span>
+              <span className="hidden sm:inline">{t('header.send')}</span>
             </button>
           </>
         )}

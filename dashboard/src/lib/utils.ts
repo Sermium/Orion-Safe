@@ -36,9 +36,15 @@ export const formatAmount = (amount: bigint | string | number, decimals: number 
   return `${sign}${integerPart.toLocaleString()}`;
 };
 
-export const formatUSD = (amount: number): string => {
+export const formatUSD = (amount: number | bigint, decimals: number = 7): string => {
+  // Accepte les stroops bruts (bigint) ou un nombre déjà converti.
+  const value =
+    typeof amount === 'bigint'
+      ? Number(amount) / 10 ** decimals
+      : amount;
+
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  }).format(amount);
+  }).format(value);
 };

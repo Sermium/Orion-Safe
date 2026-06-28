@@ -1,0 +1,956 @@
+{
+  "nav": {
+    "overview": "Обзор",
+    "money": "Деньги",
+    "vestingLocks": "Вестинг и блокировки",
+    "team": "Команда",
+    "system": "Система",
+    "dashboard": "Панель управления",
+    "assets": "Активы",
+    "fiat": "Фиат-рампа",
+    "transactions": "Транзакции",
+    "locks": "Блокировки",
+    "vesting": "Вестинг",
+    "members": "Участники",
+    "contacts": "Контакты",
+    "settings": "Настройки",
+    "docs": "Документация",
+    "admin": "Администрирование",
+    "claim": "Получить токены"
+  },
+  "fiat": {
+    "title": "Фиат-рампа",
+    "deposit": "Внести",
+    "withdraw": "Вывести",
+    "amount": "Сумма",
+    "provider": "Поставщик",
+    "fee": "Комиссия платформы",
+    "destination": "Целевое хранилище",
+    "comingSoon": "Скоро"
+  },
+  "sidebar": {
+    "currentVault": "Текущее хранилище",
+    "selectVault": "Выбрать хранилище",
+    "createNewVault": "Создать новое хранилище",
+    "sharePublicView": "Поделиться публичным просмотром",
+    "disconnect": "Отключить",
+    "connected": "Подключено",
+    "linkCopied": "Публичная ссылка скопирована!"
+  },
+  "header": {
+    "timeLocks": "Временные блокировки",
+    "deposit": "Внести",
+    "send": "Отправить"
+  },
+  "settings": {
+    "title": "Настройки хранилища",
+    "subtitle": "Управляйте конфигурацией и участниками своего хранилища",
+    "language": "Язык",
+    "languageAuto": "Автоматически (язык устройства)",
+    "languageHint": "Автоматически следует языку вашего устройства и переключается на английский, если язык не поддерживается.",
+    "tabs": {
+      "general": "Общие",
+      "members": "Участники и роли",
+      "advanced": "Дополнительно"
+    },
+    "vaultInfo": "Информация о хранилище",
+    "vaultName": "Название хранилища",
+    "vaultAddress": "Адрес хранилища",
+    "notSelected": "Не выбрано",
+    "yourRole": "Ваша роль",
+    "members": "Участники",
+    "threshold": "Порог",
+    "superAdmins": "Суперадминистраторы",
+    "connectedWallet": "Подключённый кошелёк",
+    "publicKey": "Открытый ключ",
+    "approvalThreshold": "Порог одобрения",
+    "thresholdDesc": "Для выполнения транзакций требуется {{threshold}} из {{total}} подписей",
+    "vaultMembers": "Участники хранилища",
+    "vaultMembersDesc": "Управляйте тем, кто может получать доступ к этому хранилищу и управлять им",
+    "addMember": "Добавить участника",
+    "you": "Вы",
+    "copyAddress": "Копировать адрес",
+    "removeMember": "Удалить участника",
+    "rolePermissions": "Разрешения ролей",
+    "adminsOnly": "Управлять участниками и ролями могут только администраторы хранилища.",
+    "contractDetails": "Сведения о контракте",
+    "contractType": "Тип контракта",
+    "sorobanContract": "Смарт-контракт Soroban",
+    "network": "Сеть",
+    "testnet": "Тестовая сеть",
+    "actions": "Действия",
+    "exportData": "Экспортировать данные хранилища",
+    "exportDataDesc": "Скачать конфигурацию и историю транзакций",
+    "export": "Экспортировать",
+    "viewExplorer": "Открыть в эксплорере",
+    "viewExplorerDesc": "Открыть контракт хранилища в Stellar Expert",
+    "dangerZone": "Опасная зона",
+    "leaveVault": "Покинуть хранилище",
+    "leaveVaultDesc": "Удалить себя как подписанта. Это действие нельзя отменить.",
+    "leaveLastWarning": "Вы последний участник — выход приведёт к отказу от хранилища!",
+    "leaving": "Выход...",
+    "leave": "Покинуть",
+    "addNewMember": "Добавить нового участника",
+    "addNewMemberDesc": "Выберите из контактов или введите адрес вручную",
+    "fromContacts": "Из контактов",
+    "enterAddress": "Ввести адрес",
+    "searchContacts": "Поиск контактов...",
+    "noContactsAvailable": "Нет доступных контактов (все уже являются участниками)",
+    "noContactsFound": "Контакты не найдены",
+    "allContactsMembers": "Все ваши контакты уже являются участниками хранилища. Используйте «Ввести адрес», чтобы добавить нового участника.",
+    "stellarAddress": "Адрес Stellar",
+    "role": "Роль",
+    "adding": "Добавление...",
+    "changeThreshold": "Изменить порог одобрения",
+    "requiredSignatures": "Требуемые подписи: {{threshold}} из {{total}}",
+    "thresholdWarning": "Изменение порога влияет на безопасность. Более высокий порог требует больше подписей, но может замедлить операции.",
+    "updating": "Обновление...",
+    "roles": {
+      "superAdmin": "Суперадминистратор",
+      "admin": "Администратор",
+      "executor": "Исполнитель"
+    },
+    "roleOptions": {
+      "superAdmin": "Суперадминистратор — Полный контроль",
+      "admin": "Администратор — Управление участниками",
+      "executor": "Исполнитель — Может проводить транзакции"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Полный контроль над хранилищем",
+        "2": "Управление всеми участниками и ролями",
+        "3": "Изменение порога",
+        "4": "Создание и выполнение транзакций"
+      },
+      "admin": {
+        "1": "Управление исполнителями",
+        "2": "Изменение порога",
+        "3": "Создание и одобрение транзакций",
+        "4": "Управление блокировками"
+      },
+      "executor": {
+        "1": "Создание транзакций",
+        "2": "Одобрение транзакций",
+        "3": "Выполнение одобренных транзакций",
+        "4": "Просмотр всей активности"
+      }
+    },
+    "success": {
+      "memberAdded": "Участник успешно добавлен!",
+      "memberRemoved": "Участник успешно удалён!",
+      "roleUpdated": "Роль успешно обновлена!",
+      "thresholdUpdated": "Порог успешно обновлён!",
+      "leftVault": "Вы успешно покинули хранилище!"
+    },
+    "errors": {
+      "invalidAddress": "Недействительный адрес Stellar",
+      "alreadyMember": "Адрес уже является участником",
+      "addFailed": "Не удалось добавить участника",
+      "removeBreaksThreshold": "Невозможно удалить участника: это нарушит требование к порогу",
+      "lastSuperAdminRemove": "Невозможно удалить последнего суперадминистратора",
+      "removeFailed": "Не удалось удалить участника",
+      "needOneSuperAdmin": "Невозможно изменить роль: в хранилище должен быть хотя бы один суперадминистратор",
+      "roleFailed": "Не удалось изменить роль",
+      "thresholdMin": "Порог должен быть не менее 1",
+      "thresholdMax": "Порог не может превышать количество участников",
+      "thresholdFailed": "Не удалось обновить порог",
+      "leaveLastSuperAdmin": "Вы последний суперадминистратор. Назначьте другого суперадминистратора перед выходом или сначала удалите всех остальных участников.",
+      "leaveBreaksThreshold": "Невозможно покинуть: это нарушит требование к порогу. Текущий порог — {{threshold}}, но останется только {{remaining}} участников.",
+      "leaveFailed": "Не удалось покинуть хранилище"
+    },
+    "confirm": {
+      "removeMember": "Удалить {{name}} из хранилища?",
+      "leaveDefault": "Вы уверены, что хотите покинуть это хранилище? Это действие нельзя отменить.",
+      "leaveLastMember": "ПРЕДУПРЕЖДЕНИЕ: Вы ПОСЛЕДНИЙ участник этого хранилища. Выход приведёт к безвозвратному ОТКАЗУ от хранилища. Все оставшиеся средства станут недоступны. Вы абсолютно уверены?",
+      "leaveFinalWarning": "Это ваше ПОСЛЕДНЕЕ предупреждение. Хранилище будет безвозвратно покинуто. Продолжить?"
+    }
+  },
+  "assets": {
+    "title": "Активы",
+    "subtitle": "Управляйте активами своего хранилища",
+    "addToken": "Добавить токен",
+    "authorize": "Авторизовать",
+    "totalBalance": "Общий баланс",
+    "remainingDailySpend": "Оставшийся дневной лимит",
+    "yourAssets": "Ваши активы",
+    "clickToManage": "Нажмите на актив, чтобы управлять им",
+    "noAssets": "Активов пока нет",
+    "noAssetsDesc": "Внесите несколько токенов, чтобы начать",
+    "makeFirstDeposit": "Сделать первый депозит",
+    "availableBalance": "Доступный баланс",
+    "actions": {
+      "deposit": "Внести",
+      "depositDesc": "Добавить больше {{symbol}} в хранилище",
+      "send": "Отправить",
+      "sendDesc": "Предложить перевод {{symbol}}",
+      "timeLock": "Временная блокировка",
+      "timeLockDesc": "Заблокировать до определённой даты",
+      "vesting": "Вестинг",
+      "vestingDesc": "Создать график вестинга с клиффом"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Календарь блокировок и вестинга",
+    "summary": "{{timeLocks}} временных блокировок, {{vestings}} вестингов",
+    "viewCalendar": "Календарь",
+    "viewList": "Список",
+    "filterType": "Тип",
+    "filterStatus": "Статус",
+    "timeLocks": "Временные блокировки",
+    "vestings": "Вестинги",
+    "timeLock": "Временная блокировка",
+    "vesting": "Вестинг",
+    "noLocks": "Нет блокировок или вестингов для отображения",
+    "today": "Сегодня",
+    "now": "Сейчас",
+    "cliff": "Клифф",
+    "claimable": "Доступно для получения",
+    "progress": "Прогресс",
+    "start": "Начало",
+    "end": "Конец",
+    "unlock": "Разблокировка",
+    "beneficiary": "Получатель",
+    "locked": "заблокировано",
+    "vestingLabel": "вестинг",
+    "released": "Выпущено",
+    "active": "Активно",
+    "completedCount": "{{count}} завершено",
+    "status": {
+      "active": "Активно",
+      "partiallyReleased": "Частично выпущено",
+      "fullyReleased": "Полностью выпущено",
+      "cancelled": "Отменено"
+    },
+    "statusFilter": {
+      "active": "Активно",
+      "completed": "Завершено"
+    },
+    "events": {
+      "start": "начало",
+      "cliff": "клифф",
+      "end": "конец"
+    }
+  },
+  "claim": {
+    "title": "Получите свои токены",
+    "subtitleVault": "Просмотр блокировок из хранилища {{address}}",
+    "subtitleAll": "Просматривайте и получайте назначенные вам блокировки",
+    "disconnect": "Отключить",
+    "connectWallet": "Подключить кошелёк",
+    "connectTitle": "Подключите свой кошелёк",
+    "connectDescVault": "Подключите свой кошелёк, чтобы увидеть все временные блокировки и графики вестинга, назначенные вам из этого хранилища.",
+    "connectDescAll": "Подключите свой кошелёк, чтобы увидеть все временные блокировки и графики вестинга, назначенные вам во всех хранилищах Stellar.",
+    "loadingVault": "Загрузка блокировок из хранилища...",
+    "loadingAll": "Сканирование хранилищ на наличие ваших блокировок...",
+    "scanProgress": "Проверено {{scanned}} из {{total}} хранилищ",
+    "unknownVault": "Неизвестное хранилище",
+    "tokensAmount": "{{amount}} токенов",
+    "claimNow": "Получить сейчас",
+    "claiming": "Получение...",
+    "refreshLocks": "Обновить блокировки",
+    "claimSuccess": "Успешно получено {{amount}} токенов!",
+    "errorLoad": "Не удалось загрузить блокировки",
+    "errorClaim": "Не удалось получить",
+    "stats": {
+      "readyToClaim": "Готово к получению",
+      "pending": "В ожидании",
+      "completed": "Завершено"
+    },
+    "sections": {
+      "readyToClaim": "Готово к получению",
+      "pending": "В ожидании"
+    },
+    "fields": {
+      "fromVault": "Из хранилища",
+      "totalAmount": "Общая сумма",
+      "description": "Описание",
+      "timeRemaining": "Оставшееся время",
+      "unlockDate": "Дата разблокировки"
+    },
+    "types": {
+      "timeLock": "Временная блокировка",
+      "vesting": "Вестинг",
+      "unknown": "Неизвестно"
+    },
+    "time": {
+      "unlocked": "Разблокировано",
+      "fullyVested": "Полностью получено",
+      "remaining": "Осталось {{days}}д {{hours}}ч",
+      "toCliff": "{{days}}д {{hours}}ч до клиффа"
+    },
+    "empty": {
+      "title": "Блокировки не найдены",
+      "descVault": "В этом хранилище у вас нет назначенных блокировок.",
+      "descAll": "У вас нет назначенных временных блокировок или графиков вестинга."
+    }
+  },
+  "contacts": {
+    "title": "Книга контактов",
+    "subtitle": "Сохраняйте часто используемые адреса для быстрого доступа",
+    "addContact": "Добавить контакт",
+    "searchPlaceholder": "Поиск контактов...",
+    "savedCount_one": "{{count}} контакт сохранён",
+    "savedCount_few": "{{count}} контакта сохранено",
+    "savedCount_many": "{{count}} контактов сохранено",
+    "savedCount_other": "{{count}} контакта сохранено",
+    "confirmDelete": "Удалить «{{name}}» из контактов?",
+    "errors": {
+      "nameRequired": "Имя обязательно",
+      "addressRequired": "Адрес обязателен",
+      "invalidAddress": "Недействительный адрес Stellar",
+      "duplicate": "Этот адрес уже есть в ваших контактах"
+    },
+    "empty": {
+      "noMatch": "Ни один контакт не соответствует вашему запросу",
+      "none": "Контактов пока нет",
+      "addFirst": "Добавьте свой первый контакт →"
+    },
+    "actions": {
+      "copy": "Копировать адрес",
+      "edit": "Редактировать контакт",
+      "delete": "Удалить контакт"
+    },
+    "modal": {
+      "addTitle": "Добавить новый контакт",
+      "editTitle": "Редактировать контакт",
+      "nameLabel": "Имя *",
+      "namePlaceholder": "например, Alice, Казначейство, Биржа",
+      "addressLabel": "Адрес Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Адрес нельзя изменить",
+      "notesLabel": "Заметки (необязательно)",
+      "notesPlaceholder": "Добавьте заметки об этом контакте...",
+      "saveChanges": "Сохранить изменения"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Общий баланс",
+      "threshold": "Порог",
+      "signaturesRequired": "требуется подписей",
+      "pending": "В ожидании",
+      "awaitingApproval": "ожидает одобрения",
+      "readyToExecute": "Готово к выполнению",
+      "fullyApproved": "полностью одобрено"
+    },
+    "activeProposals": "Активные предложения",
+    "viewAll": "Показать все",
+    "noProposals": "Предложений пока нет",
+    "createFirst": "Создайте свою первую транзакцию →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Кому: {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} одобрений",
+    "status": {
+      "pending": "В ожидании",
+      "approved": "Одобрено",
+      "executed": "Выполнено",
+      "rejected": "Отклонено",
+      "unknown": "Неизвестно"
+    },
+    "types": {
+      "transfer": "Перевод",
+      "timeLock": "Временная блокировка",
+      "vesting": "Вестинг",
+      "unknown": "Неизвестно"
+    }
+  },
+  "locks": {
+    "title": "Временные блокировки",
+    "subtitle": "Блокируйте активы до определённой даты",
+    "bulkCreate": "Массовое создание",
+    "createTimeLock": "Создать временную блокировку",
+    "creating": "Создание...",
+    "createFirst": "Создайте свою первую временную блокировку",
+    "empty": "Временные блокировки ещё не созданы",
+    "archived": "В архиве",
+    "selectToken": "Выбрать токен",
+    "available": "{{amount}} доступно",
+    "quickSelect": "Быстрый выбор:",
+    "beneficiaryPlaceholder": "Найдите контакты или введите адрес G...",
+    "descriptionPlaceholder": "например, Распределение для команды",
+    "optional": "Необязательно",
+    "revocableLabel": "Отзывная",
+    "revocableHint": "Администратор может отменить и вернуть средства в хранилище",
+    "feeWarning": "За создание блокировки будет взиматься комиссия в размере 10 XLM.",
+    "defaultDescription": "Временная блокировка",
+    "lockNumber": "Блокировка №{{id}}",
+    "timeLockBadge": "Временная блокировка",
+    "revocableBadge": "Отзывная",
+    "readyToClaim": "Готово к получению",
+    "releasedLabel": "Выпущено",
+    "you": "Вы",
+    "claim": "Получить",
+    "cancel": "Отменить",
+    "close": "Закрыть",
+    "confirmCancel": "Вы уверены, что хотите отменить эту блокировку?",
+    "stats": {
+      "total": "Всего временных блокировок",
+      "active": "Активные",
+      "unlocked": "Разблокированные",
+      "yourLocks": "Ваши блокировки"
+    },
+    "sections": {
+      "yours": "Ваши временные блокировки",
+      "active": "Активные временные блокировки",
+      "pendingCompletion": "Ожидают завершения"
+    },
+    "fields": {
+      "token": "Токен",
+      "amount": "Сумма",
+      "beneficiary": "Получатель",
+      "beneficiaryAddress": "Адрес получателя",
+      "remaining": "Осталось",
+      "timeStatus": "Временной статус",
+      "unlockDate": "Дата разблокировки",
+      "unlockDateTime": "Дата и время разблокировки",
+      "creator": "Создатель",
+      "description": "Описание",
+      "descriptionOptional": "Описание (необязательно)"
+    },
+    "statuses": {
+      "active": "Активно",
+      "partiallyReleased": "Частично выпущено",
+      "fullyReleased": "Полностью выпущено",
+      "cancelled": "Отменено",
+      "unknown": "Неизвестно"
+    },
+    "time": {
+      "unlocked": "Разблокировано",
+      "remainingDays": "Осталось {{days}}д {{hours}}ч",
+      "remainingHours": "Осталось {{hours}}ч"
+    },
+    "errors": {
+      "fillRequired": "Пожалуйста, заполните все обязательные поля",
+      "invalidBeneficiary": "Недействительный адрес получателя",
+      "unlockFuture": "Время разблокировки должно быть в будущем",
+      "createFailed": "Не удалось создать блокировку",
+      "claimFailed": "Не удалось получить",
+      "cancelFailed": "Не удалось отменить блокировку",
+      "invalidAmount": "Недействительная сумма",
+      "tokenNotSelected": "Токен не выбран",
+      "unlockRequired": "Требуется дата разблокировки",
+      "proposalFailed": "Не удалось создать предложение"
+    },
+    "bulk": {
+      "title": "Массовое создание временных блокировок",
+      "subtitle": "Создавайте несколько временных блокировок сразу (макс. {{max}} за пакет)",
+      "downloadTemplate": "Скачать шаблон",
+      "importCsv": "Импортировать CSV",
+      "statsTotal": "Всего",
+      "statsPending": "В ожидании",
+      "statsSuccess": "Успешно",
+      "statsErrors": "Ошибки",
+      "maxReachedAlert": "Максимум {{max}} временных блокировок за пакет во избежание перегрузки сети.",
+      "maxReachedWarning": "Достигнут максимальный размер пакета ({{max}} блокировок). Обработайте их перед добавлением новых.",
+      "csvTooMany": "CSV содержит {{count}} записей. Максимум {{max}} за пакет. Будут импортированы только первые {{max}}.",
+      "duplicate": "Дублировать",
+      "remove": "Удалить",
+      "addEntry": "Добавить временную блокировку",
+      "processing": "Обработка {{current}} из {{total}}...",
+      "readyCount_one": "{{count}} блокировка готова к созданию",
+      "readyCount_few": "{{count}} блокировки готовы к созданию",
+      "readyCount_many": "{{count}} блокировок готовы к созданию",
+      "readyCount_other": "{{count}} блокировки готовы к созданию",
+      "feeTotal": "• Комиссия: всего {{fee}} XLM",
+      "creatingProposals": "Создание предложений...",
+      "createCount_one": "Создать {{count}} предложение",
+      "createCount_few": "Создать {{count}} предложения",
+      "createCount_many": "Создать {{count}} предложений",
+      "createCount_other": "Создать {{count}} предложения",
+      "defaultDescription": "Массовая временная блокировка"
+    }
+  },
+  "members": {
+    "title": "Участники хранилища",
+    "subtitle_one": "{{count}} участник • Порог: {{threshold}} из {{total}}",
+    "subtitle_few": "{{count}} участника • Порог: {{threshold}} из {{total}}",
+    "subtitle_many": "{{count}} участников • Порог: {{threshold}} из {{total}}",
+    "subtitle_other": "{{count}} участника • Порог: {{threshold}} из {{total}}",
+    "searchPlaceholder": "Поиск участников по адресу, имени или роли...",
+    "manageHint": "Для управления участниками (добавление, удаление, изменение ролей) перейдите в <strong>Настройки → Участники и роли</strong>",
+    "you": "Вы",
+    "addToContacts": "Добавить в контакты",
+    "noResults": "Участники, соответствующие вашему запросу, не найдены.",
+    "stats": {
+      "totalMembers": "Всего участников",
+      "superAdmins": "Суперадминистраторы",
+      "admins": "Администраторы",
+      "executors": "Исполнители"
+    },
+    "roles": {
+      "superAdmin": "Суперадминистратор",
+      "admin": "Администратор",
+      "executor": "Исполнитель"
+    },
+    "permissions": {
+      "title": "Разрешения ролей",
+      "superAdmin": "Полный контроль, включая управление другими администраторами и критическими настройками",
+      "admin": "Может управлять настройками хранилища, участниками и одобрять транзакции",
+      "executor": "Может создавать, одобрять и выполнять транзакции"
+    },
+    "addContactModal": {
+      "title": "Добавить в контакты",
+      "addressLabel": "Адрес",
+      "nameLabel": "Имя",
+      "namePlaceholder": "Введите имя для этого контакта",
+      "save": "Сохранить контакт"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Публичный просмотр",
+    "loading": "Загрузка данных хранилища...",
+    "noLocks": "Блокировки ещё не созданы",
+    "noAssets": "Активы не найдены",
+    "revocable": "Отзывная",
+    "released": "Выпущено",
+    "allLocks": "Все блокировки ({{count}})",
+    "toBeneficiary": "Кому: {{address}}",
+    "errors": {
+      "title": "Не удалось загрузить хранилище",
+      "loadFailed": "Не удалось загрузить данные хранилища"
+    },
+    "tabs": {
+      "overview": "Обзор",
+      "locks": "Блокировки",
+      "calendar": "Календарь",
+      "assets": "Активы"
+    },
+    "stats": {
+      "signers": "Подписанты",
+      "threshold": "Порог: {{count}}",
+      "totalLocks": "Всего блокировок",
+      "activeCount": "{{count}} активных",
+      "assets": "Активы",
+      "tokensHeld": "хранимых токенов",
+      "lockedValue": "Заблокированная стоимость",
+      "totalLocked": "всего заблокировано"
+    },
+    "sections": {
+      "signers": "Подписанты",
+      "recentLocks": "Недавние блокировки",
+      "assets": "Активы"
+    },
+    "fields": {
+      "amount": "Сумма",
+      "beneficiary": "Получатель",
+      "unlockDate": "Дата разблокировки",
+      "timeRemaining": "Оставшееся время"
+    },
+    "status": {
+      "active": "Активно",
+      "partiallyReleased": "Частично выпущено",
+      "fullyReleased": "Полностью выпущено",
+      "cancelled": "Отменено"
+    },
+    "lockType": {
+      "timeLock": "Временная блокировка",
+      "vesting": "Вестинг"
+    },
+    "time": {
+      "unlocked": "Разблокировано",
+      "cliffPassed": "Клифф пройден",
+      "remaining": "Осталось {{days}}д {{hours}}ч",
+      "toCliff": "{{days}}д {{hours}}ч до клиффа"
+    },
+    "footer": {
+      "title": "Stellar Vault — Публичный просмотр",
+      "poweredBy": "Работает на Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Транзакции",
+    "subtitle": "Просматривайте предложения и переводы хранилища и управляйте ими",
+    "bulkTransfer": "Массовый перевод",
+    "newTransaction": "Новая транзакция",
+    "createFirst": "Создать первое предложение",
+    "completedProposals": "Завершённые предложения",
+    "noHistory": "История транзакций не найдена",
+    "noHistoryNote": "Примечание: транзакции контракта Soroban отображаются через выполненные предложения",
+    "received": "Получено",
+    "sent": "Отправлено",
+    "onChainPayments_one": "{{count}} ончейн-платёж",
+    "onChainPayments_few": "{{count}} ончейн-платежа",
+    "onChainPayments_many": "{{count}} ончейн-платежей",
+    "onChainPayments_other": "{{count}} ончейн-платежа",
+    "approvalsCount": "{{count}}/{{threshold}} одобрений",
+    "rejectionsCount": "{{count}}/{{threshold}} отклонений",
+    "tabs": {
+      "proposals": "Предложения ({{count}})",
+      "history": "История ({{count}})"
+    },
+    "filters": {
+      "all": "Все",
+      "pending": "В ожидании",
+      "approved": "Одобренные"
+    },
+    "empty": {
+      "all": "Предложения не найдены",
+      "filtered": "Предложения «{{filter}}» не найдены"
+    },
+    "status": {
+      "pending": "В ожидании",
+      "approved": "Одобрено",
+      "executed": "Выполнено",
+      "rejected": "Отклонено"
+    },
+    "types": {
+      "transfer": "Перевод",
+      "timeLock": "Временная блокировка",
+      "vesting": "Вестинг"
+    },
+    "fields": {
+      "to": "Кому:",
+      "from": "От:",
+      "by": "Кем:",
+      "beneficiary": "Получатель:",
+      "created": "Создано:",
+      "approvals": "Одобрения:",
+      "unlockDate": "Дата разблокировки:",
+      "cliffDate": "Дата клиффа:",
+      "endDate": "Дата окончания:"
+    },
+    "actions": {
+      "approve": "Одобрить",
+      "execute": "Выполнить",
+      "reject": "Отклонить",
+      "confirmReject": "Подтвердить отклонение"
+    },
+    "bulk": {
+      "title": "Массовый перевод",
+      "subtitle": "Создавайте несколько предложений перевода в пакете (макс. {{max}} за пакет)",
+      "importCsv": "Импортировать CSV",
+      "downloadTemplate": "Скачать шаблон",
+      "csvHelp": "Справка по формату CSV",
+      "totalLabel": "Всего:",
+      "successLabel": "Успешно:",
+      "failedLabel": "Неудачно:",
+      "csvFormatTitle": "Формат CSV",
+      "csvFormatNote": "Используйте «native» для XLM или полный адрес контракта токена.",
+      "maxBatchWarning": "Максимум {{max}} переводов за пакет во избежание перегрузки сети. Создайте другой пакет для большего количества.",
+      "recipientLabel": "Адрес получателя",
+      "amountLabel": "Сумма",
+      "tokenLabel": "Токен",
+      "duplicate": "Дублировать",
+      "remove": "Удалить",
+      "addTransfer": "Добавить перевод",
+      "processing": "Обработка {{current}} из {{total}}... (задержка {{delay}}с между транзакциями)",
+      "readyCount_one": "{{count}} перевод готов",
+      "readyCount_few": "{{count}} перевода готовы",
+      "readyCount_many": "{{count}} переводов готовы",
+      "readyCount_other": "{{count}} перевода готовы",
+      "totalTokens": "• Всего: ~{{amount}} токенов",
+      "creatingProposals": "Создание предложений...",
+      "createProposals_one": "Создать {{count}} предложение",
+      "createProposals_few": "Создать {{count}} предложения",
+      "createProposals_many": "Создать {{count}} предложений",
+      "createProposals_other": "Создать {{count}} предложения",
+      "maxBatchAlert": "Максимум {{max}} переводов за пакет во избежание перегрузки сети.",
+      "maxBatchShortAlert": "Максимум {{max}} переводов за пакет.",
+      "csvTooManyAlert": "CSV содержит {{count}} записей. Максимум {{max}} за пакет. Будут импортированы только первые {{max}}.",
+      "errors": {
+        "invalidRecipient": "Недействительный адрес получателя",
+        "invalidAmount": "Недействительная сумма",
+        "noToken": "Токен не выбран",
+        "transferUnavailable": "Функция перевода недоступна",
+        "createFailed": "Не удалось создать предложение"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Графики вестинга",
+    "subtitle": "Вестинг токенов с периодами клиффа и постепенным выпуском",
+    "bulkCreate": "Массовое создание",
+    "createVesting": "Создать вестинг",
+    "createFirst": "Создайте свой первый график вестинга",
+    "empty": "Графики вестинга ещё не созданы",
+    "archived": "В архиве",
+    "revocable": "Отзывной",
+    "badge": "Вестинг",
+    "you": "Вы",
+    "claimButton": "💰 Получить",
+    "cardTitle": "Вестинг №{{id}}",
+    "claimableBadge": "{{amount}} доступно",
+    "vestedLabel": "Получено: {{vested}} / {{total}}",
+    "releasedLabel": "Выпущено: {{released}}",
+    "daysValue": "{{count}} дней",
+    "defaultDescription": "График вестинга",
+    "confirmCancel": "Вы уверены, что хотите отменить этот график вестинга?",
+    "stats": {
+      "totalVesting": "Всего вестингов",
+      "active": "Активные",
+      "claimable": "Доступно для получения",
+      "yourVesting": "Ваш вестинг"
+    },
+    "sections": {
+      "yours": "Ваши графики вестинга",
+      "active": "Активные графики вестинга",
+      "pendingCompletion": "Ожидают завершения"
+    },
+    "status": {
+      "active": "Активно",
+      "partiallyReleased": "Частично выпущено",
+      "fullyReleased": "Полностью выпущено",
+      "cancelled": "Отменено"
+    },
+    "time": {
+      "toCliff": "{{days}}д {{hours}}ч до клиффа",
+      "fullyVested": "Полностью получено",
+      "remaining": "Осталось {{days}}д {{hours}}ч"
+    },
+    "interval": {
+      "daily": "Ежедневно",
+      "weekly": "Еженедельно",
+      "monthly": "Ежемесячно",
+      "quarterly": "Ежеквартально"
+    },
+    "fields": {
+      "token": "Токен",
+      "remaining": "Осталось",
+      "status": "Статус",
+      "cliffDate": "Дата клиффа",
+      "endDate": "Дата окончания",
+      "releaseInterval": "Интервал выпуска",
+      "beneficiary": "Получатель",
+      "creator": "Создатель",
+      "description": "Описание"
+    },
+    "errors": {
+      "fillRequired": "Пожалуйста, заполните все обязательные поля",
+      "invalidBeneficiary": "Недействительный адрес получателя",
+      "durationPositive": "Длительность вестинга должна быть больше 0",
+      "cliffShorter": "Клифф должен быть короче общей длительности",
+      "createFailed": "Не удалось создать вестинг",
+      "claimFailed": "Не удалось получить",
+      "cancelFailed": "Не удалось отменить"
+    },
+    "modal": {
+      "title": "Создать график вестинга",
+      "token": "Токен",
+      "selectToken": "Выбрать токен",
+      "tokenOption": "{{symbol}} — {{amount}} доступно",
+      "totalAmount": "Общая сумма",
+      "beneficiary": "Получатель",
+      "quickSelect": "Быстрый выбор:",
+      "beneficiaryPlaceholder": "Найдите контакты или введите адрес G...",
+      "cliffDays": "Клифф (дни)",
+      "cliffHint": "Нет выпуска до клиффа",
+      "durationDays": "Длительность (дни)",
+      "durationHint": "Общий период вестинга",
+      "intervalDays": "Интервал (дни)",
+      "intervalHint": "Частота выпуска",
+      "descriptionLabel": "Описание (необязательно)",
+      "descriptionPlaceholder": "например, Вестинг сотрудников, Распределение для консультантов",
+      "revocableHint": "Администратор может отменить и вернуть невыпущенные средства",
+      "previewTitle": "Предпросмотр вестинга",
+      "previewCliff": "• Клифф заканчивается: {{date}}",
+      "previewVested": "• Полностью получено: {{date}}",
+      "previewReleases": "• Выпуски каждые {{days}} дней после клиффа",
+      "feeNotice": "⚠️ За создание графика вестинга будет взиматься комиссия в размере 0,1 XLM.",
+      "creating": "Создание...",
+      "createButton": "Создать график вестинга"
+    },
+    "bulk": {
+      "title": "Массовое создание вестинга",
+      "subtitle": "Создавайте несколько графиков вестинга сразу (макс. {{max}} за пакет)",
+      "downloadTemplate": "Скачать шаблон",
+      "importCsv": "Импортировать CSV",
+      "totalLabel": "Всего:",
+      "pendingLabel": "В ожидании:",
+      "successLabel": "Успешно:",
+      "errorsLabel": "Ошибки:",
+      "maxBatchWarning": "Достигнут максимальный размер пакета ({{max}} графиков). Обработайте их перед добавлением новых.",
+      "beneficiaryLabel": "Адрес получателя",
+      "amountLabel": "Сумма",
+      "tokenLabel": "Токен",
+      "cliffLabel": "Клифф (дни)",
+      "durationLabel": "Длительность (дни)",
+      "intervalLabel": "Интервал (дни)",
+      "descriptionLabel": "Описание",
+      "optionalPlaceholder": "Необязательно",
+      "duplicate": "Дублировать",
+      "remove": "Удалить",
+      "addSchedule": "Добавить график вестинга",
+      "previewCliff": "Клифф: {{date}}",
+      "previewEnd": "Конец: {{date}}",
+      "previewReleases": "Выпуски каждые {{days}} дней",
+      "processing": "Обработка {{current}} из {{total}}...",
+      "readyCount_one": "{{count}} график готов к созданию",
+      "readyCount_few": "{{count}} графика готовы к созданию",
+      "readyCount_many": "{{count}} графиков готовы к созданию",
+      "readyCount_other": "{{count}} графика готовы к созданию",
+      "feeTotal": "• Комиссия: всего {{fee}} XLM",
+      "creatingProposals": "Создание предложений...",
+      "createProposals_one": "Создать {{count}} предложение",
+      "createProposals_few": "Создать {{count}} предложения",
+      "createProposals_many": "Создать {{count}} предложений",
+      "createProposals_other": "Создать {{count}} предложения",
+      "defaultDescription": "Массовый график вестинга",
+      "maxBatchAlert": "Максимум {{max}} графиков вестинга за пакет во избежание перегрузки сети.",
+      "csvTooManyAlert": "CSV содержит {{count}} записей. Максимум {{max}} за пакет. Будут импортированы только первые {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Недействительный адрес получателя",
+        "invalidAmount": "Недействительная сумма",
+        "noToken": "Токен не выбран",
+        "durationPositive": "Длительность вестинга должна быть больше 0",
+        "invalidCliff": "Недействительный период клиффа",
+        "cliffShorter": "Клифф должен быть короче общей длительности",
+        "invalidInterval": "Недействительный интервал выпуска",
+        "createFailed": "Не удалось создать предложение"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Создать новое хранилище",
+    "defaultName": "Моё хранилище",
+    "defaultNameNumbered": "Моё хранилище {{number}}",
+    "vaultName": "Название хранилища",
+    "youOwner": "Вы (владелец)",
+    "add": "Добавить",
+    "addSignerPlaceholder": "Добавить адрес подписанта (G...)",
+    "hideContacts": "Скрыть контакты",
+    "addFromContacts": "Добавить из контактов",
+    "signers_one": "Подписанты ({{count}})",
+    "signers_few": "Подписанты ({{count}})",
+    "signers_many": "Подписанты ({{count}})",
+    "signers_other": "Подписанты ({{count}})",
+    "thresholdLabel": "Порог одобрения: {{threshold}} из {{total}}",
+    "thresholdHint_one": "{{count}} подпись требуется для одобрения транзакций",
+    "thresholdHint_few": "{{count}} подписи требуется для одобрения транзакций",
+    "thresholdHint_many": "{{count}} подписей требуется для одобрения транзакций",
+    "thresholdHint_other": "{{count}} подписи требуется для одобрения транзакций",
+    "creating": "Создание...",
+    "checking": "Проверка...",
+    "insufficientBalanceShort": "Недостаточный баланс",
+    "createButton": "Создать хранилище",
+    "balance": {
+      "insufficientTitle": "Недостаточный баланс XLM",
+      "needAtLeast": "Для создания хранилища вам нужно не менее <b>{{amount}} XLM</b>.",
+      "current": "Ваш текущий баланс: <b>{{amount}} XLM</b>",
+      "coversFee": "Это покрывает комиссию за создание в размере {{fee}} XLM плюс расходы на транзакцию.",
+      "getFriendbot": "Получить тестовые XLM от Friendbot",
+      "checking": "Проверка баланса..."
+    },
+    "fee": {
+      "creationFee": "Комиссия за создание хранилища:",
+      "yourBalance": "Ваш баланс:"
+    },
+    "errors": {
+      "invalidAddress": "Недействительный адрес Stellar",
+      "signerExists": "Подписант уже добавлен",
+      "insufficientBalance": "Недостаточный баланс XLM. Вам нужно не менее {{amount}} XLM.",
+      "signersBelowThreshold": "Количество подписантов должно быть не меньше порога",
+      "factoryNotConfigured": "Factory не настроен",
+      "transactionFailed": "Транзакция не удалась",
+      "noReturnValue": "Нет возвращаемого значения от транзакции",
+      "parseFailed": "Не удалось извлечь адрес хранилища из результата",
+      "noAddress": "Не удалось получить адрес хранилища из результата",
+      "invalidVaultAddress": "Недействительный формат адреса хранилища",
+      "createFailed": "Не удалось создать хранилище"
+    }
+  },
+  "fiatRamp": {
+    "title": "Фиат вход / выход",
+    "subtitle": "Переводите деньги между фиатом и USDC. Средства поступают напрямую в ваше хранилище.",
+    "soon": "Скоро",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Карта и банк → USDC, доставляется прямо в хранилище."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Внесение/снятие наличных в физических пунктах агентов по всему миру."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Карта и банк → USDC через Stripe, доставляется в хранилище."
+      }
+    },
+    "mode": {
+      "cashToVault": "Наличные → Хранилище",
+      "vaultToCash": "Хранилище → Наличные"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Сумма (USDC)",
+      "amountOptional": "Сумма (USDC) — необязательно",
+      "amountWidgetPlaceholder": "Оставьте пустым, чтобы выбрать в виджете",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Лимиты: {{min}}–{{max}} USDC за транзакцию",
+      "outOfRange": "Сумма должна быть от {{min}} до {{max}} USDC."
+    },
+    "actions": {
+      "working": "Обработка…",
+      "buyWithTransak": "Купить USDC через Transak",
+      "buyWithStripe": "Купить USDC через Stripe",
+      "startDeposit": "Начать внесение наличных",
+      "startWithdrawal": "Начать снятие наличных"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL-адрес API не настроен — установите REACT_APP_API_URL после развёртывания сервера.",
+      "serverDisabled": "Этот поставщик ещё не включён на сервере."
+    },
+    "status": {
+      "anchorStatus": "Статус anchor: {{status}}",
+      "creatingTransak": "Создание защищённой сессии Transak…",
+      "openingTransak": "Открытие Transak…",
+      "transakClosed": "Окно Transak закрыто.",
+      "transakSuccess": "Заказ Transak выполнен. USDC доставляется в хранилище. ID заказа: {{orderId}}",
+      "creatingStripe": "Создание сессии onramp Stripe…",
+      "stripeOpened": "Onramp Stripe открыт.",
+      "authenticating": "Аутентификация с anchor…",
+      "openingCashIn": "Открытие окна внесения наличных…",
+      "openingCashOut": "Открытие окна KYC / снятия наличных…",
+      "creatingProposals": "Создание multisig-предложений (вывод + комиссия 0,3%)…",
+      "proposalsCreated": "Предложения созданы. Вывод №{{withdrawId}}, комиссия №{{feeId}}. Соберите одобрения для выполнения."
+    },
+    "errors": {
+      "apiUrlMissing": "URL-адрес API не настроен (REACT_APP_API_URL).",
+      "sessionFailed": "Сессия не удалась ({{status}})",
+      "noWidgetUrl": "Бэкенд не вернул widgetUrl",
+      "transakFailed": "Заказ Transak не удался.",
+      "openTransakFailed": "Не удалось открыть Transak",
+      "stripeSessionFailed": "Сессия Stripe не удалась ({{status}})",
+      "noClientSecret": "Бэкенд не вернул clientSecret",
+      "startStripeFailed": "Не удалось запустить Stripe",
+      "depositFailed": "Не удалось начать внесение",
+      "withdrawFailed": "Не удалось начать снятие"
+    },
+    "summary": {
+      "title": "Сводка",
+      "amount": "Сумма",
+      "platformFee": "Комиссия платформы ({{pct}}%)",
+      "youReceive": "Вы получаете в хранилище",
+      "sentToAnchor": "Отправлено в anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Комиссии anchor и сети взимаются отдельно поставщиком {{provider}}.",
+      "theProvider": "поставщик"
+    },
+    "howItWorks": {
+      "title": "Как это работает",
+      "transak": "Оплатите картой или банковским переводом. После KYC Transak доставляет USDC в сети Stellar напрямую на адрес вашего хранилища. Для входящих средств одобрение multisig не требуется.",
+      "moneygram": "Депозиты поступают напрямую в хранилище. Выводы создают два multisig-предложения — перевод и комиссию платформы 0,3% — которые ваши подписанты должны одобрить, прежде чем средства покинут хранилище.",
+      "stripe": "Оплатите картой или через банк с помощью Stripe. Stripe обрабатывает KYC и доставляет USDC в сети Stellar напрямую на адрес вашего хранилища."
+    },
+    "destination": {
+      "title": "Целевое хранилище"
+    }
+  },
+  "common": {
+    "copy": "Копировать",
+    "share": "Поделиться",
+    "loading": "Загрузка…",
+    "cancel": "Отменить",
+    "confirm": "Подтвердить",
+    "save": "Сохранить",
+    "close": "Закрыть",
+    "refresh": "Обновить",
+    "unknown": "Неизвестно",
+    "change": "Изменить",
+    "open": "Открыть",
+    "update": "Обновить",
+    "all": "Все",
+    "notAvailable": "Н/Д"
+  }
+}

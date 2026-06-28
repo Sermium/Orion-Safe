@@ -1,0 +1,945 @@
+{
+  "nav": {
+    "overview": "Prezentare generală",
+    "money": "Bani",
+    "vestingLocks": "Vesting și Blocări",
+    "team": "Echipă",
+    "system": "Sistem",
+    "dashboard": "Tablou de bord",
+    "assets": "Active",
+    "fiat": "Rampă Fiat",
+    "transactions": "Tranzacții",
+    "locks": "Blocări",
+    "vesting": "Vesting",
+    "members": "Membri",
+    "contacts": "Contacte",
+    "settings": "Setări",
+    "docs": "Documentație",
+    "admin": "Administrare",
+    "claim": "Revendică tokenuri"
+  },
+  "fiat": {
+    "title": "Rampă Fiat",
+    "deposit": "Depune",
+    "withdraw": "Retrage",
+    "amount": "Sumă",
+    "provider": "Furnizor",
+    "fee": "Comision platformă",
+    "destination": "Seif de destinație",
+    "comingSoon": "În curând"
+  },
+  "sidebar": {
+    "currentVault": "Seif curent",
+    "selectVault": "Selectează seif",
+    "createNewVault": "Creează seif nou",
+    "sharePublicView": "Distribuie vizualizarea publică",
+    "disconnect": "Deconectează",
+    "connected": "Conectat",
+    "linkCopied": "Link public copiat!"
+  },
+  "header": {
+    "timeLocks": "Blocări temporale",
+    "deposit": "Depune",
+    "send": "Trimite"
+  },
+  "settings": {
+    "title": "Setări seif",
+    "subtitle": "Gestionează configurația și membrii seifului tău",
+    "language": "Limbă",
+    "languageAuto": "Automat (limba dispozitivului)",
+    "languageHint": "Automat urmează limba dispozitivului tău și revine la engleză dacă nu este acceptată.",
+    "tabs": {
+      "general": "General",
+      "members": "Membri și roluri",
+      "advanced": "Avansat"
+    },
+    "vaultInfo": "Informații seif",
+    "vaultName": "Nume seif",
+    "vaultAddress": "Adresă seif",
+    "notSelected": "Neselectat",
+    "yourRole": "Rolul tău",
+    "members": "Membri",
+    "threshold": "Prag",
+    "superAdmins": "Superadministratori",
+    "connectedWallet": "Portofel conectat",
+    "publicKey": "Cheie publică",
+    "approvalThreshold": "Prag de aprobare",
+    "thresholdDesc": "Sunt necesare {{threshold}} din {{total}} semnături pentru a executa tranzacții",
+    "vaultMembers": "Membrii seifului",
+    "vaultMembersDesc": "Gestionează cine poate accesa și controla acest seif",
+    "addMember": "Adaugă membru",
+    "you": "Tu",
+    "copyAddress": "Copiază adresa",
+    "removeMember": "Elimină membru",
+    "rolePermissions": "Permisiuni rol",
+    "adminsOnly": "Doar administratorii seifului pot gestiona membrii și rolurile.",
+    "contractDetails": "Detalii contract",
+    "contractType": "Tip contract",
+    "sorobanContract": "Contract inteligent Soroban",
+    "network": "Rețea",
+    "testnet": "Testnet",
+    "actions": "Acțiuni",
+    "exportData": "Exportă datele seifului",
+    "exportDataDesc": "Descarcă configurația și istoricul tranzacțiilor",
+    "export": "Exportă",
+    "viewExplorer": "Vizualizează în explorer",
+    "viewExplorerDesc": "Deschide contractul seifului pe Stellar Expert",
+    "dangerZone": "Zonă periculoasă",
+    "leaveVault": "Părăsește seiful",
+    "leaveVaultDesc": "Elimină-te ca semnatar. Această acțiune nu poate fi anulată.",
+    "leaveLastWarning": "Ești ultimul membru - prin părăsire, seiful va fi abandonat!",
+    "leaving": "Se părăsește...",
+    "leave": "Părăsește",
+    "addNewMember": "Adaugă membru nou",
+    "addNewMemberDesc": "Selectează din contacte sau introdu adresa manual",
+    "fromContacts": "Din contacte",
+    "enterAddress": "Introdu adresa",
+    "searchContacts": "Caută contacte...",
+    "noContactsAvailable": "Niciun contact disponibil (toate sunt deja membri)",
+    "noContactsFound": "Nu s-au găsit contacte",
+    "allContactsMembers": "Toate contactele tale sunt deja membri ai seifului. Folosește «Introdu adresa» pentru a adăuga un membru nou.",
+    "stellarAddress": "Adresă Stellar",
+    "role": "Rol",
+    "adding": "Se adaugă...",
+    "changeThreshold": "Modifică pragul de aprobare",
+    "requiredSignatures": "Semnături necesare: {{threshold}} din {{total}}",
+    "thresholdWarning": "Modificarea pragului afectează securitatea. Un prag mai mare necesită mai multe semnături, dar poate încetini operațiunile.",
+    "updating": "Se actualizează...",
+    "roles": {
+      "superAdmin": "Superadministrator",
+      "admin": "Administrator",
+      "executor": "Executor"
+    },
+    "roleOptions": {
+      "superAdmin": "Superadministrator - Control total",
+      "admin": "Administrator - Gestionează membrii",
+      "executor": "Executor - Poate efectua tranzacții"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Control total al seifului",
+        "2": "Gestionează toți membrii și rolurile",
+        "3": "Modifică pragul",
+        "4": "Creează și execută tranzacții"
+      },
+      "admin": {
+        "1": "Gestionează executorii",
+        "2": "Modifică pragul",
+        "3": "Creează și aprobă tranzacții",
+        "4": "Gestionează blocările"
+      },
+      "executor": {
+        "1": "Creează tranzacții",
+        "2": "Aprobă tranzacții",
+        "3": "Execută tranzacții aprobate",
+        "4": "Vizualizează toată activitatea"
+      }
+    },
+    "success": {
+      "memberAdded": "Membru adăugat cu succes!",
+      "memberRemoved": "Membru eliminat cu succes!",
+      "roleUpdated": "Rol actualizat cu succes!",
+      "thresholdUpdated": "Prag actualizat cu succes!",
+      "leftVault": "Ai părăsit seiful cu succes!"
+    },
+    "errors": {
+      "invalidAddress": "Adresă Stellar nevalidă",
+      "alreadyMember": "Adresa este deja membru",
+      "addFailed": "Nu s-a putut adăuga membrul",
+      "removeBreaksThreshold": "Nu se poate elimina membrul: ar încălca cerința de prag",
+      "lastSuperAdminRemove": "Nu se poate elimina ultimul superadministrator",
+      "removeFailed": "Nu s-a putut elimina membrul",
+      "needOneSuperAdmin": "Nu se poate schimba rolul: seiful trebuie să aibă cel puțin un superadministrator",
+      "roleFailed": "Nu s-a putut schimba rolul",
+      "thresholdMin": "Pragul trebuie să fie cel puțin 1",
+      "thresholdMax": "Pragul nu poate depăși numărul de membri",
+      "thresholdFailed": "Nu s-a putut actualiza pragul",
+      "leaveLastSuperAdmin": "Ești ultimul superadministrator. Atribuie un alt superadministrator înainte de a pleca sau elimină mai întâi toți ceilalți membri.",
+      "leaveBreaksThreshold": "Nu se poate părăsi: ar încălca cerința de prag. Pragul actual este {{threshold}}, dar ar rămâne doar {{remaining}} membri.",
+      "leaveFailed": "Nu s-a putut părăsi seiful"
+    },
+    "confirm": {
+      "removeMember": "Elimini {{name}} din seif?",
+      "leaveDefault": "Ești sigur că vrei să părăsești acest seif? Această acțiune nu poate fi anulată.",
+      "leaveLastMember": "AVERTISMENT: Ești ULTIMUL membru al acestui seif. Prin părăsire, seiful va fi ABANDONAT permanent. Orice fonduri rămase vor deveni inaccesibile. Ești absolut sigur?",
+      "leaveFinalWarning": "Acesta este AVERTISMENTUL TĂU FINAL. Seiful va fi abandonat permanent. Continui?"
+    }
+  },
+  "assets": {
+    "title": "Active",
+    "subtitle": "Gestionează activele seifului tău",
+    "addToken": "Adaugă token",
+    "authorize": "Autorizează",
+    "totalBalance": "Sold total",
+    "remainingDailySpend": "Cheltuieli zilnice rămase",
+    "yourAssets": "Activele tale",
+    "clickToManage": "Apasă pe un activ pentru a-l gestiona",
+    "noAssets": "Încă niciun activ",
+    "noAssetsDesc": "Depune câteva tokenuri pentru a începe",
+    "makeFirstDeposit": "Fă prima depunere",
+    "availableBalance": "Sold disponibil",
+    "actions": {
+      "deposit": "Depune",
+      "depositDesc": "Adaugă mai mult {{symbol}} în seif",
+      "send": "Trimite",
+      "sendDesc": "Propune un transfer de {{symbol}}",
+      "timeLock": "Blocare temporală",
+      "timeLockDesc": "Blochează până la o dată specifică",
+      "vesting": "Vesting",
+      "vestingDesc": "Creează un program de vesting cu cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Calendar blocări și vesting",
+    "summary": "{{timeLocks}} blocări temporale, {{vestings}} vestinguri",
+    "viewCalendar": "Calendar",
+    "viewList": "Listă",
+    "filterType": "Tip",
+    "filterStatus": "Stare",
+    "timeLocks": "Blocări temporale",
+    "vestings": "Vestinguri",
+    "timeLock": "Blocare temporală",
+    "vesting": "Vesting",
+    "noLocks": "Nu există blocări sau vestinguri de afișat",
+    "today": "Astăzi",
+    "now": "Acum",
+    "cliff": "Cliff",
+    "claimable": "Revendicabil",
+    "progress": "Progres",
+    "start": "Început",
+    "end": "Sfârșit",
+    "unlock": "Deblocare",
+    "beneficiary": "Beneficiar",
+    "locked": "blocat",
+    "vestingLabel": "vesting",
+    "released": "Eliberat",
+    "active": "Activ",
+    "completedCount": "{{count}} finalizate",
+    "status": {
+      "active": "Activ",
+      "partiallyReleased": "Parțial eliberat",
+      "fullyReleased": "Complet eliberat",
+      "cancelled": "Anulat"
+    },
+    "statusFilter": {
+      "active": "Activ",
+      "completed": "Finalizat"
+    },
+    "events": {
+      "start": "început",
+      "cliff": "cliff",
+      "end": "sfârșit"
+    }
+  },
+  "claim": {
+    "title": "Revendică-ți tokenurile",
+    "subtitleVault": "Se afișează blocările din seiful {{address}}",
+    "subtitleAll": "Vizualizează și revendică blocările atribuite ție",
+    "disconnect": "Deconectează",
+    "connectWallet": "Conectează portofelul",
+    "connectTitle": "Conectează-ți portofelul",
+    "connectDescVault": "Conectează-ți portofelul pentru a vedea toate blocările temporale și programele de vesting atribuite ție din acest seif.",
+    "connectDescAll": "Conectează-ți portofelul pentru a vedea toate blocările temporale și programele de vesting atribuite ție în toate Stellar Vaults.",
+    "loadingVault": "Se încarcă blocările din seif...",
+    "loadingAll": "Se scanează seifurile pentru blocările tale...",
+    "scanProgress": "Verificate {{scanned}} din {{total}} seifuri",
+    "unknownVault": "Seif necunoscut",
+    "tokensAmount": "{{amount}} tokenuri",
+    "claimNow": "Revendică acum",
+    "claiming": "Se revendică...",
+    "refreshLocks": "Reîmprospătează blocările",
+    "claimSuccess": "{{amount}} tokenuri revendicate cu succes!",
+    "errorLoad": "Nu s-au putut încărca blocările",
+    "errorClaim": "Revendicarea a eșuat",
+    "stats": {
+      "readyToClaim": "Gata de revendicat",
+      "pending": "În așteptare",
+      "completed": "Finalizate"
+    },
+    "sections": {
+      "readyToClaim": "Gata de revendicat",
+      "pending": "În așteptare"
+    },
+    "fields": {
+      "fromVault": "Din seif",
+      "totalAmount": "Sumă totală",
+      "description": "Descriere",
+      "timeRemaining": "Timp rămas",
+      "unlockDate": "Dată deblocare"
+    },
+    "types": {
+      "timeLock": "Blocare temporală",
+      "vesting": "Vesting",
+      "unknown": "Necunoscut"
+    },
+    "time": {
+      "unlocked": "Deblocat",
+      "fullyVested": "Complet maturizat",
+      "remaining": "{{days}}z {{hours}}h rămase",
+      "toCliff": "{{days}}z {{hours}}h până la cliff"
+    },
+    "empty": {
+      "title": "Nu s-au găsit blocări",
+      "descVault": "Nu ai nicio blocare atribuită în acest seif.",
+      "descAll": "Nu ai nicio blocare temporală sau program de vesting atribuit."
+    }
+  },
+  "contacts": {
+    "title": "Agendă de contacte",
+    "subtitle": "Salvează adresele utilizate frecvent pentru acces rapid",
+    "addContact": "Adaugă contact",
+    "searchPlaceholder": "Caută contacte...",
+    "savedCount_one": "{{count}} contact salvat",
+    "savedCount_few": "{{count}} contacte salvate",
+    "savedCount_other": "{{count}} de contacte salvate",
+    "confirmDelete": "Ștergi «{{name}}» din contacte?",
+    "errors": {
+      "nameRequired": "Numele este obligatoriu",
+      "addressRequired": "Adresa este obligatorie",
+      "invalidAddress": "Adresă Stellar nevalidă",
+      "duplicate": "Această adresă se află deja în contactele tale"
+    },
+    "empty": {
+      "noMatch": "Niciun contact nu corespunde căutării tale",
+      "none": "Încă niciun contact",
+      "addFirst": "Adaugă primul tău contact →"
+    },
+    "actions": {
+      "copy": "Copiază adresa",
+      "edit": "Editează contactul",
+      "delete": "Șterge contactul"
+    },
+    "modal": {
+      "addTitle": "Adaugă contact nou",
+      "editTitle": "Editează contactul",
+      "nameLabel": "Nume *",
+      "namePlaceholder": "de ex., Alice, Trezorerie, Exchange",
+      "addressLabel": "Adresă Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adresa nu poate fi modificată",
+      "notesLabel": "Note (opțional)",
+      "notesPlaceholder": "Adaugă note despre acest contact...",
+      "saveChanges": "Salvează modificările"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Sold total",
+      "threshold": "Prag",
+      "signaturesRequired": "semnături necesare",
+      "pending": "În așteptare",
+      "awaitingApproval": "în așteptarea aprobării",
+      "readyToExecute": "Gata de executat",
+      "fullyApproved": "complet aprobat"
+    },
+    "activeProposals": "Propuneri active",
+    "viewAll": "Vezi tot",
+    "noProposals": "Încă nicio propunere",
+    "createFirst": "Creează prima ta tranzacție →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Către {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} aprobări",
+    "status": {
+      "pending": "În așteptare",
+      "approved": "Aprobată",
+      "executed": "Executată",
+      "rejected": "Respinsă",
+      "unknown": "Necunoscut"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Blocare temporală",
+      "vesting": "Vesting",
+      "unknown": "Necunoscut"
+    }
+  },
+  "locks": {
+    "title": "Blocări temporale",
+    "subtitle": "Blochează active până la o dată specifică",
+    "bulkCreate": "Creare în masă",
+    "createTimeLock": "Creează blocare temporală",
+    "creating": "Se creează...",
+    "createFirst": "Creează prima ta blocare temporală",
+    "empty": "Încă nu au fost create blocări temporale",
+    "archived": "Arhivat",
+    "selectToken": "Selectează token",
+    "available": "{{amount}} disponibil",
+    "quickSelect": "Selecție rapidă:",
+    "beneficiaryPlaceholder": "Caută contacte sau introdu o adresă G...",
+    "descriptionPlaceholder": "de ex., Alocare echipă",
+    "optional": "Opțional",
+    "revocableLabel": "Revocabil",
+    "revocableHint": "Administratorul poate anula și returna fondurile în seif",
+    "feeWarning": "Se va percepe un comision de 10 XLM pentru crearea blocării.",
+    "defaultDescription": "Blocare temporală",
+    "lockNumber": "Blocare nr. {{id}}",
+    "timeLockBadge": "Blocare temporală",
+    "revocableBadge": "Revocabil",
+    "readyToClaim": "Gata de revendicat",
+    "releasedLabel": "Eliberat",
+    "you": "Tu",
+    "claim": "Revendică",
+    "cancel": "Anulează",
+    "close": "Închide",
+    "confirmCancel": "Ești sigur că vrei să anulezi această blocare?",
+    "stats": {
+      "total": "Total blocări temporale",
+      "active": "Active",
+      "unlocked": "Deblocate",
+      "yourLocks": "Blocările tale"
+    },
+    "sections": {
+      "yours": "Blocările tale temporale",
+      "active": "Blocări temporale active",
+      "pendingCompletion": "În așteptarea finalizării"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Sumă",
+      "beneficiary": "Beneficiar",
+      "beneficiaryAddress": "Adresă beneficiar",
+      "remaining": "Rămas",
+      "timeStatus": "Stare temporală",
+      "unlockDate": "Dată deblocare",
+      "unlockDateTime": "Dată și oră deblocare",
+      "creator": "Creator",
+      "description": "Descriere",
+      "descriptionOptional": "Descriere (opțional)"
+    },
+    "statuses": {
+      "active": "Activ",
+      "partiallyReleased": "Parțial eliberat",
+      "fullyReleased": "Complet eliberat",
+      "cancelled": "Anulat",
+      "unknown": "Necunoscut"
+    },
+    "time": {
+      "unlocked": "Deblocat",
+      "remainingDays": "{{days}}z {{hours}}h rămase",
+      "remainingHours": "{{hours}}h rămase"
+    },
+    "errors": {
+      "fillRequired": "Completează toate câmpurile obligatorii",
+      "invalidBeneficiary": "Adresă beneficiar nevalidă",
+      "unlockFuture": "Ora de deblocare trebuie să fie în viitor",
+      "createFailed": "Nu s-a putut crea blocarea",
+      "claimFailed": "Revendicarea a eșuat",
+      "cancelFailed": "Nu s-a putut anula blocarea",
+      "invalidAmount": "Sumă nevalidă",
+      "tokenNotSelected": "Token neselectat",
+      "unlockRequired": "Dată de deblocare necesară",
+      "proposalFailed": "Nu s-a putut crea propunerea"
+    },
+    "bulk": {
+      "title": "Creează blocări temporale în masă",
+      "subtitle": "Creează mai multe blocări temporale deodată (max. {{max}} pe lot)",
+      "downloadTemplate": "Descarcă șablon",
+      "importCsv": "Importă CSV",
+      "statsTotal": "Total",
+      "statsPending": "În așteptare",
+      "statsSuccess": "Reușite",
+      "statsErrors": "Erori",
+      "maxReachedAlert": "Maximum {{max}} blocări temporale pe lot pentru a evita supraîncărcarea rețelei.",
+      "maxReachedWarning": "Dimensiunea maximă a lotului a fost atinsă ({{max}} blocări). Procesează-le pe acestea înainte de a adăuga altele.",
+      "csvTooMany": "Fișierul CSV conține {{count}} intrări. Maximum {{max}} pe lot. Vor fi importate doar primele {{max}}.",
+      "duplicate": "Duplică",
+      "remove": "Elimină",
+      "addEntry": "Adaugă blocare temporală",
+      "processing": "Se procesează {{current}} din {{total}}...",
+      "readyCount_one": "{{count}} blocare gata de creat",
+      "readyCount_few": "{{count}} blocări gata de creat",
+      "readyCount_other": "{{count}} de blocări gata de creat",
+      "feeTotal": "• Comision: {{fee}} XLM în total",
+      "creatingProposals": "Se creează propunerile...",
+      "createCount_one": "Creează {{count}} propunere",
+      "createCount_few": "Creează {{count}} propuneri",
+      "createCount_other": "Creează {{count}} de propuneri",
+      "defaultDescription": "Blocare temporală în masă"
+    }
+  },
+  "members": {
+    "title": "Membrii seifului",
+    "subtitle_one": "{{count}} membru • Prag: {{threshold}} din {{total}}",
+    "subtitle_few": "{{count}} membri • Prag: {{threshold}} din {{total}}",
+    "subtitle_other": "{{count}} de membri • Prag: {{threshold}} din {{total}}",
+    "searchPlaceholder": "Caută membri după adresă, nume sau rol...",
+    "manageHint": "Pentru a gestiona membrii (adăugare, eliminare, schimbare roluri), mergi la <strong>Setări → Membri și roluri</strong>",
+    "you": "Tu",
+    "addToContacts": "Adaugă la contacte",
+    "noResults": "Nu s-au găsit membri care să corespundă căutării tale.",
+    "stats": {
+      "totalMembers": "Total membri",
+      "superAdmins": "Superadministratori",
+      "admins": "Administratori",
+      "executors": "Executori"
+    },
+    "roles": {
+      "superAdmin": "Superadministrator",
+      "admin": "Administrator",
+      "executor": "Executor"
+    },
+    "permissions": {
+      "title": "Permisiuni rol",
+      "superAdmin": "Control total, inclusiv gestionarea altor administratori și a setărilor critice",
+      "admin": "Poate gestiona setările seifului, membrii și poate aproba tranzacții",
+      "executor": "Poate crea, aproba și executa tranzacții"
+    },
+    "addContactModal": {
+      "title": "Adaugă la contacte",
+      "addressLabel": "Adresă",
+      "nameLabel": "Nume",
+      "namePlaceholder": "Introdu un nume pentru acest contact",
+      "save": "Salvează contactul"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Vizualizare publică",
+    "loading": "Se încarcă datele seifului...",
+    "noLocks": "Încă nu au fost create blocări",
+    "noAssets": "Nu s-au găsit active",
+    "revocable": "Revocabil",
+    "released": "Eliberat",
+    "allLocks": "Toate blocările ({{count}})",
+    "toBeneficiary": "Către: {{address}}",
+    "errors": {
+      "title": "Nu s-a putut încărca seiful",
+      "loadFailed": "Nu s-au putut încărca datele seifului"
+    },
+    "tabs": {
+      "overview": "Prezentare generală",
+      "locks": "Blocări",
+      "calendar": "Calendar",
+      "assets": "Active"
+    },
+    "stats": {
+      "signers": "Semnatari",
+      "threshold": "Prag: {{count}}",
+      "totalLocks": "Total blocări",
+      "activeCount": "{{count}} active",
+      "assets": "Active",
+      "tokensHeld": "tokenuri deținute",
+      "lockedValue": "Valoare blocată",
+      "totalLocked": "total blocat"
+    },
+    "sections": {
+      "signers": "Semnatari",
+      "recentLocks": "Blocări recente",
+      "assets": "Active"
+    },
+    "fields": {
+      "amount": "Sumă",
+      "beneficiary": "Beneficiar",
+      "unlockDate": "Dată deblocare",
+      "timeRemaining": "Timp rămas"
+    },
+    "status": {
+      "active": "Activ",
+      "partiallyReleased": "Parțial eliberat",
+      "fullyReleased": "Complet eliberat",
+      "cancelled": "Anulat"
+    },
+    "lockType": {
+      "timeLock": "Blocare temporală",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Deblocat",
+      "cliffPassed": "Cliff depășit",
+      "remaining": "{{days}}z {{hours}}h rămase",
+      "toCliff": "{{days}}z {{hours}}h până la cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Vizualizare publică",
+      "poweredBy": "Susținut de Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Tranzacții",
+    "subtitle": "Vizualizează și gestionează propunerile și transferurile seifului",
+    "bulkTransfer": "Transfer în masă",
+    "newTransaction": "Tranzacție nouă",
+    "createFirst": "Creează prima propunere",
+    "completedProposals": "Propuneri finalizate",
+    "noHistory": "Nu s-a găsit istoric de tranzacții",
+    "noHistoryNote": "Notă: tranzacțiile contractului Soroban apar prin propunerile executate",
+    "received": "Primit",
+    "sent": "Trimis",
+    "onChainPayments_one": "{{count}} plată on-chain",
+    "onChainPayments_few": "{{count}} plăți on-chain",
+    "onChainPayments_other": "{{count}} de plăți on-chain",
+    "approvalsCount": "{{count}}/{{threshold}} aprobări",
+    "rejectionsCount": "{{count}}/{{threshold}} respingeri",
+    "tabs": {
+      "proposals": "Propuneri ({{count}})",
+      "history": "Istoric ({{count}})"
+    },
+    "filters": {
+      "all": "Toate",
+      "pending": "În așteptare",
+      "approved": "Aprobate"
+    },
+    "empty": {
+      "all": "Nu s-au găsit propuneri",
+      "filtered": "Nu s-au găsit propuneri {{filter}}"
+    },
+    "status": {
+      "pending": "În așteptare",
+      "approved": "Aprobată",
+      "executed": "Executată",
+      "rejected": "Respinsă"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Blocare temporală",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Către:",
+      "from": "De la:",
+      "by": "De:",
+      "beneficiary": "Beneficiar:",
+      "created": "Creată:",
+      "approvals": "Aprobări:",
+      "unlockDate": "Dată deblocare:",
+      "cliffDate": "Dată cliff:",
+      "endDate": "Dată sfârșit:"
+    },
+    "actions": {
+      "approve": "Aprobă",
+      "execute": "Execută",
+      "reject": "Respinge",
+      "confirmReject": "Confirmă respingerea"
+    },
+    "bulk": {
+      "title": "Transfer în masă",
+      "subtitle": "Creează mai multe propuneri de transfer în lot (max. {{max}} pe lot)",
+      "importCsv": "Importă CSV",
+      "downloadTemplate": "Descarcă șablon",
+      "csvHelp": "Ajutor format CSV",
+      "totalLabel": "Total:",
+      "successLabel": "Reușite:",
+      "failedLabel": "Eșuate:",
+      "csvFormatTitle": "Format CSV",
+      "csvFormatNote": "Folosește «native» pentru XLM sau adresa completă a contractului tokenului.",
+      "maxBatchWarning": "Maximum {{max}} transferuri pe lot pentru a evita supraîncărcarea rețelei. Creează un alt lot pentru mai multe.",
+      "recipientLabel": "Adresă destinatar",
+      "amountLabel": "Sumă",
+      "tokenLabel": "Token",
+      "duplicate": "Duplică",
+      "remove": "Elimină",
+      "addTransfer": "Adaugă transfer",
+      "processing": "Se procesează {{current}} din {{total}}... ({{delay}}s întârziere între tranzacții)",
+      "readyCount_one": "{{count}} transfer gata",
+      "readyCount_few": "{{count}} transferuri gata",
+      "readyCount_other": "{{count}} de transferuri gata",
+      "totalTokens": "• Total: ~{{amount}} tokenuri",
+      "creatingProposals": "Se creează propunerile...",
+      "createProposals_one": "Creează {{count}} propunere",
+      "createProposals_few": "Creează {{count}} propuneri",
+      "createProposals_other": "Creează {{count}} de propuneri",
+      "maxBatchAlert": "Maximum {{max}} transferuri pe lot pentru a evita supraîncărcarea rețelei.",
+      "maxBatchShortAlert": "Maximum {{max}} transferuri pe lot.",
+      "csvTooManyAlert": "Fișierul CSV conține {{count}} intrări. Maximum {{max}} pe lot. Vor fi importate doar primele {{max}}.",
+      "errors": {
+        "invalidRecipient": "Adresă destinatar nevalidă",
+        "invalidAmount": "Sumă nevalidă",
+        "noToken": "Token neselectat",
+        "transferUnavailable": "Funcția de transfer nu este disponibilă",
+        "createFailed": "Nu s-a putut crea propunerea"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Programe de vesting",
+    "subtitle": "Vesting de tokenuri cu perioade de cliff și eliberare graduală",
+    "bulkCreate": "Creare în masă",
+    "createVesting": "Creează vesting",
+    "createFirst": "Creează primul tău program de vesting",
+    "empty": "Încă nu au fost create programe de vesting",
+    "archived": "Arhivat",
+    "revocable": "Revocabil",
+    "badge": "Vesting",
+    "you": "Tu",
+    "claimButton": "💰 Revendică",
+    "cardTitle": "Vesting nr. {{id}}",
+    "claimableBadge": "{{amount}} revendicabil",
+    "vestedLabel": "Maturizat: {{vested}} / {{total}}",
+    "releasedLabel": "Eliberat: {{released}}",
+    "daysValue": "{{count}} zile",
+    "defaultDescription": "Program de vesting",
+    "confirmCancel": "Ești sigur că vrei să anulezi acest program de vesting?",
+    "stats": {
+      "totalVesting": "Total vesting",
+      "active": "Active",
+      "claimable": "Revendicabil",
+      "yourVesting": "Vestingul tău"
+    },
+    "sections": {
+      "yours": "Programele tale de vesting",
+      "active": "Programe de vesting active",
+      "pendingCompletion": "În așteptarea finalizării"
+    },
+    "status": {
+      "active": "Activ",
+      "partiallyReleased": "Parțial eliberat",
+      "fullyReleased": "Complet eliberat",
+      "cancelled": "Anulat"
+    },
+    "time": {
+      "toCliff": "{{days}}z {{hours}}h până la cliff",
+      "fullyVested": "Complet maturizat",
+      "remaining": "{{days}}z {{hours}}h rămase"
+    },
+    "interval": {
+      "daily": "Zilnic",
+      "weekly": "Săptămânal",
+      "monthly": "Lunar",
+      "quarterly": "Trimestrial"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Rămas",
+      "status": "Stare",
+      "cliffDate": "Dată cliff",
+      "endDate": "Dată sfârșit",
+      "releaseInterval": "Interval de eliberare",
+      "beneficiary": "Beneficiar",
+      "creator": "Creator",
+      "description": "Descriere"
+    },
+    "errors": {
+      "fillRequired": "Completează toate câmpurile obligatorii",
+      "invalidBeneficiary": "Adresă beneficiar nevalidă",
+      "durationPositive": "Durata vestingului trebuie să fie mai mare decât 0",
+      "cliffShorter": "Cliff-ul trebuie să fie mai scurt decât durata totală",
+      "createFailed": "Nu s-a putut crea vestingul",
+      "claimFailed": "Revendicarea a eșuat",
+      "cancelFailed": "Anularea a eșuat"
+    },
+    "modal": {
+      "title": "Creează program de vesting",
+      "token": "Token",
+      "selectToken": "Selectează token",
+      "tokenOption": "{{symbol}} - {{amount}} disponibil",
+      "totalAmount": "Sumă totală",
+      "beneficiary": "Beneficiar",
+      "quickSelect": "Selecție rapidă:",
+      "beneficiaryPlaceholder": "Caută contacte sau introdu o adresă G...",
+      "cliffDays": "Cliff (zile)",
+      "cliffHint": "Nicio eliberare înainte de cliff",
+      "durationDays": "Durată (zile)",
+      "durationHint": "Perioadă totală de vesting",
+      "intervalDays": "Interval (zile)",
+      "intervalHint": "Frecvența eliberării",
+      "descriptionLabel": "Descriere (opțional)",
+      "descriptionPlaceholder": "de ex., Vesting angajați, Alocare consultanți",
+      "revocableHint": "Administratorul poate anula și returna fondurile nematurizate",
+      "previewTitle": "Previzualizare vesting",
+      "previewCliff": "• Cliff-ul se termină: {{date}}",
+      "previewVested": "• Complet maturizat: {{date}}",
+      "previewReleases": "• Eliberări la fiecare {{days}} zile după cliff",
+      "feeNotice": "⚠️ Se va percepe un comision de 0,1 XLM pentru crearea programului de vesting.",
+      "creating": "Se creează...",
+      "createButton": "Creează program de vesting"
+    },
+    "bulk": {
+      "title": "Creează vesting în masă",
+      "subtitle": "Creează mai multe programe de vesting deodată (max. {{max}} pe lot)",
+      "downloadTemplate": "Descarcă șablon",
+      "importCsv": "Importă CSV",
+      "totalLabel": "Total:",
+      "pendingLabel": "În așteptare:",
+      "successLabel": "Reușite:",
+      "errorsLabel": "Erori:",
+      "maxBatchWarning": "Dimensiunea maximă a lotului a fost atinsă ({{max}} programe). Procesează-le pe acestea înainte de a adăuga altele.",
+      "beneficiaryLabel": "Adresă beneficiar",
+      "amountLabel": "Sumă",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (zile)",
+      "durationLabel": "Durată (zile)",
+      "intervalLabel": "Interval (zile)",
+      "descriptionLabel": "Descriere",
+      "optionalPlaceholder": "Opțional",
+      "duplicate": "Duplică",
+      "remove": "Elimină",
+      "addSchedule": "Adaugă program de vesting",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Sfârșit: {{date}}",
+      "previewReleases": "Eliberări la fiecare {{days}} zile",
+      "processing": "Se procesează {{current}} din {{total}}...",
+      "readyCount_one": "{{count}} program gata de creat",
+      "readyCount_few": "{{count}} programe gata de creat",
+      "readyCount_other": "{{count}} de programe gata de creat",
+      "feeTotal": "• Comision: {{fee}} XLM în total",
+      "creatingProposals": "Se creează propunerile...",
+      "createProposals_one": "Creează {{count}} propunere",
+      "createProposals_few": "Creează {{count}} propuneri",
+      "createProposals_other": "Creează {{count}} de propuneri",
+      "defaultDescription": "Program de vesting în masă",
+      "maxBatchAlert": "Maximum {{max}} programe de vesting pe lot pentru a evita supraîncărcarea rețelei.",
+      "csvTooManyAlert": "Fișierul CSV conține {{count}} intrări. Maximum {{max}} pe lot. Vor fi importate doar primele {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Adresă beneficiar nevalidă",
+        "invalidAmount": "Sumă nevalidă",
+        "noToken": "Token neselectat",
+        "durationPositive": "Durata vestingului trebuie să fie mai mare decât 0",
+        "invalidCliff": "Perioadă de cliff nevalidă",
+        "cliffShorter": "Cliff-ul trebuie să fie mai scurt decât durata totală",
+        "invalidInterval": "Interval de eliberare nevalid",
+        "createFailed": "Nu s-a putut crea propunerea"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Creează seif nou",
+    "defaultName": "Seiful meu",
+    "defaultNameNumbered": "Seiful meu {{number}}",
+    "vaultName": "Nume seif",
+    "youOwner": "Tu (proprietar)",
+    "add": "Adaugă",
+    "addSignerPlaceholder": "Adaugă adresa semnatarului (G...)",
+    "hideContacts": "Ascunde contactele",
+    "addFromContacts": "Adaugă din contacte",
+    "signers_one": "Semnatari ({{count}})",
+    "signers_few": "Semnatari ({{count}})",
+    "signers_other": "Semnatari ({{count}})",
+    "thresholdLabel": "Prag de aprobare: {{threshold}} din {{total}}",
+    "thresholdHint_one": "{{count}} semnătură necesară pentru a aproba tranzacții",
+    "thresholdHint_few": "{{count}} semnături necesare pentru a aproba tranzacții",
+    "thresholdHint_other": "{{count}} de semnături necesare pentru a aproba tranzacții",
+    "creating": "Se creează...",
+    "checking": "Se verifică...",
+    "insufficientBalanceShort": "Sold insuficient",
+    "createButton": "Creează seif",
+    "balance": {
+      "insufficientTitle": "Sold XLM insuficient",
+      "needAtLeast": "Ai nevoie de cel puțin <b>{{amount}} XLM</b> pentru a crea un seif.",
+      "current": "Soldul tău curent: <b>{{amount}} XLM</b>",
+      "coversFee": "Aceasta acoperă comisionul de creare de {{fee}} XLM plus costurile de tranzacție.",
+      "getFriendbot": "Obține XLM de testnet de la Friendbot",
+      "checking": "Se verifică soldul..."
+    },
+    "fee": {
+      "creationFee": "Comision de creare a seifului:",
+      "yourBalance": "Soldul tău:"
+    },
+    "errors": {
+      "invalidAddress": "Adresă Stellar nevalidă",
+      "signerExists": "Semnatar deja adăugat",
+      "insufficientBalance": "Sold XLM insuficient. Ai nevoie de cel puțin {{amount}} XLM.",
+      "signersBelowThreshold": "Numărul de semnatari trebuie să fie cel puțin egal cu pragul",
+      "factoryNotConfigured": "Factory neconfigurat",
+      "transactionFailed": "Tranzacția a eșuat",
+      "noReturnValue": "Nicio valoare de retur de la tranzacție",
+      "parseFailed": "Nu s-a putut analiza adresa seifului din rezultat",
+      "noAddress": "Nu s-a putut obține adresa seifului din rezultat",
+      "invalidVaultAddress": "Format de adresă a seifului nevalid",
+      "createFailed": "Nu s-a putut crea seiful"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampă de intrare/ieșire fiat",
+    "subtitle": "Transferă bani între fiat și USDC. Fondurile sunt depuse direct în seiful tău.",
+    "soon": "În curând",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Card și bancă → USDC, livrat direct în seif."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Depunere/retragere în numerar la locații fizice de agenți din întreaga lume."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Card și bancă → USDC prin Stripe, livrat în seif."
+      }
+    },
+    "mode": {
+      "cashToVault": "Numerar → Seif",
+      "vaultToCash": "Seif → Numerar"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Sumă (USDC)",
+      "amountOptional": "Sumă (USDC) — opțional",
+      "amountWidgetPlaceholder": "Lasă necompletat pentru a alege în widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limite: {{min}}–{{max}} USDC per tranzacție",
+      "outOfRange": "Suma trebuie să fie între {{min}} și {{max}} USDC."
+    },
+    "actions": {
+      "working": "Se procesează…",
+      "buyWithTransak": "Cumpără USDC cu Transak",
+      "buyWithStripe": "Cumpără USDC cu Stripe",
+      "startDeposit": "Începe depunerea în numerar",
+      "startWithdrawal": "Începe retragerea în numerar"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL-ul API nu este configurat — setează REACT_APP_API_URL după ce serverul este implementat.",
+      "serverDisabled": "Acest furnizor nu este încă activat pe server."
+    },
+    "status": {
+      "anchorStatus": "Stare anchor: {{status}}",
+      "creatingTransak": "Se creează o sesiune Transak securizată…",
+      "openingTransak": "Se deschide Transak…",
+      "transakClosed": "Fereastra Transak a fost închisă.",
+      "transakSuccess": "Comanda Transak finalizată. USDC este livrat în seif. ID comandă: {{orderId}}",
+      "creatingStripe": "Se creează sesiunea de onramp Stripe…",
+      "stripeOpened": "Onramp Stripe deschis.",
+      "authenticating": "Se autentifică cu anchorul…",
+      "openingCashIn": "Se deschide fereastra de depunere în numerar…",
+      "openingCashOut": "Se deschide fereastra de KYC/retragere în numerar…",
+      "creatingProposals": "Se creează propunerile multisig (retragere + comision de 0,3%)…",
+      "proposalsCreated": "Propuneri create. Retragere nr. {{withdrawId}}, comision nr. {{feeId}}. Strânge aprobări pentru a executa."
+    },
+    "errors": {
+      "apiUrlMissing": "URL-ul API nu este configurat (REACT_APP_API_URL).",
+      "sessionFailed": "Sesiunea a eșuat ({{status}})",
+      "noWidgetUrl": "Niciun widgetUrl returnat de backend",
+      "transakFailed": "Comanda Transak a eșuat.",
+      "openTransakFailed": "Nu s-a putut deschide Transak",
+      "stripeSessionFailed": "Sesiunea Stripe a eșuat ({{status}})",
+      "noClientSecret": "Niciun clientSecret returnat de backend",
+      "startStripeFailed": "Nu s-a putut porni Stripe",
+      "depositFailed": "Nu s-a putut începe depunerea",
+      "withdrawFailed": "Nu s-a putut începe retragerea"
+    },
+    "summary": {
+      "title": "Rezumat",
+      "amount": "Sumă",
+      "platformFee": "Comision platformă ({{pct}}%)",
+      "youReceive": "Primești în seif",
+      "sentToAnchor": "Trimis la anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Comisioanele anchorului și ale rețelei sunt percepute separat de {{provider}}.",
+      "theProvider": "furnizorul"
+    },
+    "howItWorks": {
+      "title": "Cum funcționează",
+      "transak": "Plătește cu cardul sau prin transfer bancar. După KYC, Transak livrează USDC pe Stellar direct la adresa seifului tău. Nu este necesară aprobare multisig pentru fondurile primite.",
+      "moneygram": "Depunerile ajung direct în seif. Retragerile creează două propuneri multisig — transferul și comisionul platformei de 0,3% — pe care semnatarii tăi trebuie să le aprobe înainte ca fondurile să părăsească seiful.",
+      "stripe": "Plătește cu cardul sau prin bancă prin Stripe. Stripe se ocupă de KYC și livrează USDC pe Stellar direct la adresa seifului tău."
+    },
+    "destination": {
+      "title": "Seif de destinație"
+    }
+  },
+  "common": {
+    "copy": "Copiază",
+    "share": "Distribuie",
+    "loading": "Se încarcă…",
+    "cancel": "Anulează",
+    "confirm": "Confirmă",
+    "save": "Salvează",
+    "close": "Închide",
+    "refresh": "Reîmprospătează",
+    "unknown": "Necunoscut",
+    "change": "Modifică",
+    "open": "Deschide",
+    "update": "Actualizează",
+    "all": "Toate",
+    "notAvailable": "N/A"
+  }
+}

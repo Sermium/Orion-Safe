@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Übersicht",
+    "money": "Geld",
+    "vestingLocks": "Vesting & Sperren",
+    "team": "Team",
+    "system": "System",
+    "dashboard": "Dashboard",
+    "assets": "Vermögenswerte",
+    "fiat": "Fiat-Rampe",
+    "transactions": "Transaktionen",
+    "locks": "Sperren",
+    "vesting": "Vesting",
+    "members": "Mitglieder",
+    "contacts": "Kontakte",
+    "settings": "Einstellungen",
+    "docs": "Dokumentation",
+    "admin": "Admin",
+    "claim": "Token beanspruchen"
+  },
+  "fiat": {
+    "title": "Fiat-Rampe",
+    "deposit": "Einzahlen",
+    "withdraw": "Abheben",
+    "amount": "Betrag",
+    "provider": "Anbieter",
+    "fee": "Plattformgebühr",
+    "destination": "Ziel-Vault",
+    "comingSoon": "Bald"
+  },
+  "sidebar": {
+    "currentVault": "Aktueller Vault",
+    "selectVault": "Vault auswählen",
+    "createNewVault": "Neuen Vault erstellen",
+    "sharePublicView": "Öffentliche Ansicht teilen",
+    "disconnect": "Trennen",
+    "connected": "Verbunden",
+    "linkCopied": "Öffentlicher Link kopiert!"
+  },
+  "header": {
+    "timeLocks": "Zeitsperren",
+    "deposit": "Einzahlen",
+    "send": "Senden"
+  },
+  "settings": {
+    "title": "Vault-Einstellungen",
+    "subtitle": "Verwalten Sie Ihre Vault-Konfiguration und Mitglieder",
+    "language": "Sprache",
+    "languageAuto": "Automatisch (Gerätesprache)",
+    "languageHint": "Automatisch folgt Ihrer Gerätesprache und greift auf Englisch zurück, falls nicht unterstützt.",
+    "tabs": {
+      "general": "Allgemein",
+      "members": "Mitglieder & Rollen",
+      "advanced": "Erweitert"
+    },
+    "vaultInfo": "Vault-Informationen",
+    "vaultName": "Vault-Name",
+    "vaultAddress": "Vault-Adresse",
+    "notSelected": "Nicht ausgewählt",
+    "yourRole": "Ihre Rolle",
+    "members": "Mitglieder",
+    "threshold": "Schwellenwert",
+    "superAdmins": "Super-Admins",
+    "connectedWallet": "Verbundene Wallet",
+    "publicKey": "Öffentlicher Schlüssel",
+    "approvalThreshold": "Genehmigungsschwelle",
+    "thresholdDesc": "{{threshold}} von {{total}} Signaturen erforderlich, um Transaktionen auszuführen",
+    "vaultMembers": "Vault-Mitglieder",
+    "vaultMembersDesc": "Verwalten Sie, wer auf diesen Vault zugreifen und ihn steuern kann",
+    "addMember": "Mitglied hinzufügen",
+    "you": "Sie",
+    "copyAddress": "Adresse kopieren",
+    "removeMember": "Mitglied entfernen",
+    "rolePermissions": "Rollenberechtigungen",
+    "adminsOnly": "Nur Vault-Admins können Mitglieder und Rollen verwalten.",
+    "contractDetails": "Vertragsdetails",
+    "contractType": "Vertragstyp",
+    "sorobanContract": "Soroban Smart Contract",
+    "network": "Netzwerk",
+    "testnet": "Testnet",
+    "actions": "Aktionen",
+    "exportData": "Vault-Daten exportieren",
+    "exportDataDesc": "Konfiguration und Transaktionsverlauf herunterladen",
+    "export": "Exportieren",
+    "viewExplorer": "Im Explorer anzeigen",
+    "viewExplorerDesc": "Vault-Vertrag auf Stellar Expert öffnen",
+    "dangerZone": "Gefahrenzone",
+    "leaveVault": "Vault verlassen",
+    "leaveVaultDesc": "Entfernen Sie sich selbst als Unterzeichner. Dies kann nicht rückgängig gemacht werden.",
+    "leaveLastWarning": "Sie sind das letzte Mitglied – beim Verlassen wird der Vault aufgegeben!",
+    "leaving": "Wird verlassen...",
+    "leave": "Verlassen",
+    "addNewMember": "Neues Mitglied hinzufügen",
+    "addNewMemberDesc": "Aus Kontakten auswählen oder Adresse manuell eingeben",
+    "fromContacts": "Aus Kontakten",
+    "enterAddress": "Adresse eingeben",
+    "searchContacts": "Kontakte durchsuchen...",
+    "noContactsAvailable": "Keine Kontakte verfügbar (alle sind bereits Mitglieder)",
+    "noContactsFound": "Keine Kontakte gefunden",
+    "allContactsMembers": "Alle Ihre Kontakte sind bereits Vault-Mitglieder. Verwenden Sie „Adresse eingeben“, um ein neues Mitglied hinzuzufügen.",
+    "stellarAddress": "Stellar-Adresse",
+    "role": "Rolle",
+    "adding": "Wird hinzugefügt...",
+    "changeThreshold": "Genehmigungsschwelle ändern",
+    "requiredSignatures": "Erforderliche Signaturen: {{threshold}} von {{total}}",
+    "thresholdWarning": "Das Ändern des Schwellenwerts wirkt sich auf die Sicherheit aus. Ein höherer Schwellenwert erfordert mehr Signaturen, kann aber den Betrieb verlangsamen.",
+    "updating": "Wird aktualisiert...",
+    "roles": {
+      "superAdmin": "Super-Admin",
+      "admin": "Admin",
+      "executor": "Ausführer"
+    },
+    "roleOptions": {
+      "superAdmin": "Super-Admin – Vollständige Kontrolle",
+      "admin": "Admin – Mitglieder verwalten",
+      "executor": "Ausführer – Kann Transaktionen durchführen"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Vollständige Vault-Kontrolle",
+        "2": "Alle Mitglieder & Rollen verwalten",
+        "3": "Schwellenwert ändern",
+        "4": "Transaktionen erstellen & ausführen"
+      },
+      "admin": {
+        "1": "Ausführer verwalten",
+        "2": "Schwellenwert ändern",
+        "3": "Transaktionen erstellen & genehmigen",
+        "4": "Sperren verwalten"
+      },
+      "executor": {
+        "1": "Transaktionen erstellen",
+        "2": "Transaktionen genehmigen",
+        "3": "Genehmigte Transaktionen ausführen",
+        "4": "Alle Aktivitäten anzeigen"
+      }
+    },
+    "success": {
+      "memberAdded": "Mitglied erfolgreich hinzugefügt!",
+      "memberRemoved": "Mitglied erfolgreich entfernt!",
+      "roleUpdated": "Rolle erfolgreich aktualisiert!",
+      "thresholdUpdated": "Schwellenwert erfolgreich aktualisiert!",
+      "leftVault": "Sie haben den Vault erfolgreich verlassen!"
+    },
+    "errors": {
+      "invalidAddress": "Ungültige Stellar-Adresse",
+      "alreadyMember": "Adresse ist bereits ein Mitglied",
+      "addFailed": "Mitglied konnte nicht hinzugefügt werden",
+      "removeBreaksThreshold": "Mitglied kann nicht entfernt werden: würde die Schwellenwertanforderung verletzen",
+      "lastSuperAdminRemove": "Der letzte Super-Admin kann nicht entfernt werden",
+      "removeFailed": "Mitglied konnte nicht entfernt werden",
+      "needOneSuperAdmin": "Rolle kann nicht geändert werden: Der Vault muss mindestens einen Super-Admin haben",
+      "roleFailed": "Rolle konnte nicht geändert werden",
+      "thresholdMin": "Der Schwellenwert muss mindestens 1 betragen",
+      "thresholdMax": "Der Schwellenwert darf die Anzahl der Mitglieder nicht überschreiten",
+      "thresholdFailed": "Schwellenwert konnte nicht aktualisiert werden",
+      "leaveLastSuperAdmin": "Sie sind der letzte Super-Admin. Bitte weisen Sie vor dem Verlassen einen anderen Super-Admin zu oder entfernen Sie zuerst alle anderen Mitglieder.",
+      "leaveBreaksThreshold": "Verlassen nicht möglich: würde die Schwellenwertanforderung verletzen. Der aktuelle Schwellenwert ist {{threshold}}, aber es würden nur {{remaining}} Mitglieder verbleiben.",
+      "leaveFailed": "Vault konnte nicht verlassen werden"
+    },
+    "confirm": {
+      "removeMember": "{{name}} aus dem Vault entfernen?",
+      "leaveDefault": "Sind Sie sicher, dass Sie diesen Vault verlassen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "leaveLastMember": "WARNUNG: Sie sind das LETZTE Mitglied dieses Vaults. Beim Verlassen wird der Vault dauerhaft AUFGEGEBEN. Verbleibende Gelder werden unzugänglich. Sind Sie absolut sicher?",
+      "leaveFinalWarning": "Dies ist Ihre LETZTE Warnung. Der Vault wird dauerhaft aufgegeben. Fortfahren?"
+    }
+  },
+  "assets": {
+    "title": "Vermögenswerte",
+    "subtitle": "Verwalten Sie Ihre Vault-Vermögenswerte",
+    "addToken": "Token hinzufügen",
+    "authorize": "Autorisieren",
+    "totalBalance": "Gesamtguthaben",
+    "remainingDailySpend": "Verbleibendes Tageslimit",
+    "yourAssets": "Ihre Vermögenswerte",
+    "clickToManage": "Klicken Sie auf einen Vermögenswert, um ihn zu verwalten",
+    "noAssets": "Noch keine Vermögenswerte",
+    "noAssetsDesc": "Zahlen Sie einige Token ein, um loszulegen",
+    "makeFirstDeposit": "Erste Einzahlung tätigen",
+    "availableBalance": "Verfügbares Guthaben",
+    "actions": {
+      "deposit": "Einzahlen",
+      "depositDesc": "Mehr {{symbol}} zum Vault hinzufügen",
+      "send": "Senden",
+      "sendDesc": "Eine Überweisung von {{symbol}} vorschlagen",
+      "timeLock": "Zeitsperre",
+      "timeLockDesc": "Bis zu einem bestimmten Datum sperren",
+      "vesting": "Vesting",
+      "vestingDesc": "Einen Vesting-Plan mit Cliff erstellen"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Sperren- & Vesting-Kalender",
+    "summary": "{{timeLocks}} Zeitsperren, {{vestings}} Vestings",
+    "viewCalendar": "Kalender",
+    "viewList": "Liste",
+    "filterType": "Typ",
+    "filterStatus": "Status",
+    "timeLocks": "Zeitsperren",
+    "vestings": "Vestings",
+    "timeLock": "Zeitsperre",
+    "vesting": "Vesting",
+    "noLocks": "Keine Sperren oder Vestings zum Anzeigen",
+    "today": "Heute",
+    "now": "Jetzt",
+    "cliff": "Cliff",
+    "claimable": "Beanspruchbar",
+    "progress": "Fortschritt",
+    "start": "Start",
+    "end": "Ende",
+    "unlock": "Freigabe",
+    "beneficiary": "Begünstigter",
+    "locked": "gesperrt",
+    "vestingLabel": "Vesting",
+    "released": "Freigegeben",
+    "active": "Aktiv",
+    "completedCount": "{{count}} abgeschlossen",
+    "status": {
+      "active": "Aktiv",
+      "partiallyReleased": "Teilweise freigegeben",
+      "fullyReleased": "Vollständig freigegeben",
+      "cancelled": "Storniert"
+    },
+    "statusFilter": {
+      "active": "Aktiv",
+      "completed": "Abgeschlossen"
+    },
+    "events": {
+      "start": "Start",
+      "cliff": "Cliff",
+      "end": "Ende"
+    }
+  },
+  "claim": {
+    "title": "Beanspruchen Sie Ihre Token",
+    "subtitleVault": "Sperren aus Vault {{address}} werden angezeigt",
+    "subtitleAll": "Ihnen zugewiesene Sperren anzeigen und beanspruchen",
+    "disconnect": "Trennen",
+    "connectWallet": "Wallet verbinden",
+    "connectTitle": "Verbinden Sie Ihre Wallet",
+    "connectDescVault": "Verbinden Sie Ihre Wallet, um alle Zeitsperren und Vesting-Pläne anzuzeigen, die Ihnen aus diesem Vault zugewiesen wurden.",
+    "connectDescAll": "Verbinden Sie Ihre Wallet, um alle Zeitsperren und Vesting-Pläne anzuzeigen, die Ihnen über alle Stellar Vaults hinweg zugewiesen wurden.",
+    "loadingVault": "Sperren aus Vault werden geladen...",
+    "loadingAll": "Vaults werden nach Ihren Sperren durchsucht...",
+    "scanProgress": "{{scanned}} von {{total}} Vaults überprüft",
+    "unknownVault": "Unbekannter Vault",
+    "tokensAmount": "{{amount}} Token",
+    "claimNow": "Jetzt beanspruchen",
+    "claiming": "Wird beansprucht...",
+    "refreshLocks": "Sperren aktualisieren",
+    "claimSuccess": "{{amount}} Token erfolgreich beansprucht!",
+    "errorLoad": "Sperren konnten nicht geladen werden",
+    "errorClaim": "Beanspruchung fehlgeschlagen",
+    "stats": {
+      "readyToClaim": "Bereit zum Beanspruchen",
+      "pending": "Ausstehend",
+      "completed": "Abgeschlossen"
+    },
+    "sections": {
+      "readyToClaim": "Bereit zum Beanspruchen",
+      "pending": "Ausstehend"
+    },
+    "fields": {
+      "fromVault": "Aus Vault",
+      "totalAmount": "Gesamtbetrag",
+      "description": "Beschreibung",
+      "timeRemaining": "Verbleibende Zeit",
+      "unlockDate": "Freigabedatum"
+    },
+    "types": {
+      "timeLock": "Zeitsperre",
+      "vesting": "Vesting",
+      "unknown": "Unbekannt"
+    },
+    "time": {
+      "unlocked": "Freigegeben",
+      "fullyVested": "Vollständig vested",
+      "remaining": "{{days}}T {{hours}}Std verbleibend",
+      "toCliff": "{{days}}T {{hours}}Std bis zum Cliff"
+    },
+    "empty": {
+      "title": "Keine Sperren gefunden",
+      "descVault": "Ihnen sind in diesem Vault keine Sperren zugewiesen.",
+      "descAll": "Ihnen sind keine Zeitsperren oder Vesting-Pläne zugewiesen."
+    }
+  },
+  "contacts": {
+    "title": "Adressbuch",
+    "subtitle": "Speichern Sie häufig verwendete Adressen für schnellen Zugriff",
+    "addContact": "Kontakt hinzufügen",
+    "searchPlaceholder": "Kontakte durchsuchen...",
+    "savedCount_one": "{{count}} Kontakt gespeichert",
+    "savedCount_other": "{{count}} Kontakte gespeichert",
+    "confirmDelete": "„{{name}}“ aus Kontakten löschen?",
+    "errors": {
+      "nameRequired": "Name ist erforderlich",
+      "addressRequired": "Adresse ist erforderlich",
+      "invalidAddress": "Ungültige Stellar-Adresse",
+      "duplicate": "Diese Adresse befindet sich bereits in Ihren Kontakten"
+    },
+    "empty": {
+      "noMatch": "Keine Kontakte entsprechen Ihrer Suche",
+      "none": "Noch keine Kontakte",
+      "addFirst": "Fügen Sie Ihren ersten Kontakt hinzu →"
+    },
+    "actions": {
+      "copy": "Adresse kopieren",
+      "edit": "Kontakt bearbeiten",
+      "delete": "Kontakt löschen"
+    },
+    "modal": {
+      "addTitle": "Neuen Kontakt hinzufügen",
+      "editTitle": "Kontakt bearbeiten",
+      "nameLabel": "Name *",
+      "namePlaceholder": "z. B. Alice, Treasury, Börse",
+      "addressLabel": "Stellar-Adresse *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adresse kann nicht geändert werden",
+      "notesLabel": "Notizen (optional)",
+      "notesPlaceholder": "Fügen Sie Notizen zu diesem Kontakt hinzu...",
+      "saveChanges": "Änderungen speichern"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Gesamtguthaben",
+      "threshold": "Schwellenwert",
+      "signaturesRequired": "Signaturen erforderlich",
+      "pending": "Ausstehend",
+      "awaitingApproval": "wartet auf Genehmigung",
+      "readyToExecute": "Bereit zur Ausführung",
+      "fullyApproved": "vollständig genehmigt"
+    },
+    "activeProposals": "Aktive Vorschläge",
+    "viewAll": "Alle anzeigen",
+    "noProposals": "Noch keine Vorschläge",
+    "createFirst": "Erstellen Sie Ihre erste Transaktion →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "An {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} Genehmigungen",
+    "status": {
+      "pending": "Ausstehend",
+      "approved": "Genehmigt",
+      "executed": "Ausgeführt",
+      "rejected": "Abgelehnt",
+      "unknown": "Unbekannt"
+    },
+    "types": {
+      "transfer": "Überweisung",
+      "timeLock": "Zeitsperre",
+      "vesting": "Vesting",
+      "unknown": "Unbekannt"
+    }
+  },
+  "locks": {
+    "title": "Zeitsperren",
+    "subtitle": "Vermögenswerte bis zu einem bestimmten Datum sperren",
+    "bulkCreate": "Massenerstellung",
+    "createTimeLock": "Zeitsperre erstellen",
+    "creating": "Wird erstellt...",
+    "createFirst": "Erstellen Sie Ihre erste Zeitsperre",
+    "empty": "Noch keine Zeitsperren erstellt",
+    "archived": "Archiviert",
+    "selectToken": "Token auswählen",
+    "available": "{{amount}} verfügbar",
+    "quickSelect": "Schnellauswahl:",
+    "beneficiaryPlaceholder": "Kontakte durchsuchen oder G...-Adresse eingeben",
+    "descriptionPlaceholder": "z. B. Team-Zuteilung",
+    "optional": "Optional",
+    "revocableLabel": "Widerrufbar",
+    "revocableHint": "Admin kann stornieren und Gelder an den Vault zurückgeben",
+    "feeWarning": "Für das Erstellen der Sperre wird eine Gebühr von 10 XLM erhoben.",
+    "defaultDescription": "Zeitsperre",
+    "lockNumber": "Sperre #{{id}}",
+    "timeLockBadge": "Zeitsperre",
+    "revocableBadge": "Widerrufbar",
+    "readyToClaim": "Bereit zum Beanspruchen",
+    "releasedLabel": "Freigegeben",
+    "you": "Sie",
+    "claim": "Beanspruchen",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "confirmCancel": "Sind Sie sicher, dass Sie diese Sperre stornieren möchten?",
+    "stats": {
+      "total": "Zeitsperren gesamt",
+      "active": "Aktiv",
+      "unlocked": "Freigegeben",
+      "yourLocks": "Ihre Sperren"
+    },
+    "sections": {
+      "yours": "Ihre Zeitsperren",
+      "active": "Aktive Zeitsperren",
+      "pendingCompletion": "Abschluss ausstehend"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Betrag",
+      "beneficiary": "Begünstigter",
+      "beneficiaryAddress": "Begünstigtenadresse",
+      "remaining": "Verbleibend",
+      "timeStatus": "Zeitstatus",
+      "unlockDate": "Freigabedatum",
+      "unlockDateTime": "Freigabedatum & -uhrzeit",
+      "creator": "Ersteller",
+      "description": "Beschreibung",
+      "descriptionOptional": "Beschreibung (optional)"
+    },
+    "statuses": {
+      "active": "Aktiv",
+      "partiallyReleased": "Teilweise freigegeben",
+      "fullyReleased": "Vollständig freigegeben",
+      "cancelled": "Storniert",
+      "unknown": "Unbekannt"
+    },
+    "time": {
+      "unlocked": "Freigegeben",
+      "remainingDays": "{{days}}T {{hours}}Std verbleibend",
+      "remainingHours": "{{hours}}Std verbleibend"
+    },
+    "errors": {
+      "fillRequired": "Bitte füllen Sie alle erforderlichen Felder aus",
+      "invalidBeneficiary": "Ungültige Begünstigtenadresse",
+      "unlockFuture": "Der Freigabezeitpunkt muss in der Zukunft liegen",
+      "createFailed": "Sperre konnte nicht erstellt werden",
+      "claimFailed": "Beanspruchung fehlgeschlagen",
+      "cancelFailed": "Sperre konnte nicht storniert werden",
+      "invalidAmount": "Ungültiger Betrag",
+      "tokenNotSelected": "Kein Token ausgewählt",
+      "unlockRequired": "Freigabedatum erforderlich",
+      "proposalFailed": "Vorschlag konnte nicht erstellt werden"
+    },
+    "bulk": {
+      "title": "Zeitsperren in Masse erstellen",
+      "subtitle": "Mehrere Zeitsperren auf einmal erstellen (max. {{max}} pro Stapel)",
+      "downloadTemplate": "Vorlage herunterladen",
+      "importCsv": "CSV importieren",
+      "statsTotal": "Gesamt",
+      "statsPending": "Ausstehend",
+      "statsSuccess": "Erfolgreich",
+      "statsErrors": "Fehler",
+      "maxReachedAlert": "Maximal {{max}} Zeitsperren pro Stapel, um Netzwerküberlastung zu vermeiden.",
+      "maxReachedWarning": "Maximale Stapelgröße erreicht ({{max}} Sperren). Verarbeiten Sie diese, bevor Sie weitere hinzufügen.",
+      "csvTooMany": "Die CSV enthält {{count}} Einträge. Maximal {{max}} pro Stapel. Nur die ersten {{max}} werden importiert.",
+      "duplicate": "Duplizieren",
+      "remove": "Entfernen",
+      "addEntry": "Zeitsperre hinzufügen",
+      "processing": "Verarbeite {{current}} von {{total}}...",
+      "readyCount_one": "{{count}} Sperre bereit zum Erstellen",
+      "readyCount_other": "{{count}} Sperren bereit zum Erstellen",
+      "feeTotal": "• Gebühr: insgesamt {{fee}} XLM",
+      "creatingProposals": "Vorschläge werden erstellt...",
+      "createCount_one": "{{count}} Vorschlag erstellen",
+      "createCount_other": "{{count}} Vorschläge erstellen",
+      "defaultDescription": "Massen-Zeitsperre"
+    }
+  },
+  "members": {
+    "title": "Vault-Mitglieder",
+    "subtitle_one": "{{count}} Mitglied • Schwellenwert: {{threshold}} von {{total}}",
+    "subtitle_other": "{{count}} Mitglieder • Schwellenwert: {{threshold}} von {{total}}",
+    "searchPlaceholder": "Mitglieder nach Adresse, Name oder Rolle durchsuchen...",
+    "manageHint": "Um Mitglieder zu verwalten (hinzufügen, entfernen, Rollen ändern), gehen Sie zu <strong>Einstellungen → Mitglieder & Rollen</strong>",
+    "you": "Sie",
+    "addToContacts": "Zu Kontakten hinzufügen",
+    "noResults": "Keine Mitglieder gefunden, die Ihrer Suche entsprechen.",
+    "stats": {
+      "totalMembers": "Mitglieder gesamt",
+      "superAdmins": "Super-Admins",
+      "admins": "Admins",
+      "executors": "Ausführer"
+    },
+    "roles": {
+      "superAdmin": "Super-Admin",
+      "admin": "Admin",
+      "executor": "Ausführer"
+    },
+    "permissions": {
+      "title": "Rollenberechtigungen",
+      "superAdmin": "Vollständige Kontrolle einschließlich der Verwaltung anderer Admins und kritischer Einstellungen",
+      "admin": "Kann Vault-Einstellungen und Mitglieder verwalten sowie Transaktionen genehmigen",
+      "executor": "Kann Transaktionen erstellen, genehmigen und ausführen"
+    },
+    "addContactModal": {
+      "title": "Zu Kontakten hinzufügen",
+      "addressLabel": "Adresse",
+      "nameLabel": "Name",
+      "namePlaceholder": "Geben Sie einen Namen für diesen Kontakt ein",
+      "save": "Kontakt speichern"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Öffentliche Ansicht",
+    "loading": "Vault-Daten werden geladen...",
+    "noLocks": "Noch keine Sperren erstellt",
+    "noAssets": "Keine Vermögenswerte gefunden",
+    "revocable": "Widerrufbar",
+    "released": "Freigegeben",
+    "allLocks": "Alle Sperren ({{count}})",
+    "toBeneficiary": "An: {{address}}",
+    "errors": {
+      "title": "Vault konnte nicht geladen werden",
+      "loadFailed": "Vault-Daten konnten nicht geladen werden"
+    },
+    "tabs": {
+      "overview": "Übersicht",
+      "locks": "Sperren",
+      "calendar": "Kalender",
+      "assets": "Vermögenswerte"
+    },
+    "stats": {
+      "signers": "Unterzeichner",
+      "threshold": "Schwellenwert: {{count}}",
+      "totalLocks": "Sperren gesamt",
+      "activeCount": "{{count}} aktiv",
+      "assets": "Vermögenswerte",
+      "tokensHeld": "gehaltene Token",
+      "lockedValue": "Gesperrter Wert",
+      "totalLocked": "insgesamt gesperrt"
+    },
+    "sections": {
+      "signers": "Unterzeichner",
+      "recentLocks": "Letzte Sperren",
+      "assets": "Vermögenswerte"
+    },
+    "fields": {
+      "amount": "Betrag",
+      "beneficiary": "Begünstigter",
+      "unlockDate": "Freigabedatum",
+      "timeRemaining": "Verbleibende Zeit"
+    },
+    "status": {
+      "active": "Aktiv",
+      "partiallyReleased": "Teilweise freigegeben",
+      "fullyReleased": "Vollständig freigegeben",
+      "cancelled": "Storniert"
+    },
+    "lockType": {
+      "timeLock": "Zeitsperre",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Freigegeben",
+      "cliffPassed": "Cliff überschritten",
+      "remaining": "{{days}}T {{hours}}Std verbleibend",
+      "toCliff": "{{days}}T {{hours}}Std bis zum Cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault – Öffentliche Ansicht",
+      "poweredBy": "Unterstützt von Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transaktionen",
+    "subtitle": "Vault-Vorschläge und Überweisungen anzeigen und verwalten",
+    "bulkTransfer": "Massenüberweisung",
+    "newTransaction": "Neue Transaktion",
+    "createFirst": "Ersten Vorschlag erstellen",
+    "completedProposals": "Abgeschlossene Vorschläge",
+    "noHistory": "Kein Transaktionsverlauf gefunden",
+    "noHistoryNote": "Hinweis: Soroban-Vertragstransaktionen erscheinen über ausgeführte Vorschläge",
+    "received": "Empfangen",
+    "sent": "Gesendet",
+    "onChainPayments_one": "{{count}} On-Chain-Zahlung",
+    "onChainPayments_other": "{{count}} On-Chain-Zahlungen",
+    "approvalsCount": "{{count}}/{{threshold}} Genehmigungen",
+    "rejectionsCount": "{{count}}/{{threshold}} Ablehnungen",
+    "tabs": {
+      "proposals": "Vorschläge ({{count}})",
+      "history": "Verlauf ({{count}})"
+    },
+    "filters": {
+      "all": "Alle",
+      "pending": "Ausstehend",
+      "approved": "Genehmigt"
+    },
+    "empty": {
+      "all": "Keine Vorschläge gefunden",
+      "filtered": "Keine Vorschläge vom Typ {{filter}} gefunden"
+    },
+    "status": {
+      "pending": "Ausstehend",
+      "approved": "Genehmigt",
+      "executed": "Ausgeführt",
+      "rejected": "Abgelehnt"
+    },
+    "types": {
+      "transfer": "Überweisung",
+      "timeLock": "Zeitsperre",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "An:",
+      "from": "Von:",
+      "by": "Von:",
+      "beneficiary": "Begünstigter:",
+      "created": "Erstellt:",
+      "approvals": "Genehmigungen:",
+      "unlockDate": "Freigabedatum:",
+      "cliffDate": "Cliff-Datum:",
+      "endDate": "Enddatum:"
+    },
+    "actions": {
+      "approve": "Genehmigen",
+      "execute": "Ausführen",
+      "reject": "Ablehnen",
+      "confirmReject": "Ablehnung bestätigen"
+    },
+    "bulk": {
+      "title": "Massenüberweisung",
+      "subtitle": "Mehrere Überweisungsvorschläge im Stapel erstellen (max. {{max}} pro Stapel)",
+      "importCsv": "CSV importieren",
+      "downloadTemplate": "Vorlage herunterladen",
+      "csvHelp": "Hilfe zum CSV-Format",
+      "totalLabel": "Gesamt:",
+      "successLabel": "Erfolgreich:",
+      "failedLabel": "Fehlgeschlagen:",
+      "csvFormatTitle": "CSV-Format",
+      "csvFormatNote": "Verwenden Sie „native“ für XLM oder die vollständige Token-Vertragsadresse.",
+      "maxBatchWarning": "Maximal {{max}} Überweisungen pro Stapel, um Netzwerküberlastung zu vermeiden. Erstellen Sie für mehr einen weiteren Stapel.",
+      "recipientLabel": "Empfängeradresse",
+      "amountLabel": "Betrag",
+      "tokenLabel": "Token",
+      "duplicate": "Duplizieren",
+      "remove": "Entfernen",
+      "addTransfer": "Überweisung hinzufügen",
+      "processing": "Verarbeite {{current}} von {{total}}... ({{delay}}s Verzögerung zwischen Transaktionen)",
+      "readyCount_one": "{{count}} Überweisung bereit",
+      "readyCount_other": "{{count}} Überweisungen bereit",
+      "totalTokens": "• Gesamt: ~{{amount}} Token",
+      "creatingProposals": "Vorschläge werden erstellt...",
+      "createProposals_one": "{{count}} Vorschlag erstellen",
+      "createProposals_other": "{{count}} Vorschläge erstellen",
+      "maxBatchAlert": "Maximal {{max}} Überweisungen pro Stapel, um Netzwerküberlastung zu vermeiden.",
+      "maxBatchShortAlert": "Maximal {{max}} Überweisungen pro Stapel.",
+      "csvTooManyAlert": "Die CSV enthält {{count}} Einträge. Maximal {{max}} pro Stapel. Nur die ersten {{max}} werden importiert.",
+      "errors": {
+        "invalidRecipient": "Ungültige Empfängeradresse",
+        "invalidAmount": "Ungültiger Betrag",
+        "noToken": "Kein Token ausgewählt",
+        "transferUnavailable": "Überweisungsfunktion nicht verfügbar",
+        "createFailed": "Vorschlag konnte nicht erstellt werden"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Vesting-Pläne",
+    "subtitle": "Token-Vesting mit Cliff-Perioden und schrittweiser Freigabe",
+    "bulkCreate": "Massenerstellung",
+    "createVesting": "Vesting erstellen",
+    "createFirst": "Erstellen Sie Ihren ersten Vesting-Plan",
+    "empty": "Noch keine Vesting-Pläne erstellt",
+    "archived": "Archiviert",
+    "revocable": "Widerrufbar",
+    "badge": "Vesting",
+    "you": "Sie",
+    "claimButton": "💰 Beanspruchen",
+    "cardTitle": "Vesting #{{id}}",
+    "claimableBadge": "{{amount}} beanspruchbar",
+    "vestedLabel": "Vested: {{vested}} / {{total}}",
+    "releasedLabel": "Freigegeben: {{released}}",
+    "daysValue": "{{count}} Tage",
+    "defaultDescription": "Vesting-Plan",
+    "confirmCancel": "Sind Sie sicher, dass Sie diesen Vesting-Plan stornieren möchten?",
+    "stats": {
+      "totalVesting": "Vesting gesamt",
+      "active": "Aktiv",
+      "claimable": "Beanspruchbar",
+      "yourVesting": "Ihr Vesting"
+    },
+    "sections": {
+      "yours": "Ihre Vesting-Pläne",
+      "active": "Aktive Vesting-Pläne",
+      "pendingCompletion": "Abschluss ausstehend"
+    },
+    "status": {
+      "active": "Aktiv",
+      "partiallyReleased": "Teilweise freigegeben",
+      "fullyReleased": "Vollständig freigegeben",
+      "cancelled": "Storniert"
+    },
+    "time": {
+      "toCliff": "{{days}}T {{hours}}Std bis zum Cliff",
+      "fullyVested": "Vollständig vested",
+      "remaining": "{{days}}T {{hours}}Std verbleibend"
+    },
+    "interval": {
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich",
+      "quarterly": "Vierteljährlich"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Verbleibend",
+      "status": "Status",
+      "cliffDate": "Cliff-Datum",
+      "endDate": "Enddatum",
+      "releaseInterval": "Freigabeintervall",
+      "beneficiary": "Begünstigter",
+      "creator": "Ersteller",
+      "description": "Beschreibung"
+    },
+    "errors": {
+      "fillRequired": "Bitte füllen Sie alle erforderlichen Felder aus",
+      "invalidBeneficiary": "Ungültige Begünstigtenadresse",
+      "durationPositive": "Die Vesting-Dauer muss größer als 0 sein",
+      "cliffShorter": "Der Cliff muss kürzer als die Gesamtdauer sein",
+      "createFailed": "Vesting konnte nicht erstellt werden",
+      "claimFailed": "Beanspruchung fehlgeschlagen",
+      "cancelFailed": "Stornierung fehlgeschlagen"
+    },
+    "modal": {
+      "title": "Vesting-Plan erstellen",
+      "token": "Token",
+      "selectToken": "Token auswählen",
+      "tokenOption": "{{symbol}} – {{amount}} verfügbar",
+      "totalAmount": "Gesamtbetrag",
+      "beneficiary": "Begünstigter",
+      "quickSelect": "Schnellauswahl:",
+      "beneficiaryPlaceholder": "Kontakte durchsuchen oder G...-Adresse eingeben",
+      "cliffDays": "Cliff (Tage)",
+      "cliffHint": "Keine Freigabe vor dem Cliff",
+      "durationDays": "Dauer (Tage)",
+      "durationHint": "Gesamte Vesting-Periode",
+      "intervalDays": "Intervall (Tage)",
+      "intervalHint": "Freigabehäufigkeit",
+      "descriptionLabel": "Beschreibung (optional)",
+      "descriptionPlaceholder": "z. B. Mitarbeiter-Vesting, Berater-Zuteilung",
+      "revocableHint": "Admin kann stornieren und nicht-vestete Gelder zurückgeben",
+      "previewTitle": "Vesting-Vorschau",
+      "previewCliff": "• Cliff endet: {{date}}",
+      "previewVested": "• Vollständig vested: {{date}}",
+      "previewReleases": "• Freigaben alle {{days}} Tage nach dem Cliff",
+      "feeNotice": "⚠️ Für das Erstellen des Vesting-Plans wird eine Gebühr von 0,1 XLM erhoben.",
+      "creating": "Wird erstellt...",
+      "createButton": "Vesting-Plan erstellen"
+    },
+    "bulk": {
+      "title": "Vesting in Masse erstellen",
+      "subtitle": "Mehrere Vesting-Pläne auf einmal erstellen (max. {{max}} pro Stapel)",
+      "downloadTemplate": "Vorlage herunterladen",
+      "importCsv": "CSV importieren",
+      "totalLabel": "Gesamt:",
+      "pendingLabel": "Ausstehend:",
+      "successLabel": "Erfolgreich:",
+      "errorsLabel": "Fehler:",
+      "maxBatchWarning": "Maximale Stapelgröße erreicht ({{max}} Pläne). Verarbeiten Sie diese, bevor Sie weitere hinzufügen.",
+      "beneficiaryLabel": "Begünstigtenadresse",
+      "amountLabel": "Betrag",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (Tage)",
+      "durationLabel": "Dauer (Tage)",
+      "intervalLabel": "Intervall (Tage)",
+      "descriptionLabel": "Beschreibung",
+      "optionalPlaceholder": "Optional",
+      "duplicate": "Duplizieren",
+      "remove": "Entfernen",
+      "addSchedule": "Vesting-Plan hinzufügen",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Ende: {{date}}",
+      "previewReleases": "Freigaben alle {{days}} Tage",
+      "processing": "Verarbeite {{current}} von {{total}}...",
+      "readyCount_one": "{{count}} Plan bereit zum Erstellen",
+      "readyCount_other": "{{count}} Pläne bereit zum Erstellen",
+      "feeTotal": "• Gebühr: insgesamt {{fee}} XLM",
+      "creatingProposals": "Vorschläge werden erstellt...",
+      "createProposals_one": "{{count}} Vorschlag erstellen",
+      "createProposals_other": "{{count}} Vorschläge erstellen",
+      "defaultDescription": "Massen-Vesting-Plan",
+      "maxBatchAlert": "Maximal {{max}} Vesting-Pläne pro Stapel, um Netzwerküberlastung zu vermeiden.",
+      "csvTooManyAlert": "Die CSV enthält {{count}} Einträge. Maximal {{max}} pro Stapel. Nur die ersten {{max}} werden importiert.",
+      "errors": {
+        "invalidBeneficiary": "Ungültige Begünstigtenadresse",
+        "invalidAmount": "Ungültiger Betrag",
+        "noToken": "Kein Token ausgewählt",
+        "durationPositive": "Die Vesting-Dauer muss größer als 0 sein",
+        "invalidCliff": "Ungültige Cliff-Periode",
+        "cliffShorter": "Der Cliff muss kürzer als die Gesamtdauer sein",
+        "invalidInterval": "Ungültiges Freigabeintervall",
+        "createFailed": "Vorschlag konnte nicht erstellt werden"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Neuen Vault erstellen",
+    "defaultName": "Mein Vault",
+    "defaultNameNumbered": "Mein Vault {{number}}",
+    "vaultName": "Vault-Name",
+    "youOwner": "Sie (Eigentümer)",
+    "add": "Hinzufügen",
+    "addSignerPlaceholder": "Unterzeichneradresse hinzufügen (G...)",
+    "hideContacts": "Kontakte ausblenden",
+    "addFromContacts": "Aus Kontakten hinzufügen",
+    "signers_one": "Unterzeichner ({{count}})",
+    "signers_other": "Unterzeichner ({{count}})",
+    "thresholdLabel": "Genehmigungsschwelle: {{threshold}} von {{total}}",
+    "thresholdHint_one": "{{count}} Signatur erforderlich, um Transaktionen zu genehmigen",
+    "thresholdHint_other": "{{count}} Signaturen erforderlich, um Transaktionen zu genehmigen",
+    "creating": "Wird erstellt...",
+    "checking": "Wird geprüft...",
+    "insufficientBalanceShort": "Unzureichendes Guthaben",
+    "createButton": "Vault erstellen",
+    "balance": {
+      "insufficientTitle": "Unzureichendes XLM-Guthaben",
+      "needAtLeast": "Sie benötigen mindestens <b>{{amount}} XLM</b>, um einen Vault zu erstellen.",
+      "current": "Ihr aktuelles Guthaben: <b>{{amount}} XLM</b>",
+      "coversFee": "Dies deckt die Erstellungsgebühr von {{fee}} XLM zuzüglich Transaktionskosten ab.",
+      "getFriendbot": "Testnet-XLM von Friendbot erhalten",
+      "checking": "Guthaben wird geprüft..."
+    },
+    "fee": {
+      "creationFee": "Vault-Erstellungsgebühr:",
+      "yourBalance": "Ihr Guthaben:"
+    },
+    "errors": {
+      "invalidAddress": "Ungültige Stellar-Adresse",
+      "signerExists": "Unterzeichner bereits hinzugefügt",
+      "insufficientBalance": "Unzureichendes XLM-Guthaben. Sie benötigen mindestens {{amount}} XLM.",
+      "signersBelowThreshold": "Die Anzahl der Unterzeichner muss mindestens dem Schwellenwert entsprechen",
+      "factoryNotConfigured": "Factory nicht konfiguriert",
+      "transactionFailed": "Transaktion fehlgeschlagen",
+      "noReturnValue": "Kein Rückgabewert von der Transaktion",
+      "parseFailed": "Vault-Adresse konnte nicht aus dem Ergebnis ausgelesen werden",
+      "noAddress": "Vault-Adresse konnte nicht aus dem Ergebnis abgerufen werden",
+      "invalidVaultAddress": "Ungültiges Vault-Adressformat",
+      "createFailed": "Vault konnte nicht erstellt werden"
+    }
+  },
+  "fiatRamp": {
+    "title": "Fiat-Ein-/Auszahlungsrampe",
+    "subtitle": "Übertragen Sie Geld zwischen Fiat und USDC. Die Mittel werden direkt in Ihren Vault gebucht.",
+    "soon": "Bald",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Karte & Bank → USDC, direkt in den Vault geliefert."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Bargeld-Ein-/Auszahlung an physischen Agenturstandorten weltweit."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Karte & Bank → USDC über Stripe, in den Vault geliefert."
+      }
+    },
+    "mode": {
+      "cashToVault": "Bargeld → Vault",
+      "vaultToCash": "Vault → Bargeld"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Betrag (USDC)",
+      "amountOptional": "Betrag (USDC) — optional",
+      "amountWidgetPlaceholder": "Leer lassen, um im Widget auszuwählen",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limits: {{min}}–{{max}} USDC pro Transaktion",
+      "outOfRange": "Der Betrag muss zwischen {{min}} und {{max}} USDC liegen."
+    },
+    "actions": {
+      "working": "Wird bearbeitet…",
+      "buyWithTransak": "USDC mit Transak kaufen",
+      "buyWithStripe": "USDC mit Stripe kaufen",
+      "startDeposit": "Bareinzahlung starten",
+      "startWithdrawal": "Barauszahlung starten"
+    },
+    "notEnabled": {
+      "noApiUrl": "API-URL nicht konfiguriert — setzen Sie REACT_APP_API_URL, sobald der Server bereitgestellt ist.",
+      "serverDisabled": "Dieser Anbieter ist auf dem Server noch nicht aktiviert."
+    },
+    "status": {
+      "anchorStatus": "Anchor-Status: {{status}}",
+      "creatingTransak": "Sichere Transak-Sitzung wird erstellt…",
+      "openingTransak": "Transak wird geöffnet…",
+      "transakClosed": "Transak-Fenster geschlossen.",
+      "transakSuccess": "Transak-Bestellung abgeschlossen. USDC wird an den Vault geliefert. Bestell-ID: {{orderId}}",
+      "creatingStripe": "Stripe-Onramp-Sitzung wird erstellt…",
+      "stripeOpened": "Stripe-Onramp geöffnet.",
+      "authenticating": "Authentifizierung beim Anchor…",
+      "openingCashIn": "Bareinzahlungsfenster wird geöffnet…",
+      "openingCashOut": "KYC-/Barauszahlungsfenster wird geöffnet…",
+      "creatingProposals": "Multisig-Vorschläge werden erstellt (Auszahlung + 0,3 % Gebühr)…",
+      "proposalsCreated": "Vorschläge erstellt. Auszahlung #{{withdrawId}}, Gebühr #{{feeId}}. Sammeln Sie Genehmigungen zur Ausführung."
+    },
+    "errors": {
+      "apiUrlMissing": "API-URL ist nicht konfiguriert (REACT_APP_API_URL).",
+      "sessionFailed": "Sitzung fehlgeschlagen ({{status}})",
+      "noWidgetUrl": "Keine widgetUrl vom Backend zurückgegeben",
+      "transakFailed": "Transak-Bestellung fehlgeschlagen.",
+      "openTransakFailed": "Transak konnte nicht geöffnet werden",
+      "stripeSessionFailed": "Stripe-Sitzung fehlgeschlagen ({{status}})",
+      "noClientSecret": "Kein clientSecret vom Backend zurückgegeben",
+      "startStripeFailed": "Stripe konnte nicht gestartet werden",
+      "depositFailed": "Einzahlung konnte nicht gestartet werden",
+      "withdrawFailed": "Auszahlung konnte nicht gestartet werden"
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "amount": "Betrag",
+      "platformFee": "Plattformgebühr ({{pct}} %)",
+      "youReceive": "Sie erhalten im Vault",
+      "sentToAnchor": "An Anchor gesendet",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Anchor- und Netzwerkgebühren werden separat von {{provider}} berechnet.",
+      "theProvider": "dem Anbieter"
+    },
+    "howItWorks": {
+      "title": "So funktioniert es",
+      "transak": "Zahlen Sie per Karte oder Banküberweisung. Nach der KYC liefert Transak USDC auf Stellar direkt an Ihre Vault-Adresse. Für eingehende Mittel ist keine Multisig-Genehmigung erforderlich.",
+      "moneygram": "Einzahlungen landen direkt im Vault. Auszahlungen erstellen zwei Multisig-Vorschläge — die Überweisung und die Plattformgebühr von 0,3 % — die Ihre Unterzeichner genehmigen müssen, bevor Mittel den Vault verlassen.",
+      "stripe": "Zahlen Sie per Karte oder Bank über Stripe. Stripe übernimmt die KYC und liefert USDC auf Stellar direkt an Ihre Vault-Adresse."
+    },
+    "destination": {
+      "title": "Ziel-Vault"
+    }
+  },
+  "common": {
+    "copy": "Kopieren",
+    "share": "Teilen",
+    "loading": "Wird geladen…",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "refresh": "Aktualisieren",
+    "unknown": "Unbekannt",
+    "change": "Ändern",
+    "open": "Öffnen",
+    "update": "Aktualisieren",
+    "all": "Alle",
+    "notAvailable": "—"
+  }
+}

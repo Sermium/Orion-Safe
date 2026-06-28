@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Uhlolojikelele",
+    "money": "Imali",
+    "vestingLocks": "Ukugunyazwa Nezihluthulelo",
+    "team": "Ithimba",
+    "system": "Isistimu",
+    "dashboard": "Ideshibhodi",
+    "assets": "Amafa",
+    "fiat": "Indlela Yefiyathi",
+    "transactions": "Imisebenzi",
+    "locks": "Izihluthulelo",
+    "vesting": "Ukugunyazwa",
+    "members": "Amalungu",
+    "contacts": "Oxhumana Nabo",
+    "settings": "Izilungiselelo",
+    "docs": "Amadokhumenti",
+    "admin": "Umlawuli",
+    "claim": "Thatha Amathokheni"
+  },
+  "fiat": {
+    "title": "Indlela Yefiyathi",
+    "deposit": "Faka",
+    "withdraw": "Khipha",
+    "amount": "Inani",
+    "provider": "Umhlinzeki",
+    "fee": "Imali yenkundla",
+    "destination": "Isigxinsi okuyiwa kuso",
+    "comingSoon": "Maduze"
+  },
+  "sidebar": {
+    "currentVault": "Isigxinsi Samanje",
+    "selectVault": "Khetha Isigxinsi",
+    "createNewVault": "Dala Isigxinsi Esisha",
+    "sharePublicView": "Yabelana Ngombono Womphakathi",
+    "disconnect": "Nqamula",
+    "connected": "Kuxhunyiwe",
+    "linkCopied": "Isixhumanisi somphakathi sikopishiwe!"
+  },
+  "header": {
+    "timeLocks": "Izihluthulelo Zesikhathi",
+    "deposit": "Faka",
+    "send": "Thumela"
+  },
+  "settings": {
+    "title": "Izilungiselelo Zesigxinsi",
+    "subtitle": "Lawula ukumiswa kwesigxinsi sakho namalungu",
+    "language": "Ulimi",
+    "languageAuto": "Okuzenzakalelayo (ulimi lwedivayisi)",
+    "languageHint": "Okuzenzakalelayo kulandela ulimi lwedivayisi yakho futhi kubuyela kwisiNgisi uma lungasekelwa.",
+    "tabs": {
+      "general": "Okuvamile",
+      "members": "Amalungu Nezindima",
+      "advanced": "Okuthuthukisiwe"
+    },
+    "vaultInfo": "Ulwazi Lwesigxinsi",
+    "vaultName": "Igama Lesigxinsi",
+    "vaultAddress": "Ikheli Lesigxinsi",
+    "notSelected": "Akukhethiwe",
+    "yourRole": "Indima Yakho",
+    "members": "Amalungu",
+    "threshold": "Umkhawulo",
+    "superAdmins": "Abalawuli Abakhulu",
+    "connectedWallet": "Isikhwama Esixhunyiwe",
+    "publicKey": "Ukhiye Womphakathi",
+    "approvalThreshold": "Umkhawulo Wokuvuma",
+    "thresholdDesc": "Kudingeka amasiginesha angu-{{threshold}} kwangu-{{total}} ukuze kwenziwe imisebenzi",
+    "vaultMembers": "Amalungu Esigxinsi",
+    "vaultMembersDesc": "Lawula ukuthi ubani ongafinyelela futhi alawule lesi sigxinsi",
+    "addMember": "Engeza Ilungu",
+    "you": "Wena",
+    "copyAddress": "Kopisha ikheli",
+    "removeMember": "Susa ilungu",
+    "rolePermissions": "Izimvume Zendima",
+    "adminsOnly": "Abalawuli besigxinsi kuphela abangalawula amalungu nezindima.",
+    "contractDetails": "Imininingwane Yenkontileka",
+    "contractType": "Uhlobo Lwenkontileka",
+    "sorobanContract": "Inkontileka Ehlakaniphile ye-Soroban",
+    "network": "Inethiwekhi",
+    "testnet": "I-Testnet",
+    "actions": "Izenzo",
+    "exportData": "Thumela Idatha Yesigxinsi",
+    "exportDataDesc": "Landa ukumiswa nomlando wemisebenzi",
+    "export": "Thumela ngaphandle",
+    "viewExplorer": "Buka ku-Explorer",
+    "viewExplorerDesc": "Vula inkontileka yesigxinsi ku-Stellar Expert",
+    "dangerZone": "Indawo Eyingozi",
+    "leaveVault": "Shiya Isigxinsi",
+    "leaveVaultDesc": "Zisuse njengomsayini. Lokhu akukwazi ukuhlehliswa.",
+    "leaveLastWarning": "Uyilungu lokugcina - ukushiya kuzoshiya isigxinsi!",
+    "leaving": "Iyashiya...",
+    "leave": "Shiya",
+    "addNewMember": "Engeza Ilungu Elisha",
+    "addNewMemberDesc": "Khetha koxhumana nabo noma faka ikheli ngesandla",
+    "fromContacts": "Koxhumana Nabo",
+    "enterAddress": "Faka Ikheli",
+    "searchContacts": "Sesha oxhumana nabo...",
+    "noContactsAvailable": "Abekho oxhumana nabo abatholakalayo (bonke sebevele bangamalungu)",
+    "noContactsFound": "Abekho oxhumana nabo abatholakele",
+    "allContactsMembers": "Bonke oxhumana nabo sebevele bangamalungu esigxinsi. Sebenzisa \"Faka Ikheli\" ukuze wengeze ilungu elisha.",
+    "stellarAddress": "Ikheli le-Stellar",
+    "role": "Indima",
+    "adding": "Iyengeza...",
+    "changeThreshold": "Shintsha Umkhawulo Wokuvuma",
+    "requiredSignatures": "Amasiginesha adingekayo: {{threshold}} kwangu-{{total}}",
+    "thresholdWarning": "Ukushintsha umkhawulo kuthinta ezokuphepha. Umkhawulo ophakeme udinga amasiginesha amaningi kodwa ungase wephuze imisebenzi.",
+    "updating": "Iyabuyekeza...",
+    "roles": {
+      "superAdmin": "Umlawuli Omkhulu",
+      "admin": "Umlawuli",
+      "executor": "Umenzi"
+    },
+    "roleOptions": {
+      "superAdmin": "Umlawuli Omkhulu - Ukulawula okugcwele",
+      "admin": "Umlawuli - Lawula amalungu",
+      "executor": "Umenzi - Angenza imisebenzi"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Ukulawula okugcwele kwesigxinsi",
+        "2": "Lawula wonke amalungu nezindima",
+        "3": "Shintsha umkhawulo",
+        "4": "Dala futhi wenze imisebenzi"
+      },
+      "admin": {
+        "1": "Lawula abenzi",
+        "2": "Shintsha umkhawulo",
+        "3": "Dala futhi uvume imisebenzi",
+        "4": "Lawula izihluthulelo"
+      },
+      "executor": {
+        "1": "Dala imisebenzi",
+        "2": "Vuma imisebenzi",
+        "3": "Yenza imisebenzi evunyiwe",
+        "4": "Buka wonke umsebenzi"
+      }
+    },
+    "success": {
+      "memberAdded": "Ilungu lengeziwe ngempumelelo!",
+      "memberRemoved": "Ilungu lisusiwe ngempumelelo!",
+      "roleUpdated": "Indima ibuyekezwe ngempumelelo!",
+      "thresholdUpdated": "Umkhawulo ubuyekezwe ngempumelelo!",
+      "leftVault": "Usishiye isigxinsi ngempumelelo!"
+    },
+    "errors": {
+      "invalidAddress": "Ikheli le-Stellar elingavumelekile",
+      "alreadyMember": "Ikheli selivele liyilungu",
+      "addFailed": "Yehlulekile ukwengeza ilungu",
+      "removeBreaksThreshold": "Akukwazi ukususa ilungu: kungaphula isidingo somkhawulo",
+      "lastSuperAdminRemove": "Akukwazi ukususa umlawuli omkhulu wokugcina",
+      "removeFailed": "Yehlulekile ukususa ilungu",
+      "needOneSuperAdmin": "Akukwazi ukushintsha indima: isigxinsi kufanele sibe nomlawuli omkhulu oyedwa okungenani",
+      "roleFailed": "Yehlulekile ukushintsha indima",
+      "thresholdMin": "Umkhawulo kufanele ube okungenani ngu-1",
+      "thresholdMax": "Umkhawulo awukwazi ukweqa inani lamalungu",
+      "thresholdFailed": "Yehlulekile ukubuyekeza umkhawulo",
+      "leaveLastSuperAdmin": "Uwumlawuli omkhulu wokugcina. Sicela wabele omunye umlawuli omkhulu ngaphambi kokushiya, noma susa wonke amanye amalungu kuqala.",
+      "leaveBreaksThreshold": "Akukwazi ukushiya: kungaphula isidingo somkhawulo. Umkhawulo wamanje ngu-{{threshold}}, kodwa kuzosala amalungu angu-{{remaining}} kuphela.",
+      "leaveFailed": "Yehlulekile ukushiya isigxinsi"
+    },
+    "confirm": {
+      "removeMember": "Susa u-{{name}} esigxinsini?",
+      "leaveDefault": "Uqinisekile ukuthi ufuna ukushiya lesi sigxinsi? Lesi senzo asikwazi ukuhlehliswa.",
+      "leaveLastMember": "ISEXWAYISO: Uyilungu LOKUGCINA lalesi sigxinsi. Ukushiya kuzoSHIYA isigxinsi unomphela. Noma yiziphi izimali ezisele ngeke zifinyeleleke. Uqinisekile ngempela?",
+      "leaveFinalWarning": "Lesi yisexwayiso sakho SOKUGCINA. Isigxinsi sizoshiywa unomphela. Qhubeka?"
+    }
+  },
+  "assets": {
+    "title": "Amafa",
+    "subtitle": "Lawula amafa esigxinsi sakho",
+    "addToken": "Engeza Ithokheni",
+    "authorize": "Gunyaza",
+    "totalBalance": "Ibhalansi Iyonke",
+    "remainingDailySpend": "Okusele Kokusetshenziswa Kwansuku Zonke",
+    "yourAssets": "Amafa Akho",
+    "clickToManage": "Chofoza ifa ukuze ulilawule",
+    "noAssets": "Awekho amafa okwamanje",
+    "noAssetsDesc": "Faka amathokheni amancane ukuze uqale",
+    "makeFirstDeposit": "Yenza Idiphozithi Yokuqala",
+    "availableBalance": "Ibhalansi Etholakalayo",
+    "actions": {
+      "deposit": "Faka",
+      "depositDesc": "Engeza amanye ama-{{symbol}} esigxinsini",
+      "send": "Thumela",
+      "sendDesc": "Phakamisa ukudluliselwa kwe-{{symbol}}",
+      "timeLock": "Isihluthulelo Sesikhathi",
+      "timeLockDesc": "Khiya kuze kube usuku oluthize",
+      "vesting": "Ukugunyazwa",
+      "vestingDesc": "Dala uhlelo lokugunyazwa olune-cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Ikhalenda Yezihluthulelo Nokugunyazwa",
+    "summary": "Izihluthulelo zesikhathi ezingu-{{timeLocks}}, ukugunyazwa okungu-{{vestings}}",
+    "viewCalendar": "Ikhalenda",
+    "viewList": "Uhlu",
+    "filterType": "Uhlobo",
+    "filterStatus": "Isimo",
+    "timeLocks": "Izihluthulelo Zesikhathi",
+    "vestings": "Ukugunyazwa",
+    "timeLock": "Isihluthulelo Sesikhathi",
+    "vesting": "Ukugunyazwa",
+    "noLocks": "Azikho izihluthulelo noma ukugunyazwa okuzoboniswa",
+    "today": "Namuhla",
+    "now": "Manje",
+    "cliff": "I-cliff",
+    "claimable": "Okungathathwa",
+    "progress": "Inqubekela phambili",
+    "start": "Qala",
+    "end": "Isiphetho",
+    "unlock": "Vula",
+    "beneficiary": "Umzuzi",
+    "locked": "kukhiyiwe",
+    "vestingLabel": "ukugunyazwa",
+    "released": "Kukhululiwe",
+    "active": "Kuyasebenza",
+    "completedCount": "{{count}} kuqediwe",
+    "status": {
+      "active": "Kuyasebenza",
+      "partiallyReleased": "Kukhululwe Kancane",
+      "fullyReleased": "Kukhululwe Ngokugcwele",
+      "cancelled": "Kukhanseliwe"
+    },
+    "statusFilter": {
+      "active": "Kuyasebenza",
+      "completed": "Kuqediwe"
+    },
+    "events": {
+      "start": "qala",
+      "cliff": "i-cliff",
+      "end": "isiphetho"
+    }
+  },
+  "claim": {
+    "title": "Thatha Amathokheni Akho",
+    "subtitleVault": "Ubuka izihluthulelo ezivela esigxinsini {{address}}",
+    "subtitleAll": "Buka futhi uthathe izihluthulelo ozabelwe zona",
+    "disconnect": "Nqamula",
+    "connectWallet": "Xhuma Isikhwama",
+    "connectTitle": "Xhuma Isikhwama Sakho",
+    "connectDescVault": "Xhuma isikhwama sakho ukuze ubone zonke izihluthulelo zesikhathi nezinhlelo zokugunyazwa ozabelwe zona kulesi sigxinsi.",
+    "connectDescAll": "Xhuma isikhwama sakho ukuze ubone zonke izihluthulelo zesikhathi nezinhlelo zokugunyazwa ozabelwe zona kuzo zonke izigxinsi ze-Stellar.",
+    "loadingVault": "Ilayisha izihluthulelo zivela esigxinsini...",
+    "loadingAll": "Iskena izigxinsi ifuna izihluthulelo zakho...",
+    "scanProgress": "Kuhlolwe izigxinsi ezingu-{{scanned}} kwezingu-{{total}}",
+    "unknownVault": "Isigxinsi Esingaziwa",
+    "tokensAmount": "Amathokheni angu-{{amount}}",
+    "claimNow": "Thatha Manje",
+    "claiming": "Iyathatha...",
+    "refreshLocks": "Vuselela Izihluthulelo",
+    "claimSuccess": "Uthathe amathokheni angu-{{amount}} ngempumelelo!",
+    "errorLoad": "Yehlulekile ukulayisha izihluthulelo",
+    "errorClaim": "Yehlulekile ukuthatha",
+    "stats": {
+      "readyToClaim": "Kulungele Ukuthathwa",
+      "pending": "Kulindile",
+      "completed": "Kuqediwe"
+    },
+    "sections": {
+      "readyToClaim": "Kulungele Ukuthathwa",
+      "pending": "Kulindile"
+    },
+    "fields": {
+      "fromVault": "Esivela Esigxinsini",
+      "totalAmount": "Inani Eliphelele",
+      "description": "Incazelo",
+      "timeRemaining": "Isikhathi Esisele",
+      "unlockDate": "Usuku Lokuvula"
+    },
+    "types": {
+      "timeLock": "Isihluthulelo Sesikhathi",
+      "vesting": "Ukugunyazwa",
+      "unknown": "Akwaziwa"
+    },
+    "time": {
+      "unlocked": "Kuvuliwe",
+      "fullyVested": "Kugunyazwe ngokugcwele",
+      "remaining": "{{days}}sk {{hours}}h kusele",
+      "toCliff": "{{days}}sk {{hours}}h kuya ku-cliff"
+    },
+    "empty": {
+      "title": "Azitholakalanga izihluthulelo",
+      "descVault": "Awunazo izihluthulelo ozabelwe zona kulesi sigxinsi.",
+      "descAll": "Awunazo izihluthulelo zesikhathi noma izinhlelo zokugunyazwa ozabelwe zona."
+    }
+  },
+  "contacts": {
+    "title": "Incwadi Yoxhumana Nabo",
+    "subtitle": "Londoloza amakheli asetshenziswa njalo ukuze ufinyelele ngokushesha",
+    "addContact": "Engeza Oxhumana Naye",
+    "searchPlaceholder": "Sesha oxhumana nabo...",
+    "savedCount_one": "Oxhumana naye ongu-{{count}} ulondoloziwe",
+    "savedCount_other": "Oxhumana nabo abangu-{{count}} balondoloziwe",
+    "confirmDelete": "Susa u-\"{{name}}\" koxhumana nabo?",
+    "errors": {
+      "nameRequired": "Igama liyadingeka",
+      "addressRequired": "Ikheli liyadingeka",
+      "invalidAddress": "Ikheli le-Stellar elingavumelekile",
+      "duplicate": "Leli kheli selivele likhona koxhumana nabo"
+    },
+    "empty": {
+      "noMatch": "Abekho oxhumana nabo abahambisana nosesho lwakho",
+      "none": "Abekho oxhumana nabo okwamanje",
+      "addFirst": "Engeza oxhumana naye wokuqala →"
+    },
+    "actions": {
+      "copy": "Kopisha ikheli",
+      "edit": "Hlela oxhumana naye",
+      "delete": "Susa oxhumana naye"
+    },
+    "modal": {
+      "addTitle": "Engeza Oxhumana Naye Omusha",
+      "editTitle": "Hlela Oxhumana Naye",
+      "nameLabel": "Igama *",
+      "namePlaceholder": "isb. Alice, Treasury, Exchange",
+      "addressLabel": "Ikheli le-Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Ikheli alikwazi ukushintshwa",
+      "notesLabel": "Amanothi (okukhethwayo)",
+      "notesPlaceholder": "Engeza noma yimaphi amanothi ngalo oxhumana naye...",
+      "saveChanges": "Londoloza Izinguquko"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Ibhalansi Iyonke",
+      "threshold": "Umkhawulo",
+      "signaturesRequired": "amasiginesha adingekayo",
+      "pending": "Kulindile",
+      "awaitingApproval": "kulinde ukuvunywa",
+      "readyToExecute": "Kulungele Ukwenziwa",
+      "fullyApproved": "kuvunywe ngokugcwele"
+    },
+    "activeProposals": "Iziphakamiso Ezisebenzayo",
+    "viewAll": "Buka Konke",
+    "noProposals": "Azikho iziphakamiso okwamanje",
+    "createFirst": "Dala umsebenzi wakho wokuqala →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Ku-{{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} ukuvunywa",
+    "status": {
+      "pending": "Kulindile",
+      "approved": "Kuvunyiwe",
+      "executed": "Kwenziwe",
+      "rejected": "Kunqatshelwe",
+      "unknown": "Akwaziwa"
+    },
+    "types": {
+      "transfer": "Ukudlulisa",
+      "timeLock": "Isihluthulelo Sesikhathi",
+      "vesting": "Ukugunyazwa",
+      "unknown": "Akwaziwa"
+    }
+  },
+  "locks": {
+    "title": "Izihluthulelo Zesikhathi",
+    "subtitle": "Khiya amafa kuze kube usuku oluthize",
+    "bulkCreate": "Dala Ngobuningi",
+    "createTimeLock": "Dala Isihluthulelo Sesikhathi",
+    "creating": "Iyadala...",
+    "createFirst": "Dala Isihluthulelo Sakho Sokuqala Sesikhathi",
+    "empty": "Azikho izihluthulelo zesikhathi ezidaliwe okwamanje",
+    "archived": "Kugciniwe",
+    "selectToken": "Khetha ithokheni",
+    "available": "{{amount}} kuyatholakala",
+    "quickSelect": "Khetha ngokushesha:",
+    "beneficiaryPlaceholder": "Sesha oxhumana nabo noma faka ikheli le-G...",
+    "descriptionPlaceholder": "isb. Isabelo sethimba",
+    "optional": "Okukhethwayo",
+    "revocableLabel": "Okungahoxiswa",
+    "revocableHint": "Umlawuli angakhansela futhi abuyisele izimali esigxinsini",
+    "feeWarning": "Imali engu-10 XLM izokhokhiswa ngokudala isihluthulelo.",
+    "defaultDescription": "Isihluthulelo Sesikhathi",
+    "lockNumber": "Isihluthulelo #{{id}}",
+    "timeLockBadge": "Isihluthulelo Sesikhathi",
+    "revocableBadge": "Okungahoxiswa",
+    "readyToClaim": "Kulungele Ukuthathwa",
+    "releasedLabel": "Kukhululiwe",
+    "you": "Wena",
+    "claim": "Thatha",
+    "cancel": "Khansela",
+    "close": "Vala",
+    "confirmCancel": "Uqinisekile ukuthi ufuna ukukhansela lesi sihluthulelo?",
+    "stats": {
+      "total": "Izihluthulelo Zesikhathi Zizonke",
+      "active": "Kuyasebenza",
+      "unlocked": "Kuvuliwe",
+      "yourLocks": "Izihluthulelo Zakho"
+    },
+    "sections": {
+      "yours": "Izihluthulelo Zakho Zesikhathi",
+      "active": "Izihluthulelo Zesikhathi Ezisebenzayo",
+      "pendingCompletion": "Kulindele Ukuqedwa"
+    },
+    "fields": {
+      "token": "Ithokheni",
+      "amount": "Inani",
+      "beneficiary": "Umzuzi",
+      "beneficiaryAddress": "Ikheli Lomzuzi",
+      "remaining": "Okusele",
+      "timeStatus": "Isimo Sesikhathi",
+      "unlockDate": "Usuku Lokuvula",
+      "unlockDateTime": "Usuku Nesikhathi Sokuvula",
+      "creator": "Umdali",
+      "description": "Incazelo",
+      "descriptionOptional": "Incazelo (okukhethwayo)"
+    },
+    "statuses": {
+      "active": "Kuyasebenza",
+      "partiallyReleased": "Kukhululwe Kancane",
+      "fullyReleased": "Kukhululwe Ngokugcwele",
+      "cancelled": "Kukhanseliwe",
+      "unknown": "Akwaziwa"
+    },
+    "time": {
+      "unlocked": "Kuvuliwe",
+      "remainingDays": "{{days}}sk {{hours}}h kusele",
+      "remainingHours": "{{hours}}h kusele"
+    },
+    "errors": {
+      "fillRequired": "Sicela ugcwalise wonke amasimu adingekayo",
+      "invalidBeneficiary": "Ikheli lomzuzi elingavumelekile",
+      "unlockFuture": "Isikhathi sokuvula kufanele sibe sesikhathini esizayo",
+      "createFailed": "Yehlulekile ukudala isihluthulelo",
+      "claimFailed": "Yehlulekile ukuthatha",
+      "cancelFailed": "Yehlulekile ukukhansela isihluthulelo",
+      "invalidAmount": "Inani elingavumelekile",
+      "tokenNotSelected": "Ithokheni alikhethiwe",
+      "unlockRequired": "Usuku lokuvula luyadingeka",
+      "proposalFailed": "Yehlulekile ukudala isiphakamiso"
+    },
+    "bulk": {
+      "title": "Dala Izihluthulelo Zesikhathi Ngobuningi",
+      "subtitle": "Dala izihluthulelo zesikhathi eziningi ngesikhathi esisodwa (okungenani {{max}} ngeqoqo)",
+      "downloadTemplate": "Landa Isifanekiso",
+      "importCsv": "Ngenisa i-CSV",
+      "statsTotal": "Isamba",
+      "statsPending": "Kulindile",
+      "statsSuccess": "Impumelelo",
+      "statsErrors": "Amaphutha",
+      "maxReachedAlert": "Okungenani {{max}} izihluthulelo zesikhathi ngeqoqo ukugwema ukugxila kwenethiwekhi.",
+      "maxReachedWarning": "Usayizi omkhulu weqoqo ufinyelelwe (izihluthulelo ezingu-{{max}}). Cubungula lezi ngaphambi kokwengeza ezengeziwe.",
+      "csvTooMany": "I-CSV iqukethe okufakiwe okungu-{{count}}. Okungenani {{max}} ngeqoqo. Kuphela okokuqala okungu-{{max}} kuzongeniswa.",
+      "duplicate": "Iphindwe kabili",
+      "remove": "Susa",
+      "addEntry": "Engeza Isihluthulelo Sesikhathi",
+      "processing": "Icubungula {{current}} kwangu-{{total}}...",
+      "readyCount_one": "Isihluthulelo esingu-{{count}} silungele ukudalwa",
+      "readyCount_other": "Izihluthulelo ezingu-{{count}} zilungele ukudalwa",
+      "feeTotal": "• Imali: {{fee}} XLM isamba",
+      "creatingProposals": "Idala Iziphakamiso...",
+      "createCount_one": "Dala Isiphakamiso esingu-{{count}}",
+      "createCount_other": "Dala Iziphakamiso ezingu-{{count}}",
+      "defaultDescription": "Isihluthulelo Sesikhathi Sobuningi"
+    }
+  },
+  "members": {
+    "title": "Amalungu Esigxinsi",
+    "subtitle_one": "Ilungu elingu-{{count}} • Umkhawulo: {{threshold}} kwangu-{{total}}",
+    "subtitle_other": "Amalungu angu-{{count}} • Umkhawulo: {{threshold}} kwangu-{{total}}",
+    "searchPlaceholder": "Sesha amalungu ngekheli, igama, noma indima...",
+    "manageHint": "Ukulawula amalungu (ukwengeza, ukususa, ukushintsha izindima), iya ku-<strong>Izilungiselelo → Amalungu Nezindima</strong>",
+    "you": "Wena",
+    "addToContacts": "Engeza koxhumana nabo",
+    "noResults": "Awekho amalungu atholakele ahambisana nosesho lwakho.",
+    "stats": {
+      "totalMembers": "Amalungu Wonke",
+      "superAdmins": "Abalawuli Abakhulu",
+      "admins": "Abalawuli",
+      "executors": "Abenzi"
+    },
+    "roles": {
+      "superAdmin": "Umlawuli Omkhulu",
+      "admin": "Umlawuli",
+      "executor": "Umenzi"
+    },
+    "permissions": {
+      "title": "Izimvume Zendima",
+      "superAdmin": "Ukulawula okugcwele kufaka phakathi ukulawula abanye abalawuli nezilungiselelo ezibalulekile",
+      "admin": "Angalawula izilungiselelo zesigxinsi, amalungu, futhi avume imisebenzi",
+      "executor": "Angadala, avume, futhi enze imisebenzi"
+    },
+    "addContactModal": {
+      "title": "Engeza Koxhumana Nabo",
+      "addressLabel": "Ikheli",
+      "nameLabel": "Igama",
+      "namePlaceholder": "Faka igama lalo oxhumana naye",
+      "save": "Londoloza Oxhumana Naye"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Isigxinsi se-Stellar",
+    "publicViewBadge": "Umbono Womphakathi",
+    "loading": "Ilayisha idatha yesigxinsi...",
+    "noLocks": "Azikho izihluthulelo ezidaliwe okwamanje",
+    "noAssets": "Awekho amafa atholakele",
+    "revocable": "Okungahoxiswa",
+    "released": "Kukhululiwe",
+    "allLocks": "Zonke Izihluthulelo ({{count}})",
+    "toBeneficiary": "Ku: {{address}}",
+    "errors": {
+      "title": "Yehlulekile Ukulayisha Isigxinsi",
+      "loadFailed": "Yehlulekile ukulayisha idatha yesigxinsi"
+    },
+    "tabs": {
+      "overview": "Uhlolojikelele",
+      "locks": "Izihluthulelo",
+      "calendar": "Ikhalenda",
+      "assets": "Amafa"
+    },
+    "stats": {
+      "signers": "Abasayini",
+      "threshold": "Umkhawulo: {{count}}",
+      "totalLocks": "Izihluthulelo Zizonke",
+      "activeCount": "{{count}} kuyasebenza",
+      "assets": "Amafa",
+      "tokensHeld": "amathokheni abanjiwe",
+      "lockedValue": "Inani Elikhiyiwe",
+      "totalLocked": "isamba esikhiyiwe"
+    },
+    "sections": {
+      "signers": "Abasayini",
+      "recentLocks": "Izihluthulelo Zakamuva",
+      "assets": "Amafa"
+    },
+    "fields": {
+      "amount": "Inani",
+      "beneficiary": "Umzuzi",
+      "unlockDate": "Usuku Lokuvula",
+      "timeRemaining": "Isikhathi Esisele"
+    },
+    "status": {
+      "active": "Kuyasebenza",
+      "partiallyReleased": "Kukhululwe Kancane",
+      "fullyReleased": "Kukhululwe Ngokugcwele",
+      "cancelled": "Kukhanseliwe"
+    },
+    "lockType": {
+      "timeLock": "Isihluthulelo Sesikhathi",
+      "vesting": "Ukugunyazwa"
+    },
+    "time": {
+      "unlocked": "Kuvuliwe",
+      "cliffPassed": "I-cliff idlulile",
+      "remaining": "{{days}}sk {{hours}}h kusele",
+      "toCliff": "{{days}}sk {{hours}}h kuya ku-cliff"
+    },
+    "footer": {
+      "title": "Isigxinsi se-Stellar - Umbono Womphakathi",
+      "poweredBy": "Kunikwa amandla yi-Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Imisebenzi",
+    "subtitle": "Buka futhi ulawule iziphakamiso zesigxinsi nokudluliswa",
+    "bulkTransfer": "Ukudlulisa Ngobuningi",
+    "newTransaction": "Umsebenzi Omusha",
+    "createFirst": "Dala Isiphakamiso Sokuqala",
+    "completedProposals": "Iziphakamiso Eziqediwe",
+    "noHistory": "Awutholakali umlando wemisebenzi",
+    "noHistoryNote": "Qaphela: Imisebenzi yenkontileka ye-Soroban ivela ngeziphakamiso ezenziwe",
+    "received": "Kutholiwe",
+    "sent": "Kuthunyelwe",
+    "onChainPayments_one": "Inkokhelo engu-{{count}} ese-cheni",
+    "onChainPayments_other": "Izinkokhelo ezingu-{{count}} ese-cheni",
+    "approvalsCount": "{{count}}/{{threshold}} ukuvunywa",
+    "rejectionsCount": "{{count}}/{{threshold}} ukunqatshelwa",
+    "tabs": {
+      "proposals": "Iziphakamiso ({{count}})",
+      "history": "Umlando ({{count}})"
+    },
+    "filters": {
+      "all": "Konke",
+      "pending": "Kulindile",
+      "approved": "Kuvunyiwe"
+    },
+    "empty": {
+      "all": "Azitholakali iziphakamiso",
+      "filtered": "Azitholakali iziphakamiso ezingu-{{filter}}"
+    },
+    "status": {
+      "pending": "Kulindile",
+      "approved": "Kuvunyiwe",
+      "executed": "Kwenziwe",
+      "rejected": "Kunqatshelwe"
+    },
+    "types": {
+      "transfer": "Ukudlulisa",
+      "timeLock": "Isihluthulelo Sesikhathi",
+      "vesting": "Ukugunyazwa"
+    },
+    "fields": {
+      "to": "Ku:",
+      "from": "Kusukela:",
+      "by": "Ngu:",
+      "beneficiary": "Umzuzi:",
+      "created": "Kudaliwe:",
+      "approvals": "Ukuvunywa:",
+      "unlockDate": "Usuku Lokuvula:",
+      "cliffDate": "Usuku Lwe-cliff:",
+      "endDate": "Usuku Lokuphela:"
+    },
+    "actions": {
+      "approve": "Vuma",
+      "execute": "Yenza",
+      "reject": "Nqaba",
+      "confirmReject": "Qinisekisa Ukunqaba"
+    },
+    "bulk": {
+      "title": "Ukudlulisa Ngobuningi",
+      "subtitle": "Dala iziphakamiso eziningi zokudlulisa ngeqoqo (okungenani {{max}} ngeqoqo)",
+      "importCsv": "Ngenisa i-CSV",
+      "downloadTemplate": "Landa Isifanekiso",
+      "csvHelp": "Usizo Lwefomethi ye-CSV",
+      "totalLabel": "Isamba:",
+      "successLabel": "Impumelelo:",
+      "failedLabel": "Kuhlulekile:",
+      "csvFormatTitle": "Ifomethi ye-CSV",
+      "csvFormatNote": "Sebenzisa u-\"native\" ku-XLM noma ikheli eligcwele lenkontileka yethokheni.",
+      "maxBatchWarning": "Okungenani {{max}} ukudlulisa ngeqoqo ukugwema ukugxila kwenethiwekhi. Dala elinye iqoqo ukuze uthole okwengeziwe.",
+      "recipientLabel": "Ikheli Lomamukeli",
+      "amountLabel": "Inani",
+      "tokenLabel": "Ithokheni",
+      "duplicate": "Iphindwe kabili",
+      "remove": "Susa",
+      "addTransfer": "Engeza Ukudlulisa",
+      "processing": "Icubungula {{current}} kwangu-{{total}}... ({{delay}}s ukubambezeleka phakathi kwemisebenzi)",
+      "readyCount_one": "Ukudlulisa okungu-{{count}} kulungile",
+      "readyCount_other": "Ukudlulisa okungu-{{count}} kulungile",
+      "totalTokens": "• Isamba: ~{{amount}} amathokheni",
+      "creatingProposals": "Idala Iziphakamiso...",
+      "createProposals_one": "Dala Isiphakamiso esingu-{{count}}",
+      "createProposals_other": "Dala Iziphakamiso ezingu-{{count}}",
+      "maxBatchAlert": "Okungenani {{max}} ukudlulisa ngeqoqo ukugwema ukugxila kwenethiwekhi.",
+      "maxBatchShortAlert": "Okungenani {{max}} ukudlulisa ngeqoqo.",
+      "csvTooManyAlert": "I-CSV iqukethe okufakiwe okungu-{{count}}. Okungenani {{max}} ngeqoqo. Kuphela okokuqala okungu-{{max}} kuzongeniswa.",
+      "errors": {
+        "invalidRecipient": "Ikheli lomamukeli elingavumelekile",
+        "invalidAmount": "Inani elingavumelekile",
+        "noToken": "Ithokheni alikhethiwe",
+        "transferUnavailable": "Umsebenzi wokudlulisa awutholakali",
+        "createFailed": "Yehlulekile ukudala isiphakamiso"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Izinhlelo Zokugunyazwa",
+    "subtitle": "Ukugunyazwa kwethokheni okune-cliff nokukhululwa kancane kancane",
+    "bulkCreate": "Dala Ngobuningi",
+    "createVesting": "Dala Ukugunyazwa",
+    "createFirst": "Dala Uhlelo Lwakho Lokuqala Lokugunyazwa",
+    "empty": "Azikho izinhlelo zokugunyazwa ezidaliwe okwamanje",
+    "archived": "Kugciniwe",
+    "revocable": "Okungahoxiswa",
+    "badge": "Ukugunyazwa",
+    "you": "Wena",
+    "claimButton": "💰 Thatha",
+    "cardTitle": "Ukugunyazwa #{{id}}",
+    "claimableBadge": "{{amount}} Okungathathwa",
+    "vestedLabel": "Kugunyaziwe: {{vested}} / {{total}}",
+    "releasedLabel": "Kukhululiwe: {{released}}",
+    "daysValue": "{{count}} izinsuku",
+    "defaultDescription": "Uhlelo Lokugunyazwa",
+    "confirmCancel": "Uqinisekile ukuthi ufuna ukukhansela lolu hlelo lokugunyazwa?",
+    "stats": {
+      "totalVesting": "Ukugunyazwa Konke",
+      "active": "Kuyasebenza",
+      "claimable": "Okungathathwa",
+      "yourVesting": "Ukugunyazwa Kwakho"
+    },
+    "sections": {
+      "yours": "Izinhlelo Zakho Zokugunyazwa",
+      "active": "Izinhlelo Zokugunyazwa Ezisebenzayo",
+      "pendingCompletion": "Kulindele Ukuqedwa"
+    },
+    "status": {
+      "active": "Kuyasebenza",
+      "partiallyReleased": "Kukhululwe Kancane",
+      "fullyReleased": "Kukhululwe Ngokugcwele",
+      "cancelled": "Kukhanseliwe"
+    },
+    "time": {
+      "toCliff": "{{days}}sk {{hours}}h kuya ku-cliff",
+      "fullyVested": "Kugunyazwe ngokugcwele",
+      "remaining": "{{days}}sk {{hours}}h kusele"
+    },
+    "interval": {
+      "daily": "Nsuku zonke",
+      "weekly": "Maviki onke",
+      "monthly": "Nyanga zonke",
+      "quarterly": "Kwekota ngayinye"
+    },
+    "fields": {
+      "token": "Ithokheni",
+      "remaining": "Okusele",
+      "status": "Isimo",
+      "cliffDate": "Usuku Lwe-cliff",
+      "endDate": "Usuku Lokuphela",
+      "releaseInterval": "Isikhawu Sokukhulula",
+      "beneficiary": "Umzuzi",
+      "creator": "Umdali",
+      "description": "Incazelo"
+    },
+    "errors": {
+      "fillRequired": "Sicela ugcwalise wonke amasimu adingekayo",
+      "invalidBeneficiary": "Ikheli lomzuzi elingavumelekile",
+      "durationPositive": "Isikhathi sokugunyazwa kufanele sibe ngaphezu kuka-0",
+      "cliffShorter": "I-cliff kufanele ibe mfushane kunesikhathi esiphelele",
+      "createFailed": "Yehlulekile ukudala ukugunyazwa",
+      "claimFailed": "Yehlulekile ukuthatha",
+      "cancelFailed": "Yehlulekile ukukhansela"
+    },
+    "modal": {
+      "title": "Dala Uhlelo Lokugunyazwa",
+      "token": "Ithokheni",
+      "selectToken": "Khetha ithokheni",
+      "tokenOption": "{{symbol}} - {{amount}} kuyatholakala",
+      "totalAmount": "Inani Eliphelele",
+      "beneficiary": "Umzuzi",
+      "quickSelect": "Khetha ngokushesha:",
+      "beneficiaryPlaceholder": "Sesha oxhumana nabo noma faka ikheli le-G...",
+      "cliffDays": "I-cliff (izinsuku)",
+      "cliffHint": "Akukho ukukhululwa ngaphambi kwe-cliff",
+      "durationDays": "Isikhathi (izinsuku)",
+      "durationHint": "Isikhathi esiphelele sokugunyazwa",
+      "intervalDays": "Isikhawu (izinsuku)",
+      "intervalHint": "Ukuvama kokukhulula",
+      "descriptionLabel": "Incazelo (okukhethwayo)",
+      "descriptionPlaceholder": "isb. Ukugunyazwa kwesisebenzi, Isabelo someluleki",
+      "revocableHint": "Umlawuli angakhansela futhi abuyisele izimali ezingakagunyazwa",
+      "previewTitle": "Ukubuka Kuqala Kokugunyazwa",
+      "previewCliff": "• I-cliff iphela: {{date}}",
+      "previewVested": "• Kugunyazwe ngokugcwele: {{date}}",
+      "previewReleases": "• Kukhulula njalo emva kwezinsuku ezingu-{{days}} ngemva kwe-cliff",
+      "feeNotice": "⚠️ Imali engu-0.1 XLM izokhokhiswa ngokudala uhlelo lokugunyazwa.",
+      "creating": "Iyadala...",
+      "createButton": "Dala Uhlelo Lokugunyazwa"
+    },
+    "bulk": {
+      "title": "Dala Ukugunyazwa Ngobuningi",
+      "subtitle": "Dala izinhlelo zokugunyazwa eziningi ngesikhathi esisodwa (okungenani {{max}} ngeqoqo)",
+      "downloadTemplate": "Landa Isifanekiso",
+      "importCsv": "Ngenisa i-CSV",
+      "totalLabel": "Isamba:",
+      "pendingLabel": "Kulindile:",
+      "successLabel": "Impumelelo:",
+      "errorsLabel": "Amaphutha:",
+      "maxBatchWarning": "Usayizi omkhulu weqoqo ufinyelelwe (izinhlelo ezingu-{{max}}). Cubungula lezi ngaphambi kokwengeza ezengeziwe.",
+      "beneficiaryLabel": "Ikheli Lomzuzi",
+      "amountLabel": "Inani",
+      "tokenLabel": "Ithokheni",
+      "cliffLabel": "I-cliff (izinsuku)",
+      "durationLabel": "Isikhathi (izinsuku)",
+      "intervalLabel": "Isikhawu (izinsuku)",
+      "descriptionLabel": "Incazelo",
+      "optionalPlaceholder": "Okukhethwayo",
+      "duplicate": "Iphindwe kabili",
+      "remove": "Susa",
+      "addSchedule": "Engeza Uhlelo Lokugunyazwa",
+      "previewCliff": "I-cliff: {{date}}",
+      "previewEnd": "Isiphetho: {{date}}",
+      "previewReleases": "Kukhulula njalo emva kwezinsuku ezingu-{{days}}",
+      "processing": "Icubungula {{current}} kwangu-{{total}}...",
+      "readyCount_one": "Uhlelo olungu-{{count}} lulungele ukudalwa",
+      "readyCount_other": "Izinhlelo ezingu-{{count}} zilungele ukudalwa",
+      "feeTotal": "• Imali: {{fee}} XLM isamba",
+      "creatingProposals": "Idala Iziphakamiso...",
+      "createProposals_one": "Dala Isiphakamiso esingu-{{count}}",
+      "createProposals_other": "Dala Iziphakamiso ezingu-{{count}}",
+      "defaultDescription": "Uhlelo Lokugunyazwa Lobuningi",
+      "maxBatchAlert": "Okungenani {{max}} izinhlelo zokugunyazwa ngeqoqo ukugwema ukugxila kwenethiwekhi.",
+      "csvTooManyAlert": "I-CSV iqukethe okufakiwe okungu-{{count}}. Okungenani {{max}} ngeqoqo. Kuphela okokuqala okungu-{{max}} kuzongeniswa.",
+      "errors": {
+        "invalidBeneficiary": "Ikheli lomzuzi elingavumelekile",
+        "invalidAmount": "Inani elingavumelekile",
+        "noToken": "Ithokheni alikhethiwe",
+        "durationPositive": "Isikhathi sokugunyazwa kufanele sibe ngaphezu kuka-0",
+        "invalidCliff": "Isikhathi se-cliff esingavumelekile",
+        "cliffShorter": "I-cliff kufanele ibe mfushane kunesikhathi esiphelele",
+        "invalidInterval": "Isikhawu sokukhulula esingavumelekile",
+        "createFailed": "Yehlulekile ukudala isiphakamiso"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Dala Isigxinsi Esisha",
+    "defaultName": "Isigxinsi Sami",
+    "defaultNameNumbered": "Isigxinsi Sami {{number}}",
+    "vaultName": "Igama Lesigxinsi",
+    "youOwner": "Wena (Umnikazi)",
+    "add": "Engeza",
+    "addSignerPlaceholder": "Engeza ikheli lomsayini (G...)",
+    "hideContacts": "Fihla oxhumana nabo",
+    "addFromContacts": "Engeza koxhumana nabo",
+    "signers_one": "Abasayini ({{count}})",
+    "signers_other": "Abasayini ({{count}})",
+    "thresholdLabel": "Umkhawulo Wokuvuma: {{threshold}} kwangu-{{total}}",
+    "thresholdHint_one": "Isiginesha esingu-{{count}} siyadingeka ukuvuma imisebenzi",
+    "thresholdHint_other": "Amasiginesha angu-{{count}} ayadingeka ukuvuma imisebenzi",
+    "creating": "Iyadala...",
+    "checking": "Iyahlola...",
+    "insufficientBalanceShort": "Ibhalansi Enganele",
+    "createButton": "Dala Isigxinsi",
+    "balance": {
+      "insufficientTitle": "Ibhalansi ye-XLM Enganele",
+      "needAtLeast": "Udinga okungenani <b>{{amount}} XLM</b> ukuze udale isigxinsi.",
+      "current": "Ibhalansi yakho yamanje: <b>{{amount}} XLM</b>",
+      "coversFee": "Lokhu kumboza imali yokudala engu-{{fee}} XLM kanye nezindleko zomsebenzi.",
+      "getFriendbot": "Thola i-XLM ye-testnet ku-Friendbot",
+      "checking": "Ihlola ibhalansi..."
+    },
+    "fee": {
+      "creationFee": "Imali yokudala isigxinsi:",
+      "yourBalance": "Ibhalansi yakho:"
+    },
+    "errors": {
+      "invalidAddress": "Ikheli le-Stellar elingavumelekile",
+      "signerExists": "Umsayini usuvele wengeziwe",
+      "insufficientBalance": "Ibhalansi ye-XLM enganele. Udinga okungenani {{amount}} XLM.",
+      "signersBelowThreshold": "Inani labasayini kufanele okungenani libe lilingana nomkhawulo",
+      "factoryNotConfigured": "I-Factory ayilungiselelwanga",
+      "transactionFailed": "Umsebenzi wehlulekile",
+      "noReturnValue": "Alikho inani elibuyiselwayo kusuka emsebenzini",
+      "parseFailed": "Yehlulekile ukuhlaziya ikheli lesigxinsi kusuka emphumeleni",
+      "noAddress": "Yehlulekile ukuthola ikheli lesigxinsi kusuka emphumeleni",
+      "invalidVaultAddress": "Ifomethi yekheli lesigxinsi engavumelekile",
+      "createFailed": "Yehlulekile ukudala isigxinsi"
+    }
+  },
+  "fiatRamp": {
+    "title": "Indlela Yokufaka / Yokukhipha Imali Yefiyathi",
+    "subtitle": "Hambisa imali phakathi kwefiyathi ne-USDC. Izimali zingena ngqo esigxinsini sakho.",
+    "soon": "Maduze",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Ikhadi nebhange → USDC, ilethwa ngqo esigxinsini."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Faka / khipha imali ekheshi ezindaweni zama-ejenti emhlabeni wonke."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Ikhadi nebhange → USDC nge-Stripe, ilethwa esigxinsini."
+      }
+    },
+    "mode": {
+      "cashToVault": "Ikheshi → Isigxinsi",
+      "vaultToCash": "Isigxinsi → Ikheshi"
+    },
+    "fields": {
+      "anchor": "I-anchor",
+      "amount": "Inani (USDC)",
+      "amountOptional": "Inani (USDC) — okukhethwayo",
+      "amountWidgetPlaceholder": "Shiya kungenalutho ukuze ukhethe ku-widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Imikhawulo: {{min}}–{{max}} USDC ngomsebenzi ngamunye",
+      "outOfRange": "Inani kufanele libe phakathi kuka-{{min}} no-{{max}} USDC."
+    },
+    "actions": {
+      "working": "Iyasebenza…",
+      "buyWithTransak": "Thenga i-USDC nge-Transak",
+      "buyWithStripe": "Thenga i-USDC nge-Stripe",
+      "startDeposit": "Qala idiphozithi yekheshi",
+      "startWithdrawal": "Qala ukukhipha ikheshi"
+    },
+    "notEnabled": {
+      "noApiUrl": "I-API URL ayilungiselelwanga — setha i-REACT_APP_API_URL uma iseva isithunyelwe.",
+      "serverDisabled": "Lo mhlinzeki akakavulwa kuze kube manje kuseva."
+    },
+    "status": {
+      "anchorStatus": "Isimo se-anchor: {{status}}",
+      "creatingTransak": "Idala iseshini ephephile ye-Transak…",
+      "openingTransak": "Ivula i-Transak…",
+      "transakClosed": "Iwindi le-Transak livaliwe.",
+      "transakSuccess": "I-oda le-Transak liqediwe. I-USDC ilethwa esigxinsini. I-ID ye-oda: {{orderId}}",
+      "creatingStripe": "Idala iseshini yokufaka ye-Stripe…",
+      "stripeOpened": "Ukufaka kwe-Stripe kuvuliwe.",
+      "authenticating": "Iqinisekisa ne-anchor…",
+      "openingCashIn": "Ivula iwindi lokufaka ikheshi…",
+      "openingCashOut": "Ivula iwindi le-KYC / lokukhipha ikheshi…",
+      "creatingProposals": "Idala iziphakamiso zamasiginesha amaningi (ukukhipha + imali engu-0.3%)…",
+      "proposalsCreated": "Iziphakamiso zidaliwe. Ukukhipha #{{withdrawId}}, imali #{{feeId}}. Qoqa ukuvunywa ukuze wenze."
+    },
+    "errors": {
+      "apiUrlMissing": "I-API URL ayilungiselelwanga (REACT_APP_API_URL).",
+      "sessionFailed": "Iseshini yehlulekile ({{status}})",
+      "noWidgetUrl": "Ayikho i-widgetUrl ebuyiselwe yi-backend",
+      "transakFailed": "I-oda le-Transak lehlulekile.",
+      "openTransakFailed": "Yehlulekile ukuvula i-Transak",
+      "stripeSessionFailed": "Iseshini ye-Stripe yehlulekile ({{status}})",
+      "noClientSecret": "Ayikho i-clientSecret ebuyiselwe yi-backend",
+      "startStripeFailed": "Yehlulekile ukuqala i-Stripe",
+      "depositFailed": "Idiphozithi yehlulekile ukuqala",
+      "withdrawFailed": "Ukukhipha kwehlulekile ukuqala"
+    },
+    "summary": {
+      "title": "Isifinyezo",
+      "amount": "Inani",
+      "platformFee": "Imali yenkundla ({{pct}}%)",
+      "youReceive": "Uthola esigxinsini",
+      "sentToAnchor": "Kuthunyelwe ku-anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Imali ye-anchor neyenethiwekhi ikhokhiswa ngokwehlukene yi-{{provider}}.",
+      "theProvider": "umhlinzeki"
+    },
+    "howItWorks": {
+      "title": "Kusebenza Kanjani",
+      "transak": "Khokha ngekhadi noma ngokudlulisa kwebhange. Ngemva kwe-KYC, i-Transak ileth(e) i-USDC ku-Stellar ngqo ekhelini lesigxinsi sakho. Akukho ukuvunywa kwamasiginesha amaningi okudingekayo kwizimali ezingenayo.",
+      "moneygram": "Amadiphozithi angena ngqo esigxinsini. Ukukhipha kudala iziphakamiso ezimbili zamasiginesha amaningi — ukudlulisa kanye nemali yenkundla engu-0.3% — okumele abasayini bakho bakuvume ngaphambi kokuthi izimali ziphume esigxinsini.",
+      "stripe": "Khokha ngekhadi noma ngebhange nge-Stripe. I-Stripe iphatha i-KYC futhi ilethe i-USDC ku-Stellar ngqo ekhelini lesigxinsi sakho."
+    },
+    "destination": {
+      "title": "Isigxinsi okuyiwa kuso"
+    }
+  },
+  "common": {
+    "copy": "Kopisha",
+    "share": "Yabelana",
+    "loading": "Iyalayisha…",
+    "cancel": "Khansela",
+    "confirm": "Qinisekisa",
+    "save": "Londoloza",
+    "close": "Vala",
+    "refresh": "Vuselela",
+    "unknown": "Akwaziwa",
+    "change": "Shintsha",
+    "open": "Vula",
+    "update": "Buyekeza",
+    "all": "Konke",
+    "notAvailable": "Akutholakali"
+  }
+}

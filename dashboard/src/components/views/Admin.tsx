@@ -5,7 +5,6 @@ import {
   FACTORY_CONTRACT_ID, 
   VAULT_WASM_HASH, 
   FEE_RECIPIENT,
-  VAULT_CREATION_FEE,
   DEFAULT_TX_FEE 
 } from '../../config';
 import { getFactoryConfig, VaultInfo } from '../../services/factoryService';

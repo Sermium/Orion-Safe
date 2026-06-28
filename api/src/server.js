@@ -6,6 +6,7 @@ import vaults from "./routes/vaults.js";
 import proposals from "./routes/proposals.js";
 import locks from "./routes/locks.js";
 import signers from "./routes/signers.js";
+import onramp from "./routes/onramp.js";
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ v1.use(vaults);
 v1.use(proposals);
 v1.use(locks);
 v1.use(signers);
+v1.use(onramp);
 v1.post("/submit", async (req, res) => {
   try { res.json(await submitSignedXdr(req.body.signedXdr)); }
   catch (e) { res.status(500).json({ error: e.message }); }

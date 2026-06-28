@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as stellar from '../../lib/stellar';
 import { getAllVaults, getVaultInfo } from '../../services/factoryService';
 import ConnectWalletModal from '../modals/ConnectWalletModal';
@@ -36,6 +37,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
     initialWalletId = null,
     vaultAddress: filterVaultAddress = null
 }) => {
+  const { t, i18n } = useTranslation();
   const [publicKey, setPublicKey] = useState<string | null>(null);
   const [walletId, setWalletId] = useState<string | null>(null);
   const [showConnectModal, setShowConnectModal] = useState(false);
@@ -98,7 +100,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                 ...lock,
                 id: Number(lock.id),
                 vaultAddress: filterVaultAddress,
-                vaultName: vaultInfo?.name || 'Unknown Vault',
+                vaultName: vaultInfo?.name || t('claim.unknownVault'),
                 total_amount: BigInt(lock.total_amount),
                 released_amount: BigInt(lock.released_amount),
                 start_time: Number(lock.start_time),
@@ -131,7 +133,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                   ...lock,
                   id: Number(lock.id),
                   vaultAddress,
-                  vaultName: vaultInfo.name || 'Unknown Vault',
+                  vaultName: vaultInfo.name || t('claim.unknownVault'),
                   total_amount: BigInt(lock.total_amount),
                   released_amount: BigInt(lock.released_amount),
                   start_time: Number(lock.start_time),
@@ -149,7 +151,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
       
       setMyLocks(foundLocks);
     } catch (err: any) {
-      setError(err.message || 'Failed to load locks');
+      setError(err.message || t('claim.errorLoad'));
     } finally {
       setLoading(false);
     }
@@ -181,10 +183,10 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
         await deactivateLock(lock.vaultAddress, lock.id);
       }
       
-      setSuccess(`Successfully claimed ${formatAmount(claimed, 7)} tokens!`);
+      setSuccess(t('claim.claimSuccess', { amount: formatAmount(claimed, 7) }));
       await loadMyLocks(); // Refresh
     } catch (err: any) {
-      setError(err.message || 'Failed to claim');
+      setError(err.message || t('claim.errorClaim'));
     } finally {
       setClaiming(null);
     }
@@ -238,6 +240,14 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
     return 'Unknown';
   };
 
+  // Libellé traduit du type de lock (l'identité interne reste TimeLock/Vesting)
+  const getLockTypeLabel = (lockType: any): string => {
+    const type = getLockTypeString(lockType);
+    if (type === 'TimeLock') return t('claim.types.timeLock');
+    if (type === 'Vesting') return t('claim.types.vesting');
+    return t('claim.types.unknown');
+  };
+
   const isClaimable = (lock: Lock): boolean => {
     const status = getStatusString(lock.status);
     if (status !== 'Active' && status !== 'PartiallyReleased') return false;
@@ -280,23 +290,23 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
     const lockType = getLockTypeString(lock.lock_type);
     
     if (lockType === 'TimeLock') {
-      if (now >= lock.end_time) return 'Unlocked';
+      if (now >= lock.end_time) return t('claim.time.unlocked');
       const diff = lock.end_time - now;
       const days = Math.floor(diff / 86400);
       const hours = Math.floor((diff % 86400) / 3600);
-      return `${days}d ${hours}h remaining`;
+      return t('claim.time.remaining', { days, hours });
     } else {
       if (now < lock.cliff_time) {
         const diff = lock.cliff_time - now;
         const days = Math.floor(diff / 86400);
         const hours = Math.floor((diff % 86400) / 3600);
-        return `${days}d ${hours}h to cliff`;
+        return t('claim.time.toCliff', { days, hours });
       }
-      if (now >= lock.end_time) return 'Fully vested';
+      if (now >= lock.end_time) return t('claim.time.fullyVested');
       const diff = lock.end_time - now;
       const days = Math.floor(diff / 86400);
       const hours = Math.floor((diff % 86400) / 3600);
-      return `${days}d ${hours}h remaining`;
+      return t('claim.time.remaining', { days, hours });
     }
   };
 
@@ -317,11 +327,11 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                 </svg>
               </button>
               <div>
-                <h1 className="text-xl font-bold text-white">Claim Your Tokens</h1>
+                <h1 className="text-xl font-bold text-white">{t('claim.title')}</h1>
                 <p className="text-gray-400 text-sm">
                   {filterVaultAddress 
-                    ? `Viewing locks from vault ${truncateAddress(filterVaultAddress)}`
-                    : 'View and claim locks assigned to you'
+                    ? t('claim.subtitleVault', { address: truncateAddress(filterVaultAddress) })
+                    : t('claim.subtitleAll')
                   }
                 </p>
               </div>
@@ -337,7 +347,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                   onClick={handleDisconnect}
                   className="px-3 py-1.5 bg-red-500/20 text-red-400 rounded-lg text-sm hover:bg-red-500/30 transition-colors"
                 >
-                  Disconnect
+                  {t('claim.disconnect')}
                 </button>
               </div>
             ) : (
@@ -345,7 +355,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                 onClick={() => setShowConnectModal(true)}
                 className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-white font-medium transition-colors"
               >
-                Connect Wallet
+                {t('claim.connectWallet')}
               </button>
             )}
           </div>
@@ -375,16 +385,15 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-white mb-3">Connect Your Wallet</h2>
+            <h2 className="text-2xl font-bold text-white mb-3">{t('claim.connectTitle')}</h2>
             <p className="text-gray-400 mb-8 max-w-md mx-auto">
-              Connect your wallet to see all time locks and vesting schedules assigned to you
-              {filterVaultAddress ? ' from this vault.' : ' across all Stellar Vaults.'}
+              {filterVaultAddress ? t('claim.connectDescVault') : t('claim.connectDescAll')}
             </p>
             <button
               onClick={() => setShowConnectModal(true)}
               className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-semibold text-white hover:opacity-90 transition-opacity"
             >
-              Connect Wallet
+              {t('claim.connectWallet')}
             </button>
           </div>
         )}
@@ -394,10 +403,12 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
           <div className="text-center py-20">
             <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-400">
-              {filterVaultAddress ? 'Loading locks from vault...' : 'Scanning vaults for your locks...'}
+              {filterVaultAddress ? t('claim.loadingVault') : t('claim.loadingAll')}
             </p>
             {!filterVaultAddress && (
-              <p className="text-gray-500 text-sm mt-2">Checked {scannedVaults} of {totalVaults} vaults</p>
+              <p className="text-gray-500 text-sm mt-2">
+                {t('claim.scanProgress', { scanned: scannedVaults, total: totalVaults })}
+              </p>
             )}
           </div>
         )}
@@ -408,15 +419,15 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-slate-800/50 backdrop-blur-xl rounded-xl border border-white/10 p-6">
-                <p className="text-gray-400 text-sm">Ready to Claim</p>
+                <p className="text-gray-400 text-sm">{t('claim.stats.readyToClaim')}</p>
                 <p className="text-3xl font-bold text-green-400">{claimableLocks.length}</p>
               </div>
               <div className="bg-slate-800/50 backdrop-blur-xl rounded-xl border border-white/10 p-6">
-                <p className="text-gray-400 text-sm">Pending</p>
+                <p className="text-gray-400 text-sm">{t('claim.stats.pending')}</p>
                 <p className="text-3xl font-bold text-yellow-400">{pendingLocks.length}</p>
               </div>
               <div className="bg-slate-800/50 backdrop-blur-xl rounded-xl border border-white/10 p-6">
-                <p className="text-gray-400 text-sm">Completed</p>
+                <p className="text-gray-400 text-sm">{t('claim.stats.completed')}</p>
                 <p className="text-3xl font-bold text-gray-400">{completedLocks.length}</p>
               </div>
             </div>
@@ -425,7 +436,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
             {claimableLocks.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">💰</span> Ready to Claim
+                  <span className="text-2xl">💰</span> {t('claim.sections.readyToClaim')}
                 </h2>
                 <div className="space-y-4">
                   {claimableLocks.map((lock) => (
@@ -434,25 +445,25 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <span className="text-lg font-bold text-white">
-                              {formatAmount(getClaimableAmount(lock), 7)} tokens
+                              {t('claim.tokensAmount', { amount: formatAmount(getClaimableAmount(lock), 7) })}
                             </span>
                             <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400">
-                              {getLockTypeString(lock.lock_type)}
+                              {getLockTypeLabel(lock.lock_type)}
                             </span>
                           </div>
                           <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                              <p className="text-gray-500">From Vault</p>
+                              <p className="text-gray-500">{t('claim.fields.fromVault')}</p>
                               <p className="text-white">{lock.vaultName}</p>
                               <p className="text-gray-500 text-xs font-mono">{truncateAddress(lock.vaultAddress)}</p>
                             </div>
                             <div>
-                              <p className="text-gray-500">Total Amount</p>
+                              <p className="text-gray-500">{t('claim.fields.totalAmount')}</p>
                               <p className="text-white">{formatAmount(lock.total_amount, 7)}</p>
                             </div>
                             {lock.description && (
                               <div className="col-span-2">
-                                <p className="text-gray-500">Description</p>
+                                <p className="text-gray-500">{t('claim.fields.description')}</p>
                                 <p className="text-white">{lock.description}</p>
                               </div>
                             )}
@@ -463,7 +474,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                           disabled={claiming === lock.id}
                           className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-xl text-white font-bold disabled:opacity-50 transition-all shadow-lg shadow-green-500/25"
                         >
-                          {claiming === lock.id ? 'Claiming...' : 'Claim Now'}
+                          {claiming === lock.id ? t('claim.claiming') : t('claim.claimNow')}
                         </button>
                       </div>
                     </div>
@@ -476,7 +487,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
             {pendingLocks.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">⏳</span> Pending
+                  <span className="text-2xl">⏳</span> {t('claim.sections.pending')}
                 </h2>
                 <div className="space-y-4">
                   {pendingLocks.map((lock) => (
@@ -485,25 +496,25 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <span className="text-lg font-bold text-white">
-                              {formatAmount(lock.total_amount, 7)} tokens
+                              {t('claim.tokensAmount', { amount: formatAmount(lock.total_amount, 7) })}
                             </span>
                             <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400">
-                              {getLockTypeString(lock.lock_type)}
+                              {getLockTypeLabel(lock.lock_type)}
                             </span>
                           </div>
                           <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                              <p className="text-gray-500">From Vault</p>
+                              <p className="text-gray-500">{t('claim.fields.fromVault')}</p>
                               <p className="text-white">{lock.vaultName}</p>
                             </div>
                             <div>
-                              <p className="text-gray-500">Time Remaining</p>
+                              <p className="text-gray-500">{t('claim.fields.timeRemaining')}</p>
                               <p className="text-yellow-400">{getTimeRemaining(lock)}</p>
                             </div>
                             <div>
-                              <p className="text-gray-500">Unlock Date</p>
+                              <p className="text-gray-500">{t('claim.fields.unlockDate')}</p>
                               <p className="text-white">
-                                {new Date(lock.end_time * 1000).toLocaleDateString()}
+                                {new Date(lock.end_time * 1000).toLocaleDateString(i18n.language)}
                               </p>
                             </div>
                           </div>
@@ -523,18 +534,15 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <p className="text-gray-400 mb-2">No locks found</p>
+                <p className="text-gray-400 mb-2">{t('claim.empty.title')}</p>
                 <p className="text-gray-500 text-sm">
-                  {filterVaultAddress 
-                    ? 'You don\'t have any locks assigned to you in this vault.'
-                    : 'You don\'t have any time locks or vesting schedules assigned to you.'
-                  }
+                  {filterVaultAddress ? t('claim.empty.descVault') : t('claim.empty.descAll')}
                 </p>
                 <button
                   onClick={loadMyLocks}
                   className="mt-4 px-4 py-2 bg-purple-600/20 text-purple-400 rounded-lg hover:bg-purple-600/30 transition-colors"
                 >
-                  Refresh
+                  {t('common.refresh')}
                 </button>
               </div>
             )}
@@ -546,7 +554,7 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
                   onClick={loadMyLocks}
                   className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition-colors"
                 >
-                  Refresh Locks
+                  {t('claim.refreshLocks')}
                 </button>
               </div>
             )}

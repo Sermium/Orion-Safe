@@ -1,0 +1,956 @@
+{
+  "nav": {
+    "overview": "Przegląd",
+    "money": "Pieniądze",
+    "vestingLocks": "Vesting i blokady",
+    "team": "Zespół",
+    "system": "System",
+    "dashboard": "Pulpit",
+    "assets": "Aktywa",
+    "fiat": "Rampa fiat",
+    "transactions": "Transakcje",
+    "locks": "Blokady",
+    "vesting": "Vesting",
+    "members": "Członkowie",
+    "contacts": "Kontakty",
+    "settings": "Ustawienia",
+    "docs": "Dokumentacja",
+    "admin": "Administracja",
+    "claim": "Odbierz tokeny"
+  },
+  "fiat": {
+    "title": "Rampa fiat",
+    "deposit": "Wpłać",
+    "withdraw": "Wypłać",
+    "amount": "Kwota",
+    "provider": "Dostawca",
+    "fee": "Opłata platformy",
+    "destination": "Skarbiec docelowy",
+    "comingSoon": "Wkrótce"
+  },
+  "sidebar": {
+    "currentVault": "Bieżący skarbiec",
+    "selectVault": "Wybierz skarbiec",
+    "createNewVault": "Utwórz nowy skarbiec",
+    "sharePublicView": "Udostępnij widok publiczny",
+    "disconnect": "Rozłącz",
+    "connected": "Połączono",
+    "linkCopied": "Skopiowano publiczny link!"
+  },
+  "header": {
+    "timeLocks": "Blokady czasowe",
+    "deposit": "Wpłać",
+    "send": "Wyślij"
+  },
+  "settings": {
+    "title": "Ustawienia skarbca",
+    "subtitle": "Zarządzaj konfiguracją i członkami swojego skarbca",
+    "language": "Język",
+    "languageAuto": "Automatycznie (język urządzenia)",
+    "languageHint": "Automatycznie podąża za językiem urządzenia, a w przypadku braku obsługi wraca do angielskiego.",
+    "tabs": {
+      "general": "Ogólne",
+      "members": "Członkowie i role",
+      "advanced": "Zaawansowane"
+    },
+    "vaultInfo": "Informacje o skarbcu",
+    "vaultName": "Nazwa skarbca",
+    "vaultAddress": "Adres skarbca",
+    "notSelected": "Nie wybrano",
+    "yourRole": "Twoja rola",
+    "members": "Członkowie",
+    "threshold": "Próg",
+    "superAdmins": "Superadministratorzy",
+    "connectedWallet": "Połączony portfel",
+    "publicKey": "Klucz publiczny",
+    "approvalThreshold": "Próg zatwierdzenia",
+    "thresholdDesc": "Do wykonania transakcji wymaganych jest {{threshold}} z {{total}} podpisów",
+    "vaultMembers": "Członkowie skarbca",
+    "vaultMembersDesc": "Zarządzaj tym, kto ma dostęp do tego skarbca i może go kontrolować",
+    "addMember": "Dodaj członka",
+    "you": "Ty",
+    "copyAddress": "Kopiuj adres",
+    "removeMember": "Usuń członka",
+    "rolePermissions": "Uprawnienia ról",
+    "adminsOnly": "Tylko administratorzy skarbca mogą zarządzać członkami i rolami.",
+    "contractDetails": "Szczegóły kontraktu",
+    "contractType": "Typ kontraktu",
+    "sorobanContract": "Inteligentny kontrakt Soroban",
+    "network": "Sieć",
+    "testnet": "Testnet",
+    "actions": "Akcje",
+    "exportData": "Eksportuj dane skarbca",
+    "exportDataDesc": "Pobierz konfigurację i historię transakcji",
+    "export": "Eksportuj",
+    "viewExplorer": "Zobacz w eksploratorze",
+    "viewExplorerDesc": "Otwórz kontrakt skarbca na Stellar Expert",
+    "dangerZone": "Strefa zagrożenia",
+    "leaveVault": "Opuść skarbiec",
+    "leaveVaultDesc": "Usuń siebie jako podpisującego. Tej operacji nie można cofnąć.",
+    "leaveLastWarning": "Jesteś ostatnim członkiem – opuszczenie spowoduje porzucenie skarbca!",
+    "leaving": "Opuszczanie...",
+    "leave": "Opuść",
+    "addNewMember": "Dodaj nowego członka",
+    "addNewMemberDesc": "Wybierz z kontaktów lub wprowadź adres ręcznie",
+    "fromContacts": "Z kontaktów",
+    "enterAddress": "Wprowadź adres",
+    "searchContacts": "Szukaj kontaktów...",
+    "noContactsAvailable": "Brak dostępnych kontaktów (wszystkie są już członkami)",
+    "noContactsFound": "Nie znaleziono kontaktów",
+    "allContactsMembers": "Wszystkie Twoje kontakty są już członkami skarbca. Użyj „Wprowadź adres”, aby dodać nowego członka.",
+    "stellarAddress": "Adres Stellar",
+    "role": "Rola",
+    "adding": "Dodawanie...",
+    "changeThreshold": "Zmień próg zatwierdzenia",
+    "requiredSignatures": "Wymagane podpisy: {{threshold}} z {{total}}",
+    "thresholdWarning": "Zmiana progu wpływa na bezpieczeństwo. Wyższy próg wymaga więcej podpisów, ale może spowolnić operacje.",
+    "updating": "Aktualizowanie...",
+    "roles": {
+      "superAdmin": "Superadministrator",
+      "admin": "Administrator",
+      "executor": "Wykonawca"
+    },
+    "roleOptions": {
+      "superAdmin": "Superadministrator – Pełna kontrola",
+      "admin": "Administrator – Zarządzanie członkami",
+      "executor": "Wykonawca – Może dokonywać transakcji"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Pełna kontrola skarbca",
+        "2": "Zarządzanie wszystkimi członkami i rolami",
+        "3": "Zmiana progu",
+        "4": "Tworzenie i wykonywanie transakcji"
+      },
+      "admin": {
+        "1": "Zarządzanie wykonawcami",
+        "2": "Zmiana progu",
+        "3": "Tworzenie i zatwierdzanie transakcji",
+        "4": "Zarządzanie blokadami"
+      },
+      "executor": {
+        "1": "Tworzenie transakcji",
+        "2": "Zatwierdzanie transakcji",
+        "3": "Wykonywanie zatwierdzonych transakcji",
+        "4": "Wyświetlanie całej aktywności"
+      }
+    },
+    "success": {
+      "memberAdded": "Pomyślnie dodano członka!",
+      "memberRemoved": "Pomyślnie usunięto członka!",
+      "roleUpdated": "Pomyślnie zaktualizowano rolę!",
+      "thresholdUpdated": "Pomyślnie zaktualizowano próg!",
+      "leftVault": "Pomyślnie opuściłeś skarbiec!"
+    },
+    "errors": {
+      "invalidAddress": "Nieprawidłowy adres Stellar",
+      "alreadyMember": "Adres jest już członkiem",
+      "addFailed": "Nie udało się dodać członka",
+      "removeBreaksThreshold": "Nie można usunąć członka: naruszyłoby to wymóg progu",
+      "lastSuperAdminRemove": "Nie można usunąć ostatniego superadministratora",
+      "removeFailed": "Nie udało się usunąć członka",
+      "needOneSuperAdmin": "Nie można zmienić roli: skarbiec musi mieć co najmniej jednego superadministratora",
+      "roleFailed": "Nie udało się zmienić roli",
+      "thresholdMin": "Próg musi wynosić co najmniej 1",
+      "thresholdMax": "Próg nie może przekraczać liczby członków",
+      "thresholdFailed": "Nie udało się zaktualizować progu",
+      "leaveLastSuperAdmin": "Jesteś ostatnim superadministratorem. Przed odejściem przypisz innego superadministratora lub najpierw usuń wszystkich pozostałych członków.",
+      "leaveBreaksThreshold": "Nie można opuścić: naruszyłoby to wymóg progu. Bieżący próg wynosi {{threshold}}, ale pozostałoby tylko {{remaining}} członków.",
+      "leaveFailed": "Nie udało się opuścić skarbca"
+    },
+    "confirm": {
+      "removeMember": "Usunąć {{name}} ze skarbca?",
+      "leaveDefault": "Czy na pewno chcesz opuścić ten skarbiec? Tej operacji nie można cofnąć.",
+      "leaveLastMember": "OSTRZEŻENIE: Jesteś OSTATNIM członkiem tego skarbca. Opuszczenie spowoduje trwałe PORZUCENIE skarbca. Wszelkie pozostałe środki staną się niedostępne. Czy jesteś absolutnie pewien?",
+      "leaveFinalWarning": "To jest Twoje OSTATNIE ostrzeżenie. Skarbiec zostanie trwale porzucony. Kontynuować?"
+    }
+  },
+  "assets": {
+    "title": "Aktywa",
+    "subtitle": "Zarządzaj aktywami swojego skarbca",
+    "addToken": "Dodaj token",
+    "authorize": "Autoryzuj",
+    "totalBalance": "Saldo całkowite",
+    "remainingDailySpend": "Pozostały dzienny limit wydatków",
+    "yourAssets": "Twoje aktywa",
+    "clickToManage": "Kliknij aktywo, aby nim zarządzać",
+    "noAssets": "Brak aktywów",
+    "noAssetsDesc": "Wpłać kilka tokenów, aby rozpocząć",
+    "makeFirstDeposit": "Dokonaj pierwszej wpłaty",
+    "availableBalance": "Dostępne saldo",
+    "actions": {
+      "deposit": "Wpłać",
+      "depositDesc": "Dodaj więcej {{symbol}} do skarbca",
+      "send": "Wyślij",
+      "sendDesc": "Zaproponuj transfer {{symbol}}",
+      "timeLock": "Blokada czasowa",
+      "timeLockDesc": "Zablokuj do określonej daty",
+      "vesting": "Vesting",
+      "vestingDesc": "Utwórz harmonogram vestingu z cliffem"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Kalendarz blokad i vestingu",
+    "summary": "{{timeLocks}} blokad czasowych, {{vestings}} vestingów",
+    "viewCalendar": "Kalendarz",
+    "viewList": "Lista",
+    "filterType": "Typ",
+    "filterStatus": "Status",
+    "timeLocks": "Blokady czasowe",
+    "vestings": "Vestingi",
+    "timeLock": "Blokada czasowa",
+    "vesting": "Vesting",
+    "noLocks": "Brak blokad lub vestingów do wyświetlenia",
+    "today": "Dzisiaj",
+    "now": "Teraz",
+    "cliff": "Cliff",
+    "claimable": "Do odebrania",
+    "progress": "Postęp",
+    "start": "Początek",
+    "end": "Koniec",
+    "unlock": "Odblokowanie",
+    "beneficiary": "Beneficjent",
+    "locked": "zablokowane",
+    "vestingLabel": "vesting",
+    "released": "Uwolnione",
+    "active": "Aktywne",
+    "completedCount": "{{count}} zakończonych",
+    "status": {
+      "active": "Aktywne",
+      "partiallyReleased": "Częściowo uwolnione",
+      "fullyReleased": "W pełni uwolnione",
+      "cancelled": "Anulowane"
+    },
+    "statusFilter": {
+      "active": "Aktywne",
+      "completed": "Zakończone"
+    },
+    "events": {
+      "start": "początek",
+      "cliff": "cliff",
+      "end": "koniec"
+    }
+  },
+  "claim": {
+    "title": "Odbierz swoje tokeny",
+    "subtitleVault": "Wyświetlanie blokad ze skarbca {{address}}",
+    "subtitleAll": "Wyświetl i odbierz blokady przypisane do Ciebie",
+    "disconnect": "Rozłącz",
+    "connectWallet": "Połącz portfel",
+    "connectTitle": "Połącz swój portfel",
+    "connectDescVault": "Połącz swój portfel, aby zobaczyć wszystkie blokady czasowe i harmonogramy vestingu przypisane do Ciebie z tego skarbca.",
+    "connectDescAll": "Połącz swój portfel, aby zobaczyć wszystkie blokady czasowe i harmonogramy vestingu przypisane do Ciebie we wszystkich skarbcach Stellar.",
+    "loadingVault": "Ładowanie blokad ze skarbca...",
+    "loadingAll": "Skanowanie skarbców w poszukiwaniu Twoich blokad...",
+    "scanProgress": "Sprawdzono {{scanned}} z {{total}} skarbców",
+    "unknownVault": "Nieznany skarbiec",
+    "tokensAmount": "{{amount}} tokenów",
+    "claimNow": "Odbierz teraz",
+    "claiming": "Odbieranie...",
+    "refreshLocks": "Odśwież blokady",
+    "claimSuccess": "Pomyślnie odebrano {{amount}} tokenów!",
+    "errorLoad": "Nie udało się załadować blokad",
+    "errorClaim": "Nie udało się odebrać",
+    "stats": {
+      "readyToClaim": "Gotowe do odebrania",
+      "pending": "Oczekujące",
+      "completed": "Zakończone"
+    },
+    "sections": {
+      "readyToClaim": "Gotowe do odebrania",
+      "pending": "Oczekujące"
+    },
+    "fields": {
+      "fromVault": "Ze skarbca",
+      "totalAmount": "Kwota całkowita",
+      "description": "Opis",
+      "timeRemaining": "Pozostały czas",
+      "unlockDate": "Data odblokowania"
+    },
+    "types": {
+      "timeLock": "Blokada czasowa",
+      "vesting": "Vesting",
+      "unknown": "Nieznany"
+    },
+    "time": {
+      "unlocked": "Odblokowane",
+      "fullyVested": "W pełni nabyte",
+      "remaining": "Pozostało {{days}}d {{hours}}h",
+      "toCliff": "{{days}}d {{hours}}h do cliffu"
+    },
+    "empty": {
+      "title": "Nie znaleziono blokad",
+      "descVault": "Nie masz żadnych blokad przypisanych w tym skarbcu.",
+      "descAll": "Nie masz żadnych blokad czasowych ani harmonogramów vestingu przypisanych do Ciebie."
+    }
+  },
+  "contacts": {
+    "title": "Książka kontaktów",
+    "subtitle": "Zapisuj często używane adresy dla szybkiego dostępu",
+    "addContact": "Dodaj kontakt",
+    "searchPlaceholder": "Szukaj kontaktów...",
+    "savedCount_one": "{{count}} zapisany kontakt",
+    "savedCount_few": "{{count}} zapisane kontakty",
+    "savedCount_many": "{{count}} zapisanych kontaktów",
+    "savedCount_other": "{{count}} zapisanego kontaktu",
+    "confirmDelete": "Usunąć „{{name}}” z kontaktów?",
+    "errors": {
+      "nameRequired": "Nazwa jest wymagana",
+      "addressRequired": "Adres jest wymagany",
+      "invalidAddress": "Nieprawidłowy adres Stellar",
+      "duplicate": "Ten adres jest już w Twoich kontaktach"
+    },
+    "empty": {
+      "noMatch": "Żadne kontakty nie pasują do wyszukiwania",
+      "none": "Brak kontaktów",
+      "addFirst": "Dodaj swój pierwszy kontakt →"
+    },
+    "actions": {
+      "copy": "Kopiuj adres",
+      "edit": "Edytuj kontakt",
+      "delete": "Usuń kontakt"
+    },
+    "modal": {
+      "addTitle": "Dodaj nowy kontakt",
+      "editTitle": "Edytuj kontakt",
+      "nameLabel": "Nazwa *",
+      "namePlaceholder": "np. Alice, Skarbiec, Giełda",
+      "addressLabel": "Adres Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adresu nie można zmienić",
+      "notesLabel": "Notatki (opcjonalne)",
+      "notesPlaceholder": "Dodaj notatki dotyczące tego kontaktu...",
+      "saveChanges": "Zapisz zmiany"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Saldo całkowite",
+      "threshold": "Próg",
+      "signaturesRequired": "wymagane podpisy",
+      "pending": "Oczekujące",
+      "awaitingApproval": "oczekuje na zatwierdzenie",
+      "readyToExecute": "Gotowe do wykonania",
+      "fullyApproved": "w pełni zatwierdzone"
+    },
+    "activeProposals": "Aktywne propozycje",
+    "viewAll": "Zobacz wszystkie",
+    "noProposals": "Brak propozycji",
+    "createFirst": "Utwórz swoją pierwszą transakcję →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Do {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} zatwierdzeń",
+    "status": {
+      "pending": "Oczekująca",
+      "approved": "Zatwierdzona",
+      "executed": "Wykonana",
+      "rejected": "Odrzucona",
+      "unknown": "Nieznany"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Blokada czasowa",
+      "vesting": "Vesting",
+      "unknown": "Nieznany"
+    }
+  },
+  "locks": {
+    "title": "Blokady czasowe",
+    "subtitle": "Zablokuj aktywa do określonej daty",
+    "bulkCreate": "Tworzenie zbiorcze",
+    "createTimeLock": "Utwórz blokadę czasową",
+    "creating": "Tworzenie...",
+    "createFirst": "Utwórz swoją pierwszą blokadę czasową",
+    "empty": "Nie utworzono jeszcze żadnych blokad czasowych",
+    "archived": "Zarchiwizowane",
+    "selectToken": "Wybierz token",
+    "available": "{{amount}} dostępne",
+    "quickSelect": "Szybki wybór:",
+    "beneficiaryPlaceholder": "Wyszukaj kontakty lub wprowadź adres G...",
+    "descriptionPlaceholder": "np. Przydział dla zespołu",
+    "optional": "Opcjonalne",
+    "revocableLabel": "Odwołalne",
+    "revocableHint": "Administrator może anulować i zwrócić środki do skarbca",
+    "feeWarning": "Za utworzenie blokady zostanie pobrana opłata w wysokości 10 XLM.",
+    "defaultDescription": "Blokada czasowa",
+    "lockNumber": "Blokada nr {{id}}",
+    "timeLockBadge": "Blokada czasowa",
+    "revocableBadge": "Odwołalne",
+    "readyToClaim": "Gotowe do odebrania",
+    "releasedLabel": "Uwolnione",
+    "you": "Ty",
+    "claim": "Odbierz",
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "confirmCancel": "Czy na pewno chcesz anulować tę blokadę?",
+    "stats": {
+      "total": "Łącznie blokad czasowych",
+      "active": "Aktywne",
+      "unlocked": "Odblokowane",
+      "yourLocks": "Twoje blokady"
+    },
+    "sections": {
+      "yours": "Twoje blokady czasowe",
+      "active": "Aktywne blokady czasowe",
+      "pendingCompletion": "Oczekuje na zakończenie"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Kwota",
+      "beneficiary": "Beneficjent",
+      "beneficiaryAddress": "Adres beneficjenta",
+      "remaining": "Pozostało",
+      "timeStatus": "Status czasowy",
+      "unlockDate": "Data odblokowania",
+      "unlockDateTime": "Data i godzina odblokowania",
+      "creator": "Twórca",
+      "description": "Opis",
+      "descriptionOptional": "Opis (opcjonalny)"
+    },
+    "statuses": {
+      "active": "Aktywne",
+      "partiallyReleased": "Częściowo uwolnione",
+      "fullyReleased": "W pełni uwolnione",
+      "cancelled": "Anulowane",
+      "unknown": "Nieznany"
+    },
+    "time": {
+      "unlocked": "Odblokowane",
+      "remainingDays": "Pozostało {{days}}d {{hours}}h",
+      "remainingHours": "Pozostało {{hours}}h"
+    },
+    "errors": {
+      "fillRequired": "Wypełnij wszystkie wymagane pola",
+      "invalidBeneficiary": "Nieprawidłowy adres beneficjenta",
+      "unlockFuture": "Czas odblokowania musi być w przyszłości",
+      "createFailed": "Nie udało się utworzyć blokady",
+      "claimFailed": "Nie udało się odebrać",
+      "cancelFailed": "Nie udało się anulować blokady",
+      "invalidAmount": "Nieprawidłowa kwota",
+      "tokenNotSelected": "Nie wybrano tokena",
+      "unlockRequired": "Wymagana data odblokowania",
+      "proposalFailed": "Nie udało się utworzyć propozycji"
+    },
+    "bulk": {
+      "title": "Zbiorcze tworzenie blokad czasowych",
+      "subtitle": "Utwórz wiele blokad czasowych naraz (maks. {{max}} na partię)",
+      "downloadTemplate": "Pobierz szablon",
+      "importCsv": "Importuj CSV",
+      "statsTotal": "Łącznie",
+      "statsPending": "Oczekujące",
+      "statsSuccess": "Udane",
+      "statsErrors": "Błędy",
+      "maxReachedAlert": "Maksymalnie {{max}} blokad czasowych na partię, aby uniknąć przeciążenia sieci.",
+      "maxReachedWarning": "Osiągnięto maksymalny rozmiar partii ({{max}} blokad). Przetwórz je przed dodaniem kolejnych.",
+      "csvTooMany": "Plik CSV zawiera {{count}} pozycji. Maksymalnie {{max}} na partię. Zaimportowanych zostanie tylko pierwszych {{max}}.",
+      "duplicate": "Duplikuj",
+      "remove": "Usuń",
+      "addEntry": "Dodaj blokadę czasową",
+      "processing": "Przetwarzanie {{current}} z {{total}}...",
+      "readyCount_one": "{{count}} blokada gotowa do utworzenia",
+      "readyCount_few": "{{count}} blokady gotowe do utworzenia",
+      "readyCount_many": "{{count}} blokad gotowych do utworzenia",
+      "readyCount_other": "{{count}} blokady gotowych do utworzenia",
+      "feeTotal": "• Opłata: łącznie {{fee}} XLM",
+      "creatingProposals": "Tworzenie propozycji...",
+      "createCount_one": "Utwórz {{count}} propozycję",
+      "createCount_few": "Utwórz {{count}} propozycje",
+      "createCount_many": "Utwórz {{count}} propozycji",
+      "createCount_other": "Utwórz {{count}} propozycji",
+      "defaultDescription": "Zbiorcza blokada czasowa"
+    }
+  },
+  "members": {
+    "title": "Członkowie skarbca",
+    "subtitle_one": "{{count}} członek • Próg: {{threshold}} z {{total}}",
+    "subtitle_few": "{{count}} członków • Próg: {{threshold}} z {{total}}",
+    "subtitle_many": "{{count}} członków • Próg: {{threshold}} z {{total}}",
+    "subtitle_other": "{{count}} członka • Próg: {{threshold}} z {{total}}",
+    "searchPlaceholder": "Szukaj członków według adresu, nazwy lub roli...",
+    "manageHint": "Aby zarządzać członkami (dodawać, usuwać, zmieniać role), przejdź do <strong>Ustawienia → Członkowie i role</strong>",
+    "you": "Ty",
+    "addToContacts": "Dodaj do kontaktów",
+    "noResults": "Nie znaleziono członków pasujących do wyszukiwania.",
+    "stats": {
+      "totalMembers": "Łącznie członków",
+      "superAdmins": "Superadministratorzy",
+      "admins": "Administratorzy",
+      "executors": "Wykonawcy"
+    },
+    "roles": {
+      "superAdmin": "Superadministrator",
+      "admin": "Administrator",
+      "executor": "Wykonawca"
+    },
+    "permissions": {
+      "title": "Uprawnienia ról",
+      "superAdmin": "Pełna kontrola, w tym zarządzanie innymi administratorami i krytycznymi ustawieniami",
+      "admin": "Może zarządzać ustawieniami skarbca, członkami i zatwierdzać transakcje",
+      "executor": "Może tworzyć, zatwierdzać i wykonywać transakcje"
+    },
+    "addContactModal": {
+      "title": "Dodaj do kontaktów",
+      "addressLabel": "Adres",
+      "nameLabel": "Nazwa",
+      "namePlaceholder": "Wprowadź nazwę dla tego kontaktu",
+      "save": "Zapisz kontakt"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Widok publiczny",
+    "loading": "Ładowanie danych skarbca...",
+    "noLocks": "Nie utworzono jeszcze żadnych blokad",
+    "noAssets": "Nie znaleziono aktywów",
+    "revocable": "Odwołalne",
+    "released": "Uwolnione",
+    "allLocks": "Wszystkie blokady ({{count}})",
+    "toBeneficiary": "Do: {{address}}",
+    "errors": {
+      "title": "Nie udało się załadować skarbca",
+      "loadFailed": "Nie udało się załadować danych skarbca"
+    },
+    "tabs": {
+      "overview": "Przegląd",
+      "locks": "Blokady",
+      "calendar": "Kalendarz",
+      "assets": "Aktywa"
+    },
+    "stats": {
+      "signers": "Podpisujący",
+      "threshold": "Próg: {{count}}",
+      "totalLocks": "Łącznie blokad",
+      "activeCount": "{{count}} aktywnych",
+      "assets": "Aktywa",
+      "tokensHeld": "posiadanych tokenów",
+      "lockedValue": "Zablokowana wartość",
+      "totalLocked": "łącznie zablokowane"
+    },
+    "sections": {
+      "signers": "Podpisujący",
+      "recentLocks": "Ostatnie blokady",
+      "assets": "Aktywa"
+    },
+    "fields": {
+      "amount": "Kwota",
+      "beneficiary": "Beneficjent",
+      "unlockDate": "Data odblokowania",
+      "timeRemaining": "Pozostały czas"
+    },
+    "status": {
+      "active": "Aktywne",
+      "partiallyReleased": "Częściowo uwolnione",
+      "fullyReleased": "W pełni uwolnione",
+      "cancelled": "Anulowane"
+    },
+    "lockType": {
+      "timeLock": "Blokada czasowa",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Odblokowane",
+      "cliffPassed": "Cliff minął",
+      "remaining": "Pozostało {{days}}d {{hours}}h",
+      "toCliff": "{{days}}d {{hours}}h do cliffu"
+    },
+    "footer": {
+      "title": "Stellar Vault – Widok publiczny",
+      "poweredBy": "Działa na Sorobanie"
+    }
+  },
+  "transactions": {
+    "title": "Transakcje",
+    "subtitle": "Wyświetlaj i zarządzaj propozycjami oraz transferami skarbca",
+    "bulkTransfer": "Transfer zbiorczy",
+    "newTransaction": "Nowa transakcja",
+    "createFirst": "Utwórz pierwszą propozycję",
+    "completedProposals": "Zakończone propozycje",
+    "noHistory": "Nie znaleziono historii transakcji",
+    "noHistoryNote": "Uwaga: transakcje kontraktu Soroban pojawiają się poprzez wykonane propozycje",
+    "received": "Otrzymane",
+    "sent": "Wysłane",
+    "onChainPayments_one": "{{count}} płatność on-chain",
+    "onChainPayments_few": "{{count}} płatności on-chain",
+    "onChainPayments_many": "{{count}} płatności on-chain",
+    "onChainPayments_other": "{{count}} płatności on-chain",
+    "approvalsCount": "{{count}}/{{threshold}} zatwierdzeń",
+    "rejectionsCount": "{{count}}/{{threshold}} odrzuceń",
+    "tabs": {
+      "proposals": "Propozycje ({{count}})",
+      "history": "Historia ({{count}})"
+    },
+    "filters": {
+      "all": "Wszystkie",
+      "pending": "Oczekujące",
+      "approved": "Zatwierdzone"
+    },
+    "empty": {
+      "all": "Nie znaleziono propozycji",
+      "filtered": "Nie znaleziono propozycji {{filter}}"
+    },
+    "status": {
+      "pending": "Oczekująca",
+      "approved": "Zatwierdzona",
+      "executed": "Wykonana",
+      "rejected": "Odrzucona"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Blokada czasowa",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Do:",
+      "from": "Od:",
+      "by": "Przez:",
+      "beneficiary": "Beneficjent:",
+      "created": "Utworzono:",
+      "approvals": "Zatwierdzenia:",
+      "unlockDate": "Data odblokowania:",
+      "cliffDate": "Data cliffu:",
+      "endDate": "Data zakończenia:"
+    },
+    "actions": {
+      "approve": "Zatwierdź",
+      "execute": "Wykonaj",
+      "reject": "Odrzuć",
+      "confirmReject": "Potwierdź odrzucenie"
+    },
+    "bulk": {
+      "title": "Transfer zbiorczy",
+      "subtitle": "Utwórz wiele propozycji transferu w partii (maks. {{max}} na partię)",
+      "importCsv": "Importuj CSV",
+      "downloadTemplate": "Pobierz szablon",
+      "csvHelp": "Pomoc dotycząca formatu CSV",
+      "totalLabel": "Łącznie:",
+      "successLabel": "Udane:",
+      "failedLabel": "Nieudane:",
+      "csvFormatTitle": "Format CSV",
+      "csvFormatNote": "Użyj „native” dla XLM lub pełnego adresu kontraktu tokena.",
+      "maxBatchWarning": "Maksymalnie {{max}} transferów na partię, aby uniknąć przeciążenia sieci. Utwórz kolejną partię, aby dodać więcej.",
+      "recipientLabel": "Adres odbiorcy",
+      "amountLabel": "Kwota",
+      "tokenLabel": "Token",
+      "duplicate": "Duplikuj",
+      "remove": "Usuń",
+      "addTransfer": "Dodaj transfer",
+      "processing": "Przetwarzanie {{current}} z {{total}}... (opóźnienie {{delay}}s między transakcjami)",
+      "readyCount_one": "{{count}} transfer gotowy",
+      "readyCount_few": "{{count}} transfery gotowe",
+      "readyCount_many": "{{count}} transferów gotowych",
+      "readyCount_other": "{{count}} transferu gotowych",
+      "totalTokens": "• Łącznie: ~{{amount}} tokenów",
+      "creatingProposals": "Tworzenie propozycji...",
+      "createProposals_one": "Utwórz {{count}} propozycję",
+      "createProposals_few": "Utwórz {{count}} propozycje",
+      "createProposals_many": "Utwórz {{count}} propozycji",
+      "createProposals_other": "Utwórz {{count}} propozycji",
+      "maxBatchAlert": "Maksymalnie {{max}} transferów na partię, aby uniknąć przeciążenia sieci.",
+      "maxBatchShortAlert": "Maksymalnie {{max}} transferów na partię.",
+      "csvTooManyAlert": "Plik CSV zawiera {{count}} pozycji. Maksymalnie {{max}} na partię. Zaimportowanych zostanie tylko pierwszych {{max}}.",
+      "errors": {
+        "invalidRecipient": "Nieprawidłowy adres odbiorcy",
+        "invalidAmount": "Nieprawidłowa kwota",
+        "noToken": "Nie wybrano tokena",
+        "transferUnavailable": "Funkcja transferu niedostępna",
+        "createFailed": "Nie udało się utworzyć propozycji"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Harmonogramy vestingu",
+    "subtitle": "Vesting tokenów z okresami cliff i stopniowym uwalnianiem",
+    "bulkCreate": "Tworzenie zbiorcze",
+    "createVesting": "Utwórz vesting",
+    "createFirst": "Utwórz swój pierwszy harmonogram vestingu",
+    "empty": "Nie utworzono jeszcze żadnych harmonogramów vestingu",
+    "archived": "Zarchiwizowane",
+    "revocable": "Odwołalne",
+    "badge": "Vesting",
+    "you": "Ty",
+    "claimButton": "💰 Odbierz",
+    "cardTitle": "Vesting nr {{id}}",
+    "claimableBadge": "{{amount}} do odebrania",
+    "vestedLabel": "Nabyte: {{vested}} / {{total}}",
+    "releasedLabel": "Uwolnione: {{released}}",
+    "daysValue": "{{count}} dni",
+    "defaultDescription": "Harmonogram vestingu",
+    "confirmCancel": "Czy na pewno chcesz anulować ten harmonogram vestingu?",
+    "stats": {
+      "totalVesting": "Łącznie vestingów",
+      "active": "Aktywne",
+      "claimable": "Do odebrania",
+      "yourVesting": "Twój vesting"
+    },
+    "sections": {
+      "yours": "Twoje harmonogramy vestingu",
+      "active": "Aktywne harmonogramy vestingu",
+      "pendingCompletion": "Oczekuje na zakończenie"
+    },
+    "status": {
+      "active": "Aktywne",
+      "partiallyReleased": "Częściowo uwolnione",
+      "fullyReleased": "W pełni uwolnione",
+      "cancelled": "Anulowane"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}h do cliffu",
+      "fullyVested": "W pełni nabyte",
+      "remaining": "Pozostało {{days}}d {{hours}}h"
+    },
+    "interval": {
+      "daily": "Codziennie",
+      "weekly": "Co tydzień",
+      "monthly": "Co miesiąc",
+      "quarterly": "Co kwartał"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Pozostało",
+      "status": "Status",
+      "cliffDate": "Data cliffu",
+      "endDate": "Data zakończenia",
+      "releaseInterval": "Interwał uwalniania",
+      "beneficiary": "Beneficjent",
+      "creator": "Twórca",
+      "description": "Opis"
+    },
+    "errors": {
+      "fillRequired": "Wypełnij wszystkie wymagane pola",
+      "invalidBeneficiary": "Nieprawidłowy adres beneficjenta",
+      "durationPositive": "Czas trwania vestingu musi być większy niż 0",
+      "cliffShorter": "Cliff musi być krótszy niż całkowity czas trwania",
+      "createFailed": "Nie udało się utworzyć vestingu",
+      "claimFailed": "Nie udało się odebrać",
+      "cancelFailed": "Nie udało się anulować"
+    },
+    "modal": {
+      "title": "Utwórz harmonogram vestingu",
+      "token": "Token",
+      "selectToken": "Wybierz token",
+      "tokenOption": "{{symbol}} – {{amount}} dostępne",
+      "totalAmount": "Kwota całkowita",
+      "beneficiary": "Beneficjent",
+      "quickSelect": "Szybki wybór:",
+      "beneficiaryPlaceholder": "Wyszukaj kontakty lub wprowadź adres G...",
+      "cliffDays": "Cliff (dni)",
+      "cliffHint": "Brak uwolnienia przed cliffem",
+      "durationDays": "Czas trwania (dni)",
+      "durationHint": "Całkowity okres vestingu",
+      "intervalDays": "Interwał (dni)",
+      "intervalHint": "Częstotliwość uwalniania",
+      "descriptionLabel": "Opis (opcjonalny)",
+      "descriptionPlaceholder": "np. Vesting pracowników, Przydział dla doradców",
+      "revocableHint": "Administrator może anulować i zwrócić nienabyte środki",
+      "previewTitle": "Podgląd vestingu",
+      "previewCliff": "• Cliff kończy się: {{date}}",
+      "previewVested": "• W pełni nabyte: {{date}}",
+      "previewReleases": "• Uwolnienia co {{days}} dni po cliffie",
+      "feeNotice": "⚠️ Za utworzenie harmonogramu vestingu zostanie pobrana opłata w wysokości 0,1 XLM.",
+      "creating": "Tworzenie...",
+      "createButton": "Utwórz harmonogram vestingu"
+    },
+    "bulk": {
+      "title": "Zbiorcze tworzenie vestingu",
+      "subtitle": "Utwórz wiele harmonogramów vestingu naraz (maks. {{max}} na partię)",
+      "downloadTemplate": "Pobierz szablon",
+      "importCsv": "Importuj CSV",
+      "totalLabel": "Łącznie:",
+      "pendingLabel": "Oczekujące:",
+      "successLabel": "Udane:",
+      "errorsLabel": "Błędy:",
+      "maxBatchWarning": "Osiągnięto maksymalny rozmiar partii ({{max}} harmonogramów). Przetwórz je przed dodaniem kolejnych.",
+      "beneficiaryLabel": "Adres beneficjenta",
+      "amountLabel": "Kwota",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (dni)",
+      "durationLabel": "Czas trwania (dni)",
+      "intervalLabel": "Interwał (dni)",
+      "descriptionLabel": "Opis",
+      "optionalPlaceholder": "Opcjonalne",
+      "duplicate": "Duplikuj",
+      "remove": "Usuń",
+      "addSchedule": "Dodaj harmonogram vestingu",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Koniec: {{date}}",
+      "previewReleases": "Uwolnienia co {{days}} dni",
+      "processing": "Przetwarzanie {{current}} z {{total}}...",
+      "readyCount_one": "{{count}} harmonogram gotowy do utworzenia",
+      "readyCount_few": "{{count}} harmonogramy gotowe do utworzenia",
+      "readyCount_many": "{{count}} harmonogramów gotowych do utworzenia",
+      "readyCount_other": "{{count}} harmonogramu gotowych do utworzenia",
+      "feeTotal": "• Opłata: łącznie {{fee}} XLM",
+      "creatingProposals": "Tworzenie propozycji...",
+      "createProposals_one": "Utwórz {{count}} propozycję",
+      "createProposals_few": "Utwórz {{count}} propozycje",
+      "createProposals_many": "Utwórz {{count}} propozycji",
+      "createProposals_other": "Utwórz {{count}} propozycji",
+      "defaultDescription": "Zbiorczy harmonogram vestingu",
+      "maxBatchAlert": "Maksymalnie {{max}} harmonogramów vestingu na partię, aby uniknąć przeciążenia sieci.",
+      "csvTooManyAlert": "Plik CSV zawiera {{count}} pozycji. Maksymalnie {{max}} na partię. Zaimportowanych zostanie tylko pierwszych {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Nieprawidłowy adres beneficjenta",
+        "invalidAmount": "Nieprawidłowa kwota",
+        "noToken": "Nie wybrano tokena",
+        "durationPositive": "Czas trwania vestingu musi być większy niż 0",
+        "invalidCliff": "Nieprawidłowy okres cliff",
+        "cliffShorter": "Cliff musi być krótszy niż całkowity czas trwania",
+        "invalidInterval": "Nieprawidłowy interwał uwalniania",
+        "createFailed": "Nie udało się utworzyć propozycji"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Utwórz nowy skarbiec",
+    "defaultName": "Mój skarbiec",
+    "defaultNameNumbered": "Mój skarbiec {{number}}",
+    "vaultName": "Nazwa skarbca",
+    "youOwner": "Ty (właściciel)",
+    "add": "Dodaj",
+    "addSignerPlaceholder": "Dodaj adres podpisującego (G...)",
+    "hideContacts": "Ukryj kontakty",
+    "addFromContacts": "Dodaj z kontaktów",
+    "signers_one": "Podpisujący ({{count}})",
+    "signers_few": "Podpisujący ({{count}})",
+    "signers_many": "Podpisujący ({{count}})",
+    "signers_other": "Podpisujący ({{count}})",
+    "thresholdLabel": "Próg zatwierdzenia: {{threshold}} z {{total}}",
+    "thresholdHint_one": "{{count}} podpis wymagany do zatwierdzania transakcji",
+    "thresholdHint_few": "{{count}} podpisy wymagane do zatwierdzania transakcji",
+    "thresholdHint_many": "{{count}} podpisów wymaganych do zatwierdzania transakcji",
+    "thresholdHint_other": "{{count}} podpisu wymaganych do zatwierdzania transakcji",
+    "creating": "Tworzenie...",
+    "checking": "Sprawdzanie...",
+    "insufficientBalanceShort": "Niewystarczające saldo",
+    "createButton": "Utwórz skarbiec",
+    "balance": {
+      "insufficientTitle": "Niewystarczające saldo XLM",
+      "needAtLeast": "Potrzebujesz co najmniej <b>{{amount}} XLM</b>, aby utworzyć skarbiec.",
+      "current": "Twoje bieżące saldo: <b>{{amount}} XLM</b>",
+      "coversFee": "Pokrywa to opłatę za utworzenie w wysokości {{fee}} XLM plus koszty transakcji.",
+      "getFriendbot": "Zdobądź testnet XLM od Friendbota",
+      "checking": "Sprawdzanie salda..."
+    },
+    "fee": {
+      "creationFee": "Opłata za utworzenie skarbca:",
+      "yourBalance": "Twoje saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Nieprawidłowy adres Stellar",
+      "signerExists": "Podpisujący już dodany",
+      "insufficientBalance": "Niewystarczające saldo XLM. Potrzebujesz co najmniej {{amount}} XLM.",
+      "signersBelowThreshold": "Liczba podpisujących musi być co najmniej równa progowi",
+      "factoryNotConfigured": "Factory nie skonfigurowany",
+      "transactionFailed": "Transakcja nie powiodła się",
+      "noReturnValue": "Brak wartości zwrotnej z transakcji",
+      "parseFailed": "Nie udało się przeanalizować adresu skarbca z wyniku",
+      "noAddress": "Nie udało się uzyskać adresu skarbca z wyniku",
+      "invalidVaultAddress": "Nieprawidłowy format adresu skarbca",
+      "createFailed": "Nie udało się utworzyć skarbca"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampa fiat wejście / wyjście",
+    "subtitle": "Przenoś pieniądze między fiat a USDC. Środki trafiają bezpośrednio do Twojego skarbca.",
+    "soon": "Wkrótce",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Karta i bank → USDC, dostarczane bezpośrednio do skarbca."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Wpłata/wypłata gotówki w fizycznych placówkach agentów na całym świecie."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Karta i bank → USDC przez Stripe, dostarczane do skarbca."
+      }
+    },
+    "mode": {
+      "cashToVault": "Gotówka → Skarbiec",
+      "vaultToCash": "Skarbiec → Gotówka"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Kwota (USDC)",
+      "amountOptional": "Kwota (USDC) — opcjonalnie",
+      "amountWidgetPlaceholder": "Pozostaw puste, aby wybrać w widżecie",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limity: {{min}}–{{max}} USDC na transakcję",
+      "outOfRange": "Kwota musi mieścić się między {{min}} a {{max}} USDC."
+    },
+    "actions": {
+      "working": "Przetwarzanie…",
+      "buyWithTransak": "Kup USDC przez Transak",
+      "buyWithStripe": "Kup USDC przez Stripe",
+      "startDeposit": "Rozpocznij wpłatę gotówki",
+      "startWithdrawal": "Rozpocznij wypłatę gotówki"
+    },
+    "notEnabled": {
+      "noApiUrl": "Adres URL API nie jest skonfigurowany — ustaw REACT_APP_API_URL po wdrożeniu serwera.",
+      "serverDisabled": "Ten dostawca nie jest jeszcze włączony na serwerze."
+    },
+    "status": {
+      "anchorStatus": "Status anchora: {{status}}",
+      "creatingTransak": "Tworzenie bezpiecznej sesji Transak…",
+      "openingTransak": "Otwieranie Transak…",
+      "transakClosed": "Okno Transak zamknięte.",
+      "transakSuccess": "Zamówienie Transak zakończone. USDC jest dostarczane do skarbca. ID zamówienia: {{orderId}}",
+      "creatingStripe": "Tworzenie sesji onramp Stripe…",
+      "stripeOpened": "Onramp Stripe otwarty.",
+      "authenticating": "Uwierzytelnianie u anchora…",
+      "openingCashIn": "Otwieranie okna wpłaty gotówki…",
+      "openingCashOut": "Otwieranie okna KYC / wypłaty gotówki…",
+      "creatingProposals": "Tworzenie propozycji multisig (wypłata + opłata 0,3%)…",
+      "proposalsCreated": "Propozycje utworzone. Wypłata nr {{withdrawId}}, opłata nr {{feeId}}. Zbierz zatwierdzenia, aby wykonać."
+    },
+    "errors": {
+      "apiUrlMissing": "Adres URL API nie jest skonfigurowany (REACT_APP_API_URL).",
+      "sessionFailed": "Sesja nie powiodła się ({{status}})",
+      "noWidgetUrl": "Backend nie zwrócił widgetUrl",
+      "transakFailed": "Zamówienie Transak nie powiodło się.",
+      "openTransakFailed": "Nie udało się otworzyć Transak",
+      "stripeSessionFailed": "Sesja Stripe nie powiodła się ({{status}})",
+      "noClientSecret": "Backend nie zwrócił clientSecret",
+      "startStripeFailed": "Nie udało się uruchomić Stripe",
+      "depositFailed": "Nie udało się rozpocząć wpłaty",
+      "withdrawFailed": "Nie udało się rozpocząć wypłaty"
+    },
+    "summary": {
+      "title": "Podsumowanie",
+      "amount": "Kwota",
+      "platformFee": "Opłata platformy ({{pct}}%)",
+      "youReceive": "Otrzymujesz w skarbcu",
+      "sentToAnchor": "Wysłane do anchora",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Opłaty anchora i sieci są naliczane osobno przez {{provider}}.",
+      "theProvider": "dostawcę"
+    },
+    "howItWorks": {
+      "title": "Jak to działa",
+      "transak": "Zapłać kartą lub przelewem bankowym. Po KYC Transak dostarcza USDC w sieci Stellar bezpośrednio na adres Twojego skarbca. Dla środków przychodzących nie jest wymagane zatwierdzenie multisig.",
+      "moneygram": "Wpłaty trafiają bezpośrednio do skarbca. Wypłaty tworzą dwie propozycje multisig — transfer i opłatę platformy 0,3% — które Twoi podpisujący muszą zatwierdzić, zanim środki opuszczą skarbiec.",
+      "stripe": "Zapłać kartą lub przez bank za pośrednictwem Stripe. Stripe obsługuje KYC i dostarcza USDC w sieci Stellar bezpośrednio na adres Twojego skarbca."
+    },
+    "destination": {
+      "title": "Skarbiec docelowy"
+    }
+  },
+  "common": {
+    "copy": "Kopiuj",
+    "share": "Udostępnij",
+    "loading": "Ładowanie…",
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "save": "Zapisz",
+    "close": "Zamknij",
+    "refresh": "Odśwież",
+    "unknown": "Nieznany",
+    "change": "Zmień",
+    "open": "Otwórz",
+    "update": "Aktualizuj",
+    "all": "Wszystkie",
+    "notAvailable": "Nd."
+  }
+}

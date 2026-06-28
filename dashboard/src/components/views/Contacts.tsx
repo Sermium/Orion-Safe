@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CopyIcon } from '../icons';
 import { truncateAddress } from '../../lib/stellar';
 import { 
@@ -13,6 +14,7 @@ interface ContactsProps {
 }
 
 export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
+  const { t } = useTranslation();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
@@ -40,17 +42,17 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
     setError('');
 
     if (!newName.trim()) {
-      setError('Name is required');
+      setError(t('contacts.errors.nameRequired'));
       return;
     }
 
     if (!newAddress.trim()) {
-      setError('Address is required');
+      setError(t('contacts.errors.addressRequired'));
       return;
     }
 
     if (!newAddress.startsWith('G') || newAddress.length !== 56) {
-      setError('Invalid Stellar address');
+      setError(t('contacts.errors.invalidAddress'));
       return;
     }
 
@@ -59,7 +61,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
       c.address === newAddress && c.id !== editingContact?.id
     );
     if (existing) {
-      setError('This address is already in your contacts');
+      setError(t('contacts.errors.duplicate'));
       return;
     }
 
@@ -81,7 +83,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
     const contact = contacts.find(c => c.id === id);
     if (!contact) return;
 
-    if (window.confirm(`Delete "${contact.name}" from contacts?`)) {
+    if (window.confirm(t('contacts.confirmDelete', { name: contact.name }))) {
       deleteContact(id);
       loadContacts();
     }
@@ -109,8 +111,8 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Contact Book</h1>
-          <p className="text-gray-400 mt-1">Save frequently used addresses for quick access</p>
+          <h1 className="text-2xl font-bold">{t('contacts.title')}</h1>
+          <p className="text-gray-400 mt-1">{t('contacts.subtitle')}</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -119,7 +121,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          Add Contact
+          {t('contacts.addContact')}
         </button>
       </div>
 
@@ -130,7 +132,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
         </svg>
         <input
           type="text"
-          placeholder="Search contacts..."
+          placeholder={t('contacts.searchPlaceholder')}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 focus:border-purple-500 focus:outline-none"
@@ -147,14 +149,14 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
               </svg>
             </div>
             <p className="text-gray-400 mb-2">
-              {searchQuery ? 'No contacts match your search' : 'No contacts yet'}
+              {searchQuery ? t('contacts.empty.noMatch') : t('contacts.empty.none')}
             </p>
             {!searchQuery && (
               <button
                 onClick={() => setShowAddModal(true)}
                 className="text-purple-400 hover:text-purple-300 font-medium"
               >
-                Add your first contact →
+                {t('contacts.empty.addFirst')}
               </button>
             )}
           </div>
@@ -183,14 +185,14 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
                     <button
                       onClick={() => onCopy(contact.address)}
                       className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition"
-                      title="Copy address"
+                      title={t('contacts.actions.copy')}
                     >
                       <CopyIcon />
                     </button>
                     <button
                       onClick={() => handleEdit(contact)}
                       className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition"
-                      title="Edit contact"
+                      title={t('contacts.actions.edit')}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -199,7 +201,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
                     <button
                       onClick={() => handleDelete(contact.id)}
                       className="p-2 rounded-lg bg-gray-700 hover:bg-red-500/20 hover:text-red-400 transition"
-                      title="Delete contact"
+                      title={t('contacts.actions.delete')}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -215,7 +217,7 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
 
       {/* Stats */}
       <div className="text-center text-sm text-gray-500">
-        {contacts.length} contact{contacts.length !== 1 ? 's' : ''} saved
+        {t('contacts.savedCount', { count: contacts.length })}
       </div>
 
       {/* Add/Edit Modal */}
@@ -224,43 +226,43 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
           <div className="bg-[#12131a] rounded-2xl border border-gray-700 w-full max-w-md">
             <div className="p-6 border-b border-gray-700">
               <h3 className="text-xl font-bold">
-                {editingContact ? 'Edit Contact' : 'Add New Contact'}
+                {editingContact ? t('contacts.modal.editTitle') : t('contacts.modal.addTitle')}
               </h3>
             </div>
             
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Name *</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('contacts.modal.nameLabel')}</label>
                 <input
                   type="text"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g., Alice, Treasury, Exchange"
+                  placeholder={t('contacts.modal.namePlaceholder')}
                   className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
                 />
               </div>
               
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Stellar Address *</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('contacts.modal.addressLabel')}</label>
                 <input
                   type="text"
                   value={newAddress}
                   onChange={(e) => setNewAddress(e.target.value)}
-                  placeholder="G..."
+                  placeholder={t('contacts.modal.addressPlaceholder')}
                   className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none font-mono text-sm"
                   disabled={!!editingContact}
                 />
                 {editingContact && (
-                  <p className="text-xs text-gray-500 mt-1">Address cannot be changed</p>
+                  <p className="text-xs text-gray-500 mt-1">{t('contacts.modal.addressLocked')}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Notes (optional)</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('contacts.modal.notesLabel')}</label>
                 <textarea
                   value={newNotes}
                   onChange={(e) => setNewNotes(e.target.value)}
-                  placeholder="Add any notes about this contact..."
+                  placeholder={t('contacts.modal.notesPlaceholder')}
                   rows={3}
                   className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none resize-none"
                 />
@@ -276,13 +278,13 @@ export const Contacts: React.FC<ContactsProps> = ({ onCopy }) => {
                 onClick={handleCloseModal}
                 className="flex-1 px-4 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleSave}
                 className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 transition font-medium"
               >
-                {editingContact ? 'Save Changes' : 'Add Contact'}
+                {editingContact ? t('contacts.modal.saveChanges') : t('contacts.addContact')}
               </button>
             </div>
           </div>

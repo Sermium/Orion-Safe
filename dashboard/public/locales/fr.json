@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Vue d'ensemble",
+    "money": "Finances",
+    "vestingLocks": "Vesting & Verrous",
+    "team": "Équipe",
+    "system": "Système",
+    "dashboard": "Tableau de bord",
+    "assets": "Actifs",
+    "fiat": "Rampe Fiat",
+    "transactions": "Transactions",
+    "locks": "Verrous",
+    "vesting": "Vesting",
+    "members": "Membres",
+    "contacts": "Contacts",
+    "settings": "Paramètres",
+    "docs": "Documentation",
+    "admin": "Admin",
+    "claim": "Réclamer des jetons"
+  },
+  "fiat": {
+    "title": "Rampe Fiat",
+    "deposit": "Dépôt",
+    "withdraw": "Retrait",
+    "amount": "Montant",
+    "provider": "Fournisseur",
+    "fee": "Frais de plateforme",
+    "destination": "Coffre de destination",
+    "comingSoon": "Bientôt"
+  },
+  "sidebar": {
+    "currentVault": "Coffre actuel",
+    "selectVault": "Sélectionner un coffre",
+    "createNewVault": "Créer un nouveau coffre",
+    "sharePublicView": "Partager la vue publique",
+    "disconnect": "Déconnexion",
+    "connected": "Connecté",
+    "linkCopied": "Lien public copié !"
+  },
+  "header": {
+    "timeLocks": "Verrous temporels",
+    "deposit": "Dépôt",
+    "send": "Envoyer"
+  },
+  "settings": {
+    "title": "Paramètres du coffre",
+    "subtitle": "Gérez la configuration et les membres de votre coffre",
+    "language": "Langue",
+    "languageAuto": "Auto (langue de l'appareil)",
+    "languageHint": "Le mode auto suit la langue de votre appareil et bascule sur l'anglais si elle n'est pas prise en charge.",
+    "tabs": {
+      "general": "Général",
+      "members": "Membres & Rôles",
+      "advanced": "Avancé"
+    },
+    "vaultInfo": "Informations du coffre",
+    "vaultName": "Nom du coffre",
+    "vaultAddress": "Adresse du coffre",
+    "notSelected": "Non sélectionné",
+    "yourRole": "Votre rôle",
+    "members": "Membres",
+    "threshold": "Seuil",
+    "superAdmins": "Super administrateurs",
+    "connectedWallet": "Portefeuille connecté",
+    "publicKey": "Clé publique",
+    "approvalThreshold": "Seuil d'approbation",
+    "thresholdDesc": "{{threshold}} signatures sur {{total}} requises pour exécuter les transactions",
+    "vaultMembers": "Membres du coffre",
+    "vaultMembersDesc": "Gérez qui peut accéder et contrôler ce coffre",
+    "addMember": "Ajouter un membre",
+    "you": "Vous",
+    "copyAddress": "Copier l'adresse",
+    "removeMember": "Retirer le membre",
+    "rolePermissions": "Permissions des rôles",
+    "adminsOnly": "Seuls les administrateurs du coffre peuvent gérer les membres et les rôles.",
+    "contractDetails": "Détails du contrat",
+    "contractType": "Type de contrat",
+    "sorobanContract": "Contrat intelligent Soroban",
+    "network": "Réseau",
+    "testnet": "Testnet",
+    "actions": "Actions",
+    "exportData": "Exporter les données du coffre",
+    "exportDataDesc": "Télécharger la configuration et l'historique des transactions",
+    "export": "Exporter",
+    "viewExplorer": "Voir sur l'explorateur",
+    "viewExplorerDesc": "Ouvrir le contrat du coffre sur Stellar Expert",
+    "dangerZone": "Zone dangereuse",
+    "leaveVault": "Quitter le coffre",
+    "leaveVaultDesc": "Vous retirer comme signataire. Cette action est irréversible.",
+    "leaveLastWarning": "Vous êtes le dernier membre — quitter abandonnera le coffre !",
+    "leaving": "Départ en cours...",
+    "leave": "Quitter",
+    "addNewMember": "Ajouter un nouveau membre",
+    "addNewMemberDesc": "Sélectionnez parmi vos contacts ou saisissez une adresse manuellement",
+    "fromContacts": "Depuis les contacts",
+    "enterAddress": "Saisir l'adresse",
+    "searchContacts": "Rechercher des contacts...",
+    "noContactsAvailable": "Aucun contact disponible (tous sont déjà membres)",
+    "noContactsFound": "Aucun contact trouvé",
+    "allContactsMembers": "Tous vos contacts sont déjà membres du coffre. Utilisez « Saisir l'adresse » pour ajouter un nouveau membre.",
+    "stellarAddress": "Adresse Stellar",
+    "role": "Rôle",
+    "adding": "Ajout en cours...",
+    "changeThreshold": "Modifier le seuil d'approbation",
+    "requiredSignatures": "Signatures requises : {{threshold}} sur {{total}}",
+    "thresholdWarning": "Modifier le seuil affecte la sécurité. Un seuil plus élevé exige plus de signatures mais peut ralentir les opérations.",
+    "updating": "Mise à jour...",
+    "roles": {
+      "superAdmin": "Super administrateur",
+      "admin": "Administrateur",
+      "executor": "Exécuteur"
+    },
+    "roleOptions": {
+      "superAdmin": "Super administrateur - Contrôle total",
+      "admin": "Administrateur - Gérer les membres",
+      "executor": "Exécuteur - Peut transiger"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Contrôle total du coffre",
+        "2": "Gérer tous les membres et rôles",
+        "3": "Modifier le seuil",
+        "4": "Créer et exécuter des transactions"
+      },
+      "admin": {
+        "1": "Gérer les exécuteurs",
+        "2": "Modifier le seuil",
+        "3": "Créer et approuver des transactions",
+        "4": "Gérer les verrous"
+      },
+      "executor": {
+        "1": "Créer des transactions",
+        "2": "Approuver des transactions",
+        "3": "Exécuter les transactions approuvées",
+        "4": "Voir toute l'activité"
+      }
+    },
+    "success": {
+      "memberAdded": "Membre ajouté avec succès !",
+      "memberRemoved": "Membre retiré avec succès !",
+      "roleUpdated": "Rôle mis à jour avec succès !",
+      "thresholdUpdated": "Seuil mis à jour avec succès !",
+      "leftVault": "Vous avez quitté le coffre avec succès !"
+    },
+    "errors": {
+      "invalidAddress": "Adresse Stellar invalide",
+      "alreadyMember": "L'adresse est déjà membre",
+      "addFailed": "Échec de l'ajout du membre",
+      "removeBreaksThreshold": "Impossible de retirer le membre : cela briserait l'exigence de seuil",
+      "lastSuperAdminRemove": "Impossible de retirer le dernier super administrateur",
+      "removeFailed": "Échec du retrait du membre",
+      "needOneSuperAdmin": "Impossible de modifier le rôle : le coffre doit avoir au moins un super administrateur",
+      "roleFailed": "Échec du changement de rôle",
+      "thresholdMin": "Le seuil doit être d'au moins 1",
+      "thresholdMax": "Le seuil ne peut pas dépasser le nombre de membres",
+      "thresholdFailed": "Échec de la mise à jour du seuil",
+      "leaveLastSuperAdmin": "Vous êtes le dernier super administrateur. Veuillez désigner un autre super administrateur avant de partir, ou retirer d'abord tous les autres membres.",
+      "leaveBreaksThreshold": "Impossible de quitter : cela briserait l'exigence de seuil. Le seuil actuel est {{threshold}}, mais seulement {{remaining}} membres resteraient.",
+      "leaveFailed": "Échec du départ du coffre"
+    },
+    "confirm": {
+      "removeMember": "Retirer {{name}} du coffre ?",
+      "leaveDefault": "Êtes-vous sûr de vouloir quitter ce coffre ? Cette action est irréversible.",
+      "leaveLastMember": "ATTENTION : Vous êtes le DERNIER membre de ce coffre. Quitter ABANDONNERA le coffre de façon permanente. Tous les fonds restants seront inaccessibles. Êtes-vous absolument sûr ?",
+      "leaveFinalWarning": "Ceci est votre AVERTISSEMENT FINAL. Le coffre sera abandonné de façon permanente. Continuer ?"
+    }
+  },
+  "assets": {
+    "title": "Actifs",
+    "subtitle": "Gérez les actifs de votre coffre",
+    "addToken": "Ajouter un jeton",
+    "authorize": "Autoriser",
+    "totalBalance": "Solde total",
+    "remainingDailySpend": "Dépense quotidienne restante",
+    "yourAssets": "Vos actifs",
+    "clickToManage": "Cliquez sur un actif pour le gérer",
+    "noAssets": "Aucun actif pour le moment",
+    "noAssetsDesc": "Déposez des jetons pour commencer",
+    "makeFirstDeposit": "Effectuer le premier dépôt",
+    "availableBalance": "Solde disponible",
+    "actions": {
+      "deposit": "Dépôt",
+      "depositDesc": "Ajouter plus de {{symbol}} au coffre",
+      "send": "Envoyer",
+      "sendDesc": "Proposer un transfert de {{symbol}}",
+      "timeLock": "Verrou temporel",
+      "timeLockDesc": "Verrouiller jusqu'à une date précise",
+      "vesting": "Vesting",
+      "vestingDesc": "Créer un calendrier de vesting avec cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Calendrier des verrous & vesting",
+    "summary": "{{timeLocks}} verrous temporels, {{vestings}} vesting",
+    "viewCalendar": "Calendrier",
+    "viewList": "Liste",
+    "filterType": "Type",
+    "filterStatus": "Statut",
+    "timeLocks": "Verrous temporels",
+    "vestings": "Vesting",
+    "timeLock": "Verrou temporel",
+    "vesting": "Vesting",
+    "noLocks": "Aucun verrou ou vesting à afficher",
+    "today": "Aujourd'hui",
+    "now": "Maintenant",
+    "cliff": "Cliff",
+    "claimable": "Réclamable",
+    "progress": "Progression",
+    "start": "Début",
+    "end": "Fin",
+    "unlock": "Déverrouillage",
+    "beneficiary": "Bénéficiaire",
+    "locked": "verrouillé",
+    "vestingLabel": "en vesting",
+    "released": "Libéré",
+    "active": "Actif",
+    "completedCount": "{{count}} terminés",
+    "status": {
+      "active": "Actif",
+      "partiallyReleased": "Partiellement libéré",
+      "fullyReleased": "Entièrement libéré",
+      "cancelled": "Annulé"
+    },
+    "statusFilter": {
+      "active": "Actif",
+      "completed": "Terminé"
+    },
+    "events": {
+      "start": "début",
+      "cliff": "cliff",
+      "end": "fin"
+    }
+  },
+  "claim": {
+    "title": "Réclamer vos jetons",
+    "subtitleVault": "Verrous du coffre {{address}}",
+    "subtitleAll": "Consultez et réclamez les verrous qui vous sont attribués",
+    "disconnect": "Déconnecter",
+    "connectWallet": "Connecter le portefeuille",
+    "connectTitle": "Connectez votre portefeuille",
+    "connectDescVault": "Connectez votre portefeuille pour voir tous les verrous temporels et calendriers d'acquisition qui vous sont attribués dans ce coffre.",
+    "connectDescAll": "Connectez votre portefeuille pour voir tous les verrous temporels et calendriers d'acquisition qui vous sont attribués dans tous les Stellar Vaults.",
+    "loadingVault": "Chargement des verrous du coffre...",
+    "loadingAll": "Analyse des coffres à la recherche de vos verrous...",
+    "scanProgress": "{{scanned}} coffres vérifiés sur {{total}}",
+    "unknownVault": "Coffre inconnu",
+    "tokensAmount": "{{amount}} jetons",
+    "claimNow": "Réclamer maintenant",
+    "claiming": "Réclamation...",
+    "refreshLocks": "Actualiser les verrous",
+    "claimSuccess": "{{amount}} jetons réclamés avec succès !",
+    "errorLoad": "Échec du chargement des verrous",
+    "errorClaim": "Échec de la réclamation",
+    "stats": {
+      "readyToClaim": "Prêt à réclamer",
+      "pending": "En attente",
+      "completed": "Terminé"
+    },
+    "sections": {
+      "readyToClaim": "Prêt à réclamer",
+      "pending": "En attente"
+    },
+    "fields": {
+      "fromVault": "Depuis le coffre",
+      "totalAmount": "Montant total",
+      "description": "Description",
+      "timeRemaining": "Temps restant",
+      "unlockDate": "Date de déverrouillage"
+    },
+    "types": {
+      "timeLock": "Verrou temporel",
+      "vesting": "Acquisition",
+      "unknown": "Inconnu"
+    },
+    "time": {
+      "unlocked": "Déverrouillé",
+      "fullyVested": "Entièrement acquis",
+      "remaining": "{{days}}j {{hours}}h restant",
+      "toCliff": "{{days}}j {{hours}}h avant le cliff"
+    },
+    "empty": {
+      "title": "Aucun verrou trouvé",
+      "descVault": "Aucun verrou ne vous est attribué dans ce coffre.",
+      "descAll": "Aucun verrou temporel ou calendrier d'acquisition ne vous est attribué."
+    }
+  },
+  "contacts": {
+    "title": "Carnet de contacts",
+    "subtitle": "Enregistrez les adresses fréquemment utilisées pour un accès rapide",
+    "addContact": "Ajouter un contact",
+    "searchPlaceholder": "Rechercher des contacts...",
+    "savedCount_one": "{{count}} contact enregistré",
+    "savedCount_other": "{{count}} contacts enregistrés",
+    "confirmDelete": "Supprimer « {{name}} » des contacts ?",
+    "errors": {
+      "nameRequired": "Le nom est requis",
+      "addressRequired": "L'adresse est requise",
+      "invalidAddress": "Adresse Stellar invalide",
+      "duplicate": "Cette adresse figure déjà dans vos contacts"
+    },
+    "empty": {
+      "noMatch": "Aucun contact ne correspond à votre recherche",
+      "none": "Aucun contact pour le moment",
+      "addFirst": "Ajoutez votre premier contact →"
+    },
+    "actions": {
+      "copy": "Copier l'adresse",
+      "edit": "Modifier le contact",
+      "delete": "Supprimer le contact"
+    },
+    "modal": {
+      "addTitle": "Nouveau contact",
+      "editTitle": "Modifier le contact",
+      "nameLabel": "Nom *",
+      "namePlaceholder": "ex. : Alice, Trésorerie, Plateforme",
+      "addressLabel": "Adresse Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "L'adresse ne peut pas être modifiée",
+      "notesLabel": "Notes (facultatif)",
+      "notesPlaceholder": "Ajoutez des notes sur ce contact...",
+      "saveChanges": "Enregistrer les modifications"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Solde total",
+      "threshold": "Seuil",
+      "signaturesRequired": "signatures requises",
+      "pending": "En attente",
+      "awaitingApproval": "en attente d'approbation",
+      "readyToExecute": "Prêt à exécuter",
+      "fullyApproved": "entièrement approuvé"
+    },
+    "activeProposals": "Propositions actives",
+    "viewAll": "Tout voir",
+    "noProposals": "Aucune proposition pour le moment",
+    "createFirst": "Créez votre première transaction →",
+    "proposalLine": "{{type}} : {{amount}} XLM",
+    "toRecipient": "Vers {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} approbations",
+    "status": {
+      "pending": "En attente",
+      "approved": "Approuvée",
+      "executed": "Exécutée",
+      "rejected": "Rejetée",
+      "unknown": "Inconnu"
+    },
+    "types": {
+      "transfer": "Transfert",
+      "timeLock": "Verrou temporel",
+      "vesting": "Acquisition",
+      "unknown": "Inconnu"
+    }
+  },
+  "locks": {
+    "title": "Verrous temporels",
+    "subtitle": "Verrouillez des actifs jusqu'à une date précise",
+    "bulkCreate": "Création en masse",
+    "createTimeLock": "Créer un verrou temporel",
+    "creating": "Création...",
+    "createFirst": "Créez votre premier verrou temporel",
+    "empty": "Aucun verrou temporel créé pour le moment",
+    "archived": "Archivés",
+    "selectToken": "Sélectionner un jeton",
+    "available": "{{amount}} disponible",
+    "quickSelect": "Sélection rapide :",
+    "beneficiaryPlaceholder": "Rechercher un contact ou saisir une adresse G...",
+    "descriptionPlaceholder": "ex. : Allocation équipe",
+    "optional": "Facultatif",
+    "revocableLabel": "Révocable",
+    "revocableHint": "L'administrateur peut annuler et renvoyer les fonds au coffre",
+    "feeWarning": "Des frais de 10 XLM seront facturés pour la création du verrou.",
+    "defaultDescription": "Verrou temporel",
+    "lockNumber": "Verrou n°{{id}}",
+    "timeLockBadge": "Verrou temporel",
+    "revocableBadge": "Révocable",
+    "readyToClaim": "Prêt à réclamer",
+    "releasedLabel": "Libéré",
+    "you": "Vous",
+    "claim": "Réclamer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirmCancel": "Êtes-vous sûr de vouloir annuler ce verrou ?",
+    "stats": {
+      "total": "Total des verrous",
+      "active": "Actifs",
+      "unlocked": "Déverrouillés",
+      "yourLocks": "Vos verrous"
+    },
+    "sections": {
+      "yours": "Vos verrous temporels",
+      "active": "Verrous temporels actifs",
+      "pendingCompletion": "En cours de finalisation"
+    },
+    "fields": {
+      "token": "Jeton",
+      "amount": "Montant",
+      "beneficiary": "Bénéficiaire",
+      "beneficiaryAddress": "Adresse du bénéficiaire",
+      "remaining": "Restant",
+      "timeStatus": "Statut temporel",
+      "unlockDate": "Date de déverrouillage",
+      "unlockDateTime": "Date et heure de déverrouillage",
+      "creator": "Créateur",
+      "description": "Description",
+      "descriptionOptional": "Description (facultatif)"
+    },
+    "statuses": {
+      "active": "Actif",
+      "partiallyReleased": "Partiellement libéré",
+      "fullyReleased": "Entièrement libéré",
+      "cancelled": "Annulé",
+      "unknown": "Inconnu"
+    },
+    "time": {
+      "unlocked": "Déverrouillé",
+      "remainingDays": "{{days}}j {{hours}}h restant",
+      "remainingHours": "{{hours}}h restant"
+    },
+    "errors": {
+      "fillRequired": "Veuillez remplir tous les champs requis",
+      "invalidBeneficiary": "Adresse de bénéficiaire invalide",
+      "unlockFuture": "La date de déverrouillage doit être dans le futur",
+      "createFailed": "Échec de la création du verrou",
+      "claimFailed": "Échec de la réclamation",
+      "cancelFailed": "Échec de l'annulation du verrou",
+      "invalidAmount": "Montant invalide",
+      "tokenNotSelected": "Aucun jeton sélectionné",
+      "unlockRequired": "Date de déverrouillage requise",
+      "proposalFailed": "Échec de la création de la proposition"
+    },
+    "bulk": {
+      "title": "Création en masse de verrous temporels",
+      "subtitle": "Créez plusieurs verrous temporels d'un coup (max {{max}} par lot)",
+      "downloadTemplate": "Télécharger le modèle",
+      "importCsv": "Importer un CSV",
+      "statsTotal": "Total",
+      "statsPending": "En attente",
+      "statsSuccess": "Réussis",
+      "statsErrors": "Erreurs",
+      "maxReachedAlert": "Maximum {{max}} verrous temporels par lot pour éviter la surcharge réseau.",
+      "maxReachedWarning": "Taille de lot maximale atteinte ({{max}} verrous). Traitez-les avant d'en ajouter d'autres.",
+      "csvTooMany": "Le CSV contient {{count}} entrées. Maximum {{max}} par lot. Seules les {{max}} premières seront importées.",
+      "duplicate": "Dupliquer",
+      "remove": "Supprimer",
+      "addEntry": "Ajouter un verrou temporel",
+      "processing": "Traitement {{current}} sur {{total}}...",
+      "readyCount_one": "{{count}} verrou prêt à créer",
+      "readyCount_other": "{{count}} verrous prêts à créer",
+      "feeTotal": "• Frais : {{fee}} XLM au total",
+      "creatingProposals": "Création des propositions...",
+      "createCount_one": "Créer {{count}} proposition",
+      "createCount_other": "Créer {{count}} propositions",
+      "defaultDescription": "Verrou temporel en masse"
+    }
+  },
+  "members": {
+    "title": "Membres du coffre",
+    "subtitle_one": "{{count}} membre • Seuil : {{threshold}} sur {{total}}",
+    "subtitle_other": "{{count}} membres • Seuil : {{threshold}} sur {{total}}",
+    "searchPlaceholder": "Rechercher des membres par adresse, nom ou rôle...",
+    "manageHint": "Pour gérer les membres (ajouter, retirer, modifier les rôles), allez dans <strong>Paramètres → Membres et rôles</strong>",
+    "you": "Vous",
+    "addToContacts": "Ajouter aux contacts",
+    "noResults": "Aucun membre ne correspond à votre recherche.",
+    "stats": {
+      "totalMembers": "Total des membres",
+      "superAdmins": "Super administrateurs",
+      "admins": "Administrateurs",
+      "executors": "Exécuteurs"
+    },
+    "roles": {
+      "superAdmin": "Super administrateur",
+      "admin": "Administrateur",
+      "executor": "Exécuteur"
+    },
+    "permissions": {
+      "title": "Permissions des rôles",
+      "superAdmin": "Contrôle total, y compris la gestion des autres administrateurs et des paramètres critiques",
+      "admin": "Peut gérer les paramètres du coffre, les membres et approuver les transactions",
+      "executor": "Peut créer, approuver et exécuter des transactions"
+    },
+    "addContactModal": {
+      "title": "Ajouter aux contacts",
+      "addressLabel": "Adresse",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Saisissez un nom pour ce contact",
+      "save": "Enregistrer le contact"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Coffre Stellar",
+    "publicViewBadge": "Vue publique",
+    "loading": "Chargement des données du coffre...",
+    "noLocks": "Aucun verrou créé pour le moment",
+    "noAssets": "Aucun actif trouvé",
+    "revocable": "Révocable",
+    "released": "Libéré",
+    "allLocks": "Tous les verrous ({{count}})",
+    "toBeneficiary": "Vers : {{address}}",
+    "errors": {
+      "title": "Échec du chargement du coffre",
+      "loadFailed": "Échec du chargement des données du coffre"
+    },
+    "tabs": {
+      "overview": "Aperçu",
+      "locks": "Verrous",
+      "calendar": "Calendrier",
+      "assets": "Actifs"
+    },
+    "stats": {
+      "signers": "Signataires",
+      "threshold": "Seuil : {{count}}",
+      "totalLocks": "Total des verrous",
+      "activeCount": "{{count}} actif(s)",
+      "assets": "Actifs",
+      "tokensHeld": "jetons détenus",
+      "lockedValue": "Valeur verrouillée",
+      "totalLocked": "total verrouillé"
+    },
+    "sections": {
+      "signers": "Signataires",
+      "recentLocks": "Verrous récents",
+      "assets": "Actifs"
+    },
+    "fields": {
+      "amount": "Montant",
+      "beneficiary": "Bénéficiaire",
+      "unlockDate": "Date de déverrouillage",
+      "timeRemaining": "Temps restant"
+    },
+    "status": {
+      "active": "Actif",
+      "partiallyReleased": "Partiellement libéré",
+      "fullyReleased": "Entièrement libéré",
+      "cancelled": "Annulé"
+    },
+    "lockType": {
+      "timeLock": "Verrou temporel",
+      "vesting": "Acquisition"
+    },
+    "time": {
+      "unlocked": "Déverrouillé",
+      "cliffPassed": "Cliff dépassé",
+      "remaining": "{{days}} j {{hours}} h restant",
+      "toCliff": "{{days}} j {{hours}} h avant le cliff"
+    },
+    "footer": {
+      "title": "Coffre Stellar - Vue publique",
+      "poweredBy": "Propulsé par Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "subtitle": "Consultez et gérez les propositions et transferts du coffre",
+    "bulkTransfer": "Transfert groupé",
+    "newTransaction": "Nouvelle transaction",
+    "createFirst": "Créer la première proposition",
+    "completedProposals": "Propositions terminées",
+    "noHistory": "Aucun historique de transaction trouvé",
+    "noHistoryNote": "Remarque : les transactions du contrat Soroban apparaissent via les propositions exécutées",
+    "received": "Reçu",
+    "sent": "Envoyé",
+    "onChainPayments_one": "{{count}} paiement on-chain",
+    "onChainPayments_other": "{{count}} paiements on-chain",
+    "approvalsCount": "{{count}}/{{threshold}} approbations",
+    "rejectionsCount": "{{count}}/{{threshold}} rejets",
+    "tabs": {
+      "proposals": "Propositions ({{count}})",
+      "history": "Historique ({{count}})"
+    },
+    "filters": {
+      "all": "Toutes",
+      "pending": "En attente",
+      "approved": "Approuvées"
+    },
+    "empty": {
+      "all": "Aucune proposition trouvée",
+      "filtered": "Aucune proposition « {{filter}} » trouvée"
+    },
+    "status": {
+      "pending": "En attente",
+      "approved": "Approuvée",
+      "executed": "Exécutée",
+      "rejected": "Rejetée"
+    },
+    "types": {
+      "transfer": "Transfert",
+      "timeLock": "Verrou temporel",
+      "vesting": "Acquisition"
+    },
+    "fields": {
+      "to": "Vers :",
+      "from": "De :",
+      "by": "Par :",
+      "beneficiary": "Bénéficiaire :",
+      "created": "Créée :",
+      "approvals": "Approbations :",
+      "unlockDate": "Date de déverrouillage :",
+      "cliffDate": "Date de cliff :",
+      "endDate": "Date de fin :"
+    },
+    "actions": {
+      "approve": "Approuver",
+      "execute": "Exécuter",
+      "reject": "Rejeter",
+      "confirmReject": "Confirmer le rejet"
+    },
+    "bulk": {
+      "title": "Transfert groupé",
+      "subtitle": "Créez plusieurs propositions de transfert par lot (max {{max}} par lot)",
+      "importCsv": "Importer un CSV",
+      "downloadTemplate": "Télécharger le modèle",
+      "csvHelp": "Aide au format CSV",
+      "totalLabel": "Total :",
+      "successLabel": "Réussis :",
+      "failedLabel": "Échoués :",
+      "csvFormatTitle": "Format CSV",
+      "csvFormatNote": "Utilisez « native » pour le XLM ou l'adresse complète du contrat du jeton.",
+      "maxBatchWarning": "Maximum {{max}} transferts par lot pour éviter la surcharge du réseau. Créez un autre lot pour en ajouter.",
+      "recipientLabel": "Adresse du destinataire",
+      "amountLabel": "Montant",
+      "tokenLabel": "Jeton",
+      "duplicate": "Dupliquer",
+      "remove": "Supprimer",
+      "addTransfer": "Ajouter un transfert",
+      "processing": "Traitement {{current}} sur {{total}}... (délai de {{delay}} s entre les transactions)",
+      "readyCount_one": "{{count}} transfert prêt",
+      "readyCount_other": "{{count}} transferts prêts",
+      "totalTokens": "• Total : ~{{amount}} jetons",
+      "creatingProposals": "Création des propositions...",
+      "createProposals_one": "Créer {{count}} proposition",
+      "createProposals_other": "Créer {{count}} propositions",
+      "maxBatchAlert": "Maximum {{max}} transferts par lot pour éviter la surcharge du réseau.",
+      "maxBatchShortAlert": "Maximum {{max}} transferts par lot.",
+      "csvTooManyAlert": "Le CSV contient {{count}} entrées. Maximum {{max}} par lot. Seules les {{max}} premières seront importées.",
+      "errors": {
+        "invalidRecipient": "Adresse de destinataire invalide",
+        "invalidAmount": "Montant invalide",
+        "noToken": "Jeton non sélectionné",
+        "transferUnavailable": "Fonction de transfert non disponible",
+        "createFailed": "Échec de la création de la proposition"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Calendriers d'acquisition",
+    "subtitle": "Acquisition de jetons avec périodes de cliff et libération progressive",
+    "bulkCreate": "Création groupée",
+    "createVesting": "Créer une acquisition",
+    "createFirst": "Créez votre premier calendrier d'acquisition",
+    "empty": "Aucun calendrier d'acquisition créé pour le moment",
+    "archived": "Archivés",
+    "revocable": "Révocable",
+    "badge": "Acquisition",
+    "you": "Vous",
+    "claimButton": "💰 Réclamer",
+    "cardTitle": "Acquisition n°{{id}}",
+    "claimableBadge": "{{amount}} réclamable",
+    "vestedLabel": "Acquis : {{vested}} / {{total}}",
+    "releasedLabel": "Libéré : {{released}}",
+    "daysValue": "{{count}} jours",
+    "defaultDescription": "Calendrier d'acquisition",
+    "confirmCancel": "Êtes-vous sûr de vouloir annuler ce calendrier d'acquisition ?",
+    "stats": {
+      "totalVesting": "Total des acquisitions",
+      "active": "Actives",
+      "claimable": "Réclamables",
+      "yourVesting": "Vos acquisitions"
+    },
+    "sections": {
+      "yours": "Vos calendriers d'acquisition",
+      "active": "Calendriers d'acquisition actifs",
+      "pendingCompletion": "En attente de finalisation"
+    },
+    "status": {
+      "active": "Actif",
+      "partiallyReleased": "Partiellement libéré",
+      "fullyReleased": "Entièrement libéré",
+      "cancelled": "Annulé"
+    },
+    "time": {
+      "toCliff": "{{days}} j {{hours}} h avant le cliff",
+      "fullyVested": "Entièrement acquis",
+      "remaining": "{{days}} j {{hours}} h restant"
+    },
+    "interval": {
+      "daily": "Quotidien",
+      "weekly": "Hebdomadaire",
+      "monthly": "Mensuel",
+      "quarterly": "Trimestriel"
+    },
+    "fields": {
+      "token": "Jeton",
+      "remaining": "Restant",
+      "status": "Statut",
+      "cliffDate": "Date de cliff",
+      "endDate": "Date de fin",
+      "releaseInterval": "Intervalle de libération",
+      "beneficiary": "Bénéficiaire",
+      "creator": "Créateur",
+      "description": "Description"
+    },
+    "errors": {
+      "fillRequired": "Veuillez remplir tous les champs obligatoires",
+      "invalidBeneficiary": "Adresse de bénéficiaire invalide",
+      "durationPositive": "La durée d'acquisition doit être supérieure à 0",
+      "cliffShorter": "Le cliff doit être plus court que la durée totale",
+      "createFailed": "Échec de la création de l'acquisition",
+      "claimFailed": "Échec de la réclamation",
+      "cancelFailed": "Échec de l'annulation"
+    },
+    "modal": {
+      "title": "Créer un calendrier d'acquisition",
+      "token": "Jeton",
+      "selectToken": "Sélectionner un jeton",
+      "tokenOption": "{{symbol}} - {{amount}} disponible",
+      "totalAmount": "Montant total",
+      "beneficiary": "Bénéficiaire",
+      "quickSelect": "Sélection rapide :",
+      "beneficiaryPlaceholder": "Rechercher des contacts ou saisir une adresse G...",
+      "cliffDays": "Cliff (jours)",
+      "cliffHint": "Aucune libération avant le cliff",
+      "durationDays": "Durée (jours)",
+      "durationHint": "Période d'acquisition totale",
+      "intervalDays": "Intervalle (jours)",
+      "intervalHint": "Fréquence de libération",
+      "descriptionLabel": "Description (facultative)",
+      "descriptionPlaceholder": "ex. : acquisition employé, allocation conseiller",
+      "revocableHint": "L'administrateur peut annuler et récupérer les fonds non acquis",
+      "previewTitle": "Aperçu de l'acquisition",
+      "previewCliff": "• Fin du cliff : {{date}}",
+      "previewVested": "• Entièrement acquis : {{date}}",
+      "previewReleases": "• Libérations tous les {{days}} jours après le cliff",
+      "feeNotice": "⚠️ Des frais de 0,1 XLM seront facturés pour la création du calendrier d'acquisition.",
+      "creating": "Création...",
+      "createButton": "Créer le calendrier d'acquisition"
+    },
+    "bulk": {
+      "title": "Création groupée d'acquisitions",
+      "subtitle": "Créez plusieurs calendriers d'acquisition à la fois (max {{max}} par lot)",
+      "downloadTemplate": "Télécharger le modèle",
+      "importCsv": "Importer un CSV",
+      "totalLabel": "Total :",
+      "pendingLabel": "En attente :",
+      "successLabel": "Réussis :",
+      "errorsLabel": "Erreurs :",
+      "maxBatchWarning": "Taille de lot maximale atteinte ({{max}} calendriers). Traitez-les avant d'en ajouter d'autres.",
+      "beneficiaryLabel": "Adresse du bénéficiaire",
+      "amountLabel": "Montant",
+      "tokenLabel": "Jeton",
+      "cliffLabel": "Cliff (jours)",
+      "durationLabel": "Durée (jours)",
+      "intervalLabel": "Intervalle (jours)",
+      "descriptionLabel": "Description",
+      "optionalPlaceholder": "Facultatif",
+      "duplicate": "Dupliquer",
+      "remove": "Supprimer",
+      "addSchedule": "Ajouter un calendrier d'acquisition",
+      "previewCliff": "Cliff : {{date}}",
+      "previewEnd": "Fin : {{date}}",
+      "previewReleases": "Libérations tous les {{days}} jours",
+      "processing": "Traitement {{current}} sur {{total}}...",
+      "readyCount_one": "{{count}} calendrier prêt à créer",
+      "readyCount_other": "{{count}} calendriers prêts à créer",
+      "feeTotal": "• Frais : {{fee}} XLM au total",
+      "creatingProposals": "Création des propositions...",
+      "createProposals_one": "Créer {{count}} proposition",
+      "createProposals_other": "Créer {{count}} propositions",
+      "defaultDescription": "Calendrier d'acquisition groupé",
+      "maxBatchAlert": "Maximum {{max}} calendriers d'acquisition par lot pour éviter la surcharge du réseau.",
+      "csvTooManyAlert": "Le CSV contient {{count}} entrées. Maximum {{max}} par lot. Seules les {{max}} premières seront importées.",
+      "errors": {
+        "invalidBeneficiary": "Adresse de bénéficiaire invalide",
+        "invalidAmount": "Montant invalide",
+        "noToken": "Jeton non sélectionné",
+        "durationPositive": "La durée d'acquisition doit être supérieure à 0",
+        "invalidCliff": "Période de cliff invalide",
+        "cliffShorter": "Le cliff doit être plus court que la durée totale",
+        "invalidInterval": "Intervalle de libération invalide",
+        "createFailed": "Échec de la création de la proposition"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Créer un nouveau coffre",
+    "defaultName": "Mon coffre",
+    "defaultNameNumbered": "Mon coffre {{number}}",
+    "vaultName": "Nom du coffre",
+    "youOwner": "Vous (propriétaire)",
+    "add": "Ajouter",
+    "addSignerPlaceholder": "Ajouter une adresse de signataire (G...)",
+    "hideContacts": "Masquer les contacts",
+    "addFromContacts": "Ajouter depuis les contacts",
+    "signers_one": "Signataires ({{count}})",
+    "signers_other": "Signataires ({{count}})",
+    "thresholdLabel": "Seuil d'approbation : {{threshold}} sur {{total}}",
+    "thresholdHint_one": "{{count}} signature requise pour approuver les transactions",
+    "thresholdHint_other": "{{count}} signatures requises pour approuver les transactions",
+    "creating": "Création...",
+    "checking": "Vérification...",
+    "insufficientBalanceShort": "Solde insuffisant",
+    "createButton": "Créer le coffre",
+    "balance": {
+      "insufficientTitle": "Solde XLM insuffisant",
+      "needAtLeast": "Vous avez besoin d'au moins <b>{{amount}} XLM</b> pour créer un coffre.",
+      "current": "Votre solde actuel : <b>{{amount}} XLM</b>",
+      "coversFee": "Cela couvre les frais de création de {{fee}} XLM ainsi que les coûts de transaction.",
+      "getFriendbot": "Obtenir des XLM testnet via Friendbot",
+      "checking": "Vérification du solde..."
+    },
+    "fee": {
+      "creationFee": "Frais de création du coffre :",
+      "yourBalance": "Votre solde :"
+    },
+    "errors": {
+      "invalidAddress": "Adresse Stellar invalide",
+      "signerExists": "Signataire déjà ajouté",
+      "insufficientBalance": "Solde XLM insuffisant. Vous avez besoin d'au moins {{amount}} XLM.",
+      "signersBelowThreshold": "Le nombre de signataires doit être au moins égal au seuil",
+      "factoryNotConfigured": "Factory non configurée",
+      "transactionFailed": "La transaction a échoué",
+      "noReturnValue": "Aucune valeur retournée par la transaction",
+      "parseFailed": "Impossible d'analyser l'adresse du coffre à partir du résultat",
+      "noAddress": "Impossible d'obtenir l'adresse du coffre à partir du résultat",
+      "invalidVaultAddress": "Format d'adresse de coffre invalide",
+      "createFailed": "Échec de la création du coffre"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampe d'entrée / sortie fiat",
+    "subtitle": "Transférez de l'argent entre la monnaie fiat et l'USDC. Les fonds arrivent directement dans votre coffre.",
+    "soon": "Bientôt",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Carte et banque → USDC, livré directement dans le coffre."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Dépôt / retrait en espèces dans des agences physiques partout dans le monde."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Carte et banque → USDC via Stripe, livré dans le coffre."
+      }
+    },
+    "mode": {
+      "cashToVault": "Espèces → Coffre",
+      "vaultToCash": "Coffre → Espèces"
+    },
+    "fields": {
+      "anchor": "Ancre",
+      "amount": "Montant (USDC)",
+      "amountOptional": "Montant (USDC) — facultatif",
+      "amountWidgetPlaceholder": "Laissez vide pour choisir dans le widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limites : {{min}}–{{max}} USDC par transaction",
+      "outOfRange": "Le montant doit être compris entre {{min}} et {{max}} USDC."
+    },
+    "actions": {
+      "working": "Traitement…",
+      "buyWithTransak": "Acheter de l'USDC avec Transak",
+      "buyWithStripe": "Acheter de l'USDC avec Stripe",
+      "startDeposit": "Démarrer un dépôt en espèces",
+      "startWithdrawal": "Démarrer un retrait en espèces"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL d'API non configurée — définissez REACT_APP_API_URL une fois le serveur déployé.",
+      "serverDisabled": "Ce fournisseur n'est pas encore activé sur le serveur."
+    },
+    "status": {
+      "anchorStatus": "Statut de l'ancre : {{status}}",
+      "creatingTransak": "Création d'une session Transak sécurisée…",
+      "openingTransak": "Ouverture de Transak…",
+      "transakClosed": "Fenêtre Transak fermée.",
+      "transakSuccess": "Commande Transak terminée. L'USDC est en cours de livraison dans le coffre. ID de commande : {{orderId}}",
+      "creatingStripe": "Création d'une session Stripe onramp…",
+      "stripeOpened": "Stripe onramp ouvert.",
+      "authenticating": "Authentification auprès de l'ancre…",
+      "openingCashIn": "Ouverture de la fenêtre de dépôt en espèces…",
+      "openingCashOut": "Ouverture de la fenêtre KYC / retrait en espèces…",
+      "creatingProposals": "Création des propositions multisig (retrait + frais de 0,3 %)…",
+      "proposalsCreated": "Propositions créées. Retrait n°{{withdrawId}}, frais n°{{feeId}}. Recueillez les approbations pour exécuter."
+    },
+    "errors": {
+      "apiUrlMissing": "L'URL d'API n'est pas configurée (REACT_APP_API_URL).",
+      "sessionFailed": "Échec de la session ({{status}})",
+      "noWidgetUrl": "Aucune widgetUrl renvoyée par le backend",
+      "transakFailed": "La commande Transak a échoué.",
+      "openTransakFailed": "Échec de l'ouverture de Transak",
+      "stripeSessionFailed": "Échec de la session Stripe ({{status}})",
+      "noClientSecret": "Aucun clientSecret renvoyé par le backend",
+      "startStripeFailed": "Échec du démarrage de Stripe",
+      "depositFailed": "Échec du démarrage du dépôt",
+      "withdrawFailed": "Échec du démarrage du retrait"
+    },
+    "summary": {
+      "title": "Récapitulatif",
+      "amount": "Montant",
+      "platformFee": "Frais de plateforme ({{pct}} %)",
+      "youReceive": "Vous recevez dans le coffre",
+      "sentToAnchor": "Envoyé à l'ancre",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Les frais d'ancre et de réseau sont facturés séparément par {{provider}}.",
+      "theProvider": "le fournisseur"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "transak": "Payez par carte ou virement bancaire. Après le KYC, Transak livre de l'USDC sur Stellar directement à l'adresse de votre coffre. Aucune approbation multisig n'est requise pour les fonds entrants.",
+      "moneygram": "Les dépôts arrivent directement dans le coffre. Les retraits créent deux propositions multisig — le transfert et les frais de plateforme de 0,3 % — que vos signataires doivent approuver avant que les fonds ne quittent le coffre.",
+      "stripe": "Payez par carte ou virement bancaire via Stripe. Stripe gère le KYC et livre de l'USDC sur Stellar directement à l'adresse de votre coffre."
+    },
+    "destination": {
+      "title": "Coffre de destination"
+    }
+  },
+  "common": {
+    "copy": "Copier",
+    "share": "Partager",
+    "loading": "Chargement…",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "close": "Fermer",
+    "refresh": "Actualiser",
+    "unknown": "Inconnu",
+    "change": "Changer",
+    "open": "Ouvrir",
+    "update": "Mettre à jour",
+    "all": "Tout",
+    "notAvailable": "N/D"
+  }
+}

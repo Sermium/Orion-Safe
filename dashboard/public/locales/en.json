@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Overview",
+    "money": "Money",
+    "vestingLocks": "Vesting & Locks",
+    "team": "Team",
+    "system": "System",
+    "dashboard": "Dashboard",
+    "assets": "Assets",
+    "fiat": "Fiat Ramp",
+    "transactions": "Transactions",
+    "locks": "Locks",
+    "vesting": "Vesting",
+    "members": "Members",
+    "contacts": "Contacts",
+    "settings": "Settings",
+    "docs": "Documentation",
+    "admin": "Admin",
+    "claim": "Claim Tokens"
+  },
+  "fiat": {
+    "title": "Fiat Ramp",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "amount": "Amount",
+    "provider": "Provider",
+    "fee": "Platform fee",
+    "destination": "Destination vault",
+    "comingSoon": "Soon"
+  },
+  "sidebar": {
+    "currentVault": "Current Vault",
+    "selectVault": "Select Vault",
+    "createNewVault": "Create New Vault",
+    "sharePublicView": "Share Public View",
+    "disconnect": "Disconnect",
+    "connected": "Connected",
+    "linkCopied": "Public link copied!"
+  },
+  "header": {
+    "timeLocks": "Time Locks",
+    "deposit": "Deposit",
+    "send": "Send"
+  },
+  "settings": {
+    "title": "Vault Settings",
+    "subtitle": "Manage your vault configuration and members",
+    "language": "Language",
+    "languageAuto": "Auto (device language)",
+    "languageHint": "Auto follows your device language and falls back to English if unsupported.",
+    "tabs": {
+      "general": "General",
+      "members": "Members & Roles",
+      "advanced": "Advanced"
+    },
+    "vaultInfo": "Vault Information",
+    "vaultName": "Vault Name",
+    "vaultAddress": "Vault Address",
+    "notSelected": "Not selected",
+    "yourRole": "Your Role",
+    "members": "Members",
+    "threshold": "Threshold",
+    "superAdmins": "Super Admins",
+    "connectedWallet": "Connected Wallet",
+    "publicKey": "Public Key",
+    "approvalThreshold": "Approval Threshold",
+    "thresholdDesc": "{{threshold}} of {{total}} signatures required to execute transactions",
+    "vaultMembers": "Vault Members",
+    "vaultMembersDesc": "Manage who can access and control this vault",
+    "addMember": "Add Member",
+    "you": "You",
+    "copyAddress": "Copy address",
+    "removeMember": "Remove member",
+    "rolePermissions": "Role Permissions",
+    "adminsOnly": "Only vault admins can manage members and roles.",
+    "contractDetails": "Contract Details",
+    "contractType": "Contract Type",
+    "sorobanContract": "Soroban Smart Contract",
+    "network": "Network",
+    "testnet": "Testnet",
+    "actions": "Actions",
+    "exportData": "Export Vault Data",
+    "exportDataDesc": "Download configuration and transaction history",
+    "export": "Export",
+    "viewExplorer": "View on Explorer",
+    "viewExplorerDesc": "Open vault contract on Stellar Expert",
+    "dangerZone": "Danger Zone",
+    "leaveVault": "Leave Vault",
+    "leaveVaultDesc": "Remove yourself as a signer. This cannot be undone.",
+    "leaveLastWarning": "You are the last member - leaving will abandon the vault!",
+    "leaving": "Leaving...",
+    "leave": "Leave",
+    "addNewMember": "Add New Member",
+    "addNewMemberDesc": "Select from contacts or enter address manually",
+    "fromContacts": "From Contacts",
+    "enterAddress": "Enter Address",
+    "searchContacts": "Search contacts...",
+    "noContactsAvailable": "No contacts available (all are already members)",
+    "noContactsFound": "No contacts found",
+    "allContactsMembers": "All your contacts are already vault members. Use \"Enter Address\" to add a new member.",
+    "stellarAddress": "Stellar Address",
+    "role": "Role",
+    "adding": "Adding...",
+    "changeThreshold": "Change Approval Threshold",
+    "requiredSignatures": "Required signatures: {{threshold}} of {{total}}",
+    "thresholdWarning": "Changing the threshold affects security. A higher threshold requires more signatures but may slow operations.",
+    "updating": "Updating...",
+    "roles": {
+      "superAdmin": "SuperAdmin",
+      "admin": "Admin",
+      "executor": "Executor"
+    },
+    "roleOptions": {
+      "superAdmin": "SuperAdmin - Full control",
+      "admin": "Admin - Manage members",
+      "executor": "Executor - Can transact"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Full vault control",
+        "2": "Manage all members & roles",
+        "3": "Change threshold",
+        "4": "Create & execute transactions"
+      },
+      "admin": {
+        "1": "Manage executors",
+        "2": "Change threshold",
+        "3": "Create & approve transactions",
+        "4": "Manage locks"
+      },
+      "executor": {
+        "1": "Create transactions",
+        "2": "Approve transactions",
+        "3": "Execute approved txns",
+        "4": "View all activity"
+      }
+    },
+    "success": {
+      "memberAdded": "Member added successfully!",
+      "memberRemoved": "Member removed successfully!",
+      "roleUpdated": "Role updated successfully!",
+      "thresholdUpdated": "Threshold updated successfully!",
+      "leftVault": "You have left the vault successfully!"
+    },
+    "errors": {
+      "invalidAddress": "Invalid Stellar address",
+      "alreadyMember": "Address is already a member",
+      "addFailed": "Failed to add member",
+      "removeBreaksThreshold": "Cannot remove member: would break threshold requirement",
+      "lastSuperAdminRemove": "Cannot remove the last super admin",
+      "removeFailed": "Failed to remove member",
+      "needOneSuperAdmin": "Cannot change role: vault must have at least one super admin",
+      "roleFailed": "Failed to change role",
+      "thresholdMin": "Threshold must be at least 1",
+      "thresholdMax": "Threshold cannot exceed number of members",
+      "thresholdFailed": "Failed to update threshold",
+      "leaveLastSuperAdmin": "You are the last super admin. Please assign another super admin before leaving, or remove all other members first.",
+      "leaveBreaksThreshold": "Cannot leave: would break threshold requirement. Current threshold is {{threshold}}, but only {{remaining}} members would remain.",
+      "leaveFailed": "Failed to leave vault"
+    },
+    "confirm": {
+      "removeMember": "Remove {{name}} from vault?",
+      "leaveDefault": "Are you sure you want to leave this vault? This action cannot be undone.",
+      "leaveLastMember": "WARNING: You are the LAST member of this vault. Leaving will ABANDON the vault permanently. Any remaining funds will be inaccessible. Are you absolutely sure?",
+      "leaveFinalWarning": "This is your FINAL warning. The vault will be permanently abandoned. Continue?"
+    }
+  },
+  "assets": {
+    "title": "Assets",
+    "subtitle": "Manage your vault assets",
+    "addToken": "Add Token",
+    "authorize": "Authorize",
+    "totalBalance": "Total Balance",
+    "remainingDailySpend": "Remaining Daily Spend",
+    "yourAssets": "Your Assets",
+    "clickToManage": "Click on an asset to manage it",
+    "noAssets": "No assets yet",
+    "noAssetsDesc": "Deposit some tokens to get started",
+    "makeFirstDeposit": "Make First Deposit",
+    "availableBalance": "Available Balance",
+    "actions": {
+      "deposit": "Deposit",
+      "depositDesc": "Add more {{symbol}} to the vault",
+      "send": "Send",
+      "sendDesc": "Propose a transfer of {{symbol}}",
+      "timeLock": "Time Lock",
+      "timeLockDesc": "Lock until a specific date",
+      "vesting": "Vesting",
+      "vestingDesc": "Create a vesting schedule with cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Locks & Vesting Calendar",
+    "summary": "{{timeLocks}} time locks, {{vestings}} vestings",
+    "viewCalendar": "Calendar",
+    "viewList": "List",
+    "filterType": "Type",
+    "filterStatus": "Status",
+    "timeLocks": "Time Locks",
+    "vestings": "Vestings",
+    "timeLock": "Time Lock",
+    "vesting": "Vesting",
+    "noLocks": "No locks or vestings to display",
+    "today": "Today",
+    "now": "Now",
+    "cliff": "Cliff",
+    "claimable": "Claimable",
+    "progress": "Progress",
+    "start": "Start",
+    "end": "End",
+    "unlock": "Unlock",
+    "beneficiary": "Beneficiary",
+    "locked": "locked",
+    "vestingLabel": "vesting",
+    "released": "Released",
+    "active": "Active",
+    "completedCount": "{{count}} completed",
+    "status": {
+      "active": "Active",
+      "partiallyReleased": "Partially Released",
+      "fullyReleased": "Fully Released",
+      "cancelled": "Cancelled"
+    },
+    "statusFilter": {
+      "active": "Active",
+      "completed": "Completed"
+    },
+    "events": {
+      "start": "start",
+      "cliff": "cliff",
+      "end": "end"
+    }
+  },
+  "claim": {
+    "title": "Claim Your Tokens",
+    "subtitleVault": "Viewing locks from vault {{address}}",
+    "subtitleAll": "View and claim locks assigned to you",
+    "disconnect": "Disconnect",
+    "connectWallet": "Connect Wallet",
+    "connectTitle": "Connect Your Wallet",
+    "connectDescVault": "Connect your wallet to see all time locks and vesting schedules assigned to you from this vault.",
+    "connectDescAll": "Connect your wallet to see all time locks and vesting schedules assigned to you across all Stellar Vaults.",
+    "loadingVault": "Loading locks from vault...",
+    "loadingAll": "Scanning vaults for your locks...",
+    "scanProgress": "Checked {{scanned}} of {{total}} vaults",
+    "unknownVault": "Unknown Vault",
+    "tokensAmount": "{{amount}} tokens",
+    "claimNow": "Claim Now",
+    "claiming": "Claiming...",
+    "refreshLocks": "Refresh Locks",
+    "claimSuccess": "Successfully claimed {{amount}} tokens!",
+    "errorLoad": "Failed to load locks",
+    "errorClaim": "Failed to claim",
+    "stats": {
+      "readyToClaim": "Ready to Claim",
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "sections": {
+      "readyToClaim": "Ready to Claim",
+      "pending": "Pending"
+    },
+    "fields": {
+      "fromVault": "From Vault",
+      "totalAmount": "Total Amount",
+      "description": "Description",
+      "timeRemaining": "Time Remaining",
+      "unlockDate": "Unlock Date"
+    },
+    "types": {
+      "timeLock": "Time Lock",
+      "vesting": "Vesting",
+      "unknown": "Unknown"
+    },
+    "time": {
+      "unlocked": "Unlocked",
+      "fullyVested": "Fully vested",
+      "remaining": "{{days}}d {{hours}}h remaining",
+      "toCliff": "{{days}}d {{hours}}h to cliff"
+    },
+    "empty": {
+      "title": "No locks found",
+      "descVault": "You don't have any locks assigned to you in this vault.",
+      "descAll": "You don't have any time locks or vesting schedules assigned to you."
+    }
+  },
+  "contacts": {
+    "title": "Contact Book",
+    "subtitle": "Save frequently used addresses for quick access",
+    "addContact": "Add Contact",
+    "searchPlaceholder": "Search contacts...",
+    "savedCount_one": "{{count}} contact saved",
+    "savedCount_other": "{{count}} contacts saved",
+    "confirmDelete": "Delete \"{{name}}\" from contacts?",
+    "errors": {
+      "nameRequired": "Name is required",
+      "addressRequired": "Address is required",
+      "invalidAddress": "Invalid Stellar address",
+      "duplicate": "This address is already in your contacts"
+    },
+    "empty": {
+      "noMatch": "No contacts match your search",
+      "none": "No contacts yet",
+      "addFirst": "Add your first contact →"
+    },
+    "actions": {
+      "copy": "Copy address",
+      "edit": "Edit contact",
+      "delete": "Delete contact"
+    },
+    "modal": {
+      "addTitle": "Add New Contact",
+      "editTitle": "Edit Contact",
+      "nameLabel": "Name *",
+      "namePlaceholder": "e.g., Alice, Treasury, Exchange",
+      "addressLabel": "Stellar Address *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Address cannot be changed",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Add any notes about this contact...",
+      "saveChanges": "Save Changes"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Total Balance",
+      "threshold": "Threshold",
+      "signaturesRequired": "signatures required",
+      "pending": "Pending",
+      "awaitingApproval": "awaiting approval",
+      "readyToExecute": "Ready to Execute",
+      "fullyApproved": "fully approved"
+    },
+    "activeProposals": "Active Proposals",
+    "viewAll": "View All",
+    "noProposals": "No proposals yet",
+    "createFirst": "Create your first transaction →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "To {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} approvals",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "executed": "Executed",
+      "rejected": "Rejected",
+      "unknown": "Unknown"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Time Lock",
+      "vesting": "Vesting",
+      "unknown": "Unknown"
+    }
+  },
+  "locks": {
+    "title": "Time Locks",
+    "subtitle": "Lock assets until a specific date",
+    "bulkCreate": "Bulk Create",
+    "createTimeLock": "Create Time Lock",
+    "creating": "Creating...",
+    "createFirst": "Create Your First Time Lock",
+    "empty": "No time locks created yet",
+    "archived": "Archived",
+    "selectToken": "Select token",
+    "available": "{{amount}} available",
+    "quickSelect": "Quick select:",
+    "beneficiaryPlaceholder": "Search contacts or enter G... address",
+    "descriptionPlaceholder": "e.g., Team allocation",
+    "optional": "Optional",
+    "revocableLabel": "Revocable",
+    "revocableHint": "Admin can cancel and return funds to vault",
+    "feeWarning": "A 10 XLM fee will be charged for creating the lock.",
+    "defaultDescription": "Time Lock",
+    "lockNumber": "Lock #{{id}}",
+    "timeLockBadge": "Time Lock",
+    "revocableBadge": "Revocable",
+    "readyToClaim": "Ready to Claim",
+    "releasedLabel": "Released",
+    "you": "You",
+    "claim": "Claim",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirmCancel": "Are you sure you want to cancel this lock?",
+    "stats": {
+      "total": "Total Time Locks",
+      "active": "Active",
+      "unlocked": "Unlocked",
+      "yourLocks": "Your Locks"
+    },
+    "sections": {
+      "yours": "Your Time Locks",
+      "active": "Active Time Locks",
+      "pendingCompletion": "Pending Completion"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Amount",
+      "beneficiary": "Beneficiary",
+      "beneficiaryAddress": "Beneficiary Address",
+      "remaining": "Remaining",
+      "timeStatus": "Time Status",
+      "unlockDate": "Unlock Date",
+      "unlockDateTime": "Unlock Date & Time",
+      "creator": "Creator",
+      "description": "Description",
+      "descriptionOptional": "Description (optional)"
+    },
+    "statuses": {
+      "active": "Active",
+      "partiallyReleased": "Partially Released",
+      "fullyReleased": "Fully Released",
+      "cancelled": "Cancelled",
+      "unknown": "Unknown"
+    },
+    "time": {
+      "unlocked": "Unlocked",
+      "remainingDays": "{{days}}d {{hours}}h remaining",
+      "remainingHours": "{{hours}}h remaining"
+    },
+    "errors": {
+      "fillRequired": "Please fill in all required fields",
+      "invalidBeneficiary": "Invalid beneficiary address",
+      "unlockFuture": "Unlock time must be in the future",
+      "createFailed": "Failed to create lock",
+      "claimFailed": "Failed to claim",
+      "cancelFailed": "Failed to cancel lock",
+      "invalidAmount": "Invalid amount",
+      "tokenNotSelected": "Token not selected",
+      "unlockRequired": "Unlock date required",
+      "proposalFailed": "Failed to create proposal"
+    },
+    "bulk": {
+      "title": "Bulk Create Time Locks",
+      "subtitle": "Create multiple time locks at once (max {{max}} per batch)",
+      "downloadTemplate": "Download Template",
+      "importCsv": "Import CSV",
+      "statsTotal": "Total",
+      "statsPending": "Pending",
+      "statsSuccess": "Success",
+      "statsErrors": "Errors",
+      "maxReachedAlert": "Maximum {{max}} time locks per batch to avoid network overload.",
+      "maxReachedWarning": "Maximum batch size reached ({{max}} locks). Process these before adding more.",
+      "csvTooMany": "CSV contains {{count}} entries. Maximum {{max}} per batch. Only the first {{max}} will be imported.",
+      "duplicate": "Duplicate",
+      "remove": "Remove",
+      "addEntry": "Add Time Lock",
+      "processing": "Processing {{current}} of {{total}}...",
+      "readyCount_one": "{{count}} lock ready to create",
+      "readyCount_other": "{{count}} locks ready to create",
+      "feeTotal": "• Fee: {{fee}} XLM total",
+      "creatingProposals": "Creating Proposals...",
+      "createCount_one": "Create {{count}} Proposal",
+      "createCount_other": "Create {{count}} Proposals",
+      "defaultDescription": "Bulk Time Lock"
+    }
+  },
+  "members": {
+    "title": "Vault Members",
+    "subtitle_one": "{{count}} member • Threshold: {{threshold}} of {{total}}",
+    "subtitle_other": "{{count}} members • Threshold: {{threshold}} of {{total}}",
+    "searchPlaceholder": "Search members by address, name, or role...",
+    "manageHint": "To manage members (add, remove, change roles), go to <strong>Settings → Members & Roles</strong>",
+    "you": "You",
+    "addToContacts": "Add to contacts",
+    "noResults": "No members found matching your search.",
+    "stats": {
+      "totalMembers": "Total Members",
+      "superAdmins": "Super Admins",
+      "admins": "Admins",
+      "executors": "Executors"
+    },
+    "roles": {
+      "superAdmin": "SuperAdmin",
+      "admin": "Admin",
+      "executor": "Executor"
+    },
+    "permissions": {
+      "title": "Role Permissions",
+      "superAdmin": "Full control including managing other admins and critical settings",
+      "admin": "Can manage vault settings, members, and approve transactions",
+      "executor": "Can create, approve, and execute transactions"
+    },
+    "addContactModal": {
+      "title": "Add to Contacts",
+      "addressLabel": "Address",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter a name for this contact",
+      "save": "Save Contact"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Public View",
+    "loading": "Loading vault data...",
+    "noLocks": "No locks created yet",
+    "noAssets": "No assets found",
+    "revocable": "Revocable",
+    "released": "Released",
+    "allLocks": "All Locks ({{count}})",
+    "toBeneficiary": "To: {{address}}",
+    "errors": {
+      "title": "Failed to Load Vault",
+      "loadFailed": "Failed to load vault data"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "locks": "Locks",
+      "calendar": "Calendar",
+      "assets": "Assets"
+    },
+    "stats": {
+      "signers": "Signers",
+      "threshold": "Threshold: {{count}}",
+      "totalLocks": "Total Locks",
+      "activeCount": "{{count}} active",
+      "assets": "Assets",
+      "tokensHeld": "tokens held",
+      "lockedValue": "Locked Value",
+      "totalLocked": "total locked"
+    },
+    "sections": {
+      "signers": "Signers",
+      "recentLocks": "Recent Locks",
+      "assets": "Assets"
+    },
+    "fields": {
+      "amount": "Amount",
+      "beneficiary": "Beneficiary",
+      "unlockDate": "Unlock Date",
+      "timeRemaining": "Time Remaining"
+    },
+    "status": {
+      "active": "Active",
+      "partiallyReleased": "Partially Released",
+      "fullyReleased": "Fully Released",
+      "cancelled": "Cancelled"
+    },
+    "lockType": {
+      "timeLock": "Time Lock",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Unlocked",
+      "cliffPassed": "Cliff passed",
+      "remaining": "{{days}}d {{hours}}h remaining",
+      "toCliff": "{{days}}d {{hours}}h to cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Public View",
+      "poweredBy": "Powered by Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "subtitle": "View and manage vault proposals and transfers",
+    "bulkTransfer": "Bulk Transfer",
+    "newTransaction": "New Transaction",
+    "createFirst": "Create First Proposal",
+    "completedProposals": "Completed Proposals",
+    "noHistory": "No transaction history found",
+    "noHistoryNote": "Note: Soroban contract transactions appear via executed proposals",
+    "received": "Received",
+    "sent": "Sent",
+    "onChainPayments_one": "{{count}} on-chain payment",
+    "onChainPayments_other": "{{count}} on-chain payments",
+    "approvalsCount": "{{count}}/{{threshold}} approvals",
+    "rejectionsCount": "{{count}}/{{threshold}} rejections",
+    "tabs": {
+      "proposals": "Proposals ({{count}})",
+      "history": "History ({{count}})"
+    },
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "approved": "Approved"
+    },
+    "empty": {
+      "all": "No proposals found",
+      "filtered": "No {{filter}} proposals found"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "executed": "Executed",
+      "rejected": "Rejected"
+    },
+    "types": {
+      "transfer": "Transfer",
+      "timeLock": "Time Lock",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "To:",
+      "from": "From:",
+      "by": "By:",
+      "beneficiary": "Beneficiary:",
+      "created": "Created:",
+      "approvals": "Approvals:",
+      "unlockDate": "Unlock Date:",
+      "cliffDate": "Cliff Date:",
+      "endDate": "End Date:"
+    },
+    "actions": {
+      "approve": "Approve",
+      "execute": "Execute",
+      "reject": "Reject",
+      "confirmReject": "Confirm Reject"
+    },
+    "bulk": {
+      "title": "Bulk Transfer",
+      "subtitle": "Create multiple transfer proposals in batch (max {{max}} per batch)",
+      "importCsv": "Import CSV",
+      "downloadTemplate": "Download Template",
+      "csvHelp": "CSV Format Help",
+      "totalLabel": "Total:",
+      "successLabel": "Success:",
+      "failedLabel": "Failed:",
+      "csvFormatTitle": "CSV Format",
+      "csvFormatNote": "Use \"native\" for XLM or the full token contract address.",
+      "maxBatchWarning": "Maximum {{max}} transfers per batch to avoid network overload. Create another batch for more.",
+      "recipientLabel": "Recipient Address",
+      "amountLabel": "Amount",
+      "tokenLabel": "Token",
+      "duplicate": "Duplicate",
+      "remove": "Remove",
+      "addTransfer": "Add Transfer",
+      "processing": "Processing {{current}} of {{total}}... ({{delay}}s delay between txs)",
+      "readyCount_one": "{{count}} transfer ready",
+      "readyCount_other": "{{count}} transfers ready",
+      "totalTokens": "• Total: ~{{amount}} tokens",
+      "creatingProposals": "Creating Proposals...",
+      "createProposals_one": "Create {{count}} Proposal",
+      "createProposals_other": "Create {{count}} Proposals",
+      "maxBatchAlert": "Maximum {{max}} transfers per batch to avoid network overload.",
+      "maxBatchShortAlert": "Maximum {{max}} transfers per batch.",
+      "csvTooManyAlert": "CSV contains {{count}} entries. Maximum {{max}} per batch. Only the first {{max}} will be imported.",
+      "errors": {
+        "invalidRecipient": "Invalid recipient address",
+        "invalidAmount": "Invalid amount",
+        "noToken": "Token not selected",
+        "transferUnavailable": "Transfer function not available",
+        "createFailed": "Failed to create proposal"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Vesting Schedules",
+    "subtitle": "Token vesting with cliff periods and gradual release",
+    "bulkCreate": "Bulk Create",
+    "createVesting": "Create Vesting",
+    "createFirst": "Create Your First Vesting Schedule",
+    "empty": "No vesting schedules created yet",
+    "archived": "Archived",
+    "revocable": "Revocable",
+    "badge": "Vesting",
+    "you": "You",
+    "claimButton": "💰 Claim",
+    "cardTitle": "Vesting #{{id}}",
+    "claimableBadge": "{{amount}} Claimable",
+    "vestedLabel": "Vested: {{vested}} / {{total}}",
+    "releasedLabel": "Released: {{released}}",
+    "daysValue": "{{count}} days",
+    "defaultDescription": "Vesting Schedule",
+    "confirmCancel": "Are you sure you want to cancel this vesting schedule?",
+    "stats": {
+      "totalVesting": "Total Vesting",
+      "active": "Active",
+      "claimable": "Claimable",
+      "yourVesting": "Your Vesting"
+    },
+    "sections": {
+      "yours": "Your Vesting Schedules",
+      "active": "Active Vesting Schedules",
+      "pendingCompletion": "Pending Completion"
+    },
+    "status": {
+      "active": "Active",
+      "partiallyReleased": "Partially Released",
+      "fullyReleased": "Fully Released",
+      "cancelled": "Cancelled"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}h to cliff",
+      "fullyVested": "Fully vested",
+      "remaining": "{{days}}d {{hours}}h remaining"
+    },
+    "interval": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "quarterly": "Quarterly"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Remaining",
+      "status": "Status",
+      "cliffDate": "Cliff Date",
+      "endDate": "End Date",
+      "releaseInterval": "Release Interval",
+      "beneficiary": "Beneficiary",
+      "creator": "Creator",
+      "description": "Description"
+    },
+    "errors": {
+      "fillRequired": "Please fill in all required fields",
+      "invalidBeneficiary": "Invalid beneficiary address",
+      "durationPositive": "Vesting duration must be greater than 0",
+      "cliffShorter": "Cliff must be shorter than total duration",
+      "createFailed": "Failed to create vesting",
+      "claimFailed": "Failed to claim",
+      "cancelFailed": "Failed to cancel"
+    },
+    "modal": {
+      "title": "Create Vesting Schedule",
+      "token": "Token",
+      "selectToken": "Select token",
+      "tokenOption": "{{symbol}} - {{amount}} available",
+      "totalAmount": "Total Amount",
+      "beneficiary": "Beneficiary",
+      "quickSelect": "Quick select:",
+      "beneficiaryPlaceholder": "Search contacts or enter G... address",
+      "cliffDays": "Cliff (days)",
+      "cliffHint": "No release before cliff",
+      "durationDays": "Duration (days)",
+      "durationHint": "Total vesting period",
+      "intervalDays": "Interval (days)",
+      "intervalHint": "Release frequency",
+      "descriptionLabel": "Description (optional)",
+      "descriptionPlaceholder": "e.g., Employee vesting, Advisor allocation",
+      "revocableHint": "Admin can cancel and return unvested funds",
+      "previewTitle": "Vesting Preview",
+      "previewCliff": "• Cliff ends: {{date}}",
+      "previewVested": "• Fully vested: {{date}}",
+      "previewReleases": "• Releases every {{days}} days after cliff",
+      "feeNotice": "⚠️ A 0.1 XLM fee will be charged for creating the vesting schedule.",
+      "creating": "Creating...",
+      "createButton": "Create Vesting Schedule"
+    },
+    "bulk": {
+      "title": "Bulk Create Vesting",
+      "subtitle": "Create multiple vesting schedules at once (max {{max}} per batch)",
+      "downloadTemplate": "Download Template",
+      "importCsv": "Import CSV",
+      "totalLabel": "Total:",
+      "pendingLabel": "Pending:",
+      "successLabel": "Success:",
+      "errorsLabel": "Errors:",
+      "maxBatchWarning": "Maximum batch size reached ({{max}} schedules). Process these before adding more.",
+      "beneficiaryLabel": "Beneficiary Address",
+      "amountLabel": "Amount",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (days)",
+      "durationLabel": "Duration (days)",
+      "intervalLabel": "Interval (days)",
+      "descriptionLabel": "Description",
+      "optionalPlaceholder": "Optional",
+      "duplicate": "Duplicate",
+      "remove": "Remove",
+      "addSchedule": "Add Vesting Schedule",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "End: {{date}}",
+      "previewReleases": "Releases every {{days}} days",
+      "processing": "Processing {{current}} of {{total}}...",
+      "readyCount_one": "{{count}} schedule ready to create",
+      "readyCount_other": "{{count}} schedules ready to create",
+      "feeTotal": "• Fee: {{fee}} XLM total",
+      "creatingProposals": "Creating Proposals...",
+      "createProposals_one": "Create {{count}} Proposal",
+      "createProposals_other": "Create {{count}} Proposals",
+      "defaultDescription": "Bulk Vesting Schedule",
+      "maxBatchAlert": "Maximum {{max}} vesting schedules per batch to avoid network overload.",
+      "csvTooManyAlert": "CSV contains {{count}} entries. Maximum {{max}} per batch. Only the first {{max}} will be imported.",
+      "errors": {
+        "invalidBeneficiary": "Invalid beneficiary address",
+        "invalidAmount": "Invalid amount",
+        "noToken": "Token not selected",
+        "durationPositive": "Vesting duration must be greater than 0",
+        "invalidCliff": "Invalid cliff period",
+        "cliffShorter": "Cliff must be shorter than total duration",
+        "invalidInterval": "Invalid release interval",
+        "createFailed": "Failed to create proposal"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Create New Vault",
+    "defaultName": "My Vault",
+    "defaultNameNumbered": "My Vault {{number}}",
+    "vaultName": "Vault Name",
+    "youOwner": "You (Owner)",
+    "add": "Add",
+    "addSignerPlaceholder": "Add signer address (G...)",
+    "hideContacts": "Hide contacts",
+    "addFromContacts": "Add from contacts",
+    "signers_one": "Signers ({{count}})",
+    "signers_other": "Signers ({{count}})",
+    "thresholdLabel": "Approval Threshold: {{threshold}} of {{total}}",
+    "thresholdHint_one": "{{count}} signature required to approve transactions",
+    "thresholdHint_other": "{{count}} signatures required to approve transactions",
+    "creating": "Creating...",
+    "checking": "Checking...",
+    "insufficientBalanceShort": "Insufficient Balance",
+    "createButton": "Create Vault",
+    "balance": {
+      "insufficientTitle": "Insufficient XLM Balance",
+      "needAtLeast": "You need at least <b>{{amount}} XLM</b> to create a vault.",
+      "current": "Your current balance: <b>{{amount}} XLM</b>",
+      "coversFee": "This covers the {{fee}} XLM creation fee plus transaction costs.",
+      "getFriendbot": "Get testnet XLM from Friendbot",
+      "checking": "Checking balance..."
+    },
+    "fee": {
+      "creationFee": "Vault creation fee:",
+      "yourBalance": "Your balance:"
+    },
+    "errors": {
+      "invalidAddress": "Invalid Stellar address",
+      "signerExists": "Signer already added",
+      "insufficientBalance": "Insufficient XLM balance. You need at least {{amount}} XLM.",
+      "signersBelowThreshold": "Number of signers must be at least equal to threshold",
+      "factoryNotConfigured": "Factory not configured",
+      "transactionFailed": "Transaction failed",
+      "noReturnValue": "No return value from transaction",
+      "parseFailed": "Could not parse vault address from result",
+      "noAddress": "Could not get vault address from result",
+      "invalidVaultAddress": "Invalid vault address format",
+      "createFailed": "Failed to create vault"
+    }
+  },
+  "fiatRamp": {
+    "title": "Fiat On / Off Ramp",
+    "subtitle": "Move money between fiat and USDC. Funds settle directly into your vault.",
+    "soon": "Soon",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Card & bank → USDC, delivered straight to the vault."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Cash in / out at physical agent locations worldwide."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Card & bank → USDC via Stripe, delivered to the vault."
+      }
+    },
+    "mode": {
+      "cashToVault": "Cash → Vault",
+      "vaultToCash": "Vault → Cash"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Amount (USDC)",
+      "amountOptional": "Amount (USDC) — optional",
+      "amountWidgetPlaceholder": "Leave blank to choose in the widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limits: {{min}}–{{max}} USDC per transaction",
+      "outOfRange": "Amount must be between {{min}} and {{max}} USDC."
+    },
+    "actions": {
+      "working": "Working…",
+      "buyWithTransak": "Buy USDC with Transak",
+      "buyWithStripe": "Buy USDC with Stripe",
+      "startDeposit": "Start cash deposit",
+      "startWithdrawal": "Start cash withdrawal"
+    },
+    "notEnabled": {
+      "noApiUrl": "API URL not configured — set REACT_APP_API_URL once the server is deployed.",
+      "serverDisabled": "This provider is not yet enabled on the server."
+    },
+    "status": {
+      "anchorStatus": "Anchor status: {{status}}",
+      "creatingTransak": "Creating secure Transak session…",
+      "openingTransak": "Opening Transak…",
+      "transakClosed": "Transak window closed.",
+      "transakSuccess": "Transak order completed. USDC is being delivered to the vault. Order ID: {{orderId}}",
+      "creatingStripe": "Creating Stripe onramp session…",
+      "stripeOpened": "Stripe onramp opened.",
+      "authenticating": "Authenticating with anchor…",
+      "openingCashIn": "Opening cash-in window…",
+      "openingCashOut": "Opening KYC / cash-out window…",
+      "creatingProposals": "Creating multisig proposals (withdrawal + 0.3% fee)…",
+      "proposalsCreated": "Proposals created. Withdrawal #{{withdrawId}}, fee #{{feeId}}. Collect approvals to execute."
+    },
+    "errors": {
+      "apiUrlMissing": "API URL is not configured (REACT_APP_API_URL).",
+      "sessionFailed": "Session failed ({{status}})",
+      "noWidgetUrl": "No widgetUrl returned by backend",
+      "transakFailed": "Transak order failed.",
+      "openTransakFailed": "Failed to open Transak",
+      "stripeSessionFailed": "Stripe session failed ({{status}})",
+      "noClientSecret": "No clientSecret returned by backend",
+      "startStripeFailed": "Failed to start Stripe",
+      "depositFailed": "Deposit failed to start",
+      "withdrawFailed": "Withdrawal failed to start"
+    },
+    "summary": {
+      "title": "Summary",
+      "amount": "Amount",
+      "platformFee": "Platform fee ({{pct}}%)",
+      "youReceive": "You receive in vault",
+      "sentToAnchor": "Sent to anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Anchor and network fees are charged separately by {{provider}}.",
+      "theProvider": "the provider"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "transak": "Pay by card or bank transfer. After KYC, Transak delivers USDC on Stellar directly to your vault address. No multisig approval is needed for incoming funds.",
+      "moneygram": "Deposits land directly in the vault. Withdrawals create two multisig proposals — the transfer and the 0.3% platform fee — which your signers must approve before funds leave the vault.",
+      "stripe": "Pay by card or bank via Stripe. Stripe handles KYC and delivers USDC on Stellar directly to your vault address."
+    },
+    "destination": {
+      "title": "Destination vault"
+    }
+  },
+  "common": {
+    "copy": "Copy",
+    "share": "Share",
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "close": "Close",
+    "refresh": "Refresh",
+    "unknown": "Unknown",
+    "change": "Change",
+    "open": "Open",
+    "update": "Update",
+    "all": "All",
+    "notAvailable": "N/A"
+  }
+}

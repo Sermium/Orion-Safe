@@ -7,7 +7,9 @@ export const openapiSpec = {
       "REST API for creating and operating Stellar Vault treasury vaults on Soroban. " +
       "State-changing endpoints return an unsigned transaction XDR (because contracts " +
       "use require_auth). Sign it in your wallet and POST it to /submit. Creation and " +
-      "per-action fees are collected on-chain by the contracts.",
+      "per-action fees are collected on-chain by the contracts. Fiat on/off-ramp " +
+      "endpoints create provider sessions (Transak, Stripe); a 0.3% platform fee is " +
+      "applied to MoneyGram withdrawals via on-chain multisig proposals.",
   },
   servers: [{ url: "/api/v1" }],
   tags: [
@@ -16,6 +18,7 @@ export const openapiSpec = {
     { name: "Locks", description: "Time-lock / vesting claim & cancel" },
     { name: "Signers", description: "Admin signer & threshold management" },
     { name: "Tx", description: "Submit signed transactions" },
+    { name: "Onramp", description: "Fiat on/off-ramp provider sessions (Transak, Stripe)" },
   ],
   paths: {
     // ---------- VAULTS ----------
@@ -258,6 +261,63 @@ export const openapiSpec = {
         responses: { 200: { description: "Submission result with tx hash and status" } },
       },
     },
+
+    // ---------- ONRAMP ----------
+    "/onramp/status": {
+      get: {
+        tags: ["Onramp"],
+        summary: "Which fiat providers are configured on the server",
+        description:
+          "Returns booleans indicating whether each provider has the required server-side " +
+          "credentials. The frontend uses this to enable/disable provider cards. MoneyGram " +
+          "is handled client-side via SEP-24 and is always available.",
+        responses: {
+          200: {
+            description: "Provider availability",
+            content: { "application/json": { schema: { $ref: "#/components/schemas/OnrampStatus" } } },
+          },
+        },
+      },
+    },
+    "/onramp/transak/session": {
+      post: {
+        tags: ["Onramp"],
+        summary: "Create a signed Transak widget URL",
+        description:
+          "Generates a one-time, backend-signed Transak widget URL using the server's " +
+          "TRANSAK_API_KEY / TRANSAK_API_SECRET. USDC is delivered directly to the vault " +
+          "address on the Stellar network. Returns 503 if Transak is not configured.",
+        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/TransakSession" } } } },
+        responses: {
+          200: {
+            description: "Signed widget URL",
+            content: { "application/json": { schema: { type: "object", properties: { widgetUrl: { type: "string", example: "https://global.transak.com/?..." } }, required: ["widgetUrl"] } } },
+          },
+          400: { description: "Bad request (missing walletAddress)" },
+          503: { description: "Transak not configured on server" },
+        },
+      },
+    },
+    "/onramp/stripe/session": {
+      post: {
+        tags: ["Onramp"],
+        summary: "Create a Stripe crypto on-ramp session",
+        description:
+          "Creates a Stripe OnrampSession with destination_network=stellar and " +
+          "destination_currency=usdc, delivering USDC directly to the vault address. " +
+          "Returns the session client_secret for the hosted on-ramp UI. Returns 503 if " +
+          "Stripe is not configured / on-ramp not yet approved.",
+        requestBody: { required: true, content: { "application/json": { schema: { $ref: "#/components/schemas/StripeSession" } } } },
+        responses: {
+          200: {
+            description: "Stripe on-ramp session",
+            content: { "application/json": { schema: { type: "object", properties: { clientSecret: { type: "string", example: "cos_..._secret_..." }, id: { type: "string", example: "cos_..." } }, required: ["clientSecret"] } } },
+          },
+          400: { description: "Bad request (missing walletAddress)" },
+          503: { description: "Stripe not configured on server" },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -340,6 +400,35 @@ export const openapiSpec = {
       UnsignedTx: {
         type: "object",
         properties: { unsignedXdr: { type: "string" }, note: { type: "string" } },
+      },
+      OnrampStatus: {
+        type: "object",
+        properties: {
+          transak: { type: "boolean", description: "True if TRANSAK_API_KEY and TRANSAK_API_SECRET are set" },
+          stripe: { type: "boolean", description: "True if STRIPE_SECRET_KEY is set (onramp must be approved)" },
+          transakEnv: { type: "string", enum: ["STAGING", "PRODUCTION"], description: "Active Transak environment" },
+        },
+      },
+      TransakSession: {
+        type: "object",
+        required: ["walletAddress"],
+        properties: {
+          walletAddress: { type: "string", description: "Destination Stellar vault address (locked, form disabled)", example: "GABC..." },
+          cryptoCurrencyCode: { type: "string", default: "USDC", example: "USDC" },
+          network: { type: "string", default: "stellar", example: "stellar" },
+          fiatCurrency: { type: "string", description: "Optional fiat currency code", example: "EUR" },
+          amount: { type: "number", description: "Optional default crypto amount (maps to defaultCryptoAmount)", example: 100 },
+        },
+      },
+      StripeSession: {
+        type: "object",
+        required: ["walletAddress"],
+        properties: {
+          walletAddress: { type: "string", description: "Destination Stellar vault address", example: "GABC..." },
+          destinationCurrency: { type: "string", default: "usdc", example: "usdc" },
+          destinationNetwork: { type: "string", default: "stellar", example: "stellar" },
+          amount: { type: "string", description: "Optional preset USDC amount (maps to destination_amount)", example: "100" },
+        },
       },
     },
   },

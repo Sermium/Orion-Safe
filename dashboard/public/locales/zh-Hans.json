@@ -1,0 +1,923 @@
+{
+  "nav": {
+    "overview": "概览",
+    "money": "资金",
+    "vestingLocks": "归属与锁定",
+    "team": "团队",
+    "system": "系统",
+    "dashboard": "仪表板",
+    "assets": "资产",
+    "fiat": "法币通道",
+    "transactions": "交易",
+    "locks": "锁定",
+    "vesting": "归属",
+    "members": "成员",
+    "contacts": "联系人",
+    "settings": "设置",
+    "docs": "文档",
+    "admin": "管理",
+    "claim": "领取代币"
+  },
+  "fiat": {
+    "title": "法币通道",
+    "deposit": "存入",
+    "withdraw": "提取",
+    "amount": "金额",
+    "provider": "服务商",
+    "fee": "平台费用",
+    "destination": "目标金库",
+    "comingSoon": "敬请期待"
+  },
+  "sidebar": {
+    "currentVault": "当前金库",
+    "selectVault": "选择金库",
+    "createNewVault": "创建新金库",
+    "sharePublicView": "分享公开视图",
+    "disconnect": "断开连接",
+    "connected": "已连接",
+    "linkCopied": "公开链接已复制！"
+  },
+  "header": {
+    "timeLocks": "时间锁",
+    "deposit": "存入",
+    "send": "发送"
+  },
+  "settings": {
+    "title": "金库设置",
+    "subtitle": "管理您的金库配置与成员",
+    "language": "语言",
+    "languageAuto": "自动（设备语言）",
+    "languageHint": "自动跟随您的设备语言，不支持时回退至英语。",
+    "tabs": {
+      "general": "常规",
+      "members": "成员与角色",
+      "advanced": "高级"
+    },
+    "vaultInfo": "金库信息",
+    "vaultName": "金库名称",
+    "vaultAddress": "金库地址",
+    "notSelected": "未选择",
+    "yourRole": "您的角色",
+    "members": "成员",
+    "threshold": "阈值",
+    "superAdmins": "超级管理员",
+    "connectedWallet": "已连接的钱包",
+    "publicKey": "公钥",
+    "approvalThreshold": "审批阈值",
+    "thresholdDesc": "执行交易需要 {{total}} 个签名中的 {{threshold}} 个",
+    "vaultMembers": "金库成员",
+    "vaultMembersDesc": "管理谁可以访问和控制此金库",
+    "addMember": "添加成员",
+    "you": "您",
+    "copyAddress": "复制地址",
+    "removeMember": "移除成员",
+    "rolePermissions": "角色权限",
+    "adminsOnly": "只有金库管理员才能管理成员和角色。",
+    "contractDetails": "合约详情",
+    "contractType": "合约类型",
+    "sorobanContract": "Soroban 智能合约",
+    "network": "网络",
+    "testnet": "测试网",
+    "actions": "操作",
+    "exportData": "导出金库数据",
+    "exportDataDesc": "下载配置和交易历史",
+    "export": "导出",
+    "viewExplorer": "在浏览器中查看",
+    "viewExplorerDesc": "在 Stellar Expert 上打开金库合约",
+    "dangerZone": "危险区域",
+    "leaveVault": "退出金库",
+    "leaveVaultDesc": "将自己从签名者中移除。此操作无法撤销。",
+    "leaveLastWarning": "您是最后一名成员——退出将放弃该金库！",
+    "leaving": "正在退出…",
+    "leave": "退出",
+    "addNewMember": "添加新成员",
+    "addNewMemberDesc": "从联系人中选择或手动输入地址",
+    "fromContacts": "从联系人",
+    "enterAddress": "输入地址",
+    "searchContacts": "搜索联系人…",
+    "noContactsAvailable": "没有可用的联系人（全部已是成员）",
+    "noContactsFound": "未找到联系人",
+    "allContactsMembers": "您的所有联系人都已是金库成员。请使用“输入地址”添加新成员。",
+    "stellarAddress": "Stellar 地址",
+    "role": "角色",
+    "adding": "正在添加…",
+    "changeThreshold": "更改审批阈值",
+    "requiredSignatures": "所需签名：{{total}} 中的 {{threshold}}",
+    "thresholdWarning": "更改阈值会影响安全性。较高的阈值需要更多签名，但可能减慢操作。",
+    "updating": "正在更新…",
+    "roles": {
+      "superAdmin": "超级管理员",
+      "admin": "管理员",
+      "executor": "执行者"
+    },
+    "roleOptions": {
+      "superAdmin": "超级管理员 - 完全控制",
+      "admin": "管理员 - 管理成员",
+      "executor": "执行者 - 可交易"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "完全控制金库",
+        "2": "管理所有成员与角色",
+        "3": "更改阈值",
+        "4": "创建并执行交易"
+      },
+      "admin": {
+        "1": "管理执行者",
+        "2": "更改阈值",
+        "3": "创建并批准交易",
+        "4": "管理锁定"
+      },
+      "executor": {
+        "1": "创建交易",
+        "2": "批准交易",
+        "3": "执行已批准的交易",
+        "4": "查看所有活动"
+      }
+    },
+    "success": {
+      "memberAdded": "成员添加成功！",
+      "memberRemoved": "成员移除成功！",
+      "roleUpdated": "角色更新成功！",
+      "thresholdUpdated": "阈值更新成功！",
+      "leftVault": "您已成功退出金库！"
+    },
+    "errors": {
+      "invalidAddress": "无效的 Stellar 地址",
+      "alreadyMember": "该地址已是成员",
+      "addFailed": "添加成员失败",
+      "removeBreaksThreshold": "无法移除成员：将破坏阈值要求",
+      "lastSuperAdminRemove": "无法移除最后一名超级管理员",
+      "removeFailed": "移除成员失败",
+      "needOneSuperAdmin": "无法更改角色：金库必须至少有一名超级管理员",
+      "roleFailed": "更改角色失败",
+      "thresholdMin": "阈值必须至少为 1",
+      "thresholdMax": "阈值不能超过成员数量",
+      "thresholdFailed": "更新阈值失败",
+      "leaveLastSuperAdmin": "您是最后一名超级管理员。退出前请指定另一名超级管理员，或先移除所有其他成员。",
+      "leaveBreaksThreshold": "无法退出：将破坏阈值要求。当前阈值为 {{threshold}}，但只会剩下 {{remaining}} 名成员。",
+      "leaveFailed": "退出金库失败"
+    },
+    "confirm": {
+      "removeMember": "将 {{name}} 从金库中移除？",
+      "leaveDefault": "您确定要退出此金库吗？此操作无法撤销。",
+      "leaveLastMember": "警告：您是此金库的最后一名成员。退出将永久放弃该金库。任何剩余资金将无法访问。您确定吗？",
+      "leaveFinalWarning": "这是您的最后警告。金库将被永久放弃。是否继续？"
+    }
+  },
+  "assets": {
+    "title": "资产",
+    "subtitle": "管理您的金库资产",
+    "addToken": "添加代币",
+    "authorize": "授权",
+    "totalBalance": "总余额",
+    "remainingDailySpend": "剩余每日支出",
+    "yourAssets": "您的资产",
+    "clickToManage": "点击资产以进行管理",
+    "noAssets": "暂无资产",
+    "noAssetsDesc": "存入一些代币即可开始",
+    "makeFirstDeposit": "进行首次存入",
+    "availableBalance": "可用余额",
+    "actions": {
+      "deposit": "存入",
+      "depositDesc": "向金库添加更多 {{symbol}}",
+      "send": "发送",
+      "sendDesc": "发起一笔 {{symbol}} 转账",
+      "timeLock": "时间锁",
+      "timeLockDesc": "锁定至指定日期",
+      "vesting": "归属",
+      "vestingDesc": "创建带悬崖期的归属计划"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "锁定与归属日历",
+    "summary": "{{timeLocks}} 个时间锁，{{vestings}} 个归属",
+    "viewCalendar": "日历",
+    "viewList": "列表",
+    "filterType": "类型",
+    "filterStatus": "状态",
+    "timeLocks": "时间锁",
+    "vestings": "归属",
+    "timeLock": "时间锁",
+    "vesting": "归属",
+    "noLocks": "没有可显示的锁定或归属",
+    "today": "今天",
+    "now": "现在",
+    "cliff": "悬崖期",
+    "claimable": "可领取",
+    "progress": "进度",
+    "start": "开始",
+    "end": "结束",
+    "unlock": "解锁",
+    "beneficiary": "受益人",
+    "locked": "已锁定",
+    "vestingLabel": "归属中",
+    "released": "已释放",
+    "active": "活跃",
+    "completedCount": "{{count}} 个已完成",
+    "status": {
+      "active": "活跃",
+      "partiallyReleased": "部分释放",
+      "fullyReleased": "全部释放",
+      "cancelled": "已取消"
+    },
+    "statusFilter": {
+      "active": "活跃",
+      "completed": "已完成"
+    },
+    "events": {
+      "start": "开始",
+      "cliff": "悬崖期",
+      "end": "结束"
+    }
+  },
+  "claim": {
+    "title": "领取您的代币",
+    "subtitleVault": "正在查看来自金库 {{address}} 的锁定",
+    "subtitleAll": "查看并领取分配给您的锁定",
+    "disconnect": "断开连接",
+    "connectWallet": "连接钱包",
+    "connectTitle": "连接您的钱包",
+    "connectDescVault": "连接您的钱包以查看此金库分配给您的所有时间锁和归属计划。",
+    "connectDescAll": "连接您的钱包以查看所有 Stellar 金库中分配给您的所有时间锁和归属计划。",
+    "loadingVault": "正在从金库加载锁定…",
+    "loadingAll": "正在扫描金库以查找您的锁定…",
+    "scanProgress": "已检查 {{total}} 个金库中的 {{scanned}} 个",
+    "unknownVault": "未知金库",
+    "tokensAmount": "{{amount}} 个代币",
+    "claimNow": "立即领取",
+    "claiming": "正在领取…",
+    "refreshLocks": "刷新锁定",
+    "claimSuccess": "已成功领取 {{amount}} 个代币！",
+    "errorLoad": "加载锁定失败",
+    "errorClaim": "领取失败",
+    "stats": {
+      "readyToClaim": "可领取",
+      "pending": "待处理",
+      "completed": "已完成"
+    },
+    "sections": {
+      "readyToClaim": "可领取",
+      "pending": "待处理"
+    },
+    "fields": {
+      "fromVault": "来自金库",
+      "totalAmount": "总金额",
+      "description": "描述",
+      "timeRemaining": "剩余时间",
+      "unlockDate": "解锁日期"
+    },
+    "types": {
+      "timeLock": "时间锁",
+      "vesting": "归属",
+      "unknown": "未知"
+    },
+    "time": {
+      "unlocked": "已解锁",
+      "fullyVested": "已完全归属",
+      "remaining": "剩余 {{days}} 天 {{hours}} 小时",
+      "toCliff": "距悬崖期 {{days}} 天 {{hours}} 小时"
+    },
+    "empty": {
+      "title": "未找到锁定",
+      "descVault": "您在此金库中没有任何分配给您的锁定。",
+      "descAll": "您没有任何分配给您的时间锁或归属计划。"
+    }
+  },
+  "contacts": {
+    "title": "通讯录",
+    "subtitle": "保存常用地址以便快速访问",
+    "addContact": "添加联系人",
+    "searchPlaceholder": "搜索联系人…",
+    "savedCount_other": "已保存 {{count}} 个联系人",
+    "confirmDelete": "从联系人中删除“{{name}}”？",
+    "errors": {
+      "nameRequired": "名称为必填项",
+      "addressRequired": "地址为必填项",
+      "invalidAddress": "无效的 Stellar 地址",
+      "duplicate": "此地址已在您的联系人中"
+    },
+    "empty": {
+      "noMatch": "没有联系人与您的搜索匹配",
+      "none": "暂无联系人",
+      "addFirst": "添加您的第一个联系人 →"
+    },
+    "actions": {
+      "copy": "复制地址",
+      "edit": "编辑联系人",
+      "delete": "删除联系人"
+    },
+    "modal": {
+      "addTitle": "添加新联系人",
+      "editTitle": "编辑联系人",
+      "nameLabel": "名称 *",
+      "namePlaceholder": "例如：Alice、Treasury、Exchange",
+      "addressLabel": "Stellar 地址 *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "地址无法更改",
+      "notesLabel": "备注（可选）",
+      "notesPlaceholder": "添加关于此联系人的任何备注…",
+      "saveChanges": "保存更改"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "总余额",
+      "threshold": "阈值",
+      "signaturesRequired": "需要签名",
+      "pending": "待处理",
+      "awaitingApproval": "等待批准",
+      "readyToExecute": "可执行",
+      "fullyApproved": "已完全批准"
+    },
+    "activeProposals": "活跃提案",
+    "viewAll": "查看全部",
+    "noProposals": "暂无提案",
+    "createFirst": "创建您的第一笔交易 →",
+    "proposalLine": "{{type}}：{{amount}} XLM",
+    "toRecipient": "致 {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} 个批准",
+    "status": {
+      "pending": "待处理",
+      "approved": "已批准",
+      "executed": "已执行",
+      "rejected": "已拒绝",
+      "unknown": "未知"
+    },
+    "types": {
+      "transfer": "转账",
+      "timeLock": "时间锁",
+      "vesting": "归属",
+      "unknown": "未知"
+    }
+  },
+  "locks": {
+    "title": "时间锁",
+    "subtitle": "将资产锁定至指定日期",
+    "bulkCreate": "批量创建",
+    "createTimeLock": "创建时间锁",
+    "creating": "正在创建…",
+    "createFirst": "创建您的第一个时间锁",
+    "empty": "尚未创建时间锁",
+    "archived": "已归档",
+    "selectToken": "选择代币",
+    "available": "可用 {{amount}}",
+    "quickSelect": "快速选择：",
+    "beneficiaryPlaceholder": "搜索联系人或输入 G... 地址",
+    "descriptionPlaceholder": "例如：团队分配",
+    "optional": "可选",
+    "revocableLabel": "可撤销",
+    "revocableHint": "管理员可取消并将资金退回金库",
+    "feeWarning": "创建锁定将收取 10 XLM 费用。",
+    "defaultDescription": "时间锁",
+    "lockNumber": "锁定 #{{id}}",
+    "timeLockBadge": "时间锁",
+    "revocableBadge": "可撤销",
+    "readyToClaim": "可领取",
+    "releasedLabel": "已释放",
+    "you": "您",
+    "claim": "领取",
+    "cancel": "取消",
+    "close": "关闭",
+    "confirmCancel": "您确定要取消此锁定吗？",
+    "stats": {
+      "total": "时间锁总数",
+      "active": "活跃",
+      "unlocked": "已解锁",
+      "yourLocks": "您的锁定"
+    },
+    "sections": {
+      "yours": "您的时间锁",
+      "active": "活跃的时间锁",
+      "pendingCompletion": "待完成"
+    },
+    "fields": {
+      "token": "代币",
+      "amount": "金额",
+      "beneficiary": "受益人",
+      "beneficiaryAddress": "受益人地址",
+      "remaining": "剩余",
+      "timeStatus": "时间状态",
+      "unlockDate": "解锁日期",
+      "unlockDateTime": "解锁日期与时间",
+      "creator": "创建者",
+      "description": "描述",
+      "descriptionOptional": "描述（可选）"
+    },
+    "statuses": {
+      "active": "活跃",
+      "partiallyReleased": "部分释放",
+      "fullyReleased": "全部释放",
+      "cancelled": "已取消",
+      "unknown": "未知"
+    },
+    "time": {
+      "unlocked": "已解锁",
+      "remainingDays": "剩余 {{days}} 天 {{hours}} 小时",
+      "remainingHours": "剩余 {{hours}} 小时"
+    },
+    "errors": {
+      "fillRequired": "请填写所有必填字段",
+      "invalidBeneficiary": "无效的受益人地址",
+      "unlockFuture": "解锁时间必须在未来",
+      "createFailed": "创建锁定失败",
+      "claimFailed": "领取失败",
+      "cancelFailed": "取消锁定失败",
+      "invalidAmount": "无效金额",
+      "tokenNotSelected": "未选择代币",
+      "unlockRequired": "需要解锁日期",
+      "proposalFailed": "创建提案失败"
+    },
+    "bulk": {
+      "title": "批量创建时间锁",
+      "subtitle": "一次创建多个时间锁（每批最多 {{max}} 个）",
+      "downloadTemplate": "下载模板",
+      "importCsv": "导入 CSV",
+      "statsTotal": "总计",
+      "statsPending": "待处理",
+      "statsSuccess": "成功",
+      "statsErrors": "错误",
+      "maxReachedAlert": "每批最多 {{max}} 个时间锁，以避免网络过载。",
+      "maxReachedWarning": "已达到最大批量大小（{{max}} 个锁定）。请先处理这些再添加更多。",
+      "csvTooMany": "CSV 包含 {{count}} 条记录。每批最多 {{max}} 条。仅导入前 {{max}} 条。",
+      "duplicate": "重复",
+      "remove": "移除",
+      "addEntry": "添加时间锁",
+      "processing": "正在处理 {{total}} 中的 {{current}}…",
+      "readyCount_other": "{{count}} 个锁定可创建",
+      "feeTotal": "• 费用：共 {{fee}} XLM",
+      "creatingProposals": "正在创建提案…",
+      "createCount_other": "创建 {{count}} 个提案",
+      "defaultDescription": "批量时间锁"
+    }
+  },
+  "members": {
+    "title": "金库成员",
+    "subtitle_other": "{{count}} 名成员 • 阈值：{{total}} 中的 {{threshold}}",
+    "searchPlaceholder": "按地址、名称或角色搜索成员…",
+    "manageHint": "要管理成员（添加、移除、更改角色），请前往 <strong>设置 → 成员与角色</strong>",
+    "you": "您",
+    "addToContacts": "添加到联系人",
+    "noResults": "未找到与您的搜索匹配的成员。",
+    "stats": {
+      "totalMembers": "成员总数",
+      "superAdmins": "超级管理员",
+      "admins": "管理员",
+      "executors": "执行者"
+    },
+    "roles": {
+      "superAdmin": "超级管理员",
+      "admin": "管理员",
+      "executor": "执行者"
+    },
+    "permissions": {
+      "title": "角色权限",
+      "superAdmin": "完全控制，包括管理其他管理员和关键设置",
+      "admin": "可管理金库设置、成员，并批准交易",
+      "executor": "可创建、批准和执行交易"
+    },
+    "addContactModal": {
+      "title": "添加到联系人",
+      "addressLabel": "地址",
+      "nameLabel": "名称",
+      "namePlaceholder": "为此联系人输入名称",
+      "save": "保存联系人"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar 金库",
+    "publicViewBadge": "公开视图",
+    "loading": "正在加载金库数据…",
+    "noLocks": "尚未创建锁定",
+    "noAssets": "未找到资产",
+    "revocable": "可撤销",
+    "released": "已释放",
+    "allLocks": "所有锁定（{{count}}）",
+    "toBeneficiary": "致：{{address}}",
+    "errors": {
+      "title": "加载金库失败",
+      "loadFailed": "加载金库数据失败"
+    },
+    "tabs": {
+      "overview": "概览",
+      "locks": "锁定",
+      "calendar": "日历",
+      "assets": "资产"
+    },
+    "stats": {
+      "signers": "签名者",
+      "threshold": "阈值：{{count}}",
+      "totalLocks": "锁定总数",
+      "activeCount": "{{count}} 个活跃",
+      "assets": "资产",
+      "tokensHeld": "持有代币",
+      "lockedValue": "锁定价值",
+      "totalLocked": "锁定总额"
+    },
+    "sections": {
+      "signers": "签名者",
+      "recentLocks": "最近锁定",
+      "assets": "资产"
+    },
+    "fields": {
+      "amount": "金额",
+      "beneficiary": "受益人",
+      "unlockDate": "解锁日期",
+      "timeRemaining": "剩余时间"
+    },
+    "status": {
+      "active": "活跃",
+      "partiallyReleased": "部分释放",
+      "fullyReleased": "全部释放",
+      "cancelled": "已取消"
+    },
+    "lockType": {
+      "timeLock": "时间锁",
+      "vesting": "归属"
+    },
+    "time": {
+      "unlocked": "已解锁",
+      "cliffPassed": "已过悬崖期",
+      "remaining": "剩余 {{days}} 天 {{hours}} 小时",
+      "toCliff": "距悬崖期 {{days}} 天 {{hours}} 小时"
+    },
+    "footer": {
+      "title": "Stellar 金库 - 公开视图",
+      "poweredBy": "由 Soroban 提供支持"
+    }
+  },
+  "transactions": {
+    "title": "交易",
+    "subtitle": "查看并管理金库提案与转账",
+    "bulkTransfer": "批量转账",
+    "newTransaction": "新交易",
+    "createFirst": "创建第一个提案",
+    "completedProposals": "已完成的提案",
+    "noHistory": "未找到交易历史",
+    "noHistoryNote": "注意：Soroban 合约交易通过已执行的提案显示",
+    "received": "已收到",
+    "sent": "已发送",
+    "onChainPayments_other": "{{count}} 笔链上支付",
+    "approvalsCount": "{{count}}/{{threshold}} 个批准",
+    "rejectionsCount": "{{count}}/{{threshold}} 个拒绝",
+    "tabs": {
+      "proposals": "提案（{{count}}）",
+      "history": "历史（{{count}}）"
+    },
+    "filters": {
+      "all": "全部",
+      "pending": "待处理",
+      "approved": "已批准"
+    },
+    "empty": {
+      "all": "未找到提案",
+      "filtered": "未找到{{filter}}的提案"
+    },
+    "status": {
+      "pending": "待处理",
+      "approved": "已批准",
+      "executed": "已执行",
+      "rejected": "已拒绝"
+    },
+    "types": {
+      "transfer": "转账",
+      "timeLock": "时间锁",
+      "vesting": "归属"
+    },
+    "fields": {
+      "to": "至：",
+      "from": "来自：",
+      "by": "由：",
+      "beneficiary": "受益人：",
+      "created": "创建于：",
+      "approvals": "批准：",
+      "unlockDate": "解锁日期：",
+      "cliffDate": "悬崖期日期：",
+      "endDate": "结束日期："
+    },
+    "actions": {
+      "approve": "批准",
+      "execute": "执行",
+      "reject": "拒绝",
+      "confirmReject": "确认拒绝"
+    },
+    "bulk": {
+      "title": "批量转账",
+      "subtitle": "批量创建多个转账提案（每批最多 {{max}} 个）",
+      "importCsv": "导入 CSV",
+      "downloadTemplate": "下载模板",
+      "csvHelp": "CSV 格式帮助",
+      "totalLabel": "总计：",
+      "successLabel": "成功：",
+      "failedLabel": "失败：",
+      "csvFormatTitle": "CSV 格式",
+      "csvFormatNote": "XLM 使用“native”，或使用完整的代币合约地址。",
+      "maxBatchWarning": "每批最多 {{max}} 笔转账，以避免网络过载。如需更多请另建批次。",
+      "recipientLabel": "收款人地址",
+      "amountLabel": "金额",
+      "tokenLabel": "代币",
+      "duplicate": "重复",
+      "remove": "移除",
+      "addTransfer": "添加转账",
+      "processing": "正在处理 {{total}} 中的 {{current}}…（交易间隔 {{delay}} 秒）",
+      "readyCount_other": "{{count}} 笔转账就绪",
+      "totalTokens": "• 总计：约 {{amount}} 个代币",
+      "creatingProposals": "正在创建提案…",
+      "createProposals_other": "创建 {{count}} 个提案",
+      "maxBatchAlert": "每批最多 {{max}} 笔转账，以避免网络过载。",
+      "maxBatchShortAlert": "每批最多 {{max}} 笔转账。",
+      "csvTooManyAlert": "CSV 包含 {{count}} 条记录。每批最多 {{max}} 条。仅导入前 {{max}} 条。",
+      "errors": {
+        "invalidRecipient": "无效的收款人地址",
+        "invalidAmount": "无效金额",
+        "noToken": "未选择代币",
+        "transferUnavailable": "转账功能不可用",
+        "createFailed": "创建提案失败"
+      }
+    }
+  },
+  "vesting": {
+    "title": "归属计划",
+    "subtitle": "带悬崖期和逐步释放的代币归属",
+    "bulkCreate": "批量创建",
+    "createVesting": "创建归属",
+    "createFirst": "创建您的第一个归属计划",
+    "empty": "尚未创建归属计划",
+    "archived": "已归档",
+    "revocable": "可撤销",
+    "badge": "归属",
+    "you": "您",
+    "claimButton": "💰 领取",
+    "cardTitle": "归属 #{{id}}",
+    "claimableBadge": "{{amount}} 可领取",
+    "vestedLabel": "已归属：{{vested}} / {{total}}",
+    "releasedLabel": "已释放：{{released}}",
+    "daysValue": "{{count}} 天",
+    "defaultDescription": "归属计划",
+    "confirmCancel": "您确定要取消此归属计划吗？",
+    "stats": {
+      "totalVesting": "归属总数",
+      "active": "活跃",
+      "claimable": "可领取",
+      "yourVesting": "您的归属"
+    },
+    "sections": {
+      "yours": "您的归属计划",
+      "active": "活跃的归属计划",
+      "pendingCompletion": "待完成"
+    },
+    "status": {
+      "active": "活跃",
+      "partiallyReleased": "部分释放",
+      "fullyReleased": "全部释放",
+      "cancelled": "已取消"
+    },
+    "time": {
+      "toCliff": "距悬崖期 {{days}} 天 {{hours}} 小时",
+      "fullyVested": "已完全归属",
+      "remaining": "剩余 {{days}} 天 {{hours}} 小时"
+    },
+    "interval": {
+      "daily": "每日",
+      "weekly": "每周",
+      "monthly": "每月",
+      "quarterly": "每季度"
+    },
+    "fields": {
+      "token": "代币",
+      "remaining": "剩余",
+      "status": "状态",
+      "cliffDate": "悬崖期日期",
+      "endDate": "结束日期",
+      "releaseInterval": "释放间隔",
+      "beneficiary": "受益人",
+      "creator": "创建者",
+      "description": "描述"
+    },
+    "errors": {
+      "fillRequired": "请填写所有必填字段",
+      "invalidBeneficiary": "无效的受益人地址",
+      "durationPositive": "归属期限必须大于 0",
+      "cliffShorter": "悬崖期必须短于总期限",
+      "createFailed": "创建归属失败",
+      "claimFailed": "领取失败",
+      "cancelFailed": "取消失败"
+    },
+    "modal": {
+      "title": "创建归属计划",
+      "token": "代币",
+      "selectToken": "选择代币",
+      "tokenOption": "{{symbol}} - 可用 {{amount}}",
+      "totalAmount": "总金额",
+      "beneficiary": "受益人",
+      "quickSelect": "快速选择：",
+      "beneficiaryPlaceholder": "搜索联系人或输入 G... 地址",
+      "cliffDays": "悬崖期（天）",
+      "cliffHint": "悬崖期前不释放",
+      "durationDays": "期限（天）",
+      "durationHint": "总归属期",
+      "intervalDays": "间隔（天）",
+      "intervalHint": "释放频率",
+      "descriptionLabel": "描述（可选）",
+      "descriptionPlaceholder": "例如：员工归属、顾问分配",
+      "revocableHint": "管理员可取消并退回未归属的资金",
+      "previewTitle": "归属预览",
+      "previewCliff": "• 悬崖期结束：{{date}}",
+      "previewVested": "• 完全归属：{{date}}",
+      "previewReleases": "• 悬崖期后每 {{days}} 天释放一次",
+      "feeNotice": "⚠️ 创建归属计划将收取 0.1 XLM 费用。",
+      "creating": "正在创建…",
+      "createButton": "创建归属计划"
+    },
+    "bulk": {
+      "title": "批量创建归属",
+      "subtitle": "一次创建多个归属计划（每批最多 {{max}} 个）",
+      "downloadTemplate": "下载模板",
+      "importCsv": "导入 CSV",
+      "totalLabel": "总计：",
+      "pendingLabel": "待处理：",
+      "successLabel": "成功：",
+      "errorsLabel": "错误：",
+      "maxBatchWarning": "已达到最大批量大小（{{max}} 个计划）。请先处理这些再添加更多。",
+      "beneficiaryLabel": "受益人地址",
+      "amountLabel": "金额",
+      "tokenLabel": "代币",
+      "cliffLabel": "悬崖期（天）",
+      "durationLabel": "期限（天）",
+      "intervalLabel": "间隔（天）",
+      "descriptionLabel": "描述",
+      "optionalPlaceholder": "可选",
+      "duplicate": "重复",
+      "remove": "移除",
+      "addSchedule": "添加归属计划",
+      "previewCliff": "悬崖期：{{date}}",
+      "previewEnd": "结束：{{date}}",
+      "previewReleases": "每 {{days}} 天释放一次",
+      "processing": "正在处理 {{total}} 中的 {{current}}…",
+      "readyCount_other": "{{count}} 个计划可创建",
+      "feeTotal": "• 费用：共 {{fee}} XLM",
+      "creatingProposals": "正在创建提案…",
+      "createProposals_other": "创建 {{count}} 个提案",
+      "defaultDescription": "批量归属计划",
+      "maxBatchAlert": "每批最多 {{max}} 个归属计划，以避免网络过载。",
+      "csvTooManyAlert": "CSV 包含 {{count}} 条记录。每批最多 {{max}} 条。仅导入前 {{max}} 条。",
+      "errors": {
+        "invalidBeneficiary": "无效的受益人地址",
+        "invalidAmount": "无效金额",
+        "noToken": "未选择代币",
+        "durationPositive": "归属期限必须大于 0",
+        "invalidCliff": "无效的悬崖期",
+        "cliffShorter": "悬崖期必须短于总期限",
+        "invalidInterval": "无效的释放间隔",
+        "createFailed": "创建提案失败"
+      }
+    }
+  },
+  "createVault": {
+    "title": "创建新金库",
+    "defaultName": "我的金库",
+    "defaultNameNumbered": "我的金库 {{number}}",
+    "vaultName": "金库名称",
+    "youOwner": "您（所有者）",
+    "add": "添加",
+    "addSignerPlaceholder": "添加签名者地址（G...）",
+    "hideContacts": "隐藏联系人",
+    "addFromContacts": "从联系人添加",
+    "signers_other": "签名者（{{count}}）",
+    "thresholdLabel": "审批阈值：{{total}} 中的 {{threshold}}",
+    "thresholdHint_other": "批准交易需要 {{count}} 个签名",
+    "creating": "正在创建…",
+    "checking": "正在检查…",
+    "insufficientBalanceShort": "余额不足",
+    "createButton": "创建金库",
+    "balance": {
+      "insufficientTitle": "XLM 余额不足",
+      "needAtLeast": "创建金库至少需要 <b>{{amount}} XLM</b>。",
+      "current": "您当前的余额：<b>{{amount}} XLM</b>",
+      "coversFee": "这涵盖 {{fee}} XLM 的创建费用以及交易成本。",
+      "getFriendbot": "从 Friendbot 获取测试网 XLM",
+      "checking": "正在检查余额…"
+    },
+    "fee": {
+      "creationFee": "金库创建费用：",
+      "yourBalance": "您的余额："
+    },
+    "errors": {
+      "invalidAddress": "无效的 Stellar 地址",
+      "signerExists": "签名者已添加",
+      "insufficientBalance": "XLM 余额不足。您至少需要 {{amount}} XLM。",
+      "signersBelowThreshold": "签名者数量必须至少等于阈值",
+      "factoryNotConfigured": "工厂未配置",
+      "transactionFailed": "交易失败",
+      "noReturnValue": "交易无返回值",
+      "parseFailed": "无法从结果中解析金库地址",
+      "noAddress": "无法从结果中获取金库地址",
+      "invalidVaultAddress": "无效的金库地址格式",
+      "createFailed": "创建金库失败"
+    }
+  },
+  "fiatRamp": {
+    "title": "法币出入金通道",
+    "subtitle": "在法币和 USDC 之间转移资金。资金直接结算至您的金库。",
+    "soon": "敬请期待",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "银行卡与银行账户 → USDC，直接送达金库。"
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "在全球实体代理点存取现金。"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "通过 Stripe 将银行卡与银行账户 → USDC，送达金库。"
+      }
+    },
+    "mode": {
+      "cashToVault": "现金 → 金库",
+      "vaultToCash": "金库 → 现金"
+    },
+    "fields": {
+      "anchor": "锚点",
+      "amount": "金额（USDC）",
+      "amountOptional": "金额（USDC）— 可选",
+      "amountWidgetPlaceholder": "留空以在小部件中选择",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "限额：每笔交易 {{min}}–{{max}} USDC",
+      "outOfRange": "金额必须在 {{min}} 和 {{max}} USDC 之间。"
+    },
+    "actions": {
+      "working": "处理中…",
+      "buyWithTransak": "通过 Transak 购买 USDC",
+      "buyWithStripe": "通过 Stripe 购买 USDC",
+      "startDeposit": "开始现金存入",
+      "startWithdrawal": "开始现金提取"
+    },
+    "notEnabled": {
+      "noApiUrl": "API URL 未配置——服务器部署后请设置 REACT_APP_API_URL。",
+      "serverDisabled": "此服务商尚未在服务器上启用。"
+    },
+    "status": {
+      "anchorStatus": "锚点状态：{{status}}",
+      "creatingTransak": "正在创建安全的 Transak 会话…",
+      "openingTransak": "正在打开 Transak…",
+      "transakClosed": "Transak 窗口已关闭。",
+      "transakSuccess": "Transak 订单已完成。USDC 正在送达金库。订单 ID：{{orderId}}",
+      "creatingStripe": "正在创建 Stripe 入金会话…",
+      "stripeOpened": "Stripe 入金已打开。",
+      "authenticating": "正在通过锚点进行身份验证…",
+      "openingCashIn": "正在打开现金存入窗口…",
+      "openingCashOut": "正在打开 KYC / 现金提取窗口…",
+      "creatingProposals": "正在创建多签提案（提取 + 0.3% 费用）…",
+      "proposalsCreated": "提案已创建。提取 #{{withdrawId}}，费用 #{{feeId}}。收集批准以执行。"
+    },
+    "errors": {
+      "apiUrlMissing": "API URL 未配置（REACT_APP_API_URL）。",
+      "sessionFailed": "会话失败（{{status}}）",
+      "noWidgetUrl": "后端未返回 widgetUrl",
+      "transakFailed": "Transak 订单失败。",
+      "openTransakFailed": "打开 Transak 失败",
+      "stripeSessionFailed": "Stripe 会话失败（{{status}}）",
+      "noClientSecret": "后端未返回 clientSecret",
+      "startStripeFailed": "启动 Stripe 失败",
+      "depositFailed": "存入启动失败",
+      "withdrawFailed": "提取启动失败"
+    },
+    "summary": {
+      "title": "摘要",
+      "amount": "金额",
+      "platformFee": "平台费用（{{pct}}%）",
+      "youReceive": "您在金库中收到",
+      "sentToAnchor": "发送至锚点",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "锚点和网络费用由 {{provider}} 单独收取。",
+      "theProvider": "该服务商"
+    },
+    "howItWorks": {
+      "title": "工作原理",
+      "transak": "通过银行卡或银行转账付款。完成 KYC 后，Transak 会将 Stellar 上的 USDC 直接送达您的金库地址。入金无需多签批准。",
+      "moneygram": "存入直接进入金库。提取会创建两个多签提案——转账和 0.3% 平台费用——您的签名者必须批准后资金才会离开金库。",
+      "stripe": "通过 Stripe 用银行卡或银行付款。Stripe 处理 KYC 并将 Stellar 上的 USDC 直接送达您的金库地址。"
+    },
+    "destination": {
+      "title": "目标金库"
+    }
+  },
+  "common": {
+    "copy": "复制",
+    "share": "分享",
+    "loading": "加载中…",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "close": "关闭",
+    "refresh": "刷新",
+    "unknown": "未知",
+    "change": "更改",
+    "open": "打开",
+    "update": "更新",
+    "all": "全部",
+    "notAvailable": "不适用"
+  }
+}

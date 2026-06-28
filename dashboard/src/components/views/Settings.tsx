@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CopyIcon } from '../icons';
 import { VaultConfig, Role, SignerWithRole } from '../../types';
 import { truncateAddress } from '../../lib/utils';
 import { getContacts, getContactByAddress, Contact } from '../../services/contactsService';
+import {
+  SUPPORTED_LANGUAGES,
+  LANG_AUTO,
+  setLanguagePreference,
+  getLanguagePreference,
+} from '../../i18n';
 
 interface SettingsProps {
   vaultAddress: string | null;
@@ -33,22 +40,25 @@ export const Settings: React.FC<SettingsProps> = ({
   onSetThreshold,
   onLeaveVault,
 }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'general' | 'members' | 'advanced'>('general');
-  
+
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const [newMemberAddress, setNewMemberAddress] = useState('');
   const [newMemberRole, setNewMemberRole] = useState<Role>('Executor');
   const [editingMember, setEditingMember] = useState<string | null>(null);
-  
+
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [contactSearch, setContactSearch] = useState('');
   const [showContactDropdown, setShowContactDropdown] = useState(false);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [inputMode, setInputMode] = useState<'contacts' | 'manual'>('contacts');
-  
+
   const [showThresholdModal, setShowThresholdModal] = useState(false);
   const [newThreshold, setNewThreshold] = useState(vaultConfig?.threshold || 1);
-  
+
+  const [langPref, setLangPref] = useState(getLanguagePreference());
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -80,6 +90,16 @@ export const Settings: React.FC<SettingsProps> = ({
     return found?.role || 'Executor';
   };
 
+  // Translated display label for a role (value stays technical).
+  const roleLabel = (role: Role): string => {
+    switch (role) {
+      case 'SuperAdmin': return t('settings.roles.superAdmin');
+      case 'Admin': return t('settings.roles.admin');
+      case 'Executor': return t('settings.roles.executor');
+      default: return role;
+    }
+  };
+
   const getRoleBadgeStyle = (role: Role) => {
     switch (role) {
       case 'SuperAdmin':
@@ -91,6 +111,11 @@ export const Settings: React.FC<SettingsProps> = ({
       default:
         return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     }
+  };
+
+  const handleLangChange = (value: string) => {
+    setLangPref(value as typeof langPref);
+    setLanguagePreference(value as typeof langPref);
   };
 
   const handleSelectContact = (contact: Contact) => {
@@ -108,14 +133,14 @@ export const Settings: React.FC<SettingsProps> = ({
 
   const handleAddMember = async () => {
     if (!onAddSigner || !newMemberAddress) return;
-    
+
     if (!newMemberAddress.startsWith('G') || newMemberAddress.length !== 56) {
-      setError('Invalid Stellar address');
+      setError(t('settings.errors.invalidAddress'));
       return;
     }
 
     if (signers.includes(newMemberAddress)) {
-      setError('Address is already a member');
+      setError(t('settings.errors.alreadyMember'));
       return;
     }
 
@@ -123,7 +148,7 @@ export const Settings: React.FC<SettingsProps> = ({
     setError('');
     try {
       await onAddSigner(newMemberAddress, newMemberRole);
-      setSuccess('Member added successfully!');
+      setSuccess(t('settings.success.memberAdded'));
       setShowAddMemberModal(false);
       setNewMemberAddress('');
       setNewMemberRole('Executor');
@@ -131,7 +156,7 @@ export const Settings: React.FC<SettingsProps> = ({
       setContactSearch('');
       setInputMode('contacts');
     } catch (err: any) {
-      setError(err.message || 'Failed to add member');
+      setError(err.message || t('settings.errors.addFailed'));
     } finally {
       setLoading(false);
     }
@@ -141,19 +166,19 @@ export const Settings: React.FC<SettingsProps> = ({
     if (!onRemoveSigner) return;
 
     if (signers.length <= (vaultConfig?.threshold || 1)) {
-      setError('Cannot remove member: would break threshold requirement');
+      setError(t('settings.errors.removeBreaksThreshold'));
       return;
     }
 
     const superAdminCount = signersWithRoles?.filter(s => s.role === 'SuperAdmin').length || 0;
     const isRemovingSuperAdmin = getSignerRole(address) === 'SuperAdmin';
     if (isRemovingSuperAdmin && superAdminCount <= 1) {
-      setError('Cannot remove the last super admin');
+      setError(t('settings.errors.lastSuperAdminRemove'));
       return;
     }
 
     const contactName = getContactByAddress(address)?.name || null;
-    if (!window.confirm(`Remove ${contactName || truncateAddress(address)} from vault?`)) {
+    if (!window.confirm(t('settings.confirm.removeMember', { name: contactName || truncateAddress(address) }))) {
       return;
     }
 
@@ -161,9 +186,9 @@ export const Settings: React.FC<SettingsProps> = ({
     setError('');
     try {
       await onRemoveSigner(address);
-      setSuccess('Member removed successfully!');
+      setSuccess(t('settings.success.memberRemoved'));
     } catch (err: any) {
-      setError(err.message || 'Failed to remove member');
+      setError(err.message || t('settings.errors.removeFailed'));
     } finally {
       setLoading(false);
     }
@@ -175,7 +200,7 @@ export const Settings: React.FC<SettingsProps> = ({
     const superAdminCount = signersWithRoles?.filter(s => s.role === 'SuperAdmin').length || 0;
     const currentRole = getSignerRole(address);
     if (currentRole === 'SuperAdmin' && role !== 'SuperAdmin' && superAdminCount <= 1) {
-      setError('Cannot change role: vault must have at least one super admin');
+      setError(t('settings.errors.needOneSuperAdmin'));
       return;
     }
 
@@ -183,10 +208,10 @@ export const Settings: React.FC<SettingsProps> = ({
     setError('');
     try {
       await onSetRole(address, role);
-      setSuccess('Role updated successfully!');
+      setSuccess(t('settings.success.roleUpdated'));
       setEditingMember(null);
     } catch (err: any) {
-      setError(err.message || 'Failed to change role');
+      setError(err.message || t('settings.errors.roleFailed'));
     } finally {
       setLoading(false);
     }
@@ -196,12 +221,12 @@ export const Settings: React.FC<SettingsProps> = ({
     if (!onSetThreshold) return;
 
     if (newThreshold < 1) {
-      setError('Threshold must be at least 1');
+      setError(t('settings.errors.thresholdMin'));
       return;
     }
 
     if (newThreshold > signers.length) {
-      setError('Threshold cannot exceed number of members');
+      setError(t('settings.errors.thresholdMax'));
       return;
     }
 
@@ -209,10 +234,10 @@ export const Settings: React.FC<SettingsProps> = ({
     setError('');
     try {
       await onSetThreshold(newThreshold);
-      setSuccess('Threshold updated successfully!');
+      setSuccess(t('settings.success.thresholdUpdated'));
       setShowThresholdModal(false);
     } catch (err: any) {
-      setError(err.message || 'Failed to update threshold');
+      setError(err.message || t('settings.errors.thresholdFailed'));
     } finally {
       setLoading(false);
     }
@@ -225,15 +250,18 @@ export const Settings: React.FC<SettingsProps> = ({
     const isLastSigner = signers.length === 1;
     const isLastSuperAdmin = userRole === 'SuperAdmin' && superAdminCount <= 1;
 
-    let warningMessage = 'Are you sure you want to leave this vault? This action cannot be undone.';
-    
+    let warningMessage = t('settings.confirm.leaveDefault');
+
     if (isLastSigner) {
-      warningMessage = 'WARNING: You are the LAST member of this vault. Leaving will ABANDON the vault permanently. Any remaining funds will be inaccessible. Are you absolutely sure?';
+      warningMessage = t('settings.confirm.leaveLastMember');
     } else if (isLastSuperAdmin && signers.length > 1) {
-      setError('You are the last super admin. Please assign another super admin before leaving, or remove all other members first.');
+      setError(t('settings.errors.leaveLastSuperAdmin'));
       return;
     } else if ((signers.length - 1) < (vaultConfig?.threshold || 1)) {
-      setError(`Cannot leave: would break threshold requirement. Current threshold is ${vaultConfig?.threshold}, but only ${signers.length - 1} members would remain.`);
+      setError(t('settings.errors.leaveBreaksThreshold', {
+        threshold: vaultConfig?.threshold,
+        remaining: signers.length - 1,
+      }));
       return;
     }
 
@@ -242,7 +270,7 @@ export const Settings: React.FC<SettingsProps> = ({
     }
 
     if (isLastSigner) {
-      if (!window.confirm('This is your FINAL warning. The vault will be permanently abandoned. Continue?')) {
+      if (!window.confirm(t('settings.confirm.leaveFinalWarning'))) {
         return;
       }
     }
@@ -251,9 +279,9 @@ export const Settings: React.FC<SettingsProps> = ({
     setError('');
     try {
       await onLeaveVault();
-      setSuccess('You have left the vault successfully!');
+      setSuccess(t('settings.success.leftVault'));
     } catch (err: any) {
-      setError(err.message || 'Failed to leave vault');
+      setError(err.message || t('settings.errors.leaveFailed'));
     } finally {
       setLoading(false);
     }
@@ -271,16 +299,16 @@ export const Settings: React.FC<SettingsProps> = ({
   };
 
   const tabs = [
-    { id: 'general' as const, label: 'General', icon: '⚙️' },
-    { id: 'members' as const, label: 'Members & Roles', icon: '👥' },
-    { id: 'advanced' as const, label: 'Advanced', icon: '🔧' },
+    { id: 'general' as const, label: t('settings.tabs.general'), icon: '⚙️' },
+    { id: 'members' as const, label: t('settings.tabs.members'), icon: '👥' },
+    { id: 'advanced' as const, label: t('settings.tabs.advanced'), icon: '🔧' },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Vault Settings</h1>
-        <p className="text-gray-400 mt-1">Manage your vault configuration and members</p>
+        <h1 className="text-2xl font-bold">{t('settings.title')}</h1>
+        <p className="text-gray-400 mt-1">{t('settings.subtitle')}</p>
       </div>
 
       {error && (
@@ -315,21 +343,41 @@ export const Settings: React.FC<SettingsProps> = ({
 
       {activeTab === 'general' && (
         <div className="space-y-6">
+          {/* Language preference */}
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-            <h3 className="text-lg font-semibold mb-4">Vault Information</h3>
-            
+            <h3 className="text-lg font-semibold mb-4">{t('settings.language')}</h3>
+            <div className="space-y-2 max-w-sm">
+              <select
+                value={langPref}
+                onChange={(e) => handleLangChange(e.target.value)}
+                className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
+              >
+                <option value={LANG_AUTO}>{t('settings.languageAuto')}</option>
+                {SUPPORTED_LANGUAGES.map((l) => (
+                  <option key={l.code} value={l.code}>
+                    {l.label}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-500">{t('settings.languageHint')}</p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
+            <h3 className="text-lg font-semibold mb-4">{t('settings.vaultInfo')}</h3>
+
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 rounded-xl bg-gray-800/50">
                 <div>
-                  <p className="text-sm text-gray-400">Vault Name</p>
-                  <p className="font-semibold text-lg">{vaultConfig?.name || 'Unknown'}</p>
+                  <p className="text-sm text-gray-400">{t('settings.vaultName')}</p>
+                  <p className="font-semibold text-lg">{vaultConfig?.name || t('common.unknown')}</p>
                 </div>
               </div>
 
               <div className="flex items-center justify-between p-4 rounded-xl bg-gray-800/50">
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-400">Vault Address</p>
-                  <p className="font-mono text-sm truncate">{vaultAddress || 'Not selected'}</p>
+                  <p className="text-sm text-gray-400">{t('settings.vaultAddress')}</p>
+                  <p className="font-mono text-sm truncate">{vaultAddress || t('settings.notSelected')}</p>
                 </div>
                 {vaultAddress && (
                   <button
@@ -343,9 +391,9 @@ export const Settings: React.FC<SettingsProps> = ({
 
               <div className="flex items-center justify-between p-4 rounded-xl bg-gray-800/50">
                 <div>
-                  <p className="text-sm text-gray-400">Your Role</p>
+                  <p className="text-sm text-gray-400">{t('settings.yourRole')}</p>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getRoleBadgeStyle(userRole || 'Executor')}`}>
-                    {userRole || 'Unknown'}
+                    {userRole ? roleLabel(userRole) : t('common.unknown')}
                   </span>
                 </div>
               </div>
@@ -354,29 +402,29 @@ export const Settings: React.FC<SettingsProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="rounded-xl bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 p-4">
-              <p className="text-sm text-gray-400">Members</p>
+              <p className="text-sm text-gray-400">{t('settings.members')}</p>
               <p className="text-2xl font-bold">{signers.length}</p>
             </div>
             <div className="rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 p-4">
-              <p className="text-sm text-gray-400">Threshold</p>
+              <p className="text-sm text-gray-400">{t('settings.threshold')}</p>
               <p className="text-2xl font-bold">{vaultConfig?.threshold} / {signers.length}</p>
             </div>
             <div className="rounded-xl bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 p-4">
-              <p className="text-sm text-gray-400">Super Admins</p>
+              <p className="text-sm text-gray-400">{t('settings.superAdmins')}</p>
               <p className="text-2xl font-bold">{signersWithRoles?.filter(s => s.role === 'SuperAdmin').length || 0}</p>
             </div>
           </div>
 
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-            <h3 className="text-lg font-semibold mb-4">Connected Wallet</h3>
-            
+            <h3 className="text-lg font-semibold mb-4">{t('settings.connectedWallet')}</h3>
+
             <div className="flex items-center justify-between p-4 rounded-xl bg-gray-800/50">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center font-bold">
                   {publicKey?.slice(0, 2)}
                 </div>
                 <div>
-                  <p className="text-sm text-gray-400">Public Key</p>
+                  <p className="text-sm text-gray-400">{t('settings.publicKey')}</p>
                   <p className="font-mono text-sm">{truncateAddress(publicKey || '')}</p>
                 </div>
               </div>
@@ -398,9 +446,9 @@ export const Settings: React.FC<SettingsProps> = ({
           <div className="rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold">Approval Threshold</h3>
+                <h3 className="text-lg font-semibold">{t('settings.approvalThreshold')}</h3>
                 <p className="text-gray-400 text-sm mt-1">
-                  {vaultConfig?.threshold} of {signers.length} signatures required to execute transactions
+                  {t('settings.thresholdDesc', { threshold: vaultConfig?.threshold, total: signers.length })}
                 </p>
               </div>
               {isAdmin && onSetThreshold && (
@@ -411,7 +459,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   }}
                   className="px-4 py-2 rounded-xl bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 transition font-medium"
                 >
-                  Change
+                  {t('common.change')}
                 </button>
               )}
             </div>
@@ -420,8 +468,8 @@ export const Settings: React.FC<SettingsProps> = ({
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50">
             <div className="p-6 border-b border-gray-700/50 flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold">Vault Members</h3>
-                <p className="text-sm text-gray-400 mt-1">Manage who can access and control this vault</p>
+                <h3 className="text-lg font-semibold">{t('settings.vaultMembers')}</h3>
+                <p className="text-sm text-gray-400 mt-1">{t('settings.vaultMembersDesc')}</p>
               </div>
               {isAdmin && onAddSigner && (
                 <button
@@ -431,7 +479,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                   </svg>
-                  Add Member
+                  {t('settings.addMember')}
                 </button>
               )}
             </div>
@@ -440,7 +488,7 @@ export const Settings: React.FC<SettingsProps> = ({
               {signers.map((signer) => {
                 const role = getSignerRole(signer);
                 const contactName = getContactByAddress(signer)?.name || null;
-                
+
                 return (
                   <div key={signer} className="p-4 hover:bg-gray-800/30 transition">
                     <div className="flex items-center justify-between">
@@ -463,9 +511,9 @@ export const Settings: React.FC<SettingsProps> = ({
                           </p>
                           <div className="flex items-center gap-2 mt-1">
                             {signer === publicKey && (
-                              <span className="text-xs text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">You</span>
+                              <span className="text-xs text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">{t('settings.you')}</span>
                             )}
-                            
+
                             {editingMember === signer && isAdmin && onSetRole ? (
                               <select
                                 value={role}
@@ -475,9 +523,9 @@ export const Settings: React.FC<SettingsProps> = ({
                                 autoFocus
                                 disabled={loading}
                               >
-                                <option value="SuperAdmin">SuperAdmin</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Executor">Executor</option>
+                                <option value="SuperAdmin">{t('settings.roles.superAdmin')}</option>
+                                <option value="Admin">{t('settings.roles.admin')}</option>
+                                <option value="Executor">{t('settings.roles.executor')}</option>
                               </select>
                             ) : (
                               <button
@@ -487,7 +535,7 @@ export const Settings: React.FC<SettingsProps> = ({
                                 }`}
                                 disabled={!isAdmin || !onSetRole}
                               >
-                                {role}
+                                {roleLabel(role)}
                               </button>
                             )}
                           </div>
@@ -498,16 +546,16 @@ export const Settings: React.FC<SettingsProps> = ({
                         <button
                           onClick={() => onCopy(signer)}
                           className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
-                          title="Copy address"
+                          title={t('settings.copyAddress')}
                         >
                           <CopyIcon />
                         </button>
-                        
+
                         {isAdmin && onRemoveSigner && signer !== publicKey && (
                           <button
                             onClick={() => handleRemoveMember(signer)}
                             className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition"
-                            title="Remove member"
+                            title={t('settings.removeMember')}
                             disabled={loading}
                           >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -524,41 +572,41 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-            <h3 className="text-lg font-semibold mb-4">Role Permissions</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('settings.rolePermissions')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 text-sm font-medium">SuperAdmin</span>
+                  <span className="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 text-sm font-medium">{t('settings.roles.superAdmin')}</span>
                 </div>
                 <ul className="text-sm text-gray-400 space-y-1">
-                  <li>• Full vault control</li>
-                  <li>• Manage all members & roles</li>
-                  <li>• Change threshold</li>
-                  <li>• Create & execute transactions</li>
+                  <li>• {t('settings.perms.superAdmin.1')}</li>
+                  <li>• {t('settings.perms.superAdmin.2')}</li>
+                  <li>• {t('settings.perms.superAdmin.3')}</li>
+                  <li>• {t('settings.perms.superAdmin.4')}</li>
                 </ul>
               </div>
-              
+
               <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-sm font-medium">Admin</span>
+                  <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-sm font-medium">{t('settings.roles.admin')}</span>
                 </div>
                 <ul className="text-sm text-gray-400 space-y-1">
-                  <li>• Manage executors</li>
-                  <li>• Change threshold</li>
-                  <li>• Create & approve transactions</li>
-                  <li>• Manage locks</li>
+                  <li>• {t('settings.perms.admin.1')}</li>
+                  <li>• {t('settings.perms.admin.2')}</li>
+                  <li>• {t('settings.perms.admin.3')}</li>
+                  <li>• {t('settings.perms.admin.4')}</li>
                 </ul>
               </div>
-              
+
               <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-sm font-medium">Executor</span>
+                  <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-sm font-medium">{t('settings.roles.executor')}</span>
                 </div>
                 <ul className="text-sm text-gray-400 space-y-1">
-                  <li>• Create transactions</li>
-                  <li>• Approve transactions</li>
-                  <li>• Execute approved txns</li>
-                  <li>• View all activity</li>
+                  <li>• {t('settings.perms.executor.1')}</li>
+                  <li>• {t('settings.perms.executor.2')}</li>
+                  <li>• {t('settings.perms.executor.3')}</li>
+                  <li>• {t('settings.perms.executor.4')}</li>
                 </ul>
               </div>
             </div>
@@ -566,7 +614,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
           {!isAdmin && (
             <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-400">
-              Only vault admins can manage members and roles.
+              {t('settings.adminsOnly')}
             </div>
           )}
         </div>
@@ -575,32 +623,32 @@ export const Settings: React.FC<SettingsProps> = ({
       {activeTab === 'advanced' && (
         <div className="space-y-6">
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-            <h3 className="text-lg font-semibold mb-4">Contract Details</h3>
-            
+            <h3 className="text-lg font-semibold mb-4">{t('settings.contractDetails')}</h3>
+
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
-                <span className="text-gray-400">Contract Type</span>
-                <span>Soroban Smart Contract</span>
+                <span className="text-gray-400">{t('settings.contractType')}</span>
+                <span>{t('settings.sorobanContract')}</span>
               </div>
               <div className="flex justify-between items-center p-3 rounded-lg bg-gray-800/50">
-                <span className="text-gray-400">Network</span>
+                <span className="text-gray-400">{t('settings.network')}</span>
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                  Testnet
+                  {t('settings.testnet')}
                 </span>
               </div>
             </div>
           </div>
 
           <div className="rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 p-6">
-            <h3 className="text-lg font-semibold mb-4">Actions</h3>
-            
+            <h3 className="text-lg font-semibold mb-4">{t('settings.actions')}</h3>
+
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold">Export Vault Data</p>
-                    <p className="text-sm text-gray-400">Download configuration and transaction history</p>
+                    <p className="font-semibold">{t('settings.exportData')}</p>
+                    <p className="text-sm text-gray-400">{t('settings.exportDataDesc')}</p>
                   </div>
                   <button
                     onClick={() => {
@@ -620,7 +668,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     }}
                     className="px-4 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
                   >
-                    Export
+                    {t('settings.export')}
                   </button>
                 </div>
               </div>
@@ -628,14 +676,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div className="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold">View on Explorer</p>
-                    <p className="text-sm text-gray-400">Open vault contract on Stellar Expert</p>
+                    <p className="font-semibold">{t('settings.viewExplorer')}</p>
+                    <p className="text-sm text-gray-400">{t('settings.viewExplorerDesc')}</p>
                   </div>
                   <button
                     onClick={() => window.open(`https://stellar.expert/explorer/testnet/contract/${vaultAddress}`, '_blank')}
                     className="px-4 py-2 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
                   >
-                    Open
+                    {t('common.open')}
                   </button>
                 </div>
               </div>
@@ -644,17 +692,17 @@ export const Settings: React.FC<SettingsProps> = ({
 
           {isSigner && onLeaveVault && (
             <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/20 p-6">
-              <h3 className="text-lg font-semibold text-red-400 mb-4">⚠️ Danger Zone</h3>
-              
+              <h3 className="text-lg font-semibold text-red-400 mb-4">⚠️ {t('settings.dangerZone')}</h3>
+
               <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-semibold text-red-400">Leave Vault</p>
+                    <p className="font-semibold text-red-400">{t('settings.leaveVault')}</p>
                     <p className="text-sm text-gray-400">
-                      Remove yourself as a signer. This cannot be undone.
+                      {t('settings.leaveVaultDesc')}
                       {signers.length === 1 && (
                         <span className="block text-red-400 mt-1">
-                          ⚠️ You are the last member - leaving will abandon the vault!
+                          ⚠️ {t('settings.leaveLastWarning')}
                         </span>
                       )}
                     </p>
@@ -664,7 +712,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     disabled={loading}
                     className="px-4 py-2 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition disabled:opacity-50"
                   >
-                    {loading ? 'Leaving...' : 'Leave'}
+                    {loading ? t('settings.leaving') : t('settings.leave')}
                   </button>
                 </div>
               </div>
@@ -677,10 +725,10 @@ export const Settings: React.FC<SettingsProps> = ({
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-[#12131a] rounded-2xl border border-gray-700 w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col">
             <div className="p-6 border-b border-gray-700">
-              <h3 className="text-xl font-bold">Add New Member</h3>
-              <p className="text-sm text-gray-400 mt-1">Select from contacts or enter address manually</p>
+              <h3 className="text-xl font-bold">{t('settings.addNewMember')}</h3>
+              <p className="text-sm text-gray-400 mt-1">{t('settings.addNewMemberDesc')}</p>
             </div>
-            
+
             <div className="p-6 space-y-4 overflow-y-auto flex-1">
               <div className="flex gap-2 p-1 bg-gray-800 rounded-xl">
                 <button
@@ -695,7 +743,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  From Contacts
+                  {t('settings.fromContacts')}
                 </button>
                 <button
                   onClick={() => {
@@ -709,7 +757,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  Enter Address
+                  {t('settings.enterAddress')}
                 </button>
               </div>
 
@@ -741,7 +789,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     <div className="relative">
                       <input
                         type="text"
-                        placeholder="Search contacts..."
+                        placeholder={t('settings.searchContacts')}
                         value={contactSearch}
                         onChange={(e) => {
                           setContactSearch(e.target.value);
@@ -779,9 +827,9 @@ export const Settings: React.FC<SettingsProps> = ({
                             ))
                           ) : (
                             <div className="p-4 text-center text-gray-400">
-                              {availableContacts.length === 0 
-                                ? 'No contacts available (all are already members)'
-                                : 'No contacts found'}
+                              {availableContacts.length === 0
+                                ? t('settings.noContactsAvailable')
+                                : t('settings.noContactsFound')}
                             </div>
                           )}
                         </div>
@@ -791,7 +839,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
                   {availableContacts.length === 0 && !selectedContact && (
                     <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm">
-                      All your contacts are already vault members. Use "Enter Address" to add a new member.
+                      {t('settings.allContactsMembers')}
                     </div>
                   )}
                 </div>
@@ -799,7 +847,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
               {inputMode === 'manual' && (
                 <div>
-                  <label className="block text-sm text-gray-400 mb-2">Stellar Address</label>
+                  <label className="block text-sm text-gray-400 mb-2">{t('settings.stellarAddress')}</label>
                   <input
                     type="text"
                     value={newMemberAddress}
@@ -811,34 +859,34 @@ export const Settings: React.FC<SettingsProps> = ({
               )}
 
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Role</label>
+                <label className="block text-sm text-gray-400 mb-2">{t('settings.role')}</label>
                 <select
                   value={newMemberRole}
                   onChange={(e) => setNewMemberRole(e.target.value as Role)}
                   className="w-full p-3 rounded-xl bg-gray-800 border border-gray-700 focus:border-purple-500 focus:outline-none"
                 >
-                  <option value="SuperAdmin">SuperAdmin - Full control</option>
-                  <option value="Admin">Admin - Manage members</option>
-                  <option value="Executor">Executor - Can transact</option>
+                  <option value="SuperAdmin">{t('settings.roleOptions.superAdmin')}</option>
+                  <option value="Admin">{t('settings.roleOptions.admin')}</option>
+                  <option value="Executor">{t('settings.roleOptions.executor')}</option>
                 </select>
               </div>
 
               {error && <p className="text-red-400 text-sm">{error}</p>}
             </div>
-            
+
             <div className="p-6 border-t border-gray-700 flex gap-3">
               <button
                 onClick={resetAddMemberModal}
                 className="flex-1 px-4 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleAddMember}
                 disabled={loading || !newMemberAddress}
                 className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 transition font-medium"
               >
-                {loading ? 'Adding...' : 'Add Member'}
+                {loading ? t('settings.adding') : t('settings.addMember')}
               </button>
             </div>
           </div>
@@ -849,13 +897,13 @@ export const Settings: React.FC<SettingsProps> = ({
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-[#12131a] rounded-2xl border border-gray-700 w-full max-w-md">
             <div className="p-6 border-b border-gray-700">
-              <h3 className="text-xl font-bold">Change Approval Threshold</h3>
+              <h3 className="text-xl font-bold">{t('settings.changeThreshold')}</h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm text-gray-400 mb-2">
-                  Required signatures: {newThreshold} of {signers.length}
+                  {t('settings.requiredSignatures', { threshold: newThreshold, total: signers.length })}
                 </label>
                 <input
                   type="range"
@@ -873,24 +921,24 @@ export const Settings: React.FC<SettingsProps> = ({
 
               <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
                 <p className="text-yellow-400 text-sm">
-                  ⚠️ Changing the threshold affects security. A higher threshold requires more signatures but may slow operations.
+                  ⚠️ {t('settings.thresholdWarning')}
                 </p>
               </div>
             </div>
-            
+
             <div className="p-6 border-t border-gray-700 flex gap-3">
               <button
                 onClick={() => setShowThresholdModal(false)}
                 className="flex-1 px-4 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleThresholdChange}
                 disabled={loading || newThreshold === vaultConfig?.threshold}
                 className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 transition font-medium"
               >
-                {loading ? 'Updating...' : 'Update'}
+                {loading ? t('settings.updating') : t('common.update')}
               </button>
             </div>
           </div>

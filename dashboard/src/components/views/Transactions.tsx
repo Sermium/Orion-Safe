@@ -1,4 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { Proposal } from '../../types';
 import { formatAmount, truncateAddress } from '../../lib/utils';
 import { getAccountPayments, PaymentRecord } from '../../services/transactionHistoryService';
@@ -38,22 +40,22 @@ const MAX_BATCH_SIZE = 10; // Maximum entries per batch to avoid network overloa
 const BATCH_DELAY_MS = 3000; // Delay between transactions (3 seconds)
 
 // Status enum: 0=Pending, 1=Approved, 2=Executed
-const getStatusLabel = (status: number): string => {
+const getStatusLabel = (status: number, t: TFunction): string => {
   switch (Number(status)) {
-    case 0: return 'Pending';
-    case 1: return 'Approved';
-    case 2: return 'Executed';
-    case 3: return 'Rejected';
-    default: return 'Unknown';
+    case 0: return t('transactions.status.pending');
+    case 1: return t('transactions.status.approved');
+    case 2: return t('transactions.status.executed');
+    case 3: return t('transactions.status.rejected');
+    default: return t('common.unknown');
   }
 };
 
-const getProposalTypeLabel = (type: number): string => {
+const getProposalTypeLabel = (type: number, t: TFunction): string => {
   switch (Number(type)) {
-    case 0: return 'Transfer';
-    case 1: return 'Time Lock';
-    case 2: return 'Vesting';
-    default: return 'Unknown';
+    case 0: return t('transactions.types.transfer');
+    case 1: return t('transactions.types.timeLock');
+    case 2: return t('transactions.types.vesting');
+    default: return t('common.unknown');
   }
 };
 
@@ -66,6 +68,7 @@ const getProposalTypeColor = (type: number): string => {
   }
 };
 
+// Logical filter key (NOT translated)
 const getStatusFilter = (status: number): string => {
   switch (Number(status)) {
     case 0: return 'pending';
@@ -76,7 +79,7 @@ const getStatusFilter = (status: number): string => {
   }
 };
 
-// CSV Example Templates
+// CSV Example Template — kept in English; the parser relies on English headers.
 const CSV_TRANSFER_EXAMPLE = `# Bulk Transfer Template - Orion Safe
 # Maximum ${MAX_BATCH_SIZE} transfers per batch to avoid network overload
 # 
@@ -105,6 +108,8 @@ export const Transactions: React.FC<TransactionsProps> = ({
   onCreateTransfer,
   vaultBalance = []
 }) => {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language || 'en';
   const [activeTab, setActiveTab] = useState<'proposals' | 'history'>('proposals');
   const [paymentHistory, setPaymentHistory] = useState<PaymentRecord[]>([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
@@ -187,7 +192,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
   const getAssetSymbol = (assetType: string, assetCode?: string): string => {
     if (assetType === 'native') return 'XLM';
-    return assetCode || 'Unknown';
+    return assetCode || t('common.unknown');
   };
 
   const getTokenSymbol = (tokenAddress: string): string => {
@@ -203,7 +208,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
   const addBulkEntry = () => {
     if (bulkEntries.filter(e => e.status === 'pending').length >= MAX_BATCH_SIZE) {
-      alert(`Maximum ${MAX_BATCH_SIZE} transfers per batch to avoid network overload.`);
+      alert(t('transactions.bulk.maxBatchAlert', { max: MAX_BATCH_SIZE }));
       return;
     }
     const newEntry: BulkTransferEntry = {
@@ -223,14 +228,14 @@ export const Transactions: React.FC<TransactionsProps> = ({
   };
 
   const updateBulkEntry = (id: string, field: keyof BulkTransferEntry, value: any) => {
-    setBulkEntries(prev => prev.map(e => 
+    setBulkEntries(prev => prev.map(e =>
       e.id === id ? { ...e, [field]: value } : e
     ));
   };
 
   const duplicateBulkEntry = (entry: BulkTransferEntry) => {
     if (bulkEntries.filter(e => e.status === 'pending').length >= MAX_BATCH_SIZE) {
-      alert(`Maximum ${MAX_BATCH_SIZE} transfers per batch.`);
+      alert(t('transactions.bulk.maxBatchShortAlert', { max: MAX_BATCH_SIZE }));
       return;
     }
     const newEntry: BulkTransferEntry = {
@@ -245,20 +250,20 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
   const validateBulkEntry = (entry: BulkTransferEntry): string | null => {
     if (!entry.recipient || entry.recipient.length !== 56 || !entry.recipient.startsWith('G')) {
-      return 'Invalid recipient address';
+      return t('transactions.bulk.errors.invalidRecipient');
     }
     if (!entry.amount || parseFloat(entry.amount) <= 0) {
-      return 'Invalid amount';
+      return t('transactions.bulk.errors.invalidAmount');
     }
     if (!entry.token) {
-      return 'Token not selected';
+      return t('transactions.bulk.errors.noToken');
     }
     return null;
   };
 
   const handleBulkProcessAll = async () => {
     if (!onCreateTransfer) {
-      alert('Transfer function not available');
+      alert(t('transactions.bulk.errors.transferUnavailable'));
       return;
     }
 
@@ -285,18 +290,18 @@ export const Transactions: React.FC<TransactionsProps> = ({
     for (let i = 0; i < bulkEntries.length; i++) {
       setBulkCurrentIndex(i);
       const entry = bulkEntries[i];
-      
+
       if (entry.status !== 'pending') continue;
 
       // Update status to processing
-      setBulkEntries(prev => prev.map(e => 
+      setBulkEntries(prev => prev.map(e =>
         e.id === entry.id ? { ...e, status: 'processing' } : e
       ));
 
       try {
         await onCreateTransfer(entry.recipient, entry.token, entry.amount);
 
-        setBulkEntries(prev => prev.map(e => 
+        setBulkEntries(prev => prev.map(e =>
           e.id === entry.id ? { ...e, status: 'success' } : e
         ));
 
@@ -305,8 +310,8 @@ export const Transactions: React.FC<TransactionsProps> = ({
           await new Promise(resolve => setTimeout(resolve, BATCH_DELAY_MS));
         }
       } catch (error: any) {
-        setBulkEntries(prev => prev.map(e => 
-          e.id === entry.id ? { ...e, status: 'error', error: error.message || 'Failed to create proposal' } : e
+        setBulkEntries(prev => prev.map(e =>
+          e.id === entry.id ? { ...e, status: 'error', error: error.message || t('transactions.bulk.errors.createFailed') } : e
         ));
       }
     }
@@ -325,12 +330,12 @@ export const Transactions: React.FC<TransactionsProps> = ({
       const lines = text.split('\n')
         .map(line => line.trim())
         .filter(line => line && !line.startsWith('#')); // Skip empty lines and comments
-      
+
       // Skip header row if it looks like a header
       const dataLines = lines[0]?.toLowerCase().includes('recipient') ? lines.slice(1) : lines;
-      
+
       if (dataLines.length > MAX_BATCH_SIZE) {
-        alert(`CSV contains ${dataLines.length} entries. Maximum ${MAX_BATCH_SIZE} per batch. Only the first ${MAX_BATCH_SIZE} will be imported.`);
+        alert(t('transactions.bulk.csvTooManyAlert', { count: dataLines.length, max: MAX_BATCH_SIZE }));
       }
 
       const newEntries: BulkTransferEntry[] = dataLines.slice(0, MAX_BATCH_SIZE).map(line => {
@@ -377,7 +382,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
 
   // Only show pending (0) and approved (1) in proposals tab
   const activeProposals = proposals.filter(p => Number(p.status) === 0 || Number(p.status) === 1);
-  
+
   const filteredProposals = activeProposals.filter(p => {
     if (filter === 'all') return true;
     return getStatusFilter(Number(p.status)) === filter;
@@ -468,15 +473,22 @@ export const Transactions: React.FC<TransactionsProps> = ({
   };
 
   const formatDate = (timestamp: number): string => {
-    if (!timestamp) return 'Unknown';
+    if (!timestamp) return t('common.unknown');
     const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale, {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  // Filter button labels
+  const filterLabels: Record<'all' | 'pending' | 'approved', string> = {
+    all: t('transactions.filters.all'),
+    pending: t('transactions.filters.pending'),
+    approved: t('transactions.filters.approved'),
   };
 
   return (
@@ -486,10 +498,10 @@ export const Transactions: React.FC<TransactionsProps> = ({
         {/* Title Row */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="min-w-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">Transactions</h1>
-            <p className="text-gray-400 text-sm mt-1">View and manage vault proposals and transfers</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">{t('transactions.title')}</h1>
+            <p className="text-gray-400 text-sm mt-1">{t('transactions.subtitle')}</p>
           </div>
-          
+
           {/* Buttons - Stack on mobile */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
             <button
@@ -498,26 +510,26 @@ export const Transactions: React.FC<TransactionsProps> = ({
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 text-white rounded-lg transition-colors"
             >
               <RefreshCw className={`w-4 h-4 ${refreshingProposals ? 'animate-spin' : ''}`} />
-              <span>Refresh</span>
+              <span>{t('common.refresh')}</span>
             </button>
-            
+
             {(userRole === 'Admin' || userRole === 'Executor' || userRole === 'SuperAdmin') && onCreateTransfer && (
               <button
                 onClick={() => setShowBulkModal(true)}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
               >
                 <Upload className="w-4 h-4" />
-                <span>Bulk Transfer</span>
+                <span>{t('transactions.bulkTransfer')}</span>
               </button>
             )}
-            
+
             {(userRole === 'Admin' || userRole === 'Executor' || userRole === 'SuperAdmin') && (
               <button
                 onClick={onNewTransaction}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg transition-colors"
               >
                 <Plus className="w-4 h-4" />
-                <span>New Transaction</span>
+                <span>{t('transactions.newTransaction')}</span>
               </button>
             )}
           </div>
@@ -535,7 +547,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
-            Proposals ({activeProposals.length})
+            {t('transactions.tabs.proposals', { count: activeProposals.length })}
           </button>
           <button
             onClick={() => setActiveTab('history')}
@@ -545,7 +557,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
-            History ({completedProposals.length})
+            {t('transactions.tabs.history', { count: completedProposals.length })}
           </button>
         </div>
       </div>
@@ -565,7 +577,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                     : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
                 }`}
               >
-                {f.charAt(0).toUpperCase() + f.slice(1)}
+                {filterLabels[f]}
               </button>
             ))}
           </div>
@@ -576,13 +588,17 @@ export const Transactions: React.FC<TransactionsProps> = ({
               <svg className="w-12 h-12 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <p className="text-gray-400 mb-4">No {filter !== 'all' ? filter : ''} proposals found</p>
+              <p className="text-gray-400 mb-4">
+                {filter === 'all'
+                  ? t('transactions.empty.all')
+                  : t('transactions.empty.filtered', { filter: filterLabels[filter] })}
+              </p>
               {isSigner && (userRole === 'Admin' || userRole === 'Executor' || userRole === 'SuperAdmin') && filter === 'all' && (
                 <button
                   onClick={onNewTransaction}
                   className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-400 hover:to-blue-500 transition"
                 >
-                  Create First Proposal
+                  {t('transactions.createFirst')}
                 </button>
               )}
             </div>
@@ -591,7 +607,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               {filteredProposals.map((proposal) => {
                 const approvalCount = (proposal.approvals || []).length;
                 const thresholdMet = approvalCount >= threshold;
-                
+
                 return (
                   <div
                     key={proposal.id}
@@ -602,48 +618,48 @@ export const Transactions: React.FC<TransactionsProps> = ({
                         <div className="flex items-center gap-3 mb-2">
                           <span className="text-gray-500 font-mono">#{proposal.id}</span>
                           <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getProposalTypeColor(proposal.proposal_type)}`}>
-                            {getProposalTypeLabel(proposal.proposal_type)}
+                            {getProposalTypeLabel(proposal.proposal_type, t)}
                           </span>
                           <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(Number(proposal.status))}`}>
-                            {getStatusLabel(Number(proposal.status))}
+                            {getStatusLabel(Number(proposal.status), t)}
                           </span>
                           {Number(proposal.status) === 0 && (
                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                              thresholdMet 
-                                ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                              thresholdMet
+                                ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                                 : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                             }`}>
-                              {approvalCount}/{threshold} approvals
+                              {t('transactions.approvalsCount', { count: approvalCount, threshold })}
                             </span>
                           )}
                         </div>
-                        
+
                         <div className="text-xl font-bold text-white mb-2">
                           {formatAmount(BigInt(proposal.amount), 7)} {getTokenSymbol(proposal.token)}
                         </div>
-                        
+
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
-                            <span className="text-gray-500">{proposal.proposal_type === 0 ? 'To:' : 'Beneficiary:'}</span>{' '}
+                            <span className="text-gray-500">{proposal.proposal_type === 0 ? t('transactions.fields.to') : t('transactions.fields.beneficiary')}</span>{' '}
                             <span className="text-white">{formatAddressWithContact(proposal.recipient)}</span>
                           </div>
                           <div>
-                            <span className="text-gray-500">By:</span>{' '}
+                            <span className="text-gray-500">{t('transactions.fields.by')}</span>{' '}
                             <span className="text-gray-300">{formatAddressWithContact(proposal.proposer)}</span>
                           </div>
                           <div>
-                            <span className="text-gray-500">Created:</span>{' '}
+                            <span className="text-gray-500">{t('transactions.fields.created')}</span>{' '}
                             <span className="text-gray-300">{formatDate(proposal.created_at)}</span>
                           </div>
                           <div>
-                            <span className="text-gray-500">Approvals:</span>{' '}
+                            <span className="text-gray-500">{t('transactions.fields.approvals')}</span>{' '}
                             <span className={thresholdMet ? 'text-green-400' : 'text-cyan-400'}>
                               {approvalCount} / {threshold}
                             </span>
                           </div>
                           {proposal.proposal_type === 1 && proposal.lock_end_time > 0 && (
                             <div>
-                              <span className="text-gray-500">Unlock Date:</span>{' '}
+                              <span className="text-gray-500">{t('transactions.fields.unlockDate')}</span>{' '}
                               <span className="text-gray-300">{formatDate(proposal.lock_end_time)}</span>
                             </div>
                           )}
@@ -651,13 +667,13 @@ export const Transactions: React.FC<TransactionsProps> = ({
                             <>
                               {proposal.lock_cliff_time > 0 && (
                                 <div>
-                                  <span className="text-gray-500">Cliff Date:</span>{' '}
+                                  <span className="text-gray-500">{t('transactions.fields.cliffDate')}</span>{' '}
                                   <span className="text-gray-300">{formatDate(proposal.lock_cliff_time)}</span>
                                 </div>
                               )}
                               {proposal.lock_end_time > 0 && (
                                 <div>
-                                  <span className="text-gray-500">End Date:</span>{' '}
+                                  <span className="text-gray-500">{t('transactions.fields.endDate')}</span>{' '}
                                   <span className="text-gray-300">{formatDate(proposal.lock_end_time)}</span>
                                 </div>
                               )}
@@ -675,7 +691,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                               disabled={processingId === proposal.id}
                               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
                             >
-                              {processingId === proposal.id ? 'Processing...' : 'Approve'}
+                              {processingId === proposal.id ? t('common.processing') : t('transactions.actions.approve')}
                             </button>
                           )}
                           {canExecute(proposal) && (
@@ -684,7 +700,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                               disabled={processingId === proposal.id}
                               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
                             >
-                              {processingId === proposal.id ? 'Processing...' : 'Execute'}
+                              {processingId === proposal.id ? t('common.processing') : t('transactions.actions.execute')}
                             </button>
                           )}
                         </div>
@@ -696,12 +712,12 @@ export const Transactions: React.FC<TransactionsProps> = ({
                                 disabled={processingId === proposal.id}
                                 className="px-3 py-1.5 bg-red-600/20 text-red-400 border border-red-500/30 rounded-lg hover:bg-red-600/30 transition disabled:opacity-50 text-sm"
                               >
-                                {processingId === proposal.id ? 'Processing...' : 'Reject'}
+                                {processingId === proposal.id ? t('common.processing') : t('transactions.actions.reject')}
                               </button>
                             )}
                             {(proposal.cancel_approvals?.length || 0) > 0 && (
                               <span className="text-xs text-red-400">
-                                {proposal.cancel_approvals?.length || 0}/{threshold} rejections
+                                {t('transactions.rejectionsCount', { count: proposal.cancel_approvals?.length || 0, threshold })}
                               </span>
                             )}
                             {canExecuteCancel(proposal) && (
@@ -710,7 +726,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                                 disabled={processingId === proposal.id}
                                 className="px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition disabled:opacity-50 text-sm"
                               >
-                                {processingId === proposal.id ? 'Processing...' : 'Confirm Reject'}
+                                {processingId === proposal.id ? t('common.processing') : t('transactions.actions.confirmReject')}
                               </button>
                             )}
                           </div>
@@ -730,7 +746,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
         <div className="space-y-4">
           {completedProposals.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-white mb-3">Completed Proposals</h3>
+              <h3 className="text-lg font-semibold text-white mb-3">{t('transactions.completedProposals')}</h3>
               <div className="space-y-3">
                 {completedProposals.map((proposal) => (
                   <div
@@ -755,17 +771,17 @@ export const Transactions: React.FC<TransactionsProps> = ({
                             #{proposal.id} - {formatAmount(BigInt(proposal.amount), 7)} {getTokenSymbol(proposal.token)}
                           </div>
                           <div className="text-sm text-gray-400">
-                            To: {formatAddressWithContact(proposal.recipient)}
+                            {t('transactions.fields.to')} {formatAddressWithContact(proposal.recipient)}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          Number(proposal.status) === 2 
-                            ? 'bg-green-500/20 text-green-400' 
+                          Number(proposal.status) === 2
+                            ? 'bg-green-500/20 text-green-400'
                             : 'bg-red-500/20 text-red-400'
                         }`}>
-                          {Number(proposal.status) === 2 ? 'Executed' : 'Rejected'}
+                          {Number(proposal.status) === 2 ? t('transactions.status.executed') : t('transactions.status.rejected')}
                         </span>
                         <div className="text-gray-500 text-sm mt-1">{formatDate(proposal.created_at)}</div>
                       </div>
@@ -777,7 +793,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
           )}
 
           <div className="flex justify-between items-center">
-            <span className="text-gray-400">{paymentHistory.length} on-chain payments</span>
+            <span className="text-gray-400">{t('transactions.onChainPayments', { count: paymentHistory.length })}</span>
             <button
               onClick={loadPaymentHistory}
               disabled={loadingHistory}
@@ -786,7 +802,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               <svg className={`w-4 h-4 ${loadingHistory ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              Refresh
+              {t('common.refresh')}
             </button>
           </div>
 
@@ -796,9 +812,9 @@ export const Transactions: React.FC<TransactionsProps> = ({
             </div>
           ) : paymentHistory.length === 0 ? (
             <div className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700">
-              <p className="text-gray-400">No transaction history found</p>
+              <p className="text-gray-400">{t('transactions.noHistory')}</p>
               <p className="text-gray-500 text-sm mt-2">
-                Note: Soroban contract transactions appear via executed proposals
+                {t('transactions.noHistoryNote')}
               </p>
             </div>
           ) : (
@@ -821,23 +837,23 @@ export const Transactions: React.FC<TransactionsProps> = ({
                         </div>
                         <div>
                           <div className="text-white font-medium">
-                            {isReceived ? 'Received' : 'Sent'} {payment.amount} {getAssetSymbol(payment.assetType, payment.assetCode)}
+                            {isReceived ? t('transactions.received') : t('transactions.sent')} {payment.amount} {getAssetSymbol(payment.assetType, payment.assetCode)}
                           </div>
                           <div className="text-sm text-gray-400">
-                            {isReceived ? 'From: ' : 'To: '}
+                            {isReceived ? t('transactions.fields.from') : t('transactions.fields.to')}{' '}
                             {formatAddressWithContact(isReceived ? payment.from : payment.to)}
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-gray-400 text-sm">{new Date(payment.createdAt).toLocaleDateString()}</div>
+                        <div className="text-gray-400 text-sm">{new Date(payment.createdAt).toLocaleDateString(locale)}</div>
                         <a
                           href={'https://stellar.expert/explorer/testnet/tx/' + payment.transactionHash}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-cyan-400 text-sm hover:underline"
                         >
-                          View
+                          {t('common.view')}
                         </a>
                       </div>
                     </div>
@@ -852,21 +868,21 @@ export const Transactions: React.FC<TransactionsProps> = ({
       {/* Bulk Transfer Modal */}
       {showBulkModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div 
+          <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={!bulkProcessing ? () => { setShowBulkModal(false); resetBulkModal(); } : undefined}
           />
-          
+
           <div className="relative w-full max-w-4xl max-h-[90vh] bg-gray-900 rounded-2xl border border-blue-900/30 shadow-2xl overflow-hidden flex flex-col mx-4">
             {/* Header */}
             <div className="p-6 border-b border-gray-800">
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    💸 Bulk Transfer
+                    💸 {t('transactions.bulk.title')}
                   </h2>
                   <p className="text-sm text-gray-400 mt-1">
-                    Create multiple transfer proposals in batch (max {MAX_BATCH_SIZE} per batch)
+                    {t('transactions.bulk.subtitle', { max: MAX_BATCH_SIZE })}
                   </p>
                 </div>
                 <button
@@ -882,7 +898,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               <div className="flex items-center gap-3 mt-4 flex-wrap">
                 <label className="flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg cursor-pointer transition-colors text-blue-400 text-sm border border-blue-500/30">
                   <Upload className="w-4 h-4" />
-                  <span>Import CSV</span>
+                  <span>{t('transactions.bulk.importCsv')}</span>
                   <input
                     type="file"
                     accept=".csv"
@@ -897,29 +913,29 @@ export const Transactions: React.FC<TransactionsProps> = ({
                   disabled={bulkProcessing}
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download Template</span>
+                  <span>{t('transactions.bulk.downloadTemplate')}</span>
                 </button>
                 <button
                   onClick={() => setShowCsvHelp(!showCsvHelp)}
                   className="flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-sm"
                 >
                   <AlertCircle className="w-4 h-4" />
-                  <span>CSV Format Help</span>
+                  <span>{t('transactions.bulk.csvHelp')}</span>
                 </button>
-                
+
                 {/* Stats */}
                 <div className="ml-auto flex items-center gap-4 text-sm">
                   <span className="text-gray-400">
-                    Total: <span className="text-white font-semibold">{bulkEntries.length}/{MAX_BATCH_SIZE}</span>
+                    {t('transactions.bulk.totalLabel')} <span className="text-white font-semibold">{bulkEntries.length}/{MAX_BATCH_SIZE}</span>
                   </span>
                   {bulkSuccessCount > 0 && (
                     <span className="text-green-400">
-                      Success: <span className="font-semibold">{bulkSuccessCount}</span>
+                      {t('transactions.bulk.successLabel')} <span className="font-semibold">{bulkSuccessCount}</span>
                     </span>
                   )}
                   {bulkErrorCount > 0 && (
                     <span className="text-red-400">
-                      Failed: <span className="font-semibold">{bulkErrorCount}</span>
+                      {t('transactions.bulk.failedLabel')} <span className="font-semibold">{bulkErrorCount}</span>
                     </span>
                   )}
                 </div>
@@ -928,7 +944,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
               {/* CSV Help */}
               {showCsvHelp && (
                 <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-                  <h4 className="text-sm font-semibold text-white mb-2">CSV Format</h4>
+                  <h4 className="text-sm font-semibold text-white mb-2">{t('transactions.bulk.csvFormatTitle')}</h4>
                   <pre className="text-xs text-gray-400 overflow-x-auto whitespace-pre-wrap">
 {`# Lines starting with # are comments
 # Format: recipient,amount,token
@@ -938,7 +954,7 @@ GBXGQJWV...,1000,CDLZFC3S...
 GCFONE23...,500,native`}
                   </pre>
                   <p className="text-xs text-gray-500 mt-2">
-                    Use "native" for XLM or the full token contract address.
+                    {t('transactions.bulk.csvFormatNote')}
                   </p>
                 </div>
               )}
@@ -947,7 +963,7 @@ GCFONE23...,500,native`}
               {bulkEntries.filter(e => e.status === 'pending').length >= MAX_BATCH_SIZE && (
                 <div className="mt-4 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg flex items-center gap-2 text-yellow-400 text-sm">
                   <AlertTriangle className="w-4 h-4" />
-                  <span>Maximum {MAX_BATCH_SIZE} transfers per batch to avoid network overload. Create another batch for more.</span>
+                  <span>{t('transactions.bulk.maxBatchWarning', { max: MAX_BATCH_SIZE })}</span>
                 </div>
               )}
             </div>
@@ -988,7 +1004,7 @@ GCFONE23...,500,native`}
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
                       {/* Recipient */}
                       <div className="md:col-span-2">
-                        <label className="block text-xs text-gray-400 mb-1">Recipient Address</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('transactions.bulk.recipientLabel')}</label>
                         <div className="relative">
                           <input
                             type="text"
@@ -1014,7 +1030,7 @@ GCFONE23...,500,native`}
 
                       {/* Amount */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Amount</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('transactions.bulk.amountLabel')}</label>
                         <input
                           type="number"
                           value={entry.amount}
@@ -1029,7 +1045,7 @@ GCFONE23...,500,native`}
 
                       {/* Token */}
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Token</label>
+                        <label className="block text-xs text-gray-400 mb-1">{t('transactions.bulk.tokenLabel')}</label>
                         <select
                           value={entry.token}
                           onChange={(e) => updateBulkEntry(entry.id, 'token', e.target.value)}
@@ -1052,7 +1068,7 @@ GCFONE23...,500,native`}
                         onClick={() => duplicateBulkEntry(entry)}
                         disabled={entry.status !== 'pending' || bulkProcessing || bulkEntries.filter(e => e.status === 'pending').length >= MAX_BATCH_SIZE}
                         className="p-2 hover:bg-gray-700 rounded-lg transition-colors text-blue-400 disabled:opacity-50"
-                        title="Duplicate"
+                        title={t('transactions.bulk.duplicate')}
                       >
                         <Copy className="w-4 h-4" />
                       </button>
@@ -1060,7 +1076,7 @@ GCFONE23...,500,native`}
                         onClick={() => removeBulkEntry(entry.id)}
                         disabled={bulkEntries.length <= 1 || entry.status !== 'pending' || bulkProcessing}
                         className="p-2 hover:bg-red-900/30 rounded-lg transition-colors text-red-400 disabled:opacity-50"
-                        title="Remove"
+                        title={t('transactions.bulk.remove')}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -1084,7 +1100,7 @@ GCFONE23...,500,native`}
                 className="w-full p-4 border-2 border-dashed border-gray-700 rounded-xl text-gray-400 hover:bg-gray-800/50 hover:border-blue-500/50 hover:text-blue-400 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Plus className="w-5 h-5" />
-                <span>Add Transfer</span>
+                <span>{t('transactions.bulk.addTransfer')}</span>
               </button>
             </div>
 
@@ -1095,14 +1111,14 @@ GCFONE23...,500,native`}
                   {bulkProcessing ? (
                     <span className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-blue-400" />
-                      Processing {bulkCurrentIndex + 1} of {bulkEntries.length}... ({BATCH_DELAY_MS/1000}s delay between txs)
+                      {t('transactions.bulk.processing', { current: bulkCurrentIndex + 1, total: bulkEntries.length, delay: BATCH_DELAY_MS / 1000 })}
                     </span>
                   ) : (
                     <span>
-                      {bulkPendingCount} transfer{bulkPendingCount !== 1 ? 's' : ''} ready
+                      {t('transactions.bulk.readyCount', { count: bulkPendingCount })}
                       {bulkPendingCount > 0 && (
                         <span className="text-cyan-400 ml-2">
-                          • Total: ~{bulkTotalAmount.toLocaleString()} tokens
+                          {t('transactions.bulk.totalTokens', { amount: bulkTotalAmount.toLocaleString(locale) })}
                         </span>
                       )}
                     </span>
@@ -1114,7 +1130,7 @@ GCFONE23...,500,native`}
                     disabled={bulkProcessing}
                     className="px-6 py-2 text-gray-400 hover:text-white transition-colors disabled:opacity-50"
                   >
-                    {bulkSuccessCount === bulkEntries.length && bulkEntries.length > 0 ? 'Close' : 'Cancel'}
+                    {bulkSuccessCount === bulkEntries.length && bulkEntries.length > 0 ? t('common.close') : t('common.cancel')}
                   </button>
                   <button
                     onClick={handleBulkProcessAll}
@@ -1124,10 +1140,10 @@ GCFONE23...,500,native`}
                     {bulkProcessing ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Creating Proposals...</span>
+                        <span>{t('transactions.bulk.creatingProposals')}</span>
                       </>
                     ) : (
-                      <span>Create {bulkPendingCount} Proposal{bulkPendingCount !== 1 ? 's' : ''}</span>
+                      <span>{t('transactions.bulk.createProposals', { count: bulkPendingCount })}</span>
                     )}
                   </button>
                 </div>

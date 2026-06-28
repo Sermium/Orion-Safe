@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { rpc, TransactionBuilder, scValToNative, Horizon } from '@stellar/stellar-sdk';
 import { signTransaction } from '@stellar/freighter-api';
 import { buildCreateVaultTx, getFactoryConfig, getVaultsByOwner } from '../services/factoryService';
@@ -20,8 +21,9 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
   userAddress,
   onVaultCreated,
 }) => {
+  const { t } = useTranslation();
   const [vaultName, setVaultName] = useState('');
-  const [defaultName, setDefaultName] = useState('My Vault');
+  const [defaultName, setDefaultName] = useState('');
   const [signers, setSigners] = useState<string[]>([userAddress]);
   const [newSigner, setNewSigner] = useState('');
   const [threshold, setThreshold] = useState(1);
@@ -30,7 +32,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
   const [fee, setFee] = useState<number>(0);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [showContactPicker, setShowContactPicker] = useState(false);
-  
+
   // Balance check state
   const [userBalance, setUserBalance] = useState<number>(0);
   const [balanceLoading, setBalanceLoading] = useState(false);
@@ -45,7 +47,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
   // Check user's XLM balance
   const checkBalance = async () => {
     if (!userAddress) return;
-    
+
     setBalanceLoading(true);
     try {
       const server = new Horizon.Server(getHorizonUrl());
@@ -73,15 +75,15 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
       try {
         const existingVaults = await getVaultsByOwner(userAddress);
         const vaultNumber = existingVaults.length + 1;
-        setDefaultName(`My Vault ${vaultNumber}`);
+        setDefaultName(t('createVault.defaultNameNumbered', { number: vaultNumber }));
       } catch {
-        setDefaultName('My Vault');
+        setDefaultName(t('createVault.defaultName'));
       }
     };
     if (isOpen) {
       loadDefaultName();
     }
-  }, [userAddress, isOpen]);
+  }, [userAddress, isOpen, t]);
 
   // Load contacts when modal opens
   useEffect(() => {
@@ -109,11 +111,11 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
       } catch {
         setFee(0);
       }
-      
+
       // Check balance after loading fee
       await checkBalance();
     };
-    
+
     if (isOpen && userAddress) {
       setBalanceChecked(false);
       loadFeeAndBalance();
@@ -124,11 +126,11 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
     const trimmed = newSigner.trim();
     if (!trimmed) return;
     if (!trimmed.startsWith('G') || trimmed.length !== 56) {
-      setError('Invalid Stellar address');
+      setError(t('createVault.errors.invalidAddress'));
       return;
     }
     if (signers.includes(trimmed)) {
-      setError('Signer already added');
+      setError(t('createVault.errors.signerExists'));
       return;
     }
     setSigners([...signers, trimmed]);
@@ -138,7 +140,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
 
   const handleAddContactAsSigner = (contact: Contact) => {
     if (signers.includes(contact.address)) {
-      setError('Signer already added');
+      setError(t('createVault.errors.signerExists'));
       return;
     }
     setSigners([...signers, contact.address]);
@@ -158,12 +160,12 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
   const handleCreateVault = async () => {
     // Double-check balance before proceeding
     if (!hasEnoughBalance) {
-      setError(`Insufficient XLM balance. You need at least ${requiredBalance.toFixed(1)} XLM.`);
+      setError(t('createVault.errors.insufficientBalance', { amount: requiredBalance.toFixed(1) }));
       return;
     }
 
     if (signers.length < threshold) {
-      setError('Number of signers must be at least equal to threshold');
+      setError(t('createVault.errors.signersBelowThreshold'));
       return;
     }
 
@@ -172,7 +174,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
 
     try {
       const factoryId = getFactoryId();
-      if (!factoryId) throw new Error('Factory not configured');
+      if (!factoryId) throw new Error(t('createVault.errors.factoryNotConfigured'));
 
       // Clean vault name
       let cleanName = (vaultName.trim() || defaultName)
@@ -214,13 +216,13 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
       } while (getResult.status === 'NOT_FOUND' && attempts < maxAttempts);
 
       if (getResult.status !== 'SUCCESS') {
-        throw new Error('Transaction failed');
+        throw new Error(t('createVault.errors.transactionFailed'));
       }
 
       // Extract vault address from result
       const resultXdr = (getResult as rpc.Api.GetSuccessfulTransactionResponse).returnValue;
       if (!resultXdr) {
-        throw new Error('No return value from transaction');
+        throw new Error(t('createVault.errors.noReturnValue'));
       }
       const vaultAddressRaw = scValToNative(resultXdr);
       console.log('vaultAddressRaw:', vaultAddressRaw, 'type:', typeof vaultAddressRaw);
@@ -241,16 +243,16 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
         } else {
           // Try JSON stringify to see what we have
           console.error('Unknown vault address format:', JSON.stringify(vaultAddressRaw), vaultAddressRaw);
-          throw new Error('Could not parse vault address from result');
+          throw new Error(t('createVault.errors.parseFailed'));
         }
       } else {
-        throw new Error('Could not get vault address from result');
+        throw new Error(t('createVault.errors.noAddress'));
       }
 
       // Validate the address looks correct (starts with C for contract or G for account)
       if (!vaultAddress || (!vaultAddress.startsWith('C') && !vaultAddress.startsWith('G'))) {
         console.error('Invalid vault address format:', vaultAddress);
-        throw new Error('Invalid vault address format');
+        throw new Error(t('createVault.errors.invalidVaultAddress'));
       }
 
       console.log('Parsed vault address:', vaultAddress);
@@ -281,7 +283,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
 
     } catch (err: any) {
       console.error('Create vault error:', err);
-      setError(err.message || 'Failed to create vault');
+      setError(err.message || t('createVault.errors.createFailed'));
     } finally {
       setLoading(false);
     }
@@ -310,7 +312,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">Create New Vault</h2>
+            <h2 className="text-2xl font-bold text-white">{t('createVault.title')}</h2>
             <button
               onClick={handleClose}
               disabled={loading}
@@ -334,23 +336,31 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-red-400 font-semibold">Insufficient XLM Balance</p>
+                  <p className="text-red-400 font-semibold">{t('createVault.balance.insufficientTitle')}</p>
                   <p className="text-gray-300 text-sm mt-1">
-                    You need at least <span className="text-white font-semibold">{requiredBalance.toFixed(1)} XLM</span> to create a vault.
+                    <Trans
+                      i18nKey="createVault.balance.needAtLeast"
+                      values={{ amount: requiredBalance.toFixed(1) }}
+                      components={{ b: <span className="text-white font-semibold" /> }}
+                    />
                   </p>
                   <p className="text-gray-400 text-sm mt-1">
-                    Your current balance: <span className="text-white font-medium">{userBalance.toFixed(4)} XLM</span>
+                    <Trans
+                      i18nKey="createVault.balance.current"
+                      values={{ amount: userBalance.toFixed(4) }}
+                      components={{ b: <span className="text-white font-medium" /> }}
+                    />
                   </p>
                   <p className="text-gray-500 text-xs mt-2">
-                    This covers the {feeInXlm.toFixed(0)} XLM creation fee plus transaction costs.
+                    {t('createVault.balance.coversFee', { fee: feeInXlm.toFixed(0) })}
                   </p>
-                  <a 
-                    href="https://laboratory.stellar.org/#account-creator?network=test" 
-                    target="_blank" 
+                  <a
+                    href="https://laboratory.stellar.org/#account-creator?network=test"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-purple-400 hover:text-purple-300 text-sm mt-3 transition-colors"
                   >
-                    <span>Get testnet XLM from Friendbot</span>
+                    <span>{t('createVault.balance.getFriendbot')}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -362,14 +372,14 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
           {balanceLoading && (
             <div className="mb-4 p-3 bg-gray-800/50 rounded-lg flex items-center gap-2 text-gray-400 text-sm">
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Checking balance...</span>
+              <span>{t('createVault.balance.checking')}</span>
             </div>
           )}
 
           {/* Vault Name */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-400 mb-2">
-              Vault Name
+              {t('createVault.vaultName')}
             </label>
             <input
               type="text"
@@ -386,9 +396,9 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
           <div className="mb-6">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-400 mb-2">
               <Users className="w-4 h-4" />
-              <span>Signers ({signers.length})</span>
+              <span>{t('createVault.signers', { count: signers.length })}</span>
             </label>
-            
+
             <div className="space-y-2 mb-3">
               {signers.map((signer, index) => (
                 <div
@@ -401,7 +411,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
                     </span>
                     {index === 0 && (
                       <span className="text-xs px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded flex-shrink-0">
-                        You (Owner)
+                        {t('createVault.youOwner')}
                       </span>
                     )}
                   </div>
@@ -424,7 +434,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
                 value={newSigner}
                 onChange={(e) => setNewSigner(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAddSigner()}
-                placeholder="Add signer address (G...)"
+                placeholder={t('createVault.addSignerPlaceholder')}
                 className="flex-1 px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 text-sm transition-colors"
                 disabled={loading}
               />
@@ -433,7 +443,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
                 disabled={loading || !newSigner.trim()}
                 className="px-4 py-2.5 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:hover:bg-gray-700 rounded-lg text-white text-sm transition-colors"
               >
-                Add
+                {t('createVault.add')}
               </button>
             </div>
 
@@ -444,7 +454,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
                   className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors"
                   disabled={loading}
                 >
-                  {showContactPicker ? 'Hide contacts' : 'Add from contacts'}
+                  {showContactPicker ? t('createVault.hideContacts') : t('createVault.addFromContacts')}
                 </button>
                 {showContactPicker && (
                   <div className="mt-2 p-2 bg-gray-800 rounded-lg max-h-32 overflow-y-auto">
@@ -471,7 +481,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
           <div className="mb-6">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-400 mb-2">
               <Shield className="w-4 h-4" />
-              <span>Approval Threshold: {threshold} of {signers.length}</span>
+              <span>{t('createVault.thresholdLabel', { threshold, total: signers.length })}</span>
             </label>
             <input
               type="range"
@@ -483,7 +493,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
               disabled={loading}
             />
             <p className="text-xs text-gray-500 mt-1">
-              {threshold} signature{threshold > 1 ? 's' : ''} required to approve transactions
+              {t('createVault.thresholdHint', { count: threshold })}
             </p>
           </div>
 
@@ -491,11 +501,11 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
           {fee > 0 && hasEnoughBalance && (
             <div className="mb-6 p-3 bg-gray-800/50 border border-gray-700 rounded-lg">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-400">Vault creation fee:</span>
+                <span className="text-gray-400">{t('createVault.fee.creationFee')}</span>
                 <span className="text-white font-medium">{feeInXlm} XLM</span>
               </div>
               <div className="flex items-center justify-between text-sm mt-1">
-                <span className="text-gray-400">Your balance:</span>
+                <span className="text-gray-400">{t('createVault.fee.yourBalance')}</span>
                 <span className="text-green-400 font-medium">{userBalance.toFixed(4)} XLM</span>
               </div>
             </div>
@@ -508,7 +518,7 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
               disabled={loading}
               className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 rounded-xl text-white font-medium transition-colors"
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               onClick={handleCreateVault}
@@ -518,20 +528,20 @@ const CreateVaultModal: React.FC<CreateVaultModalProps> = ({
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Creating...</span>
+                  <span>{t('createVault.creating')}</span>
                 </>
               ) : balanceLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Checking...</span>
+                  <span>{t('createVault.checking')}</span>
                 </>
               ) : !hasEnoughBalance ? (
                 <>
                   <AlertCircle className="w-4 h-4" />
-                  <span>Insufficient Balance</span>
+                  <span>{t('createVault.insufficientBalanceShort')}</span>
                 </>
               ) : (
-                'Create Vault'
+                t('createVault.createButton')
               )}
             </button>
           </div>

@@ -1,0 +1,956 @@
+{
+  "nav": {
+    "overview": "Přehled",
+    "money": "Peníze",
+    "vestingLocks": "Vesting a zámky",
+    "team": "Tým",
+    "system": "Systém",
+    "dashboard": "Nástěnka",
+    "assets": "Aktiva",
+    "fiat": "Fiat rampa",
+    "transactions": "Transakce",
+    "locks": "Zámky",
+    "vesting": "Vesting",
+    "members": "Členové",
+    "contacts": "Kontakty",
+    "settings": "Nastavení",
+    "docs": "Dokumentace",
+    "admin": "Správa",
+    "claim": "Nárokovat tokeny"
+  },
+  "fiat": {
+    "title": "Fiat rampa",
+    "deposit": "Vložit",
+    "withdraw": "Vybrat",
+    "amount": "Částka",
+    "provider": "Poskytovatel",
+    "fee": "Poplatek platformy",
+    "destination": "Cílový trezor",
+    "comingSoon": "Brzy"
+  },
+  "sidebar": {
+    "currentVault": "Aktuální trezor",
+    "selectVault": "Vybrat trezor",
+    "createNewVault": "Vytvořit nový trezor",
+    "sharePublicView": "Sdílet veřejné zobrazení",
+    "disconnect": "Odpojit",
+    "connected": "Připojeno",
+    "linkCopied": "Veřejný odkaz zkopírován!"
+  },
+  "header": {
+    "timeLocks": "Časové zámky",
+    "deposit": "Vložit",
+    "send": "Odeslat"
+  },
+  "settings": {
+    "title": "Nastavení trezoru",
+    "subtitle": "Spravujte konfiguraci a členy svého trezoru",
+    "language": "Jazyk",
+    "languageAuto": "Automaticky (jazyk zařízení)",
+    "languageHint": "Automaticky následuje jazyk vašeho zařízení a v případě nepodporovaného jazyka se vrátí k angličtině.",
+    "tabs": {
+      "general": "Obecné",
+      "members": "Členové a role",
+      "advanced": "Pokročilé"
+    },
+    "vaultInfo": "Informace o trezoru",
+    "vaultName": "Název trezoru",
+    "vaultAddress": "Adresa trezoru",
+    "notSelected": "Nevybráno",
+    "yourRole": "Vaše role",
+    "members": "Členové",
+    "threshold": "Práh",
+    "superAdmins": "Superadministrátoři",
+    "connectedWallet": "Připojená peněženka",
+    "publicKey": "Veřejný klíč",
+    "approvalThreshold": "Práh schválení",
+    "thresholdDesc": "K provedení transakcí je vyžadováno {{threshold}} z {{total}} podpisů",
+    "vaultMembers": "Členové trezoru",
+    "vaultMembersDesc": "Spravujte, kdo má přístup k tomuto trezoru a může jej ovládat",
+    "addMember": "Přidat člena",
+    "you": "Vy",
+    "copyAddress": "Kopírovat adresu",
+    "removeMember": "Odebrat člena",
+    "rolePermissions": "Oprávnění rolí",
+    "adminsOnly": "Členy a role mohou spravovat pouze administrátoři trezoru.",
+    "contractDetails": "Podrobnosti smlouvy",
+    "contractType": "Typ smlouvy",
+    "sorobanContract": "Chytrá smlouva Soroban",
+    "network": "Síť",
+    "testnet": "Testnet",
+    "actions": "Akce",
+    "exportData": "Exportovat data trezoru",
+    "exportDataDesc": "Stáhnout konfiguraci a historii transakcí",
+    "export": "Exportovat",
+    "viewExplorer": "Zobrazit v exploreru",
+    "viewExplorerDesc": "Otevřít smlouvu trezoru na Stellar Expert",
+    "dangerZone": "Nebezpečná zóna",
+    "leaveVault": "Opustit trezor",
+    "leaveVaultDesc": "Odeberte se jako podepisující. Tuto akci nelze vrátit zpět.",
+    "leaveLastWarning": "Jste posledním členem – opuštěním bude trezor opuštěn!",
+    "leaving": "Opouštění...",
+    "leave": "Opustit",
+    "addNewMember": "Přidat nového člena",
+    "addNewMemberDesc": "Vyberte z kontaktů nebo zadejte adresu ručně",
+    "fromContacts": "Z kontaktů",
+    "enterAddress": "Zadat adresu",
+    "searchContacts": "Hledat kontakty...",
+    "noContactsAvailable": "Nejsou k dispozici žádné kontakty (všechny jsou již členy)",
+    "noContactsFound": "Nebyly nalezeny žádné kontakty",
+    "allContactsMembers": "Všechny vaše kontakty jsou již členy trezoru. K přidání nového člena použijte „Zadat adresu“.",
+    "stellarAddress": "Adresa Stellar",
+    "role": "Role",
+    "adding": "Přidávání...",
+    "changeThreshold": "Změnit práh schválení",
+    "requiredSignatures": "Požadované podpisy: {{threshold}} z {{total}}",
+    "thresholdWarning": "Změna prahu ovlivňuje zabezpečení. Vyšší práh vyžaduje více podpisů, ale může zpomalit operace.",
+    "updating": "Aktualizace...",
+    "roles": {
+      "superAdmin": "Superadministrátor",
+      "admin": "Administrátor",
+      "executor": "Vykonavatel"
+    },
+    "roleOptions": {
+      "superAdmin": "Superadministrátor – Plná kontrola",
+      "admin": "Administrátor – Správa členů",
+      "executor": "Vykonavatel – Může provádět transakce"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Plná kontrola trezoru",
+        "2": "Správa všech členů a rolí",
+        "3": "Změna prahu",
+        "4": "Vytváření a provádění transakcí"
+      },
+      "admin": {
+        "1": "Správa vykonavatelů",
+        "2": "Změna prahu",
+        "3": "Vytváření a schvalování transakcí",
+        "4": "Správa zámků"
+      },
+      "executor": {
+        "1": "Vytváření transakcí",
+        "2": "Schvalování transakcí",
+        "3": "Provádění schválených transakcí",
+        "4": "Zobrazení veškeré aktivity"
+      }
+    },
+    "success": {
+      "memberAdded": "Člen úspěšně přidán!",
+      "memberRemoved": "Člen úspěšně odebrán!",
+      "roleUpdated": "Role úspěšně aktualizována!",
+      "thresholdUpdated": "Práh úspěšně aktualizován!",
+      "leftVault": "Úspěšně jste opustili trezor!"
+    },
+    "errors": {
+      "invalidAddress": "Neplatná adresa Stellar",
+      "alreadyMember": "Adresa je již členem",
+      "addFailed": "Nepodařilo se přidat člena",
+      "removeBreaksThreshold": "Nelze odebrat člena: porušil by se požadavek na práh",
+      "lastSuperAdminRemove": "Nelze odebrat posledního superadministrátora",
+      "removeFailed": "Nepodařilo se odebrat člena",
+      "needOneSuperAdmin": "Nelze změnit roli: trezor musí mít alespoň jednoho superadministrátora",
+      "roleFailed": "Nepodařilo se změnit roli",
+      "thresholdMin": "Práh musí být alespoň 1",
+      "thresholdMax": "Práh nesmí překročit počet členů",
+      "thresholdFailed": "Nepodařilo se aktualizovat práh",
+      "leaveLastSuperAdmin": "Jste posledním superadministrátorem. Před odchodem přiřaďte jiného superadministrátora nebo nejprve odeberte všechny ostatní členy.",
+      "leaveBreaksThreshold": "Nelze opustit: porušil by se požadavek na práh. Aktuální práh je {{threshold}}, ale zůstalo by pouze {{remaining}} členů.",
+      "leaveFailed": "Nepodařilo se opustit trezor"
+    },
+    "confirm": {
+      "removeMember": "Odebrat {{name}} z trezoru?",
+      "leaveDefault": "Opravdu chcete opustit tento trezor? Tuto akci nelze vrátit zpět.",
+      "leaveLastMember": "VAROVÁNÍ: Jste POSLEDNÍM členem tohoto trezoru. Opuštěním bude trezor trvale OPUŠTĚN. Veškeré zbývající prostředky budou nedostupné. Jste si naprosto jisti?",
+      "leaveFinalWarning": "Toto je vaše POSLEDNÍ varování. Trezor bude trvale opuštěn. Pokračovat?"
+    }
+  },
+  "assets": {
+    "title": "Aktiva",
+    "subtitle": "Spravujte aktiva svého trezoru",
+    "addToken": "Přidat token",
+    "authorize": "Autorizovat",
+    "totalBalance": "Celkový zůstatek",
+    "remainingDailySpend": "Zbývající denní limit",
+    "yourAssets": "Vaše aktiva",
+    "clickToManage": "Kliknutím na aktivum jej spravujte",
+    "noAssets": "Zatím žádná aktiva",
+    "noAssetsDesc": "Začněte vložením několika tokenů",
+    "makeFirstDeposit": "Provést první vklad",
+    "availableBalance": "Dostupný zůstatek",
+    "actions": {
+      "deposit": "Vložit",
+      "depositDesc": "Přidat více {{symbol}} do trezoru",
+      "send": "Odeslat",
+      "sendDesc": "Navrhnout převod {{symbol}}",
+      "timeLock": "Časový zámek",
+      "timeLockDesc": "Uzamknout do konkrétního data",
+      "vesting": "Vesting",
+      "vestingDesc": "Vytvořit plán vestingu s cliffem"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Kalendář zámků a vestingu",
+    "summary": "{{timeLocks}} časových zámků, {{vestings}} vestingů",
+    "viewCalendar": "Kalendář",
+    "viewList": "Seznam",
+    "filterType": "Typ",
+    "filterStatus": "Stav",
+    "timeLocks": "Časové zámky",
+    "vestings": "Vestingy",
+    "timeLock": "Časový zámek",
+    "vesting": "Vesting",
+    "noLocks": "Žádné zámky ani vestingy k zobrazení",
+    "today": "Dnes",
+    "now": "Teď",
+    "cliff": "Cliff",
+    "claimable": "K nárokování",
+    "progress": "Průběh",
+    "start": "Začátek",
+    "end": "Konec",
+    "unlock": "Odemčení",
+    "beneficiary": "Příjemce",
+    "locked": "uzamčeno",
+    "vestingLabel": "vesting",
+    "released": "Uvolněno",
+    "active": "Aktivní",
+    "completedCount": "{{count}} dokončeno",
+    "status": {
+      "active": "Aktivní",
+      "partiallyReleased": "Částečně uvolněno",
+      "fullyReleased": "Plně uvolněno",
+      "cancelled": "Zrušeno"
+    },
+    "statusFilter": {
+      "active": "Aktivní",
+      "completed": "Dokončeno"
+    },
+    "events": {
+      "start": "začátek",
+      "cliff": "cliff",
+      "end": "konec"
+    }
+  },
+  "claim": {
+    "title": "Nárokujte své tokeny",
+    "subtitleVault": "Zobrazení zámků z trezoru {{address}}",
+    "subtitleAll": "Zobrazte a nárokujte zámky přiřazené vám",
+    "disconnect": "Odpojit",
+    "connectWallet": "Připojit peněženku",
+    "connectTitle": "Připojte svou peněženku",
+    "connectDescVault": "Připojte svou peněženku, abyste viděli všechny časové zámky a plány vestingu přiřazené vám z tohoto trezoru.",
+    "connectDescAll": "Připojte svou peněženku, abyste viděli všechny časové zámky a plány vestingu přiřazené vám napříč všemi trezory Stellar.",
+    "loadingVault": "Načítání zámků z trezoru...",
+    "loadingAll": "Prohledávání trezorů pro vaše zámky...",
+    "scanProgress": "Zkontrolováno {{scanned}} z {{total}} trezorů",
+    "unknownVault": "Neznámý trezor",
+    "tokensAmount": "{{amount}} tokenů",
+    "claimNow": "Nárokovat nyní",
+    "claiming": "Nárokování...",
+    "refreshLocks": "Obnovit zámky",
+    "claimSuccess": "Úspěšně nárokováno {{amount}} tokenů!",
+    "errorLoad": "Nepodařilo se načíst zámky",
+    "errorClaim": "Nárokování se nezdařilo",
+    "stats": {
+      "readyToClaim": "Připraveno k nárokování",
+      "pending": "Čekající",
+      "completed": "Dokončeno"
+    },
+    "sections": {
+      "readyToClaim": "Připraveno k nárokování",
+      "pending": "Čekající"
+    },
+    "fields": {
+      "fromVault": "Z trezoru",
+      "totalAmount": "Celková částka",
+      "description": "Popis",
+      "timeRemaining": "Zbývající čas",
+      "unlockDate": "Datum odemčení"
+    },
+    "types": {
+      "timeLock": "Časový zámek",
+      "vesting": "Vesting",
+      "unknown": "Neznámý"
+    },
+    "time": {
+      "unlocked": "Odemčeno",
+      "fullyVested": "Plně vestováno",
+      "remaining": "Zbývá {{days}}d {{hours}}h",
+      "toCliff": "{{days}}d {{hours}}h do cliffu"
+    },
+    "empty": {
+      "title": "Nebyly nalezeny žádné zámky",
+      "descVault": "V tomto trezoru nemáte přiřazeny žádné zámky.",
+      "descAll": "Nemáte přiřazeny žádné časové zámky ani plány vestingu."
+    }
+  },
+  "contacts": {
+    "title": "Kniha kontaktů",
+    "subtitle": "Ukládejte často používané adresy pro rychlý přístup",
+    "addContact": "Přidat kontakt",
+    "searchPlaceholder": "Hledat kontakty...",
+    "savedCount_one": "{{count}} uložený kontakt",
+    "savedCount_few": "{{count}} uložené kontakty",
+    "savedCount_many": "{{count}} uloženého kontaktu",
+    "savedCount_other": "{{count}} uložených kontaktů",
+    "confirmDelete": "Odstranit „{{name}}“ z kontaktů?",
+    "errors": {
+      "nameRequired": "Jméno je povinné",
+      "addressRequired": "Adresa je povinná",
+      "invalidAddress": "Neplatná adresa Stellar",
+      "duplicate": "Tato adresa už je ve vašich kontaktech"
+    },
+    "empty": {
+      "noMatch": "Žádné kontakty neodpovídají vašemu hledání",
+      "none": "Zatím žádné kontakty",
+      "addFirst": "Přidejte svůj první kontakt →"
+    },
+    "actions": {
+      "copy": "Kopírovat adresu",
+      "edit": "Upravit kontakt",
+      "delete": "Odstranit kontakt"
+    },
+    "modal": {
+      "addTitle": "Přidat nový kontakt",
+      "editTitle": "Upravit kontakt",
+      "nameLabel": "Jméno *",
+      "namePlaceholder": "např. Alice, Pokladna, Burza",
+      "addressLabel": "Adresa Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adresu nelze změnit",
+      "notesLabel": "Poznámky (volitelné)",
+      "notesPlaceholder": "Přidejte poznámky k tomuto kontaktu...",
+      "saveChanges": "Uložit změny"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Celkový zůstatek",
+      "threshold": "Práh",
+      "signaturesRequired": "vyžadované podpisy",
+      "pending": "Čekající",
+      "awaitingApproval": "čeká na schválení",
+      "readyToExecute": "Připraveno k provedení",
+      "fullyApproved": "plně schváleno"
+    },
+    "activeProposals": "Aktivní návrhy",
+    "viewAll": "Zobrazit vše",
+    "noProposals": "Zatím žádné návrhy",
+    "createFirst": "Vytvořte svou první transakci →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Pro {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} schválení",
+    "status": {
+      "pending": "Čekající",
+      "approved": "Schváleno",
+      "executed": "Provedeno",
+      "rejected": "Zamítnuto",
+      "unknown": "Neznámý"
+    },
+    "types": {
+      "transfer": "Převod",
+      "timeLock": "Časový zámek",
+      "vesting": "Vesting",
+      "unknown": "Neznámý"
+    }
+  },
+  "locks": {
+    "title": "Časové zámky",
+    "subtitle": "Uzamkněte aktiva do konkrétního data",
+    "bulkCreate": "Hromadné vytvoření",
+    "createTimeLock": "Vytvořit časový zámek",
+    "creating": "Vytváření...",
+    "createFirst": "Vytvořte svůj první časový zámek",
+    "empty": "Zatím nebyly vytvořeny žádné časové zámky",
+    "archived": "Archivováno",
+    "selectToken": "Vybrat token",
+    "available": "{{amount}} k dispozici",
+    "quickSelect": "Rychlý výběr:",
+    "beneficiaryPlaceholder": "Hledejte kontakty nebo zadejte adresu G...",
+    "descriptionPlaceholder": "např. Alokace pro tým",
+    "optional": "Volitelné",
+    "revocableLabel": "Odvolatelné",
+    "revocableHint": "Administrátor může zrušit a vrátit prostředky do trezoru",
+    "feeWarning": "Za vytvoření zámku bude účtován poplatek 10 XLM.",
+    "defaultDescription": "Časový zámek",
+    "lockNumber": "Zámek č. {{id}}",
+    "timeLockBadge": "Časový zámek",
+    "revocableBadge": "Odvolatelné",
+    "readyToClaim": "Připraveno k nárokování",
+    "releasedLabel": "Uvolněno",
+    "you": "Vy",
+    "claim": "Nárokovat",
+    "cancel": "Zrušit",
+    "close": "Zavřít",
+    "confirmCancel": "Opravdu chcete zrušit tento zámek?",
+    "stats": {
+      "total": "Celkem časových zámků",
+      "active": "Aktivní",
+      "unlocked": "Odemčeno",
+      "yourLocks": "Vaše zámky"
+    },
+    "sections": {
+      "yours": "Vaše časové zámky",
+      "active": "Aktivní časové zámky",
+      "pendingCompletion": "Čeká na dokončení"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Částka",
+      "beneficiary": "Příjemce",
+      "beneficiaryAddress": "Adresa příjemce",
+      "remaining": "Zbývá",
+      "timeStatus": "Časový stav",
+      "unlockDate": "Datum odemčení",
+      "unlockDateTime": "Datum a čas odemčení",
+      "creator": "Tvůrce",
+      "description": "Popis",
+      "descriptionOptional": "Popis (volitelné)"
+    },
+    "statuses": {
+      "active": "Aktivní",
+      "partiallyReleased": "Částečně uvolněno",
+      "fullyReleased": "Plně uvolněno",
+      "cancelled": "Zrušeno",
+      "unknown": "Neznámý"
+    },
+    "time": {
+      "unlocked": "Odemčeno",
+      "remainingDays": "Zbývá {{days}}d {{hours}}h",
+      "remainingHours": "Zbývá {{hours}}h"
+    },
+    "errors": {
+      "fillRequired": "Vyplňte prosím všechna povinná pole",
+      "invalidBeneficiary": "Neplatná adresa příjemce",
+      "unlockFuture": "Čas odemčení musí být v budoucnosti",
+      "createFailed": "Nepodařilo se vytvořit zámek",
+      "claimFailed": "Nárokování se nezdařilo",
+      "cancelFailed": "Nepodařilo se zrušit zámek",
+      "invalidAmount": "Neplatná částka",
+      "tokenNotSelected": "Token nebyl vybrán",
+      "unlockRequired": "Je vyžadováno datum odemčení",
+      "proposalFailed": "Nepodařilo se vytvořit návrh"
+    },
+    "bulk": {
+      "title": "Hromadné vytvoření časových zámků",
+      "subtitle": "Vytvořte více časových zámků najednou (max. {{max}} na dávku)",
+      "downloadTemplate": "Stáhnout šablonu",
+      "importCsv": "Importovat CSV",
+      "statsTotal": "Celkem",
+      "statsPending": "Čekající",
+      "statsSuccess": "Úspěšné",
+      "statsErrors": "Chyby",
+      "maxReachedAlert": "Maximálně {{max}} časových zámků na dávku, aby se zabránilo přetížení sítě.",
+      "maxReachedWarning": "Dosažena maximální velikost dávky ({{max}} zámků). Zpracujte tyto, než přidáte další.",
+      "csvTooMany": "CSV obsahuje {{count}} položek. Maximálně {{max}} na dávku. Importováno bude jen prvních {{max}}.",
+      "duplicate": "Duplikovat",
+      "remove": "Odebrat",
+      "addEntry": "Přidat časový zámek",
+      "processing": "Zpracování {{current}} z {{total}}...",
+      "readyCount_one": "{{count}} zámek připraven k vytvoření",
+      "readyCount_few": "{{count}} zámky připraveny k vytvoření",
+      "readyCount_many": "{{count}} zámku připraveno k vytvoření",
+      "readyCount_other": "{{count}} zámků připraveno k vytvoření",
+      "feeTotal": "• Poplatek: celkem {{fee}} XLM",
+      "creatingProposals": "Vytváření návrhů...",
+      "createCount_one": "Vytvořit {{count}} návrh",
+      "createCount_few": "Vytvořit {{count}} návrhy",
+      "createCount_many": "Vytvořit {{count}} návrhu",
+      "createCount_other": "Vytvořit {{count}} návrhů",
+      "defaultDescription": "Hromadný časový zámek"
+    }
+  },
+  "members": {
+    "title": "Členové trezoru",
+    "subtitle_one": "{{count}} člen • Práh: {{threshold}} z {{total}}",
+    "subtitle_few": "{{count}} členové • Práh: {{threshold}} z {{total}}",
+    "subtitle_many": "{{count}} člena • Práh: {{threshold}} z {{total}}",
+    "subtitle_other": "{{count}} členů • Práh: {{threshold}} z {{total}}",
+    "searchPlaceholder": "Hledat členy podle adresy, jména nebo role...",
+    "manageHint": "Pro správu členů (přidání, odebrání, změna rolí) přejděte do <strong>Nastavení → Členové a role</strong>",
+    "you": "Vy",
+    "addToContacts": "Přidat do kontaktů",
+    "noResults": "Nebyli nalezeni žádní členové odpovídající vašemu hledání.",
+    "stats": {
+      "totalMembers": "Celkem členů",
+      "superAdmins": "Superadministrátoři",
+      "admins": "Administrátoři",
+      "executors": "Vykonavatelé"
+    },
+    "roles": {
+      "superAdmin": "Superadministrátor",
+      "admin": "Administrátor",
+      "executor": "Vykonavatel"
+    },
+    "permissions": {
+      "title": "Oprávnění rolí",
+      "superAdmin": "Plná kontrola včetně správy ostatních administrátorů a kritických nastavení",
+      "admin": "Může spravovat nastavení trezoru, členy a schvalovat transakce",
+      "executor": "Může vytvářet, schvalovat a provádět transakce"
+    },
+    "addContactModal": {
+      "title": "Přidat do kontaktů",
+      "addressLabel": "Adresa",
+      "nameLabel": "Jméno",
+      "namePlaceholder": "Zadejte jméno pro tento kontakt",
+      "save": "Uložit kontakt"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Veřejné zobrazení",
+    "loading": "Načítání dat trezoru...",
+    "noLocks": "Zatím nebyly vytvořeny žádné zámky",
+    "noAssets": "Nebyla nalezena žádná aktiva",
+    "revocable": "Odvolatelné",
+    "released": "Uvolněno",
+    "allLocks": "Všechny zámky ({{count}})",
+    "toBeneficiary": "Pro: {{address}}",
+    "errors": {
+      "title": "Nepodařilo se načíst trezor",
+      "loadFailed": "Nepodařilo se načíst data trezoru"
+    },
+    "tabs": {
+      "overview": "Přehled",
+      "locks": "Zámky",
+      "calendar": "Kalendář",
+      "assets": "Aktiva"
+    },
+    "stats": {
+      "signers": "Podepisující",
+      "threshold": "Práh: {{count}}",
+      "totalLocks": "Celkem zámků",
+      "activeCount": "{{count}} aktivních",
+      "assets": "Aktiva",
+      "tokensHeld": "držených tokenů",
+      "lockedValue": "Uzamčená hodnota",
+      "totalLocked": "celkem uzamčeno"
+    },
+    "sections": {
+      "signers": "Podepisující",
+      "recentLocks": "Nedávné zámky",
+      "assets": "Aktiva"
+    },
+    "fields": {
+      "amount": "Částka",
+      "beneficiary": "Příjemce",
+      "unlockDate": "Datum odemčení",
+      "timeRemaining": "Zbývající čas"
+    },
+    "status": {
+      "active": "Aktivní",
+      "partiallyReleased": "Částečně uvolněno",
+      "fullyReleased": "Plně uvolněno",
+      "cancelled": "Zrušeno"
+    },
+    "lockType": {
+      "timeLock": "Časový zámek",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Odemčeno",
+      "cliffPassed": "Cliff překonán",
+      "remaining": "Zbývá {{days}}d {{hours}}h",
+      "toCliff": "{{days}}d {{hours}}h do cliffu"
+    },
+    "footer": {
+      "title": "Stellar Vault – Veřejné zobrazení",
+      "poweredBy": "Postaveno na Sorobanu"
+    }
+  },
+  "transactions": {
+    "title": "Transakce",
+    "subtitle": "Zobrazte a spravujte návrhy a převody trezoru",
+    "bulkTransfer": "Hromadný převod",
+    "newTransaction": "Nová transakce",
+    "createFirst": "Vytvořit první návrh",
+    "completedProposals": "Dokončené návrhy",
+    "noHistory": "Nebyla nalezena žádná historie transakcí",
+    "noHistoryNote": "Poznámka: Transakce smlouvy Soroban se zobrazují prostřednictvím provedených návrhů",
+    "received": "Přijato",
+    "sent": "Odesláno",
+    "onChainPayments_one": "{{count}} on-chain platba",
+    "onChainPayments_few": "{{count}} on-chain platby",
+    "onChainPayments_many": "{{count}} on-chain platby",
+    "onChainPayments_other": "{{count}} on-chain plateb",
+    "approvalsCount": "{{count}}/{{threshold}} schválení",
+    "rejectionsCount": "{{count}}/{{threshold}} zamítnutí",
+    "tabs": {
+      "proposals": "Návrhy ({{count}})",
+      "history": "Historie ({{count}})"
+    },
+    "filters": {
+      "all": "Vše",
+      "pending": "Čekající",
+      "approved": "Schválené"
+    },
+    "empty": {
+      "all": "Nebyly nalezeny žádné návrhy",
+      "filtered": "Nebyly nalezeny žádné návrhy {{filter}}"
+    },
+    "status": {
+      "pending": "Čekající",
+      "approved": "Schváleno",
+      "executed": "Provedeno",
+      "rejected": "Zamítnuto"
+    },
+    "types": {
+      "transfer": "Převod",
+      "timeLock": "Časový zámek",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Pro:",
+      "from": "Od:",
+      "by": "Provedl:",
+      "beneficiary": "Příjemce:",
+      "created": "Vytvořeno:",
+      "approvals": "Schválení:",
+      "unlockDate": "Datum odemčení:",
+      "cliffDate": "Datum cliffu:",
+      "endDate": "Datum konce:"
+    },
+    "actions": {
+      "approve": "Schválit",
+      "execute": "Provést",
+      "reject": "Zamítnout",
+      "confirmReject": "Potvrdit zamítnutí"
+    },
+    "bulk": {
+      "title": "Hromadný převod",
+      "subtitle": "Vytvořte více návrhů převodů v dávce (max. {{max}} na dávku)",
+      "importCsv": "Importovat CSV",
+      "downloadTemplate": "Stáhnout šablonu",
+      "csvHelp": "Nápověda k formátu CSV",
+      "totalLabel": "Celkem:",
+      "successLabel": "Úspěšné:",
+      "failedLabel": "Neúspěšné:",
+      "csvFormatTitle": "Formát CSV",
+      "csvFormatNote": "Pro XLM použijte „native“ nebo úplnou adresu smlouvy tokenu.",
+      "maxBatchWarning": "Maximálně {{max}} převodů na dávku, aby se zabránilo přetížení sítě. Pro více vytvořte další dávku.",
+      "recipientLabel": "Adresa příjemce",
+      "amountLabel": "Částka",
+      "tokenLabel": "Token",
+      "duplicate": "Duplikovat",
+      "remove": "Odebrat",
+      "addTransfer": "Přidat převod",
+      "processing": "Zpracování {{current}} z {{total}}... (prodleva {{delay}}s mezi transakcemi)",
+      "readyCount_one": "{{count}} převod připraven",
+      "readyCount_few": "{{count}} převody připraveny",
+      "readyCount_many": "{{count}} převodu připraveno",
+      "readyCount_other": "{{count}} převodů připraveno",
+      "totalTokens": "• Celkem: ~{{amount}} tokenů",
+      "creatingProposals": "Vytváření návrhů...",
+      "createProposals_one": "Vytvořit {{count}} návrh",
+      "createProposals_few": "Vytvořit {{count}} návrhy",
+      "createProposals_many": "Vytvořit {{count}} návrhu",
+      "createProposals_other": "Vytvořit {{count}} návrhů",
+      "maxBatchAlert": "Maximálně {{max}} převodů na dávku, aby se zabránilo přetížení sítě.",
+      "maxBatchShortAlert": "Maximálně {{max}} převodů na dávku.",
+      "csvTooManyAlert": "CSV obsahuje {{count}} položek. Maximálně {{max}} na dávku. Importováno bude jen prvních {{max}}.",
+      "errors": {
+        "invalidRecipient": "Neplatná adresa příjemce",
+        "invalidAmount": "Neplatná částka",
+        "noToken": "Token nebyl vybrán",
+        "transferUnavailable": "Funkce převodu není k dispozici",
+        "createFailed": "Nepodařilo se vytvořit návrh"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Plány vestingu",
+    "subtitle": "Vesting tokenů s cliff obdobími a postupným uvolňováním",
+    "bulkCreate": "Hromadné vytvoření",
+    "createVesting": "Vytvořit vesting",
+    "createFirst": "Vytvořte svůj první plán vestingu",
+    "empty": "Zatím nebyly vytvořeny žádné plány vestingu",
+    "archived": "Archivováno",
+    "revocable": "Odvolatelné",
+    "badge": "Vesting",
+    "you": "Vy",
+    "claimButton": "💰 Nárokovat",
+    "cardTitle": "Vesting č. {{id}}",
+    "claimableBadge": "{{amount}} k nárokování",
+    "vestedLabel": "Vestováno: {{vested}} / {{total}}",
+    "releasedLabel": "Uvolněno: {{released}}",
+    "daysValue": "{{count}} dní",
+    "defaultDescription": "Plán vestingu",
+    "confirmCancel": "Opravdu chcete zrušit tento plán vestingu?",
+    "stats": {
+      "totalVesting": "Celkem vestingů",
+      "active": "Aktivní",
+      "claimable": "K nárokování",
+      "yourVesting": "Váš vesting"
+    },
+    "sections": {
+      "yours": "Vaše plány vestingu",
+      "active": "Aktivní plány vestingu",
+      "pendingCompletion": "Čeká na dokončení"
+    },
+    "status": {
+      "active": "Aktivní",
+      "partiallyReleased": "Částečně uvolněno",
+      "fullyReleased": "Plně uvolněno",
+      "cancelled": "Zrušeno"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}h do cliffu",
+      "fullyVested": "Plně vestováno",
+      "remaining": "Zbývá {{days}}d {{hours}}h"
+    },
+    "interval": {
+      "daily": "Denně",
+      "weekly": "Týdně",
+      "monthly": "Měsíčně",
+      "quarterly": "Čtvrtletně"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Zbývá",
+      "status": "Stav",
+      "cliffDate": "Datum cliffu",
+      "endDate": "Datum konce",
+      "releaseInterval": "Interval uvolňování",
+      "beneficiary": "Příjemce",
+      "creator": "Tvůrce",
+      "description": "Popis"
+    },
+    "errors": {
+      "fillRequired": "Vyplňte prosím všechna povinná pole",
+      "invalidBeneficiary": "Neplatná adresa příjemce",
+      "durationPositive": "Doba vestingu musí být větší než 0",
+      "cliffShorter": "Cliff musí být kratší než celková doba",
+      "createFailed": "Nepodařilo se vytvořit vesting",
+      "claimFailed": "Nárokování se nezdařilo",
+      "cancelFailed": "Zrušení se nezdařilo"
+    },
+    "modal": {
+      "title": "Vytvořit plán vestingu",
+      "token": "Token",
+      "selectToken": "Vybrat token",
+      "tokenOption": "{{symbol}} – {{amount}} k dispozici",
+      "totalAmount": "Celková částka",
+      "beneficiary": "Příjemce",
+      "quickSelect": "Rychlý výběr:",
+      "beneficiaryPlaceholder": "Hledejte kontakty nebo zadejte adresu G...",
+      "cliffDays": "Cliff (dny)",
+      "cliffHint": "Žádné uvolnění před cliffem",
+      "durationDays": "Doba trvání (dny)",
+      "durationHint": "Celkové období vestingu",
+      "intervalDays": "Interval (dny)",
+      "intervalHint": "Frekvence uvolňování",
+      "descriptionLabel": "Popis (volitelné)",
+      "descriptionPlaceholder": "např. Vesting zaměstnanců, Alokace poradců",
+      "revocableHint": "Administrátor může zrušit a vrátit nevestované prostředky",
+      "previewTitle": "Náhled vestingu",
+      "previewCliff": "• Cliff končí: {{date}}",
+      "previewVested": "• Plně vestováno: {{date}}",
+      "previewReleases": "• Uvolnění každých {{days}} dní po cliffu",
+      "feeNotice": "⚠️ Za vytvoření plánu vestingu bude účtován poplatek 0,1 XLM.",
+      "creating": "Vytváření...",
+      "createButton": "Vytvořit plán vestingu"
+    },
+    "bulk": {
+      "title": "Hromadné vytvoření vestingu",
+      "subtitle": "Vytvořte více plánů vestingu najednou (max. {{max}} na dávku)",
+      "downloadTemplate": "Stáhnout šablonu",
+      "importCsv": "Importovat CSV",
+      "totalLabel": "Celkem:",
+      "pendingLabel": "Čekající:",
+      "successLabel": "Úspěšné:",
+      "errorsLabel": "Chyby:",
+      "maxBatchWarning": "Dosažena maximální velikost dávky ({{max}} plánů). Zpracujte tyto, než přidáte další.",
+      "beneficiaryLabel": "Adresa příjemce",
+      "amountLabel": "Částka",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (dny)",
+      "durationLabel": "Doba trvání (dny)",
+      "intervalLabel": "Interval (dny)",
+      "descriptionLabel": "Popis",
+      "optionalPlaceholder": "Volitelné",
+      "duplicate": "Duplikovat",
+      "remove": "Odebrat",
+      "addSchedule": "Přidat plán vestingu",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Konec: {{date}}",
+      "previewReleases": "Uvolnění každých {{days}} dní",
+      "processing": "Zpracování {{current}} z {{total}}...",
+      "readyCount_one": "{{count}} plán připraven k vytvoření",
+      "readyCount_few": "{{count}} plány připraveny k vytvoření",
+      "readyCount_many": "{{count}} plánu připraveno k vytvoření",
+      "readyCount_other": "{{count}} plánů připraveno k vytvoření",
+      "feeTotal": "• Poplatek: celkem {{fee}} XLM",
+      "creatingProposals": "Vytváření návrhů...",
+      "createProposals_one": "Vytvořit {{count}} návrh",
+      "createProposals_few": "Vytvořit {{count}} návrhy",
+      "createProposals_many": "Vytvořit {{count}} návrhu",
+      "createProposals_other": "Vytvořit {{count}} návrhů",
+      "defaultDescription": "Hromadný plán vestingu",
+      "maxBatchAlert": "Maximálně {{max}} plánů vestingu na dávku, aby se zabránilo přetížení sítě.",
+      "csvTooManyAlert": "CSV obsahuje {{count}} položek. Maximálně {{max}} na dávku. Importováno bude jen prvních {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Neplatná adresa příjemce",
+        "invalidAmount": "Neplatná částka",
+        "noToken": "Token nebyl vybrán",
+        "durationPositive": "Doba vestingu musí být větší než 0",
+        "invalidCliff": "Neplatné cliff období",
+        "cliffShorter": "Cliff musí být kratší než celková doba",
+        "invalidInterval": "Neplatný interval uvolňování",
+        "createFailed": "Nepodařilo se vytvořit návrh"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Vytvořit nový trezor",
+    "defaultName": "Můj trezor",
+    "defaultNameNumbered": "Můj trezor {{number}}",
+    "vaultName": "Název trezoru",
+    "youOwner": "Vy (vlastník)",
+    "add": "Přidat",
+    "addSignerPlaceholder": "Přidat adresu podepisujícího (G...)",
+    "hideContacts": "Skrýt kontakty",
+    "addFromContacts": "Přidat z kontaktů",
+    "signers_one": "Podepisující ({{count}})",
+    "signers_few": "Podepisující ({{count}})",
+    "signers_many": "Podepisující ({{count}})",
+    "signers_other": "Podepisující ({{count}})",
+    "thresholdLabel": "Práh schválení: {{threshold}} z {{total}}",
+    "thresholdHint_one": "K schválení transakcí je vyžadován {{count}} podpis",
+    "thresholdHint_few": "K schválení transakcí jsou vyžadovány {{count}} podpisy",
+    "thresholdHint_many": "K schválení transakcí je vyžadováno {{count}} podpisu",
+    "thresholdHint_other": "K schválení transakcí je vyžadováno {{count}} podpisů",
+    "creating": "Vytváření...",
+    "checking": "Kontrola...",
+    "insufficientBalanceShort": "Nedostatečný zůstatek",
+    "createButton": "Vytvořit trezor",
+    "balance": {
+      "insufficientTitle": "Nedostatečný zůstatek XLM",
+      "needAtLeast": "K vytvoření trezoru potřebujete alespoň <b>{{amount}} XLM</b>.",
+      "current": "Váš aktuální zůstatek: <b>{{amount}} XLM</b>",
+      "coversFee": "To pokrývá poplatek za vytvoření ve výši {{fee}} XLM plus transakční náklady.",
+      "getFriendbot": "Získat testnet XLM od Friendbota",
+      "checking": "Kontrola zůstatku..."
+    },
+    "fee": {
+      "creationFee": "Poplatek za vytvoření trezoru:",
+      "yourBalance": "Váš zůstatek:"
+    },
+    "errors": {
+      "invalidAddress": "Neplatná adresa Stellar",
+      "signerExists": "Podepisující již byl přidán",
+      "insufficientBalance": "Nedostatečný zůstatek XLM. Potřebujete alespoň {{amount}} XLM.",
+      "signersBelowThreshold": "Počet podepisujících musí být alespoň roven prahu",
+      "factoryNotConfigured": "Factory není nakonfigurován",
+      "transactionFailed": "Transakce se nezdařila",
+      "noReturnValue": "Žádná návratová hodnota z transakce",
+      "parseFailed": "Nepodařilo se analyzovat adresu trezoru z výsledku",
+      "noAddress": "Nepodařilo se získat adresu trezoru z výsledku",
+      "invalidVaultAddress": "Neplatný formát adresy trezoru",
+      "createFailed": "Nepodařilo se vytvořit trezor"
+    }
+  },
+  "fiatRamp": {
+    "title": "Fiat vstupní / výstupní rampa",
+    "subtitle": "Převádějte peníze mezi fiat měnou a USDC. Prostředky jsou připsány přímo do vašeho trezoru.",
+    "soon": "Brzy",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Karta a banka → USDC, doručeno přímo do trezoru."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Hotovostní vklad/výběr na fyzických pobočkách agentů po celém světě."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Karta a banka → USDC přes Stripe, doručeno do trezoru."
+      }
+    },
+    "mode": {
+      "cashToVault": "Hotovost → Trezor",
+      "vaultToCash": "Trezor → Hotovost"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Částka (USDC)",
+      "amountOptional": "Částka (USDC) — volitelné",
+      "amountWidgetPlaceholder": "Nechte prázdné pro výběr ve widgetu",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limity: {{min}}–{{max}} USDC na transakci",
+      "outOfRange": "Částka musí být mezi {{min}} a {{max}} USDC."
+    },
+    "actions": {
+      "working": "Zpracování…",
+      "buyWithTransak": "Koupit USDC pomocí Transak",
+      "buyWithStripe": "Koupit USDC pomocí Stripe",
+      "startDeposit": "Zahájit hotovostní vklad",
+      "startWithdrawal": "Zahájit hotovostní výběr"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL API není nakonfigurováno — nastavte REACT_APP_API_URL po nasazení serveru.",
+      "serverDisabled": "Tento poskytovatel zatím není na serveru povolen."
+    },
+    "status": {
+      "anchorStatus": "Stav anchoru: {{status}}",
+      "creatingTransak": "Vytváření zabezpečené relace Transak…",
+      "openingTransak": "Otevírání Transak…",
+      "transakClosed": "Okno Transak zavřeno.",
+      "transakSuccess": "Objednávka Transak dokončena. USDC se doručuje do trezoru. ID objednávky: {{orderId}}",
+      "creatingStripe": "Vytváření relace Stripe onramp…",
+      "stripeOpened": "Stripe onramp otevřen.",
+      "authenticating": "Ověřování u anchoru…",
+      "openingCashIn": "Otevírání okna hotovostního vkladu…",
+      "openingCashOut": "Otevírání okna KYC / hotovostního výběru…",
+      "creatingProposals": "Vytváření multisig návrhů (výběr + poplatek 0,3 %)…",
+      "proposalsCreated": "Návrhy vytvořeny. Výběr č. {{withdrawId}}, poplatek č. {{feeId}}. Pro provedení shromážděte schválení."
+    },
+    "errors": {
+      "apiUrlMissing": "URL API není nakonfigurováno (REACT_APP_API_URL).",
+      "sessionFailed": "Relace selhala ({{status}})",
+      "noWidgetUrl": "Backend nevrátil žádnou widgetUrl",
+      "transakFailed": "Objednávka Transak selhala.",
+      "openTransakFailed": "Nepodařilo se otevřít Transak",
+      "stripeSessionFailed": "Relace Stripe selhala ({{status}})",
+      "noClientSecret": "Backend nevrátil žádný clientSecret",
+      "startStripeFailed": "Nepodařilo se spustit Stripe",
+      "depositFailed": "Vklad se nepodařilo zahájit",
+      "withdrawFailed": "Výběr se nepodařilo zahájit"
+    },
+    "summary": {
+      "title": "Souhrn",
+      "amount": "Částka",
+      "platformFee": "Poplatek platformy ({{pct}} %)",
+      "youReceive": "Obdržíte do trezoru",
+      "sentToAnchor": "Odesláno do anchoru",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Poplatky anchoru a sítě účtuje samostatně {{provider}}.",
+      "theProvider": "poskytovatel"
+    },
+    "howItWorks": {
+      "title": "Jak to funguje",
+      "transak": "Plaťte kartou nebo bankovním převodem. Po KYC Transak doručí USDC na Stellaru přímo na adresu vašeho trezoru. Pro příchozí prostředky není potřeba žádné multisig schválení.",
+      "moneygram": "Vklady přicházejí přímo do trezoru. Výběry vytvářejí dva multisig návrhy — převod a poplatek platformy 0,3 % — které musí vaši podepisující schválit, než prostředky opustí trezor.",
+      "stripe": "Plaťte kartou nebo bankou přes Stripe. Stripe zajišťuje KYC a doručí USDC na Stellaru přímo na adresu vašeho trezoru."
+    },
+    "destination": {
+      "title": "Cílový trezor"
+    }
+  },
+  "common": {
+    "copy": "Kopírovat",
+    "share": "Sdílet",
+    "loading": "Načítání…",
+    "cancel": "Zrušit",
+    "confirm": "Potvrdit",
+    "save": "Uložit",
+    "close": "Zavřít",
+    "refresh": "Obnovit",
+    "unknown": "Neznámý",
+    "change": "Změnit",
+    "open": "Otevřít",
+    "update": "Aktualizovat",
+    "all": "Vše",
+    "notAvailable": "N/A"
+  }
+}

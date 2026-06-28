@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Panoramica",
+    "money": "Denaro",
+    "vestingLocks": "Vesting e Blocchi",
+    "team": "Team",
+    "system": "Sistema",
+    "dashboard": "Dashboard",
+    "assets": "Asset",
+    "fiat": "Rampa Fiat",
+    "transactions": "Transazioni",
+    "locks": "Blocchi",
+    "vesting": "Vesting",
+    "members": "Membri",
+    "contacts": "Contatti",
+    "settings": "Impostazioni",
+    "docs": "Documentazione",
+    "admin": "Amministrazione",
+    "claim": "Riscatta token"
+  },
+  "fiat": {
+    "title": "Rampa Fiat",
+    "deposit": "Deposita",
+    "withdraw": "Preleva",
+    "amount": "Importo",
+    "provider": "Fornitore",
+    "fee": "Commissione della piattaforma",
+    "destination": "Vault di destinazione",
+    "comingSoon": "Presto"
+  },
+  "sidebar": {
+    "currentVault": "Vault attuale",
+    "selectVault": "Seleziona vault",
+    "createNewVault": "Crea nuovo vault",
+    "sharePublicView": "Condividi vista pubblica",
+    "disconnect": "Disconnetti",
+    "connected": "Connesso",
+    "linkCopied": "Link pubblico copiato!"
+  },
+  "header": {
+    "timeLocks": "Blocchi temporali",
+    "deposit": "Deposita",
+    "send": "Invia"
+  },
+  "settings": {
+    "title": "Impostazioni del vault",
+    "subtitle": "Gestisci la configurazione e i membri del tuo vault",
+    "language": "Lingua",
+    "languageAuto": "Automatico (lingua del dispositivo)",
+    "languageHint": "Automatico segue la lingua del tuo dispositivo e ricorre all'inglese se non supportata.",
+    "tabs": {
+      "general": "Generale",
+      "members": "Membri e ruoli",
+      "advanced": "Avanzate"
+    },
+    "vaultInfo": "Informazioni sul vault",
+    "vaultName": "Nome del vault",
+    "vaultAddress": "Indirizzo del vault",
+    "notSelected": "Non selezionato",
+    "yourRole": "Il tuo ruolo",
+    "members": "Membri",
+    "threshold": "Soglia",
+    "superAdmins": "Super amministratori",
+    "connectedWallet": "Wallet connesso",
+    "publicKey": "Chiave pubblica",
+    "approvalThreshold": "Soglia di approvazione",
+    "thresholdDesc": "Sono richieste {{threshold}} firme su {{total}} per eseguire le transazioni",
+    "vaultMembers": "Membri del vault",
+    "vaultMembersDesc": "Gestisci chi può accedere e controllare questo vault",
+    "addMember": "Aggiungi membro",
+    "you": "Tu",
+    "copyAddress": "Copia indirizzo",
+    "removeMember": "Rimuovi membro",
+    "rolePermissions": "Autorizzazioni dei ruoli",
+    "adminsOnly": "Solo gli amministratori del vault possono gestire membri e ruoli.",
+    "contractDetails": "Dettagli del contratto",
+    "contractType": "Tipo di contratto",
+    "sorobanContract": "Smart contract Soroban",
+    "network": "Rete",
+    "testnet": "Testnet",
+    "actions": "Azioni",
+    "exportData": "Esporta dati del vault",
+    "exportDataDesc": "Scarica la configurazione e la cronologia delle transazioni",
+    "export": "Esporta",
+    "viewExplorer": "Visualizza nell'explorer",
+    "viewExplorerDesc": "Apri il contratto del vault su Stellar Expert",
+    "dangerZone": "Zona pericolosa",
+    "leaveVault": "Abbandona il vault",
+    "leaveVaultDesc": "Rimuoviti come firmatario. Questa operazione non può essere annullata.",
+    "leaveLastWarning": "Sei l'ultimo membro: abbandonando rinuncerai al vault!",
+    "leaving": "Abbandono in corso...",
+    "leave": "Abbandona",
+    "addNewMember": "Aggiungi nuovo membro",
+    "addNewMemberDesc": "Seleziona dai contatti o inserisci l'indirizzo manualmente",
+    "fromContacts": "Dai contatti",
+    "enterAddress": "Inserisci indirizzo",
+    "searchContacts": "Cerca contatti...",
+    "noContactsAvailable": "Nessun contatto disponibile (sono già tutti membri)",
+    "noContactsFound": "Nessun contatto trovato",
+    "allContactsMembers": "Tutti i tuoi contatti sono già membri del vault. Usa «Inserisci indirizzo» per aggiungere un nuovo membro.",
+    "stellarAddress": "Indirizzo Stellar",
+    "role": "Ruolo",
+    "adding": "Aggiunta in corso...",
+    "changeThreshold": "Modifica soglia di approvazione",
+    "requiredSignatures": "Firme richieste: {{threshold}} su {{total}}",
+    "thresholdWarning": "La modifica della soglia influisce sulla sicurezza. Una soglia più alta richiede più firme ma può rallentare le operazioni.",
+    "updating": "Aggiornamento in corso...",
+    "roles": {
+      "superAdmin": "Super amministratore",
+      "admin": "Amministratore",
+      "executor": "Esecutore"
+    },
+    "roleOptions": {
+      "superAdmin": "Super amministratore - Controllo totale",
+      "admin": "Amministratore - Gestisce i membri",
+      "executor": "Esecutore - Può effettuare transazioni"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Controllo totale del vault",
+        "2": "Gestire tutti i membri e i ruoli",
+        "3": "Modificare la soglia",
+        "4": "Creare ed eseguire transazioni"
+      },
+      "admin": {
+        "1": "Gestire gli esecutori",
+        "2": "Modificare la soglia",
+        "3": "Creare e approvare transazioni",
+        "4": "Gestire i blocchi"
+      },
+      "executor": {
+        "1": "Creare transazioni",
+        "2": "Approvare transazioni",
+        "3": "Eseguire transazioni approvate",
+        "4": "Visualizzare tutte le attività"
+      }
+    },
+    "success": {
+      "memberAdded": "Membro aggiunto con successo!",
+      "memberRemoved": "Membro rimosso con successo!",
+      "roleUpdated": "Ruolo aggiornato con successo!",
+      "thresholdUpdated": "Soglia aggiornata con successo!",
+      "leftVault": "Hai abbandonato il vault con successo!"
+    },
+    "errors": {
+      "invalidAddress": "Indirizzo Stellar non valido",
+      "alreadyMember": "L'indirizzo è già un membro",
+      "addFailed": "Impossibile aggiungere il membro",
+      "removeBreaksThreshold": "Impossibile rimuovere il membro: violerebbe il requisito di soglia",
+      "lastSuperAdminRemove": "Impossibile rimuovere l'ultimo super amministratore",
+      "removeFailed": "Impossibile rimuovere il membro",
+      "needOneSuperAdmin": "Impossibile cambiare ruolo: il vault deve avere almeno un super amministratore",
+      "roleFailed": "Impossibile cambiare il ruolo",
+      "thresholdMin": "La soglia deve essere almeno 1",
+      "thresholdMax": "La soglia non può superare il numero di membri",
+      "thresholdFailed": "Impossibile aggiornare la soglia",
+      "leaveLastSuperAdmin": "Sei l'ultimo super amministratore. Assegna un altro super amministratore prima di andartene, oppure rimuovi prima tutti gli altri membri.",
+      "leaveBreaksThreshold": "Impossibile andarsene: violerebbe il requisito di soglia. La soglia attuale è {{threshold}}, ma rimarrebbero solo {{remaining}} membri.",
+      "leaveFailed": "Impossibile abbandonare il vault"
+    },
+    "confirm": {
+      "removeMember": "Rimuovere {{name}} dal vault?",
+      "leaveDefault": "Sei sicuro di voler abbandonare questo vault? Questa azione non può essere annullata.",
+      "leaveLastMember": "ATTENZIONE: Sei l'ULTIMO membro di questo vault. Abbandonandolo, il vault verrà ABBANDONATO in modo permanente. Eventuali fondi rimanenti saranno inaccessibili. Sei assolutamente sicuro?",
+      "leaveFinalWarning": "Questo è il tuo AVVISO FINALE. Il vault verrà abbandonato in modo permanente. Continuare?"
+    }
+  },
+  "assets": {
+    "title": "Asset",
+    "subtitle": "Gestisci gli asset del tuo vault",
+    "addToken": "Aggiungi token",
+    "authorize": "Autorizza",
+    "totalBalance": "Saldo totale",
+    "remainingDailySpend": "Spesa giornaliera rimanente",
+    "yourAssets": "I tuoi asset",
+    "clickToManage": "Fai clic su un asset per gestirlo",
+    "noAssets": "Ancora nessun asset",
+    "noAssetsDesc": "Deposita alcuni token per iniziare",
+    "makeFirstDeposit": "Effettua il primo deposito",
+    "availableBalance": "Saldo disponibile",
+    "actions": {
+      "deposit": "Deposita",
+      "depositDesc": "Aggiungi altri {{symbol}} al vault",
+      "send": "Invia",
+      "sendDesc": "Proponi un trasferimento di {{symbol}}",
+      "timeLock": "Blocco temporale",
+      "timeLockDesc": "Blocca fino a una data specifica",
+      "vesting": "Vesting",
+      "vestingDesc": "Crea un piano di vesting con cliff"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Calendario blocchi e vesting",
+    "summary": "{{timeLocks}} blocchi temporali, {{vestings}} vesting",
+    "viewCalendar": "Calendario",
+    "viewList": "Elenco",
+    "filterType": "Tipo",
+    "filterStatus": "Stato",
+    "timeLocks": "Blocchi temporali",
+    "vestings": "Vesting",
+    "timeLock": "Blocco temporale",
+    "vesting": "Vesting",
+    "noLocks": "Nessun blocco o vesting da mostrare",
+    "today": "Oggi",
+    "now": "Ora",
+    "cliff": "Cliff",
+    "claimable": "Riscattabile",
+    "progress": "Avanzamento",
+    "start": "Inizio",
+    "end": "Fine",
+    "unlock": "Sblocco",
+    "beneficiary": "Beneficiario",
+    "locked": "bloccato",
+    "vestingLabel": "vesting",
+    "released": "Rilasciato",
+    "active": "Attivo",
+    "completedCount": "{{count}} completati",
+    "status": {
+      "active": "Attivo",
+      "partiallyReleased": "Parzialmente rilasciato",
+      "fullyReleased": "Completamente rilasciato",
+      "cancelled": "Annullato"
+    },
+    "statusFilter": {
+      "active": "Attivo",
+      "completed": "Completato"
+    },
+    "events": {
+      "start": "inizio",
+      "cliff": "cliff",
+      "end": "fine"
+    }
+  },
+  "claim": {
+    "title": "Riscatta i tuoi token",
+    "subtitleVault": "Visualizzazione dei blocchi del vault {{address}}",
+    "subtitleAll": "Visualizza e riscatta i blocchi assegnati a te",
+    "disconnect": "Disconnetti",
+    "connectWallet": "Connetti wallet",
+    "connectTitle": "Connetti il tuo wallet",
+    "connectDescVault": "Connetti il tuo wallet per vedere tutti i blocchi temporali e i piani di vesting assegnati a te da questo vault.",
+    "connectDescAll": "Connetti il tuo wallet per vedere tutti i blocchi temporali e i piani di vesting assegnati a te su tutti gli Stellar Vault.",
+    "loadingVault": "Caricamento dei blocchi dal vault...",
+    "loadingAll": "Ricerca dei tuoi blocchi nei vault...",
+    "scanProgress": "Controllati {{scanned}} di {{total}} vault",
+    "unknownVault": "Vault sconosciuto",
+    "tokensAmount": "{{amount}} token",
+    "claimNow": "Riscatta ora",
+    "claiming": "Riscatto in corso...",
+    "refreshLocks": "Aggiorna blocchi",
+    "claimSuccess": "{{amount}} token riscattati con successo!",
+    "errorLoad": "Impossibile caricare i blocchi",
+    "errorClaim": "Impossibile riscattare",
+    "stats": {
+      "readyToClaim": "Pronti da riscattare",
+      "pending": "In attesa",
+      "completed": "Completati"
+    },
+    "sections": {
+      "readyToClaim": "Pronti da riscattare",
+      "pending": "In attesa"
+    },
+    "fields": {
+      "fromVault": "Dal vault",
+      "totalAmount": "Importo totale",
+      "description": "Descrizione",
+      "timeRemaining": "Tempo rimanente",
+      "unlockDate": "Data di sblocco"
+    },
+    "types": {
+      "timeLock": "Blocco temporale",
+      "vesting": "Vesting",
+      "unknown": "Sconosciuto"
+    },
+    "time": {
+      "unlocked": "Sbloccato",
+      "fullyVested": "Completamente maturato",
+      "remaining": "{{days}}g {{hours}}h rimanenti",
+      "toCliff": "{{days}}g {{hours}}h al cliff"
+    },
+    "empty": {
+      "title": "Nessun blocco trovato",
+      "descVault": "Non hai alcun blocco assegnato in questo vault.",
+      "descAll": "Non hai alcun blocco temporale o piano di vesting assegnato."
+    }
+  },
+  "contacts": {
+    "title": "Rubrica contatti",
+    "subtitle": "Salva gli indirizzi usati di frequente per un accesso rapido",
+    "addContact": "Aggiungi contatto",
+    "searchPlaceholder": "Cerca contatti...",
+    "savedCount_one": "{{count}} contatto salvato",
+    "savedCount_other": "{{count}} contatti salvati",
+    "confirmDelete": "Eliminare «{{name}}» dai contatti?",
+    "errors": {
+      "nameRequired": "Il nome è obbligatorio",
+      "addressRequired": "L'indirizzo è obbligatorio",
+      "invalidAddress": "Indirizzo Stellar non valido",
+      "duplicate": "Questo indirizzo è già nei tuoi contatti"
+    },
+    "empty": {
+      "noMatch": "Nessun contatto corrisponde alla tua ricerca",
+      "none": "Ancora nessun contatto",
+      "addFirst": "Aggiungi il tuo primo contatto →"
+    },
+    "actions": {
+      "copy": "Copia indirizzo",
+      "edit": "Modifica contatto",
+      "delete": "Elimina contatto"
+    },
+    "modal": {
+      "addTitle": "Aggiungi nuovo contatto",
+      "editTitle": "Modifica contatto",
+      "nameLabel": "Nome *",
+      "namePlaceholder": "es. Alice, Tesoreria, Exchange",
+      "addressLabel": "Indirizzo Stellar *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "L'indirizzo non può essere modificato",
+      "notesLabel": "Note (facoltativo)",
+      "notesPlaceholder": "Aggiungi eventuali note su questo contatto...",
+      "saveChanges": "Salva modifiche"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Saldo totale",
+      "threshold": "Soglia",
+      "signaturesRequired": "firme richieste",
+      "pending": "In attesa",
+      "awaitingApproval": "in attesa di approvazione",
+      "readyToExecute": "Pronto per l'esecuzione",
+      "fullyApproved": "completamente approvato"
+    },
+    "activeProposals": "Proposte attive",
+    "viewAll": "Visualizza tutte",
+    "noProposals": "Ancora nessuna proposta",
+    "createFirst": "Crea la tua prima transazione →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "A {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} approvazioni",
+    "status": {
+      "pending": "In attesa",
+      "approved": "Approvata",
+      "executed": "Eseguita",
+      "rejected": "Rifiutata",
+      "unknown": "Sconosciuto"
+    },
+    "types": {
+      "transfer": "Trasferimento",
+      "timeLock": "Blocco temporale",
+      "vesting": "Vesting",
+      "unknown": "Sconosciuto"
+    }
+  },
+  "locks": {
+    "title": "Blocchi temporali",
+    "subtitle": "Blocca gli asset fino a una data specifica",
+    "bulkCreate": "Creazione in blocco",
+    "createTimeLock": "Crea blocco temporale",
+    "creating": "Creazione in corso...",
+    "createFirst": "Crea il tuo primo blocco temporale",
+    "empty": "Ancora nessun blocco temporale creato",
+    "archived": "Archiviato",
+    "selectToken": "Seleziona token",
+    "available": "{{amount}} disponibile",
+    "quickSelect": "Selezione rapida:",
+    "beneficiaryPlaceholder": "Cerca contatti o inserisci un indirizzo G...",
+    "descriptionPlaceholder": "es. Allocazione del team",
+    "optional": "Facoltativo",
+    "revocableLabel": "Revocabile",
+    "revocableHint": "L'amministratore può annullare e restituire i fondi al vault",
+    "feeWarning": "Per la creazione del blocco verrà addebitata una commissione di 10 XLM.",
+    "defaultDescription": "Blocco temporale",
+    "lockNumber": "Blocco n. {{id}}",
+    "timeLockBadge": "Blocco temporale",
+    "revocableBadge": "Revocabile",
+    "readyToClaim": "Pronto da riscattare",
+    "releasedLabel": "Rilasciato",
+    "you": "Tu",
+    "claim": "Riscatta",
+    "cancel": "Annulla",
+    "close": "Chiudi",
+    "confirmCancel": "Sei sicuro di voler annullare questo blocco?",
+    "stats": {
+      "total": "Totale blocchi temporali",
+      "active": "Attivi",
+      "unlocked": "Sbloccati",
+      "yourLocks": "I tuoi blocchi"
+    },
+    "sections": {
+      "yours": "I tuoi blocchi temporali",
+      "active": "Blocchi temporali attivi",
+      "pendingCompletion": "In attesa di completamento"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Importo",
+      "beneficiary": "Beneficiario",
+      "beneficiaryAddress": "Indirizzo del beneficiario",
+      "remaining": "Rimanente",
+      "timeStatus": "Stato temporale",
+      "unlockDate": "Data di sblocco",
+      "unlockDateTime": "Data e ora di sblocco",
+      "creator": "Creatore",
+      "description": "Descrizione",
+      "descriptionOptional": "Descrizione (facoltativo)"
+    },
+    "statuses": {
+      "active": "Attivo",
+      "partiallyReleased": "Parzialmente rilasciato",
+      "fullyReleased": "Completamente rilasciato",
+      "cancelled": "Annullato",
+      "unknown": "Sconosciuto"
+    },
+    "time": {
+      "unlocked": "Sbloccato",
+      "remainingDays": "{{days}}g {{hours}}h rimanenti",
+      "remainingHours": "{{hours}}h rimanenti"
+    },
+    "errors": {
+      "fillRequired": "Compila tutti i campi obbligatori",
+      "invalidBeneficiary": "Indirizzo del beneficiario non valido",
+      "unlockFuture": "L'orario di sblocco deve essere nel futuro",
+      "createFailed": "Impossibile creare il blocco",
+      "claimFailed": "Impossibile riscattare",
+      "cancelFailed": "Impossibile annullare il blocco",
+      "invalidAmount": "Importo non valido",
+      "tokenNotSelected": "Token non selezionato",
+      "unlockRequired": "Data di sblocco richiesta",
+      "proposalFailed": "Impossibile creare la proposta"
+    },
+    "bulk": {
+      "title": "Crea blocchi temporali in blocco",
+      "subtitle": "Crea più blocchi temporali contemporaneamente (max {{max}} per lotto)",
+      "downloadTemplate": "Scarica modello",
+      "importCsv": "Importa CSV",
+      "statsTotal": "Totale",
+      "statsPending": "In attesa",
+      "statsSuccess": "Riusciti",
+      "statsErrors": "Errori",
+      "maxReachedAlert": "Massimo {{max}} blocchi temporali per lotto per evitare il sovraccarico della rete.",
+      "maxReachedWarning": "Dimensione massima del lotto raggiunta ({{max}} blocchi). Elabora questi prima di aggiungerne altri.",
+      "csvTooMany": "Il CSV contiene {{count}} voci. Massimo {{max}} per lotto. Verranno importate solo le prime {{max}}.",
+      "duplicate": "Duplica",
+      "remove": "Rimuovi",
+      "addEntry": "Aggiungi blocco temporale",
+      "processing": "Elaborazione di {{current}} di {{total}}...",
+      "readyCount_one": "{{count}} blocco pronto per la creazione",
+      "readyCount_other": "{{count}} blocchi pronti per la creazione",
+      "feeTotal": "• Commissione: {{fee}} XLM in totale",
+      "creatingProposals": "Creazione delle proposte...",
+      "createCount_one": "Crea {{count}} proposta",
+      "createCount_other": "Crea {{count}} proposte",
+      "defaultDescription": "Blocco temporale in blocco"
+    }
+  },
+  "members": {
+    "title": "Membri del vault",
+    "subtitle_one": "{{count}} membro • Soglia: {{threshold}} su {{total}}",
+    "subtitle_other": "{{count}} membri • Soglia: {{threshold}} su {{total}}",
+    "searchPlaceholder": "Cerca membri per indirizzo, nome o ruolo...",
+    "manageHint": "Per gestire i membri (aggiungere, rimuovere, cambiare ruoli), vai su <strong>Impostazioni → Membri e ruoli</strong>",
+    "you": "Tu",
+    "addToContacts": "Aggiungi ai contatti",
+    "noResults": "Nessun membro trovato corrispondente alla tua ricerca.",
+    "stats": {
+      "totalMembers": "Totale membri",
+      "superAdmins": "Super amministratori",
+      "admins": "Amministratori",
+      "executors": "Esecutori"
+    },
+    "roles": {
+      "superAdmin": "Super amministratore",
+      "admin": "Amministratore",
+      "executor": "Esecutore"
+    },
+    "permissions": {
+      "title": "Autorizzazioni dei ruoli",
+      "superAdmin": "Controllo totale, inclusa la gestione di altri amministratori e impostazioni critiche",
+      "admin": "Può gestire le impostazioni del vault, i membri e approvare le transazioni",
+      "executor": "Può creare, approvare ed eseguire transazioni"
+    },
+    "addContactModal": {
+      "title": "Aggiungi ai contatti",
+      "addressLabel": "Indirizzo",
+      "nameLabel": "Nome",
+      "namePlaceholder": "Inserisci un nome per questo contatto",
+      "save": "Salva contatto"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Vista pubblica",
+    "loading": "Caricamento dati del vault...",
+    "noLocks": "Ancora nessun blocco creato",
+    "noAssets": "Nessun asset trovato",
+    "revocable": "Revocabile",
+    "released": "Rilasciato",
+    "allLocks": "Tutti i blocchi ({{count}})",
+    "toBeneficiary": "A: {{address}}",
+    "errors": {
+      "title": "Impossibile caricare il vault",
+      "loadFailed": "Impossibile caricare i dati del vault"
+    },
+    "tabs": {
+      "overview": "Panoramica",
+      "locks": "Blocchi",
+      "calendar": "Calendario",
+      "assets": "Asset"
+    },
+    "stats": {
+      "signers": "Firmatari",
+      "threshold": "Soglia: {{count}}",
+      "totalLocks": "Totale blocchi",
+      "activeCount": "{{count}} attivi",
+      "assets": "Asset",
+      "tokensHeld": "token detenuti",
+      "lockedValue": "Valore bloccato",
+      "totalLocked": "totale bloccato"
+    },
+    "sections": {
+      "signers": "Firmatari",
+      "recentLocks": "Blocchi recenti",
+      "assets": "Asset"
+    },
+    "fields": {
+      "amount": "Importo",
+      "beneficiary": "Beneficiario",
+      "unlockDate": "Data di sblocco",
+      "timeRemaining": "Tempo rimanente"
+    },
+    "status": {
+      "active": "Attivo",
+      "partiallyReleased": "Parzialmente rilasciato",
+      "fullyReleased": "Completamente rilasciato",
+      "cancelled": "Annullato"
+    },
+    "lockType": {
+      "timeLock": "Blocco temporale",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Sbloccato",
+      "cliffPassed": "Cliff superato",
+      "remaining": "{{days}}g {{hours}}h rimanenti",
+      "toCliff": "{{days}}g {{hours}}h al cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Vista pubblica",
+      "poweredBy": "Basato su Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transazioni",
+    "subtitle": "Visualizza e gestisci le proposte e i trasferimenti del vault",
+    "bulkTransfer": "Trasferimento in blocco",
+    "newTransaction": "Nuova transazione",
+    "createFirst": "Crea la prima proposta",
+    "completedProposals": "Proposte completate",
+    "noHistory": "Nessuna cronologia delle transazioni trovata",
+    "noHistoryNote": "Nota: le transazioni del contratto Soroban appaiono tramite le proposte eseguite",
+    "received": "Ricevuto",
+    "sent": "Inviato",
+    "onChainPayments_one": "{{count}} pagamento on-chain",
+    "onChainPayments_other": "{{count}} pagamenti on-chain",
+    "approvalsCount": "{{count}}/{{threshold}} approvazioni",
+    "rejectionsCount": "{{count}}/{{threshold}} rifiuti",
+    "tabs": {
+      "proposals": "Proposte ({{count}})",
+      "history": "Cronologia ({{count}})"
+    },
+    "filters": {
+      "all": "Tutte",
+      "pending": "In attesa",
+      "approved": "Approvate"
+    },
+    "empty": {
+      "all": "Nessuna proposta trovata",
+      "filtered": "Nessuna proposta {{filter}} trovata"
+    },
+    "status": {
+      "pending": "In attesa",
+      "approved": "Approvata",
+      "executed": "Eseguita",
+      "rejected": "Rifiutata"
+    },
+    "types": {
+      "transfer": "Trasferimento",
+      "timeLock": "Blocco temporale",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "A:",
+      "from": "Da:",
+      "by": "Da:",
+      "beneficiary": "Beneficiario:",
+      "created": "Creata:",
+      "approvals": "Approvazioni:",
+      "unlockDate": "Data di sblocco:",
+      "cliffDate": "Data del cliff:",
+      "endDate": "Data di fine:"
+    },
+    "actions": {
+      "approve": "Approva",
+      "execute": "Esegui",
+      "reject": "Rifiuta",
+      "confirmReject": "Conferma rifiuto"
+    },
+    "bulk": {
+      "title": "Trasferimento in blocco",
+      "subtitle": "Crea più proposte di trasferimento in lotto (max {{max}} per lotto)",
+      "importCsv": "Importa CSV",
+      "downloadTemplate": "Scarica modello",
+      "csvHelp": "Aiuto sul formato CSV",
+      "totalLabel": "Totale:",
+      "successLabel": "Riuscite:",
+      "failedLabel": "Fallite:",
+      "csvFormatTitle": "Formato CSV",
+      "csvFormatNote": "Usa «native» per XLM o l'indirizzo completo del contratto del token.",
+      "maxBatchWarning": "Massimo {{max}} trasferimenti per lotto per evitare il sovraccarico della rete. Crea un altro lotto per altri.",
+      "recipientLabel": "Indirizzo del destinatario",
+      "amountLabel": "Importo",
+      "tokenLabel": "Token",
+      "duplicate": "Duplica",
+      "remove": "Rimuovi",
+      "addTransfer": "Aggiungi trasferimento",
+      "processing": "Elaborazione di {{current}} di {{total}}... ({{delay}}s di ritardo tra le transazioni)",
+      "readyCount_one": "{{count}} trasferimento pronto",
+      "readyCount_other": "{{count}} trasferimenti pronti",
+      "totalTokens": "• Totale: ~{{amount}} token",
+      "creatingProposals": "Creazione delle proposte...",
+      "createProposals_one": "Crea {{count}} proposta",
+      "createProposals_other": "Crea {{count}} proposte",
+      "maxBatchAlert": "Massimo {{max}} trasferimenti per lotto per evitare il sovraccarico della rete.",
+      "maxBatchShortAlert": "Massimo {{max}} trasferimenti per lotto.",
+      "csvTooManyAlert": "Il CSV contiene {{count}} voci. Massimo {{max}} per lotto. Verranno importate solo le prime {{max}}.",
+      "errors": {
+        "invalidRecipient": "Indirizzo del destinatario non valido",
+        "invalidAmount": "Importo non valido",
+        "noToken": "Token non selezionato",
+        "transferUnavailable": "Funzione di trasferimento non disponibile",
+        "createFailed": "Impossibile creare la proposta"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Piani di vesting",
+    "subtitle": "Vesting di token con periodi di cliff e rilascio graduale",
+    "bulkCreate": "Creazione in blocco",
+    "createVesting": "Crea vesting",
+    "createFirst": "Crea il tuo primo piano di vesting",
+    "empty": "Ancora nessun piano di vesting creato",
+    "archived": "Archiviato",
+    "revocable": "Revocabile",
+    "badge": "Vesting",
+    "you": "Tu",
+    "claimButton": "💰 Riscatta",
+    "cardTitle": "Vesting n. {{id}}",
+    "claimableBadge": "{{amount}} riscattabili",
+    "vestedLabel": "Maturato: {{vested}} / {{total}}",
+    "releasedLabel": "Rilasciato: {{released}}",
+    "daysValue": "{{count}} giorni",
+    "defaultDescription": "Piano di vesting",
+    "confirmCancel": "Sei sicuro di voler annullare questo piano di vesting?",
+    "stats": {
+      "totalVesting": "Totale vesting",
+      "active": "Attivi",
+      "claimable": "Riscattabile",
+      "yourVesting": "Il tuo vesting"
+    },
+    "sections": {
+      "yours": "I tuoi piani di vesting",
+      "active": "Piani di vesting attivi",
+      "pendingCompletion": "In attesa di completamento"
+    },
+    "status": {
+      "active": "Attivo",
+      "partiallyReleased": "Parzialmente rilasciato",
+      "fullyReleased": "Completamente rilasciato",
+      "cancelled": "Annullato"
+    },
+    "time": {
+      "toCliff": "{{days}}g {{hours}}h al cliff",
+      "fullyVested": "Completamente maturato",
+      "remaining": "{{days}}g {{hours}}h rimanenti"
+    },
+    "interval": {
+      "daily": "Giornaliero",
+      "weekly": "Settimanale",
+      "monthly": "Mensile",
+      "quarterly": "Trimestrale"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Rimanente",
+      "status": "Stato",
+      "cliffDate": "Data del cliff",
+      "endDate": "Data di fine",
+      "releaseInterval": "Intervallo di rilascio",
+      "beneficiary": "Beneficiario",
+      "creator": "Creatore",
+      "description": "Descrizione"
+    },
+    "errors": {
+      "fillRequired": "Compila tutti i campi obbligatori",
+      "invalidBeneficiary": "Indirizzo del beneficiario non valido",
+      "durationPositive": "La durata del vesting deve essere maggiore di 0",
+      "cliffShorter": "Il cliff deve essere più breve della durata totale",
+      "createFailed": "Impossibile creare il vesting",
+      "claimFailed": "Impossibile riscattare",
+      "cancelFailed": "Impossibile annullare"
+    },
+    "modal": {
+      "title": "Crea piano di vesting",
+      "token": "Token",
+      "selectToken": "Seleziona token",
+      "tokenOption": "{{symbol}} - {{amount}} disponibile",
+      "totalAmount": "Importo totale",
+      "beneficiary": "Beneficiario",
+      "quickSelect": "Selezione rapida:",
+      "beneficiaryPlaceholder": "Cerca contatti o inserisci un indirizzo G...",
+      "cliffDays": "Cliff (giorni)",
+      "cliffHint": "Nessun rilascio prima del cliff",
+      "durationDays": "Durata (giorni)",
+      "durationHint": "Periodo totale di vesting",
+      "intervalDays": "Intervallo (giorni)",
+      "intervalHint": "Frequenza di rilascio",
+      "descriptionLabel": "Descrizione (facoltativo)",
+      "descriptionPlaceholder": "es. Vesting dipendenti, Allocazione consulenti",
+      "revocableHint": "L'amministratore può annullare e restituire i fondi non maturati",
+      "previewTitle": "Anteprima del vesting",
+      "previewCliff": "• Il cliff termina: {{date}}",
+      "previewVested": "• Completamente maturato: {{date}}",
+      "previewReleases": "• Rilasci ogni {{days}} giorni dopo il cliff",
+      "feeNotice": "⚠️ Per la creazione del piano di vesting verrà addebitata una commissione di 0,1 XLM.",
+      "creating": "Creazione in corso...",
+      "createButton": "Crea piano di vesting"
+    },
+    "bulk": {
+      "title": "Crea vesting in blocco",
+      "subtitle": "Crea più piani di vesting contemporaneamente (max {{max}} per lotto)",
+      "downloadTemplate": "Scarica modello",
+      "importCsv": "Importa CSV",
+      "totalLabel": "Totale:",
+      "pendingLabel": "In attesa:",
+      "successLabel": "Riusciti:",
+      "errorsLabel": "Errori:",
+      "maxBatchWarning": "Dimensione massima del lotto raggiunta ({{max}} piani). Elabora questi prima di aggiungerne altri.",
+      "beneficiaryLabel": "Indirizzo del beneficiario",
+      "amountLabel": "Importo",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (giorni)",
+      "durationLabel": "Durata (giorni)",
+      "intervalLabel": "Intervallo (giorni)",
+      "descriptionLabel": "Descrizione",
+      "optionalPlaceholder": "Facoltativo",
+      "duplicate": "Duplica",
+      "remove": "Rimuovi",
+      "addSchedule": "Aggiungi piano di vesting",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Fine: {{date}}",
+      "previewReleases": "Rilasci ogni {{days}} giorni",
+      "processing": "Elaborazione di {{current}} di {{total}}...",
+      "readyCount_one": "{{count}} piano pronto per la creazione",
+      "readyCount_other": "{{count}} piani pronti per la creazione",
+      "feeTotal": "• Commissione: {{fee}} XLM in totale",
+      "creatingProposals": "Creazione delle proposte...",
+      "createProposals_one": "Crea {{count}} proposta",
+      "createProposals_other": "Crea {{count}} proposte",
+      "defaultDescription": "Piano di vesting in blocco",
+      "maxBatchAlert": "Massimo {{max}} piani di vesting per lotto per evitare il sovraccarico della rete.",
+      "csvTooManyAlert": "Il CSV contiene {{count}} voci. Massimo {{max}} per lotto. Verranno importate solo le prime {{max}}.",
+      "errors": {
+        "invalidBeneficiary": "Indirizzo del beneficiario non valido",
+        "invalidAmount": "Importo non valido",
+        "noToken": "Token non selezionato",
+        "durationPositive": "La durata del vesting deve essere maggiore di 0",
+        "invalidCliff": "Periodo di cliff non valido",
+        "cliffShorter": "Il cliff deve essere più breve della durata totale",
+        "invalidInterval": "Intervallo di rilascio non valido",
+        "createFailed": "Impossibile creare la proposta"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Crea nuovo vault",
+    "defaultName": "Il mio vault",
+    "defaultNameNumbered": "Il mio vault {{number}}",
+    "vaultName": "Nome del vault",
+    "youOwner": "Tu (proprietario)",
+    "add": "Aggiungi",
+    "addSignerPlaceholder": "Aggiungi indirizzo del firmatario (G...)",
+    "hideContacts": "Nascondi contatti",
+    "addFromContacts": "Aggiungi dai contatti",
+    "signers_one": "Firmatari ({{count}})",
+    "signers_other": "Firmatari ({{count}})",
+    "thresholdLabel": "Soglia di approvazione: {{threshold}} su {{total}}",
+    "thresholdHint_one": "{{count}} firma richiesta per approvare le transazioni",
+    "thresholdHint_other": "{{count}} firme richieste per approvare le transazioni",
+    "creating": "Creazione in corso...",
+    "checking": "Verifica in corso...",
+    "insufficientBalanceShort": "Saldo insufficiente",
+    "createButton": "Crea vault",
+    "balance": {
+      "insufficientTitle": "Saldo XLM insufficiente",
+      "needAtLeast": "Hai bisogno di almeno <b>{{amount}} XLM</b> per creare un vault.",
+      "current": "Il tuo saldo attuale: <b>{{amount}} XLM</b>",
+      "coversFee": "Questo copre la commissione di creazione di {{fee}} XLM più i costi di transazione.",
+      "getFriendbot": "Ottieni XLM di testnet da Friendbot",
+      "checking": "Verifica del saldo..."
+    },
+    "fee": {
+      "creationFee": "Commissione di creazione del vault:",
+      "yourBalance": "Il tuo saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Indirizzo Stellar non valido",
+      "signerExists": "Firmatario già aggiunto",
+      "insufficientBalance": "Saldo XLM insufficiente. Hai bisogno di almeno {{amount}} XLM.",
+      "signersBelowThreshold": "Il numero di firmatari deve essere almeno pari alla soglia",
+      "factoryNotConfigured": "Factory non configurato",
+      "transactionFailed": "Transazione fallita",
+      "noReturnValue": "Nessun valore di ritorno dalla transazione",
+      "parseFailed": "Impossibile analizzare l'indirizzo del vault dal risultato",
+      "noAddress": "Impossibile ottenere l'indirizzo del vault dal risultato",
+      "invalidVaultAddress": "Formato dell'indirizzo del vault non valido",
+      "createFailed": "Impossibile creare il vault"
+    }
+  },
+  "fiatRamp": {
+    "title": "Rampa di entrata/uscita fiat",
+    "subtitle": "Trasferisci denaro tra fiat e USDC. I fondi vengono accreditati direttamente nel tuo vault.",
+    "soon": "Presto",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Carta e banca → USDC, consegnato direttamente al vault."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Deposito/prelievo in contanti presso agenzie fisiche in tutto il mondo."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Carta e banca → USDC tramite Stripe, consegnato al vault."
+      }
+    },
+    "mode": {
+      "cashToVault": "Contanti → Vault",
+      "vaultToCash": "Vault → Contanti"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Importo (USDC)",
+      "amountOptional": "Importo (USDC) — facoltativo",
+      "amountWidgetPlaceholder": "Lascia vuoto per scegliere nel widget",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limiti: {{min}}–{{max}} USDC per transazione",
+      "outOfRange": "L'importo deve essere compreso tra {{min}} e {{max}} USDC."
+    },
+    "actions": {
+      "working": "Elaborazione…",
+      "buyWithTransak": "Acquista USDC con Transak",
+      "buyWithStripe": "Acquista USDC con Stripe",
+      "startDeposit": "Avvia deposito in contanti",
+      "startWithdrawal": "Avvia prelievo in contanti"
+    },
+    "notEnabled": {
+      "noApiUrl": "URL API non configurato — imposta REACT_APP_API_URL una volta distribuito il server.",
+      "serverDisabled": "Questo fornitore non è ancora abilitato sul server."
+    },
+    "status": {
+      "anchorStatus": "Stato dell'anchor: {{status}}",
+      "creatingTransak": "Creazione di una sessione Transak sicura…",
+      "openingTransak": "Apertura di Transak…",
+      "transakClosed": "Finestra di Transak chiusa.",
+      "transakSuccess": "Ordine Transak completato. L'USDC viene consegnato al vault. ID ordine: {{orderId}}",
+      "creatingStripe": "Creazione della sessione di onramp Stripe…",
+      "stripeOpened": "Onramp Stripe aperto.",
+      "authenticating": "Autenticazione con l'anchor…",
+      "openingCashIn": "Apertura della finestra di deposito in contanti…",
+      "openingCashOut": "Apertura della finestra KYC/prelievo in contanti…",
+      "creatingProposals": "Creazione delle proposte multisig (prelievo + commissione dello 0,3%)…",
+      "proposalsCreated": "Proposte create. Prelievo n. {{withdrawId}}, commissione n. {{feeId}}. Raccogli le approvazioni per l'esecuzione."
+    },
+    "errors": {
+      "apiUrlMissing": "L'URL API non è configurato (REACT_APP_API_URL).",
+      "sessionFailed": "Sessione fallita ({{status}})",
+      "noWidgetUrl": "Nessun widgetUrl restituito dal backend",
+      "transakFailed": "Ordine Transak fallito.",
+      "openTransakFailed": "Impossibile aprire Transak",
+      "stripeSessionFailed": "Sessione Stripe fallita ({{status}})",
+      "noClientSecret": "Nessun clientSecret restituito dal backend",
+      "startStripeFailed": "Impossibile avviare Stripe",
+      "depositFailed": "Impossibile avviare il deposito",
+      "withdrawFailed": "Impossibile avviare il prelievo"
+    },
+    "summary": {
+      "title": "Riepilogo",
+      "amount": "Importo",
+      "platformFee": "Commissione della piattaforma ({{pct}}%)",
+      "youReceive": "Ricevi nel vault",
+      "sentToAnchor": "Inviato all'anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Le commissioni dell'anchor e della rete vengono addebitate separatamente da {{provider}}.",
+      "theProvider": "il fornitore"
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "transak": "Paga con carta o bonifico bancario. Dopo il KYC, Transak consegna USDC su Stellar direttamente all'indirizzo del tuo vault. Non è necessaria alcuna approvazione multisig per i fondi in entrata.",
+      "moneygram": "I depositi arrivano direttamente nel vault. I prelievi creano due proposte multisig — il trasferimento e la commissione della piattaforma dello 0,3% — che i tuoi firmatari devono approvare prima che i fondi lascino il vault.",
+      "stripe": "Paga con carta o banca tramite Stripe. Stripe gestisce il KYC e consegna USDC su Stellar direttamente all'indirizzo del tuo vault."
+    },
+    "destination": {
+      "title": "Vault di destinazione"
+    }
+  },
+  "common": {
+    "copy": "Copia",
+    "share": "Condividi",
+    "loading": "Caricamento…",
+    "cancel": "Annulla",
+    "confirm": "Conferma",
+    "save": "Salva",
+    "close": "Chiudi",
+    "refresh": "Aggiorna",
+    "unknown": "Sconosciuto",
+    "change": "Modifica",
+    "open": "Apri",
+    "update": "Aggiorna",
+    "all": "Tutti",
+    "notAvailable": "N/D"
+  }
+}

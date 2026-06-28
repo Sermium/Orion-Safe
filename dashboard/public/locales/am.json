@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "አጠቃላይ እይታ",
+    "money": "ገንዘብ",
+    "vestingLocks": "ቬስቲንግ እና ቁልፎች",
+    "team": "ቡድን",
+    "system": "ሥርዓት",
+    "dashboard": "ዳሽቦርድ",
+    "assets": "ንብረቶች",
+    "fiat": "የፊያት መሸጋገሪያ",
+    "transactions": "ግብይቶች",
+    "locks": "ቁልፎች",
+    "vesting": "ቬስቲንግ",
+    "members": "አባላት",
+    "contacts": "እውቂያዎች",
+    "settings": "ቅንብሮች",
+    "docs": "ሰነዶች",
+    "admin": "አስተዳዳሪ",
+    "claim": "ቶከኖችን ይውሰዱ"
+  },
+  "fiat": {
+    "title": "የፊያት መሸጋገሪያ",
+    "deposit": "አስገባ",
+    "withdraw": "አውጣ",
+    "amount": "መጠን",
+    "provider": "አቅራቢ",
+    "fee": "የመድረክ ክፍያ",
+    "destination": "መድረሻ ቮልት",
+    "comingSoon": "በቅርቡ"
+  },
+  "sidebar": {
+    "currentVault": "የአሁኑ ቮልት",
+    "selectVault": "ቮልት ይምረጡ",
+    "createNewVault": "አዲስ ቮልት ይፍጠሩ",
+    "sharePublicView": "የሕዝብ እይታ ያጋሩ",
+    "disconnect": "ግንኙነት ያቋርጡ",
+    "connected": "ተገናኝቷል",
+    "linkCopied": "የሕዝብ አገናኝ ተቀድቷል!"
+  },
+  "header": {
+    "timeLocks": "የጊዜ ቁልፎች",
+    "deposit": "አስገባ",
+    "send": "ላክ"
+  },
+  "settings": {
+    "title": "የቮልት ቅንብሮች",
+    "subtitle": "የቮልትዎን ውቅረት እና አባላት ያስተዳድሩ",
+    "language": "ቋንቋ",
+    "languageAuto": "ራስ-ሰር (የመሣሪያ ቋንቋ)",
+    "languageHint": "ራስ-ሰር የመሣሪያዎን ቋንቋ ይከተላል እና ካልተደገፈ ወደ እንግሊዝኛ ይመለሳል።",
+    "tabs": {
+      "general": "አጠቃላይ",
+      "members": "አባላት እና ሚናዎች",
+      "advanced": "የላቀ"
+    },
+    "vaultInfo": "የቮልት መረጃ",
+    "vaultName": "የቮልት ስም",
+    "vaultAddress": "የቮልት አድራሻ",
+    "notSelected": "አልተመረጠም",
+    "yourRole": "የእርስዎ ሚና",
+    "members": "አባላት",
+    "threshold": "ደፍ",
+    "superAdmins": "ሱፐር አስተዳዳሪዎች",
+    "connectedWallet": "የተገናኘ ቦርሳ",
+    "publicKey": "የሕዝብ ቁልፍ",
+    "approvalThreshold": "የማጽደቅ ደፍ",
+    "thresholdDesc": "ግብይቶችን ለመፈጸም ከ{{total}} ፊርማዎች ውስጥ {{threshold}} ያስፈልጋሉ",
+    "vaultMembers": "የቮልት አባላት",
+    "vaultMembersDesc": "ይህን ቮልት ማን ሊደርስ እና ሊቆጣጠር እንደሚችል ያስተዳድሩ",
+    "addMember": "አባል ጨምር",
+    "you": "እርስዎ",
+    "copyAddress": "አድራሻ ቅዳ",
+    "removeMember": "አባል አስወግድ",
+    "rolePermissions": "የሚና ፈቃዶች",
+    "adminsOnly": "የቮልት አስተዳዳሪዎች ብቻ አባላትን እና ሚናዎችን ማስተዳደር ይችላሉ።",
+    "contractDetails": "የውል ዝርዝሮች",
+    "contractType": "የውል ዓይነት",
+    "sorobanContract": "የSoroban ዘመናዊ ውል",
+    "network": "አውታረ መረብ",
+    "testnet": "ቴስትኔት",
+    "actions": "እርምጃዎች",
+    "exportData": "የቮልት ውሂብ ላክ",
+    "exportDataDesc": "ውቅረትን እና የግብይት ታሪክን ያውርዱ",
+    "export": "ላክ",
+    "viewExplorer": "በኤክስፕሎረር ላይ ይመልከቱ",
+    "viewExplorerDesc": "የቮልት ውልን በStellar Expert ላይ ይክፈቱ",
+    "dangerZone": "የአደጋ ቀጠና",
+    "leaveVault": "ቮልትን ይተዉ",
+    "leaveVaultDesc": "ራስዎን እንደ ፈራሚ ያስወግዱ። ይህ መቀልበስ አይቻልም።",
+    "leaveLastWarning": "እርስዎ የመጨረሻው አባል ነዎት - መውጣት ቮልትን ይተወዋል!",
+    "leaving": "በመውጣት ላይ...",
+    "leave": "ውጣ",
+    "addNewMember": "አዲስ አባል ጨምር",
+    "addNewMemberDesc": "ከእውቂያዎች ይምረጡ ወይም አድራሻ በእጅ ያስገቡ",
+    "fromContacts": "ከእውቂያዎች",
+    "enterAddress": "አድራሻ ያስገቡ",
+    "searchContacts": "እውቂያዎችን ይፈልጉ...",
+    "noContactsAvailable": "ምንም እውቂያዎች የሉም (ሁሉም አስቀድሞ አባላት ናቸው)",
+    "noContactsFound": "ምንም እውቂያዎች አልተገኙም",
+    "allContactsMembers": "ሁሉም እውቂያዎችዎ አስቀድሞ የቮልት አባላት ናቸው። አዲስ አባል ለመጨመር \"አድራሻ ያስገቡ\" ይጠቀሙ።",
+    "stellarAddress": "የStellar አድራሻ",
+    "role": "ሚና",
+    "adding": "በመጨመር ላይ...",
+    "changeThreshold": "የማጽደቅ ደፍ ይቀይሩ",
+    "requiredSignatures": "የሚያስፈልጉ ፊርማዎች: ከ{{total}} ውስጥ {{threshold}}",
+    "thresholdWarning": "ደፉን መቀየር ደህንነትን ይነካል። ከፍ ያለ ደፍ ተጨማሪ ፊርማዎችን ይፈልጋል ግን ሥራዎችን ሊያዘገይ ይችላል።",
+    "updating": "በማዘመን ላይ...",
+    "roles": {
+      "superAdmin": "ሱፐር አስተዳዳሪ",
+      "admin": "አስተዳዳሪ",
+      "executor": "አስፈጻሚ"
+    },
+    "roleOptions": {
+      "superAdmin": "ሱፐር አስተዳዳሪ - ሙሉ ቁጥጥር",
+      "admin": "አስተዳዳሪ - አባላትን ማስተዳደር",
+      "executor": "አስፈጻሚ - ግብይት መፈጸም ይችላል"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "ሙሉ የቮልት ቁጥጥር",
+        "2": "ሁሉንም አባላት እና ሚናዎች ማስተዳደር",
+        "3": "ደፍ መቀየር",
+        "4": "ግብይቶችን መፍጠር እና መፈጸም"
+      },
+      "admin": {
+        "1": "አስፈጻሚዎችን ማስተዳደር",
+        "2": "ደፍ መቀየር",
+        "3": "ግብይቶችን መፍጠር እና ማጽደቅ",
+        "4": "ቁልፎችን ማስተዳደር"
+      },
+      "executor": {
+        "1": "ግብይቶችን መፍጠር",
+        "2": "ግብይቶችን ማጽደቅ",
+        "3": "የጸደቁ ግብይቶችን መፈጸም",
+        "4": "ሁሉንም እንቅስቃሴ መመልከት"
+      }
+    },
+    "success": {
+      "memberAdded": "አባል በተሳካ ሁኔታ ተጨምሯል!",
+      "memberRemoved": "አባል በተሳካ ሁኔታ ተወግዷል!",
+      "roleUpdated": "ሚና በተሳካ ሁኔታ ተዘምኗል!",
+      "thresholdUpdated": "ደፍ በተሳካ ሁኔታ ተዘምኗል!",
+      "leftVault": "ቮልትን በተሳካ ሁኔታ ለቀዋል!"
+    },
+    "errors": {
+      "invalidAddress": "ልክ ያልሆነ የStellar አድራሻ",
+      "alreadyMember": "አድራሻው አስቀድሞ አባል ነው",
+      "addFailed": "አባል መጨመር አልተሳካም",
+      "removeBreaksThreshold": "አባል ማስወገድ አይቻልም: የደፍ መስፈርትን ይጥሳል",
+      "lastSuperAdminRemove": "የመጨረሻውን ሱፐር አስተዳዳሪ ማስወገድ አይቻልም",
+      "removeFailed": "አባል ማስወገድ አልተሳካም",
+      "needOneSuperAdmin": "ሚና መቀየር አይቻልም: ቮልት ቢያንስ አንድ ሱፐር አስተዳዳሪ ሊኖረው ይገባል",
+      "roleFailed": "ሚና መቀየር አልተሳካም",
+      "thresholdMin": "ደፍ ቢያንስ 1 መሆን አለበት",
+      "thresholdMax": "ደፍ ከአባላት ብዛት መብለጥ አይችልም",
+      "thresholdFailed": "ደፍ ማዘመን አልተሳካም",
+      "leaveLastSuperAdmin": "እርስዎ የመጨረሻው ሱፐር አስተዳዳሪ ነዎት። እባክዎ ከመውጣትዎ በፊት ሌላ ሱፐር አስተዳዳሪ ይመድቡ፣ ወይም መጀመሪያ ሁሉንም ሌሎች አባላት ያስወግዱ።",
+      "leaveBreaksThreshold": "መውጣት አይቻልም: የደፍ መስፈርትን ይጥሳል። የአሁኑ ደፍ {{threshold}} ነው፣ ግን {{remaining}} አባላት ብቻ ይቀራሉ።",
+      "leaveFailed": "ቮልትን መውጣት አልተሳካም"
+    },
+    "confirm": {
+      "removeMember": "{{name}} ከቮልት ይወገድ?",
+      "leaveDefault": "ይህን ቮልት መውጣት እንደሚፈልጉ እርግጠኛ ነዎት? ይህ እርምጃ መቀልበስ አይቻልም።",
+      "leaveLastMember": "ማስጠንቀቂያ: እርስዎ የዚህ ቮልት የመጨረሻ አባል ነዎት። መውጣት ቮልትን በቋሚነት ይተወዋል። ቀሪ ገንዘብ ሁሉ ሊደረስበት አይችልም። በፍጹም እርግጠኛ ነዎት?",
+      "leaveFinalWarning": "ይህ የመጨረሻ ማስጠንቀቂያዎ ነው። ቮልት በቋሚነት ይተዋል። ይቀጥሉ?"
+    }
+  },
+  "assets": {
+    "title": "ንብረቶች",
+    "subtitle": "የቮልትዎን ንብረቶች ያስተዳድሩ",
+    "addToken": "ቶከን ጨምር",
+    "authorize": "ፍቀድ",
+    "totalBalance": "ጠቅላላ ቀሪ ሂሳብ",
+    "remainingDailySpend": "ቀሪ ዕለታዊ ወጪ",
+    "yourAssets": "የእርስዎ ንብረቶች",
+    "clickToManage": "ለማስተዳደር ንብረት ላይ ጠቅ ያድርጉ",
+    "noAssets": "እስካሁን ምንም ንብረቶች የሉም",
+    "noAssetsDesc": "ለመጀመር አንዳንድ ቶከኖችን ያስገቡ",
+    "makeFirstDeposit": "የመጀመሪያ ተቀማጭ ያድርጉ",
+    "availableBalance": "ያለ ቀሪ ሂሳብ",
+    "actions": {
+      "deposit": "አስገባ",
+      "depositDesc": "ወደ ቮልት ተጨማሪ {{symbol}} ጨምር",
+      "send": "ላክ",
+      "sendDesc": "የ{{symbol}} ሽግግር አቅርብ",
+      "timeLock": "የጊዜ ቁልፍ",
+      "timeLockDesc": "እስከ ተወሰነ ቀን ድረስ ቆልፍ",
+      "vesting": "ቬስቲንግ",
+      "vestingDesc": "ከገደብ ጊዜ ጋር የቬስቲንግ መርሐ ግብር ይፍጠሩ"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "የቁልፎች እና ቬስቲንግ የቀን መቁጠሪያ",
+    "summary": "{{timeLocks}} የጊዜ ቁልፎች፣ {{vestings}} ቬስቲንጎች",
+    "viewCalendar": "የቀን መቁጠሪያ",
+    "viewList": "ዝርዝር",
+    "filterType": "ዓይነት",
+    "filterStatus": "ሁኔታ",
+    "timeLocks": "የጊዜ ቁልፎች",
+    "vestings": "ቬስቲንጎች",
+    "timeLock": "የጊዜ ቁልፍ",
+    "vesting": "ቬስቲንግ",
+    "noLocks": "የሚታይ ቁልፍ ወይም ቬስቲንግ የለም",
+    "today": "ዛሬ",
+    "now": "አሁን",
+    "cliff": "ገደብ",
+    "claimable": "ሊወሰድ የሚችል",
+    "progress": "እድገት",
+    "start": "ጅማሬ",
+    "end": "መጨረሻ",
+    "unlock": "ክፈት",
+    "beneficiary": "ተጠቃሚ",
+    "locked": "ተቆልፏል",
+    "vestingLabel": "ቬስቲንግ",
+    "released": "ተለቅቋል",
+    "active": "ንቁ",
+    "completedCount": "{{count}} ተጠናቅቋል",
+    "status": {
+      "active": "ንቁ",
+      "partiallyReleased": "በከፊል ተለቅቋል",
+      "fullyReleased": "ሙሉ በሙሉ ተለቅቋል",
+      "cancelled": "ተሰርዟል"
+    },
+    "statusFilter": {
+      "active": "ንቁ",
+      "completed": "ተጠናቅቋል"
+    },
+    "events": {
+      "start": "ጅማሬ",
+      "cliff": "ገደብ",
+      "end": "መጨረሻ"
+    }
+  },
+  "claim": {
+    "title": "ቶከኖችዎን ይውሰዱ",
+    "subtitleVault": "ከቮልት {{address}} ቁልፎችን በመመልከት ላይ",
+    "subtitleAll": "ለእርስዎ የተመደቡ ቁልፎችን ይመልከቱ እና ይውሰዱ",
+    "disconnect": "ግንኙነት ያቋርጡ",
+    "connectWallet": "ቦርሳ ያገናኙ",
+    "connectTitle": "ቦርሳዎን ያገናኙ",
+    "connectDescVault": "ከዚህ ቮልት ለእርስዎ የተመደቡ ሁሉንም የጊዜ ቁልፎች እና የቬስቲንግ መርሐ ግብሮች ለማየት ቦርሳዎን ያገናኙ።",
+    "connectDescAll": "በሁሉም Stellar ቮልቶች ውስጥ ለእርስዎ የተመደቡ ሁሉንም የጊዜ ቁልፎች እና የቬስቲንግ መርሐ ግብሮች ለማየት ቦርሳዎን ያገናኙ።",
+    "loadingVault": "ከቮልት ቁልፎችን በመጫን ላይ...",
+    "loadingAll": "ቁልፎችዎን ለማግኘት ቮልቶችን በመቃኘት ላይ...",
+    "scanProgress": "ከ{{total}} ቮልቶች ውስጥ {{scanned}} ተፈትሸዋል",
+    "unknownVault": "ያልታወቀ ቮልት",
+    "tokensAmount": "{{amount}} ቶከኖች",
+    "claimNow": "አሁን ውሰድ",
+    "claiming": "በመውሰድ ላይ...",
+    "refreshLocks": "ቁልፎችን አድስ",
+    "claimSuccess": "{{amount}} ቶከኖችን በተሳካ ሁኔታ ወስደዋል!",
+    "errorLoad": "ቁልፎችን መጫን አልተሳካም",
+    "errorClaim": "መውሰድ አልተሳካም",
+    "stats": {
+      "readyToClaim": "ለመውሰድ ዝግጁ",
+      "pending": "በመጠባበቅ ላይ",
+      "completed": "ተጠናቅቋል"
+    },
+    "sections": {
+      "readyToClaim": "ለመውሰድ ዝግጁ",
+      "pending": "በመጠባበቅ ላይ"
+    },
+    "fields": {
+      "fromVault": "ከቮልት",
+      "totalAmount": "ጠቅላላ መጠን",
+      "description": "መግለጫ",
+      "timeRemaining": "የቀረ ጊዜ",
+      "unlockDate": "የመክፈቻ ቀን"
+    },
+    "types": {
+      "timeLock": "የጊዜ ቁልፍ",
+      "vesting": "ቬስቲንግ",
+      "unknown": "ያልታወቀ"
+    },
+    "time": {
+      "unlocked": "ተከፍቷል",
+      "fullyVested": "ሙሉ በሙሉ ቬስት ሆኗል",
+      "remaining": "{{days}}ቀን {{hours}}ሰዓት ቀርቷል",
+      "toCliff": "{{days}}ቀን {{hours}}ሰዓት እስከ ገደብ"
+    },
+    "empty": {
+      "title": "ምንም ቁልፎች አልተገኙም",
+      "descVault": "በዚህ ቮልት ውስጥ ለእርስዎ የተመደበ ምንም ቁልፍ የለዎትም።",
+      "descAll": "ለእርስዎ የተመደበ ምንም የጊዜ ቁልፍ ወይም የቬስቲንግ መርሐ ግብር የለዎትም።"
+    }
+  },
+  "contacts": {
+    "title": "የእውቂያ መዝገብ",
+    "subtitle": "በተደጋጋሚ ጥቅም ላይ የሚውሉ አድራሻዎችን ለፈጣን መዳረሻ ያስቀምጡ",
+    "addContact": "እውቂያ ጨምር",
+    "searchPlaceholder": "እውቂያዎችን ይፈልጉ...",
+    "savedCount_one": "{{count}} እውቂያ ተቀምጧል",
+    "savedCount_other": "{{count}} እውቂያዎች ተቀምጠዋል",
+    "confirmDelete": "\"{{name}}\" ከእውቂያዎች ይሰረዝ?",
+    "errors": {
+      "nameRequired": "ስም ያስፈልጋል",
+      "addressRequired": "አድራሻ ያስፈልጋል",
+      "invalidAddress": "ልክ ያልሆነ የStellar አድራሻ",
+      "duplicate": "ይህ አድራሻ አስቀድሞ በእውቂያዎችዎ ውስጥ አለ"
+    },
+    "empty": {
+      "noMatch": "ከፍለጋዎ ጋር የሚዛመድ ምንም እውቂያ የለም",
+      "none": "እስካሁን ምንም እውቂያዎች የሉም",
+      "addFirst": "የመጀመሪያ እውቂያዎን ይጨምሩ →"
+    },
+    "actions": {
+      "copy": "አድራሻ ቅዳ",
+      "edit": "እውቂያ አርትዕ",
+      "delete": "እውቂያ ሰርዝ"
+    },
+    "modal": {
+      "addTitle": "አዲስ እውቂያ ጨምር",
+      "editTitle": "እውቂያ አርትዕ",
+      "nameLabel": "ስም *",
+      "namePlaceholder": "ለምሳሌ፣ Alice፣ Treasury፣ Exchange",
+      "addressLabel": "የStellar አድራሻ *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "አድራሻ ሊቀየር አይችልም",
+      "notesLabel": "ማስታወሻዎች (አማራጭ)",
+      "notesPlaceholder": "ስለዚህ እውቂያ ማንኛውንም ማስታወሻ ይጨምሩ...",
+      "saveChanges": "ለውጦችን አስቀምጥ"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "ጠቅላላ ቀሪ ሂሳብ",
+      "threshold": "ደፍ",
+      "signaturesRequired": "ፊርማዎች ያስፈልጋሉ",
+      "pending": "በመጠባበቅ ላይ",
+      "awaitingApproval": "ማጽደቅ በመጠባበቅ ላይ",
+      "readyToExecute": "ለመፈጸም ዝግጁ",
+      "fullyApproved": "ሙሉ በሙሉ ጸድቋል"
+    },
+    "activeProposals": "ንቁ ሀሳቦች",
+    "viewAll": "ሁሉንም ይመልከቱ",
+    "noProposals": "እስካሁን ምንም ሀሳቦች የሉም",
+    "createFirst": "የመጀመሪያ ግብይትዎን ይፍጠሩ →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "ለ{{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} ማጽደቆች",
+    "status": {
+      "pending": "በመጠባበቅ ላይ",
+      "approved": "ጸድቋል",
+      "executed": "ተፈጽሟል",
+      "rejected": "ተቀባይነት አላገኘም",
+      "unknown": "ያልታወቀ"
+    },
+    "types": {
+      "transfer": "ሽግግር",
+      "timeLock": "የጊዜ ቁልፍ",
+      "vesting": "ቬስቲንግ",
+      "unknown": "ያልታወቀ"
+    }
+  },
+  "locks": {
+    "title": "የጊዜ ቁልፎች",
+    "subtitle": "ንብረቶችን እስከ ተወሰነ ቀን ድረስ ይቆልፉ",
+    "bulkCreate": "በጅምላ ይፍጠሩ",
+    "createTimeLock": "የጊዜ ቁልፍ ይፍጠሩ",
+    "creating": "በመፍጠር ላይ...",
+    "createFirst": "የመጀመሪያ የጊዜ ቁልፍዎን ይፍጠሩ",
+    "empty": "እስካሁን ምንም የጊዜ ቁልፎች አልተፈጠሩም",
+    "archived": "ተመዝግቧል",
+    "selectToken": "ቶከን ይምረጡ",
+    "available": "{{amount}} አለ",
+    "quickSelect": "ፈጣን ምርጫ:",
+    "beneficiaryPlaceholder": "እውቂያዎችን ይፈልጉ ወይም G... አድራሻ ያስገቡ",
+    "descriptionPlaceholder": "ለምሳሌ፣ የቡድን ድልድል",
+    "optional": "አማራጭ",
+    "revocableLabel": "ሊሰረዝ የሚችል",
+    "revocableHint": "አስተዳዳሪ ሊሰርዝ እና ገንዘብ ወደ ቮልት መመለስ ይችላል",
+    "feeWarning": "ቁልፍ ለመፍጠር የ10 XLM ክፍያ ይከፈላል።",
+    "defaultDescription": "የጊዜ ቁልፍ",
+    "lockNumber": "ቁልፍ #{{id}}",
+    "timeLockBadge": "የጊዜ ቁልፍ",
+    "revocableBadge": "ሊሰረዝ የሚችል",
+    "readyToClaim": "ለመውሰድ ዝግጁ",
+    "releasedLabel": "ተለቅቋል",
+    "you": "እርስዎ",
+    "claim": "ውሰድ",
+    "cancel": "ሰርዝ",
+    "close": "ዝጋ",
+    "confirmCancel": "ይህን ቁልፍ መሰረዝ እንደሚፈልጉ እርግጠኛ ነዎት?",
+    "stats": {
+      "total": "ጠቅላላ የጊዜ ቁልፎች",
+      "active": "ንቁ",
+      "unlocked": "ተከፍቷል",
+      "yourLocks": "የእርስዎ ቁልፎች"
+    },
+    "sections": {
+      "yours": "የእርስዎ የጊዜ ቁልፎች",
+      "active": "ንቁ የጊዜ ቁልፎች",
+      "pendingCompletion": "መጠናቀቅ በመጠባበቅ ላይ"
+    },
+    "fields": {
+      "token": "ቶከን",
+      "amount": "መጠን",
+      "beneficiary": "ተጠቃሚ",
+      "beneficiaryAddress": "የተጠቃሚ አድራሻ",
+      "remaining": "የቀረ",
+      "timeStatus": "የጊዜ ሁኔታ",
+      "unlockDate": "የመክፈቻ ቀን",
+      "unlockDateTime": "የመክፈቻ ቀን እና ሰዓት",
+      "creator": "ፈጣሪ",
+      "description": "መግለጫ",
+      "descriptionOptional": "መግለጫ (አማራጭ)"
+    },
+    "statuses": {
+      "active": "ንቁ",
+      "partiallyReleased": "በከፊል ተለቅቋል",
+      "fullyReleased": "ሙሉ በሙሉ ተለቅቋል",
+      "cancelled": "ተሰርዟል",
+      "unknown": "ያልታወቀ"
+    },
+    "time": {
+      "unlocked": "ተከፍቷል",
+      "remainingDays": "{{days}}ቀን {{hours}}ሰዓት ቀርቷል",
+      "remainingHours": "{{hours}}ሰዓት ቀርቷል"
+    },
+    "errors": {
+      "fillRequired": "እባክዎ ሁሉንም የሚያስፈልጉ ሜዳዎች ይሙሉ",
+      "invalidBeneficiary": "ልክ ያልሆነ የተጠቃሚ አድራሻ",
+      "unlockFuture": "የመክፈቻ ጊዜ ወደፊት መሆን አለበት",
+      "createFailed": "ቁልፍ መፍጠር አልተሳካም",
+      "claimFailed": "መውሰድ አልተሳካም",
+      "cancelFailed": "ቁልፍ መሰረዝ አልተሳካም",
+      "invalidAmount": "ልክ ያልሆነ መጠን",
+      "tokenNotSelected": "ቶከን አልተመረጠም",
+      "unlockRequired": "የመክፈቻ ቀን ያስፈልጋል",
+      "proposalFailed": "ሀሳብ መፍጠር አልተሳካም"
+    },
+    "bulk": {
+      "title": "የጊዜ ቁልፎችን በጅምላ ይፍጠሩ",
+      "subtitle": "በአንድ ጊዜ ብዙ የጊዜ ቁልፎችን ይፍጠሩ (በቡድን ቢበዛ {{max}})",
+      "downloadTemplate": "አብነት አውርድ",
+      "importCsv": "CSV አስገባ",
+      "statsTotal": "ጠቅላላ",
+      "statsPending": "በመጠባበቅ ላይ",
+      "statsSuccess": "ስኬት",
+      "statsErrors": "ስህተቶች",
+      "maxReachedAlert": "የአውታረ መረብ ጫናን ለማስወገድ በቡድን ቢበዛ {{max}} የጊዜ ቁልፎች።",
+      "maxReachedWarning": "ከፍተኛው የቡድን መጠን ደርሷል ({{max}} ቁልፎች)። ተጨማሪ ከመጨመር በፊት እነዚህን ያስኬዱ።",
+      "csvTooMany": "CSV {{count}} ግቤቶችን ይዟል። በቡድን ቢበዛ {{max}}። የመጀመሪያዎቹ {{max}} ብቻ ይገባሉ።",
+      "duplicate": "ድግግሞሽ",
+      "remove": "አስወግድ",
+      "addEntry": "የጊዜ ቁልፍ ጨምር",
+      "processing": "ከ{{total}} ውስጥ {{current}} በማስኬድ ላይ...",
+      "readyCount_one": "{{count}} ቁልፍ ለመፍጠር ዝግጁ",
+      "readyCount_other": "{{count}} ቁልፎች ለመፍጠር ዝግጁ",
+      "feeTotal": "• ክፍያ: {{fee}} XLM ጠቅላላ",
+      "creatingProposals": "ሀሳቦችን በመፍጠር ላይ...",
+      "createCount_one": "{{count}} ሀሳብ ይፍጠሩ",
+      "createCount_other": "{{count}} ሀሳቦች ይፍጠሩ",
+      "defaultDescription": "የጅምላ የጊዜ ቁልፍ"
+    }
+  },
+  "members": {
+    "title": "የቮልት አባላት",
+    "subtitle_one": "{{count}} አባል • ደፍ: ከ{{total}} ውስጥ {{threshold}}",
+    "subtitle_other": "{{count}} አባላት • ደፍ: ከ{{total}} ውስጥ {{threshold}}",
+    "searchPlaceholder": "አባላትን በአድራሻ፣ በስም ወይም በሚና ይፈልጉ...",
+    "manageHint": "አባላትን ለማስተዳደር (መጨመር፣ ማስወገድ፣ ሚናዎችን መቀየር)፣ ወደ <strong>ቅንብሮች → አባላት እና ሚናዎች</strong> ይሂዱ",
+    "you": "እርስዎ",
+    "addToContacts": "ወደ እውቂያዎች ጨምር",
+    "noResults": "ከፍለጋዎ ጋር የሚዛመዱ ምንም አባላት አልተገኙም።",
+    "stats": {
+      "totalMembers": "ጠቅላላ አባላት",
+      "superAdmins": "ሱፐር አስተዳዳሪዎች",
+      "admins": "አስተዳዳሪዎች",
+      "executors": "አስፈጻሚዎች"
+    },
+    "roles": {
+      "superAdmin": "ሱፐር አስተዳዳሪ",
+      "admin": "አስተዳዳሪ",
+      "executor": "አስፈጻሚ"
+    },
+    "permissions": {
+      "title": "የሚና ፈቃዶች",
+      "superAdmin": "ሌሎች አስተዳዳሪዎችን እና ወሳኝ ቅንብሮችን ማስተዳደርን ጨምሮ ሙሉ ቁጥጥር",
+      "admin": "የቮልት ቅንብሮችን፣ አባላትን ማስተዳደር እና ግብይቶችን ማጽደቅ ይችላል",
+      "executor": "ግብይቶችን መፍጠር፣ ማጽደቅ እና መፈጸም ይችላል"
+    },
+    "addContactModal": {
+      "title": "ወደ እውቂያዎች ጨምር",
+      "addressLabel": "አድራሻ",
+      "nameLabel": "ስም",
+      "namePlaceholder": "ለዚህ እውቂያ ስም ያስገቡ",
+      "save": "እውቂያ አስቀምጥ"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar ቮልት",
+    "publicViewBadge": "የሕዝብ እይታ",
+    "loading": "የቮልት ውሂብ በመጫን ላይ...",
+    "noLocks": "እስካሁን ምንም ቁልፎች አልተፈጠሩም",
+    "noAssets": "ምንም ንብረቶች አልተገኙም",
+    "revocable": "ሊሰረዝ የሚችል",
+    "released": "ተለቅቋል",
+    "allLocks": "ሁሉም ቁልፎች ({{count}})",
+    "toBeneficiary": "ለ: {{address}}",
+    "errors": {
+      "title": "ቮልት መጫን አልተሳካም",
+      "loadFailed": "የቮልት ውሂብ መጫን አልተሳካም"
+    },
+    "tabs": {
+      "overview": "አጠቃላይ እይታ",
+      "locks": "ቁልፎች",
+      "calendar": "የቀን መቁጠሪያ",
+      "assets": "ንብረቶች"
+    },
+    "stats": {
+      "signers": "ፈራሚዎች",
+      "threshold": "ደፍ: {{count}}",
+      "totalLocks": "ጠቅላላ ቁልፎች",
+      "activeCount": "{{count}} ንቁ",
+      "assets": "ንብረቶች",
+      "tokensHeld": "የተያዙ ቶከኖች",
+      "lockedValue": "የተቆለፈ ዋጋ",
+      "totalLocked": "ጠቅላላ የተቆለፈ"
+    },
+    "sections": {
+      "signers": "ፈራሚዎች",
+      "recentLocks": "የቅርብ ጊዜ ቁልፎች",
+      "assets": "ንብረቶች"
+    },
+    "fields": {
+      "amount": "መጠን",
+      "beneficiary": "ተጠቃሚ",
+      "unlockDate": "የመክፈቻ ቀን",
+      "timeRemaining": "የቀረ ጊዜ"
+    },
+    "status": {
+      "active": "ንቁ",
+      "partiallyReleased": "በከፊል ተለቅቋል",
+      "fullyReleased": "ሙሉ በሙሉ ተለቅቋል",
+      "cancelled": "ተሰርዟል"
+    },
+    "lockType": {
+      "timeLock": "የጊዜ ቁልፍ",
+      "vesting": "ቬስቲንግ"
+    },
+    "time": {
+      "unlocked": "ተከፍቷል",
+      "cliffPassed": "ገደብ አልፏል",
+      "remaining": "{{days}}ቀን {{hours}}ሰዓት ቀርቷል",
+      "toCliff": "{{days}}ቀን {{hours}}ሰዓት እስከ ገደብ"
+    },
+    "footer": {
+      "title": "Stellar ቮልት - የሕዝብ እይታ",
+      "poweredBy": "በSoroban የተደገፈ"
+    }
+  },
+  "transactions": {
+    "title": "ግብይቶች",
+    "subtitle": "የቮልት ሀሳቦችን እና ሽግግሮችን ይመልከቱ እና ያስተዳድሩ",
+    "bulkTransfer": "የጅምላ ሽግግር",
+    "newTransaction": "አዲስ ግብይት",
+    "createFirst": "የመጀመሪያ ሀሳብ ይፍጠሩ",
+    "completedProposals": "የተጠናቀቁ ሀሳቦች",
+    "noHistory": "ምንም የግብይት ታሪክ አልተገኘም",
+    "noHistoryNote": "ማስታወሻ: የSoroban ውል ግብይቶች በተፈጸሙ ሀሳቦች በኩል ይታያሉ",
+    "received": "ተቀብሏል",
+    "sent": "ተልኳል",
+    "onChainPayments_one": "{{count}} የሰንሰለት ክፍያ",
+    "onChainPayments_other": "{{count}} የሰንሰለት ክፍያዎች",
+    "approvalsCount": "{{count}}/{{threshold}} ማጽደቆች",
+    "rejectionsCount": "{{count}}/{{threshold}} ውድቅዎች",
+    "tabs": {
+      "proposals": "ሀሳቦች ({{count}})",
+      "history": "ታሪክ ({{count}})"
+    },
+    "filters": {
+      "all": "ሁሉም",
+      "pending": "በመጠባበቅ ላይ",
+      "approved": "ጸድቋል"
+    },
+    "empty": {
+      "all": "ምንም ሀሳቦች አልተገኙም",
+      "filtered": "ምንም {{filter}} ሀሳቦች አልተገኙም"
+    },
+    "status": {
+      "pending": "በመጠባበቅ ላይ",
+      "approved": "ጸድቋል",
+      "executed": "ተፈጽሟል",
+      "rejected": "ተቀባይነት አላገኘም"
+    },
+    "types": {
+      "transfer": "ሽግግር",
+      "timeLock": "የጊዜ ቁልፍ",
+      "vesting": "ቬስቲንግ"
+    },
+    "fields": {
+      "to": "ለ:",
+      "from": "ከ:",
+      "by": "በ:",
+      "beneficiary": "ተጠቃሚ:",
+      "created": "ተፈጥሯል:",
+      "approvals": "ማጽደቆች:",
+      "unlockDate": "የመክፈቻ ቀን:",
+      "cliffDate": "የገደብ ቀን:",
+      "endDate": "የመጨረሻ ቀን:"
+    },
+    "actions": {
+      "approve": "አጽድቅ",
+      "execute": "ፈጽም",
+      "reject": "ውድቅ አድርግ",
+      "confirmReject": "ውድቅ ማድረግን አረጋግጥ"
+    },
+    "bulk": {
+      "title": "የጅምላ ሽግግር",
+      "subtitle": "በቡድን ብዙ የሽግግር ሀሳቦችን ይፍጠሩ (በቡድን ቢበዛ {{max}})",
+      "importCsv": "CSV አስገባ",
+      "downloadTemplate": "አብነት አውርድ",
+      "csvHelp": "የCSV ቅርጸት እገዛ",
+      "totalLabel": "ጠቅላላ:",
+      "successLabel": "ስኬት:",
+      "failedLabel": "አልተሳካም:",
+      "csvFormatTitle": "የCSV ቅርጸት",
+      "csvFormatNote": "ለXLM \"native\" ይጠቀሙ ወይም ሙሉ የቶከን ውል አድራሻ።",
+      "maxBatchWarning": "የአውታረ መረብ ጫናን ለማስወገድ በቡድን ቢበዛ {{max}} ሽግግሮች። ለተጨማሪ ሌላ ቡድን ይፍጠሩ።",
+      "recipientLabel": "የተቀባይ አድራሻ",
+      "amountLabel": "መጠን",
+      "tokenLabel": "ቶከን",
+      "duplicate": "ድግግሞሽ",
+      "remove": "አስወግድ",
+      "addTransfer": "ሽግግር ጨምር",
+      "processing": "ከ{{total}} ውስጥ {{current}} በማስኬድ ላይ... (በግብይቶች መካከል {{delay}}ሰ መዘግየት)",
+      "readyCount_one": "{{count}} ሽግግር ዝግጁ",
+      "readyCount_other": "{{count}} ሽግግሮች ዝግጁ",
+      "totalTokens": "• ጠቅላላ: ~{{amount}} ቶከኖች",
+      "creatingProposals": "ሀሳቦችን በመፍጠር ላይ...",
+      "createProposals_one": "{{count}} ሀሳብ ይፍጠሩ",
+      "createProposals_other": "{{count}} ሀሳቦች ይፍጠሩ",
+      "maxBatchAlert": "የአውታረ መረብ ጫናን ለማስወገድ በቡድን ቢበዛ {{max}} ሽግግሮች።",
+      "maxBatchShortAlert": "በቡድን ቢበዛ {{max}} ሽግግሮች።",
+      "csvTooManyAlert": "CSV {{count}} ግቤቶችን ይዟል። በቡድን ቢበዛ {{max}}። የመጀመሪያዎቹ {{max}} ብቻ ይገባሉ።",
+      "errors": {
+        "invalidRecipient": "ልክ ያልሆነ የተቀባይ አድራሻ",
+        "invalidAmount": "ልክ ያልሆነ መጠን",
+        "noToken": "ቶከን አልተመረጠም",
+        "transferUnavailable": "የሽግግር ተግባር አይገኝም",
+        "createFailed": "ሀሳብ መፍጠር አልተሳካም"
+      }
+    }
+  },
+  "vesting": {
+    "title": "የቬስቲንግ መርሐ ግብሮች",
+    "subtitle": "ከገደብ ጊዜዎች እና ቀስ በቀስ ከመለቀቅ ጋር የቶከን ቬስቲንግ",
+    "bulkCreate": "በጅምላ ይፍጠሩ",
+    "createVesting": "ቬስቲንግ ይፍጠሩ",
+    "createFirst": "የመጀመሪያ የቬስቲንግ መርሐ ግብርዎን ይፍጠሩ",
+    "empty": "እስካሁን ምንም የቬስቲንግ መርሐ ግብሮች አልተፈጠሩም",
+    "archived": "ተመዝግቧል",
+    "revocable": "ሊሰረዝ የሚችል",
+    "badge": "ቬስቲንግ",
+    "you": "እርስዎ",
+    "claimButton": "💰 ውሰድ",
+    "cardTitle": "ቬስቲንግ #{{id}}",
+    "claimableBadge": "{{amount}} ሊወሰድ የሚችል",
+    "vestedLabel": "ቬስት ሆኗል: {{vested}} / {{total}}",
+    "releasedLabel": "ተለቅቋል: {{released}}",
+    "daysValue": "{{count}} ቀናት",
+    "defaultDescription": "የቬስቲንግ መርሐ ግብር",
+    "confirmCancel": "ይህን የቬስቲንግ መርሐ ግብር መሰረዝ እንደሚፈልጉ እርግጠኛ ነዎት?",
+    "stats": {
+      "totalVesting": "ጠቅላላ ቬስቲንግ",
+      "active": "ንቁ",
+      "claimable": "ሊወሰድ የሚችል",
+      "yourVesting": "የእርስዎ ቬስቲንግ"
+    },
+    "sections": {
+      "yours": "የእርስዎ የቬስቲንግ መርሐ ግብሮች",
+      "active": "ንቁ የቬስቲንግ መርሐ ግብሮች",
+      "pendingCompletion": "መጠናቀቅ በመጠባበቅ ላይ"
+    },
+    "status": {
+      "active": "ንቁ",
+      "partiallyReleased": "በከፊል ተለቅቋል",
+      "fullyReleased": "ሙሉ በሙሉ ተለቅቋል",
+      "cancelled": "ተሰርዟል"
+    },
+    "time": {
+      "toCliff": "{{days}}ቀን {{hours}}ሰዓት እስከ ገደብ",
+      "fullyVested": "ሙሉ በሙሉ ቬስት ሆኗል",
+      "remaining": "{{days}}ቀን {{hours}}ሰዓት ቀርቷል"
+    },
+    "interval": {
+      "daily": "ዕለታዊ",
+      "weekly": "ሳምንታዊ",
+      "monthly": "ወርሃዊ",
+      "quarterly": "የሩብ ዓመት"
+    },
+    "fields": {
+      "token": "ቶከን",
+      "remaining": "የቀረ",
+      "status": "ሁኔታ",
+      "cliffDate": "የገደብ ቀን",
+      "endDate": "የመጨረሻ ቀን",
+      "releaseInterval": "የመለቀቂያ ክፍተት",
+      "beneficiary": "ተጠቃሚ",
+      "creator": "ፈጣሪ",
+      "description": "መግለጫ"
+    },
+    "errors": {
+      "fillRequired": "እባክዎ ሁሉንም የሚያስፈልጉ ሜዳዎች ይሙሉ",
+      "invalidBeneficiary": "ልክ ያልሆነ የተጠቃሚ አድራሻ",
+      "durationPositive": "የቬስቲንግ ቆይታ ከ0 መብለጥ አለበት",
+      "cliffShorter": "ገደብ ከጠቅላላ ቆይታ አጭር መሆን አለበት",
+      "createFailed": "ቬስቲንግ መፍጠር አልተሳካም",
+      "claimFailed": "መውሰድ አልተሳካም",
+      "cancelFailed": "መሰረዝ አልተሳካም"
+    },
+    "modal": {
+      "title": "የቬስቲንግ መርሐ ግብር ይፍጠሩ",
+      "token": "ቶከን",
+      "selectToken": "ቶከን ይምረጡ",
+      "tokenOption": "{{symbol}} - {{amount}} አለ",
+      "totalAmount": "ጠቅላላ መጠን",
+      "beneficiary": "ተጠቃሚ",
+      "quickSelect": "ፈጣን ምርጫ:",
+      "beneficiaryPlaceholder": "እውቂያዎችን ይፈልጉ ወይም G... አድራሻ ያስገቡ",
+      "cliffDays": "ገደብ (ቀናት)",
+      "cliffHint": "ከገደብ በፊት መለቀቅ የለም",
+      "durationDays": "ቆይታ (ቀናት)",
+      "durationHint": "ጠቅላላ የቬስቲንግ ጊዜ",
+      "intervalDays": "ክፍተት (ቀናት)",
+      "intervalHint": "የመለቀቅ ድግግሞሽ",
+      "descriptionLabel": "መግለጫ (አማራጭ)",
+      "descriptionPlaceholder": "ለምሳሌ፣ የሰራተኛ ቬስቲንግ፣ የአማካሪ ድልድል",
+      "revocableHint": "አስተዳዳሪ ሊሰርዝ እና ያልቬስት የሆነ ገንዘብ መመለስ ይችላል",
+      "previewTitle": "የቬስቲንግ ቅድመ እይታ",
+      "previewCliff": "• ገደብ ያበቃል: {{date}}",
+      "previewVested": "• ሙሉ በሙሉ ቬስት ሆኗል: {{date}}",
+      "previewReleases": "• ከገደብ በኋላ በየ{{days}} ቀናት ይለቀቃል",
+      "feeNotice": "⚠️ የቬስቲንግ መርሐ ግብር ለመፍጠር የ0.1 XLM ክፍያ ይከፈላል።",
+      "creating": "በመፍጠር ላይ...",
+      "createButton": "የቬስቲንግ መርሐ ግብር ይፍጠሩ"
+    },
+    "bulk": {
+      "title": "ቬስቲንግን በጅምላ ይፍጠሩ",
+      "subtitle": "በአንድ ጊዜ ብዙ የቬስቲንግ መርሐ ግብሮችን ይፍጠሩ (በቡድን ቢበዛ {{max}})",
+      "downloadTemplate": "አብነት አውርድ",
+      "importCsv": "CSV አስገባ",
+      "totalLabel": "ጠቅላላ:",
+      "pendingLabel": "በመጠባበቅ ላይ:",
+      "successLabel": "ስኬት:",
+      "errorsLabel": "ስህተቶች:",
+      "maxBatchWarning": "ከፍተኛው የቡድን መጠን ደርሷል ({{max}} መርሐ ግብሮች)። ተጨማሪ ከመጨመር በፊት እነዚህን ያስኬዱ።",
+      "beneficiaryLabel": "የተጠቃሚ አድራሻ",
+      "amountLabel": "መጠን",
+      "tokenLabel": "ቶከን",
+      "cliffLabel": "ገደብ (ቀናት)",
+      "durationLabel": "ቆይታ (ቀናት)",
+      "intervalLabel": "ክፍተት (ቀናት)",
+      "descriptionLabel": "መግለጫ",
+      "optionalPlaceholder": "አማራጭ",
+      "duplicate": "ድግግሞሽ",
+      "remove": "አስወግድ",
+      "addSchedule": "የቬስቲንግ መርሐ ግብር ጨምር",
+      "previewCliff": "ገደብ: {{date}}",
+      "previewEnd": "መጨረሻ: {{date}}",
+      "previewReleases": "በየ{{days}} ቀናት ይለቀቃል",
+      "processing": "ከ{{total}} ውስጥ {{current}} በማስኬድ ላይ...",
+      "readyCount_one": "{{count}} መርሐ ግብር ለመፍጠር ዝግጁ",
+      "readyCount_other": "{{count}} መርሐ ግብሮች ለመፍጠር ዝግጁ",
+      "feeTotal": "• ክፍያ: {{fee}} XLM ጠቅላላ",
+      "creatingProposals": "ሀሳቦችን በመፍጠር ላይ...",
+      "createProposals_one": "{{count}} ሀሳብ ይፍጠሩ",
+      "createProposals_other": "{{count}} ሀሳቦች ይፍጠሩ",
+      "defaultDescription": "የጅምላ የቬስቲንግ መርሐ ግብር",
+      "maxBatchAlert": "የአውታረ መረብ ጫናን ለማስወገድ በቡድን ቢበዛ {{max}} የቬስቲንግ መርሐ ግብሮች።",
+      "csvTooManyAlert": "CSV {{count}} ግቤቶችን ይዟል። በቡድን ቢበዛ {{max}}። የመጀመሪያዎቹ {{max}} ብቻ ይገባሉ።",
+      "errors": {
+        "invalidBeneficiary": "ልክ ያልሆነ የተጠቃሚ አድራሻ",
+        "invalidAmount": "ልክ ያልሆነ መጠን",
+        "noToken": "ቶከን አልተመረጠም",
+        "durationPositive": "የቬስቲንግ ቆይታ ከ0 መብለጥ አለበት",
+        "invalidCliff": "ልክ ያልሆነ የገደብ ጊዜ",
+        "cliffShorter": "ገደብ ከጠቅላላ ቆይታ አጭር መሆን አለበት",
+        "invalidInterval": "ልክ ያልሆነ የመለቀቂያ ክፍተት",
+        "createFailed": "ሀሳብ መፍጠር አልተሳካም"
+      }
+    }
+  },
+  "createVault": {
+    "title": "አዲስ ቮልት ይፍጠሩ",
+    "defaultName": "የእኔ ቮልት",
+    "defaultNameNumbered": "የእኔ ቮልት {{number}}",
+    "vaultName": "የቮልት ስም",
+    "youOwner": "እርስዎ (ባለቤት)",
+    "add": "ጨምር",
+    "addSignerPlaceholder": "የፈራሚ አድራሻ ጨምር (G...)",
+    "hideContacts": "እውቂያዎችን ደብቅ",
+    "addFromContacts": "ከእውቂያዎች ጨምር",
+    "signers_one": "ፈራሚዎች ({{count}})",
+    "signers_other": "ፈራሚዎች ({{count}})",
+    "thresholdLabel": "የማጽደቅ ደፍ: ከ{{total}} ውስጥ {{threshold}}",
+    "thresholdHint_one": "ግብይቶችን ለማጽደቅ {{count}} ፊርማ ያስፈልጋል",
+    "thresholdHint_other": "ግብይቶችን ለማጽደቅ {{count}} ፊርማዎች ያስፈልጋሉ",
+    "creating": "በመፍጠር ላይ...",
+    "checking": "በመፈተሽ ላይ...",
+    "insufficientBalanceShort": "በቂ ያልሆነ ቀሪ ሂሳብ",
+    "createButton": "ቮልት ይፍጠሩ",
+    "balance": {
+      "insufficientTitle": "በቂ ያልሆነ የXLM ቀሪ ሂሳብ",
+      "needAtLeast": "ቮልት ለመፍጠር ቢያንስ <b>{{amount}} XLM</b> ያስፈልግዎታል።",
+      "current": "የአሁኑ ቀሪ ሂሳብዎ: <b>{{amount}} XLM</b>",
+      "coversFee": "ይህ የ{{fee}} XLM የመፍጠሪያ ክፍያ ከግብይት ወጪዎች ጋር ይሸፍናል።",
+      "getFriendbot": "ከFriendbot የቴስትኔት XLM ያግኙ",
+      "checking": "ቀሪ ሂሳብ በመፈተሽ ላይ..."
+    },
+    "fee": {
+      "creationFee": "የቮልት መፍጠሪያ ክፍያ:",
+      "yourBalance": "ቀሪ ሂሳብዎ:"
+    },
+    "errors": {
+      "invalidAddress": "ልክ ያልሆነ የStellar አድራሻ",
+      "signerExists": "ፈራሚ አስቀድሞ ተጨምሯል",
+      "insufficientBalance": "በቂ ያልሆነ የXLM ቀሪ ሂሳብ። ቢያንስ {{amount}} XLM ያስፈልግዎታል።",
+      "signersBelowThreshold": "የፈራሚዎች ብዛት ቢያንስ ከደፉ ጋር እኩል መሆን አለበት",
+      "factoryNotConfigured": "Factory አልተዋቀረም",
+      "transactionFailed": "ግብይት አልተሳካም",
+      "noReturnValue": "ከግብይቱ ምንም የተመለሰ ዋጋ የለም",
+      "parseFailed": "ከውጤቱ የቮልት አድራሻ መተንተን አልተቻለም",
+      "noAddress": "ከውጤቱ የቮልት አድራሻ ማግኘት አልተቻለም",
+      "invalidVaultAddress": "ልክ ያልሆነ የቮልት አድራሻ ቅርጸት",
+      "createFailed": "ቮልት መፍጠር አልተሳካም"
+    }
+  },
+  "fiatRamp": {
+    "title": "የፊያት ማስገቢያ / ማውጫ",
+    "subtitle": "ገንዘብን በፊያት እና በUSDC መካከል ያንቀሳቅሱ። ገንዘብ በቀጥታ ወደ ቮልትዎ ይገባል።",
+    "soon": "በቅርቡ",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "ካርድ እና ባንክ → USDC፣ በቀጥታ ወደ ቮልት ይደርሳል።"
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "በዓለም ዙሪያ በአካላዊ ወኪል ቦታዎች ጥሬ ገንዘብ ማስገባት / ማውጣት።"
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "ካርድ እና ባንክ → USDC በStripe በኩል፣ ወደ ቮልት ይደርሳል።"
+      }
+    },
+    "mode": {
+      "cashToVault": "ጥሬ ገንዘብ → ቮልት",
+      "vaultToCash": "ቮልት → ጥሬ ገንዘብ"
+    },
+    "fields": {
+      "anchor": "አንከር",
+      "amount": "መጠን (USDC)",
+      "amountOptional": "መጠን (USDC) — አማራጭ",
+      "amountWidgetPlaceholder": "በመሣሪያው ለመምረጥ ባዶ ይተዉ",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "ገደቦች: በግብይት {{min}}–{{max}} USDC",
+      "outOfRange": "መጠን በ{{min}} እና {{max}} USDC መካከል መሆን አለበት።"
+    },
+    "actions": {
+      "working": "በመሥራት ላይ…",
+      "buyWithTransak": "በTransak USDC ይግዙ",
+      "buyWithStripe": "በStripe USDC ይግዙ",
+      "startDeposit": "የጥሬ ገንዘብ ተቀማጭ ጀምር",
+      "startWithdrawal": "የጥሬ ገንዘብ ማውጣት ጀምር"
+    },
+    "notEnabled": {
+      "noApiUrl": "የAPI URL አልተዋቀረም — ሰርቨሩ ከተሰማራ በኋላ REACT_APP_API_URL ያዘጋጁ።",
+      "serverDisabled": "ይህ አቅራቢ በሰርቨር ላይ ገና አልነቃም።"
+    },
+    "status": {
+      "anchorStatus": "የአንከር ሁኔታ: {{status}}",
+      "creatingTransak": "ደህንነቱ የተጠበቀ የTransak ክፍለ ጊዜ በመፍጠር ላይ…",
+      "openingTransak": "Transak በመክፈት ላይ…",
+      "transakClosed": "የTransak መስኮት ተዘግቷል።",
+      "transakSuccess": "የTransak ትዕዛዝ ተጠናቅቋል። USDC ወደ ቮልት እየደረሰ ነው። የትዕዛዝ መለያ: {{orderId}}",
+      "creatingStripe": "የStripe ማስገቢያ ክፍለ ጊዜ በመፍጠር ላይ…",
+      "stripeOpened": "የStripe ማስገቢያ ተከፍቷል።",
+      "authenticating": "ከአንከር ጋር በማረጋገጥ ላይ…",
+      "openingCashIn": "የጥሬ ገንዘብ ማስገቢያ መስኮት በመክፈት ላይ…",
+      "openingCashOut": "የKYC / የጥሬ ገንዘብ ማውጫ መስኮት በመክፈት ላይ…",
+      "creatingProposals": "የብዙ ፊርማ ሀሳቦችን በመፍጠር ላይ (ማውጣት + 0.3% ክፍያ)…",
+      "proposalsCreated": "ሀሳቦች ተፈጥረዋል። ማውጣት #{{withdrawId}}፣ ክፍያ #{{feeId}}። ለመፈጸም ማጽደቆችን ይሰብስቡ።"
+    },
+    "errors": {
+      "apiUrlMissing": "የAPI URL አልተዋቀረም (REACT_APP_API_URL)።",
+      "sessionFailed": "ክፍለ ጊዜ አልተሳካም ({{status}})",
+      "noWidgetUrl": "በbackend ምንም widgetUrl አልተመለሰም",
+      "transakFailed": "የTransak ትዕዛዝ አልተሳካም።",
+      "openTransakFailed": "Transak መክፈት አልተሳካም",
+      "stripeSessionFailed": "የStripe ክፍለ ጊዜ አልተሳካም ({{status}})",
+      "noClientSecret": "በbackend ምንም clientSecret አልተመለሰም",
+      "startStripeFailed": "Stripe ማስጀመር አልተሳካም",
+      "depositFailed": "ተቀማጭ መጀመር አልተሳካም",
+      "withdrawFailed": "ማውጣት መጀመር አልተሳካም"
+    },
+    "summary": {
+      "title": "ማጠቃለያ",
+      "amount": "መጠን",
+      "platformFee": "የመድረክ ክፍያ ({{pct}}%)",
+      "youReceive": "በቮልት ውስጥ ይቀበላሉ",
+      "sentToAnchor": "ወደ አንከር ተልኳል",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "የአንከር እና የአውታረ መረብ ክፍያዎች በ{{provider}} ለየብቻ ይከፈላሉ።",
+      "theProvider": "አቅራቢው"
+    },
+    "howItWorks": {
+      "title": "እንዴት እንደሚሰራ",
+      "transak": "በካርድ ወይም በባንክ ዝውውር ይክፈሉ። ከKYC በኋላ Transak በStellar ላይ USDC በቀጥታ ወደ ቮልት አድራሻዎ ያደርሳል። ለሚገቡ ገንዘቦች የብዙ ፊርማ ማጽደቅ አያስፈልግም።",
+      "moneygram": "ተቀማጮች በቀጥታ ወደ ቮልት ይገባሉ። ማውጣቶች ሁለት የብዙ ፊርማ ሀሳቦችን ይፈጥራሉ — ሽግግሩን እና የ0.3% የመድረክ ክፍያን — ገንዘብ ከቮልት ከመውጣቱ በፊት ፈራሚዎችዎ ማጽደቅ አለባቸው።",
+      "stripe": "በStripe በኩል በካርድ ወይም በባንክ ይክፈሉ። Stripe KYCን ይይዛል እና በStellar ላይ USDC በቀጥታ ወደ ቮልት አድራሻዎ ያደርሳል።"
+    },
+    "destination": {
+      "title": "መድረሻ ቮልት"
+    }
+  },
+  "common": {
+    "copy": "ቅዳ",
+    "share": "አጋራ",
+    "loading": "በመጫን ላይ…",
+    "cancel": "ሰርዝ",
+    "confirm": "አረጋግጥ",
+    "save": "አስቀምጥ",
+    "close": "ዝጋ",
+    "refresh": "አድስ",
+    "unknown": "ያልታወቀ",
+    "change": "ቀይር",
+    "open": "ክፈት",
+    "update": "አዘምን",
+    "all": "ሁሉም",
+    "notAvailable": "የለም"
+  }
+}

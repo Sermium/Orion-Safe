@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ActiveView, VaultConfig } from '../../types';
 import { VaultInfo } from '../../services/factoryService';
 
@@ -176,6 +177,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   hasBeneficiaryLocks = false,
   onShowClaimPage,
 }) => {
+  const { t } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showShareToast, setShowShareToast] = useState(false);
   const [showVaultDropdown, setShowVaultDropdown] = useState(false);
@@ -196,37 +198,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Grouped navigation
   const navGroups: NavGroup[] = [
     {
-      title: 'Overview',
+      title: t('nav.overview'),
       items: [
-        { id: 'dashboard', label: 'Dashboard', icon: <HomeIcon /> },
+        { id: 'dashboard', label: t('nav.dashboard'), icon: <HomeIcon /> },
       ],
     },
     {
-      title: 'Money',
+      title: t('nav.money'),
       items: [
-        { id: 'assets', label: 'Assets', icon: <AssetsIcon /> },
-        { id: 'fiat', label: 'Fiat Ramp', icon: <FiatIcon /> },
-        { id: 'transactions', label: 'Transactions', icon: <TransactionsIcon />, badge: pendingCount + approvedCount },
+        { id: 'assets', label: t('nav.assets'), icon: <AssetsIcon /> },
+        { id: 'fiat', label: t('nav.fiat'), icon: <FiatIcon /> },
+        { id: 'transactions', label: t('nav.transactions'), icon: <TransactionsIcon />, badge: pendingCount + approvedCount },
       ],
     },
     {
-      title: 'Vesting & Locks',
+      title: t('nav.vestingLocks'),
       items: [
-        { id: 'locks', label: 'Locks', icon: <LocksIcon /> },
-        { id: 'vesting', label: 'Vesting', icon: <VestingIcon /> },
+        { id: 'locks', label: t('nav.locks'), icon: <LocksIcon /> },
+        { id: 'vesting', label: t('nav.vesting'), icon: <VestingIcon /> },
       ],
     },
     {
-      title: 'Team',
+      title: t('nav.team'),
       items: [
-        { id: 'members', label: 'Members', icon: <MembersIcon /> },
-        { id: 'contacts', label: 'Contacts', icon: <ContactsIcon /> },
+        { id: 'members', label: t('nav.members'), icon: <MembersIcon /> },
+        { id: 'contacts', label: t('nav.contacts'), icon: <ContactsIcon /> },
       ],
     },
     {
-      title: 'System',
+      title: t('nav.system'),
       items: [
-        { id: 'settings', label: 'Settings', icon: <SettingsIcon /> },
+        { id: 'settings', label: t('nav.settings'), icon: <SettingsIcon /> },
       ],
     },
   ];
@@ -301,11 +303,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button
           onClick={() => onClick('docs')}
           className={itemClasses(activeView === 'docs', isCollapsed)}
-          title={isCollapsed ? 'Documentation' : undefined}
+          title={isCollapsed ? t('nav.docs') : undefined}
         >
           <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
             <DocsIcon />
-            {!isCollapsed && <span className="text-sm font-medium">Documentation</span>}
+            {!isCollapsed && <span className="text-sm font-medium">{t('nav.docs')}</span>}
           </div>
         </button>
 
@@ -314,11 +316,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={() => onClick('admin')}
             className={itemClasses(activeView === 'admin', isCollapsed)}
-            title={isCollapsed ? 'Admin' : undefined}
+            title={isCollapsed ? t('nav.admin') : undefined}
           >
             <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
               <AdminIcon />
-              {!isCollapsed && <span className="text-sm font-medium">Admin</span>}
+              {!isCollapsed && <span className="text-sm font-medium">{t('nav.admin')}</span>}
             </div>
           </button>
         )}
@@ -328,10 +330,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={handleClaimClick}
             className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'space-x-2.5'} px-3 py-2 rounded-lg transition-all text-green-400 hover:bg-green-900/30 hover:text-green-300 border border-green-500/30 bg-green-900/20`}
-            title={isCollapsed ? 'Claim Tokens' : undefined}
+            title={isCollapsed ? t('nav.claim') : undefined}
           >
             <ClaimIcon />
-            {!isCollapsed && <span className="text-sm font-medium">Claim Tokens</span>}
+            {!isCollapsed && <span className="text-sm font-medium">{t('nav.claim')}</span>}
           </button>
         )}
       </>
@@ -414,13 +416,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Vault Selector */}
         {userVaults.length > 0 && (
           <div className="p-4 border-b border-blue-900/30">
-            <p className="text-xs text-blue-400/60 mb-2">Current Vault</p>
+            <p className="text-xs text-blue-400/60 mb-2">{t('sidebar.currentVault')}</p>
             <button
               onClick={() => setShowVaultDropdown(!showVaultDropdown)}
               className="w-full flex items-center justify-between p-3 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors border border-blue-800/30"
             >
               <div className="text-left">
-                <p className="text-sm font-medium text-white">{vaultConfig?.name || 'Select Vault'}</p>
+                <p className="text-sm font-medium text-white">{vaultConfig?.name || t('sidebar.selectVault')}</p>
                 {vaultAddress && (
                   <p className="text-xs text-blue-400/60 font-mono">{truncateAddress(vaultAddress)}</p>
                 )}
@@ -454,7 +456,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className="w-full p-3 text-left hover:bg-blue-800/30 transition-colors border-t border-blue-800/30 flex items-center space-x-2 text-cyan-400"
                 >
                   <PlusIcon />
-                  <span className="text-sm">Create New Vault</span>
+                  <span className="text-sm">{t('sidebar.createNewVault')}</span>
                 </button>
               </div>
             )}
@@ -466,14 +468,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className="flex-1 flex items-center justify-center space-x-2 p-2 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors text-blue-400 text-sm border border-blue-800/30"
                 >
                   <CopyIcon />
-                  <span>Copy</span>
+                  <span>{t('common.copy')}</span>
                 </button>
                 <button
                   onClick={sharePublicView}
                   className="flex-1 flex items-center justify-center space-x-2 p-2 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors text-blue-400 text-sm border border-blue-800/30"
                 >
                   <ShareIcon />
-                  <span>Share</span>
+                  <span>{t('common.share')}</span>
                 </button>
               </div>
             )}
@@ -495,7 +497,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               <div>
                 <p className="text-sm font-medium text-white">{truncateAddress(publicKey || '')}</p>
-                <p className="text-xs text-blue-400/60">{walletId || 'Connected'}</p>
+                <p className="text-xs text-blue-400/60">{walletId || t('sidebar.connected')}</p>
               </div>
             </div>
             <button
@@ -562,13 +564,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Vault Selector - Desktop */}
       {!collapsed && userVaults.length > 0 && (
         <div className="p-4 border-b border-blue-900/30">
-          <p className="text-xs text-blue-400/60 mb-2">Current Vault</p>
+          <p className="text-xs text-blue-400/60 mb-2">{t('sidebar.currentVault')}</p>
           <button
             onClick={() => setShowVaultDropdown(!showVaultDropdown)}
             className="w-full flex items-center justify-between p-3 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors border border-blue-800/30"
           >
             <div className="text-left truncate">
-              <p className="text-sm font-medium text-white truncate">{vaultConfig?.name || 'Select Vault'}</p>
+              <p className="text-sm font-medium text-white truncate">{vaultConfig?.name || t('sidebar.selectVault')}</p>
               {vaultAddress && (
                 <p className="text-xs text-blue-400/60 font-mono">{truncateAddress(vaultAddress)}</p>
               )}
@@ -601,7 +603,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="w-full p-3 text-left hover:bg-blue-800/30 transition-colors border-t border-blue-800/30 flex items-center space-x-2 text-cyan-400"
               >
                 <PlusIcon />
-                <span className="text-sm">Create New Vault</span>
+                <span className="text-sm">{t('sidebar.createNewVault')}</span>
               </button>
             </div>
           )}
@@ -613,14 +615,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="flex-1 flex items-center justify-center space-x-2 p-2 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors text-blue-400 text-xs border border-blue-800/30"
               >
                 <CopyIcon />
-                <span>Copy</span>
+                <span>{t('common.copy')}</span>
               </button>
               <button
                 onClick={sharePublicView}
                 className="flex-1 flex items-center justify-center space-x-2 p-2 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors text-blue-400 text-xs border border-blue-800/30"
               >
                 <ShareIcon />
-                <span>Share</span>
+                <span>{t('common.share')}</span>
               </button>
             </div>
           )}
@@ -640,7 +642,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={sharePublicView}
             className="p-2 hover:bg-blue-900/30 rounded-lg transition-colors text-blue-400"
-            title="Share Public View"
+            title={t('sidebar.sharePublicView')}
           >
             <ShareIcon />
           </button>
@@ -663,7 +665,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               onClick={onDisconnect}
               className="p-2 hover:bg-blue-900/30 rounded-lg transition-colors text-blue-400 hover:text-red-400"
-              title="Disconnect"
+              title={t('sidebar.disconnect')}
             >
               <LogoutIcon />
             </button>
@@ -676,13 +678,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               <div>
                 <p className="text-sm font-medium text-white">{truncateAddress(publicKey || '')}</p>
-                <p className="text-xs text-blue-400/60">{walletId || 'Connected'}</p>
+                <p className="text-xs text-blue-400/60">{walletId || t('sidebar.connected')}</p>
               </div>
             </div>
             <button
               onClick={onDisconnect}
               className="p-2 hover:bg-blue-900/30 rounded-lg transition-colors text-blue-400 hover:text-red-400"
-              title="Disconnect"
+              title={t('sidebar.disconnect')}
             >
               <LogoutIcon />
             </button>
@@ -704,7 +706,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Share Toast */}
       {showShareToast && (
         <div className="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg shadow-lg">
-          Public link copied!
+          {t('sidebar.linkCopied')}
         </div>
       )}
     </>

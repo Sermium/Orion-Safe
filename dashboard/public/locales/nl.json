@@ -1,0 +1,934 @@
+{
+  "nav": {
+    "overview": "Overzicht",
+    "money": "Geld",
+    "vestingLocks": "Vesting en Vergrendelingen",
+    "team": "Team",
+    "system": "Systeem",
+    "dashboard": "Dashboard",
+    "assets": "Activa",
+    "fiat": "Fiat-ramp",
+    "transactions": "Transacties",
+    "locks": "Vergrendelingen",
+    "vesting": "Vesting",
+    "members": "Leden",
+    "contacts": "Contacten",
+    "settings": "Instellingen",
+    "docs": "Documentatie",
+    "admin": "Beheer",
+    "claim": "Tokens claimen"
+  },
+  "fiat": {
+    "title": "Fiat-ramp",
+    "deposit": "Storten",
+    "withdraw": "Opnemen",
+    "amount": "Bedrag",
+    "provider": "Aanbieder",
+    "fee": "Platformkosten",
+    "destination": "Bestemmingsvault",
+    "comingSoon": "Binnenkort"
+  },
+  "sidebar": {
+    "currentVault": "Huidige vault",
+    "selectVault": "Vault selecteren",
+    "createNewVault": "Nieuwe vault aanmaken",
+    "sharePublicView": "Openbare weergave delen",
+    "disconnect": "Verbinding verbreken",
+    "connected": "Verbonden",
+    "linkCopied": "Openbare link gekopieerd!"
+  },
+  "header": {
+    "timeLocks": "Tijdvergrendelingen",
+    "deposit": "Storten",
+    "send": "Verzenden"
+  },
+  "settings": {
+    "title": "Vault-instellingen",
+    "subtitle": "Beheer de configuratie en leden van uw vault",
+    "language": "Taal",
+    "languageAuto": "Automatisch (apparaattaal)",
+    "languageHint": "Automatisch volgt de taal van uw apparaat en valt terug op Engels indien niet ondersteund.",
+    "tabs": {
+      "general": "Algemeen",
+      "members": "Leden en rollen",
+      "advanced": "Geavanceerd"
+    },
+    "vaultInfo": "Vault-informatie",
+    "vaultName": "Vault-naam",
+    "vaultAddress": "Vault-adres",
+    "notSelected": "Niet geselecteerd",
+    "yourRole": "Uw rol",
+    "members": "Leden",
+    "threshold": "Drempel",
+    "superAdmins": "Superbeheerders",
+    "connectedWallet": "Verbonden wallet",
+    "publicKey": "Openbare sleutel",
+    "approvalThreshold": "Goedkeuringsdrempel",
+    "thresholdDesc": "{{threshold}} van {{total}} handtekeningen vereist om transacties uit te voeren",
+    "vaultMembers": "Vault-leden",
+    "vaultMembersDesc": "Beheer wie toegang heeft tot en controle heeft over deze vault",
+    "addMember": "Lid toevoegen",
+    "you": "U",
+    "copyAddress": "Adres kopiëren",
+    "removeMember": "Lid verwijderen",
+    "rolePermissions": "Rolmachtigingen",
+    "adminsOnly": "Alleen vault-beheerders kunnen leden en rollen beheren.",
+    "contractDetails": "Contractdetails",
+    "contractType": "Contracttype",
+    "sorobanContract": "Soroban smart contract",
+    "network": "Netwerk",
+    "testnet": "Testnet",
+    "actions": "Acties",
+    "exportData": "Vault-gegevens exporteren",
+    "exportDataDesc": "Configuratie en transactiegeschiedenis downloaden",
+    "export": "Exporteren",
+    "viewExplorer": "Bekijken in explorer",
+    "viewExplorerDesc": "Vault-contract openen op Stellar Expert",
+    "dangerZone": "Gevarenzone",
+    "leaveVault": "Vault verlaten",
+    "leaveVaultDesc": "Verwijder uzelf als ondertekenaar. Dit kan niet ongedaan worden gemaakt.",
+    "leaveLastWarning": "U bent het laatste lid - bij vertrek wordt de vault opgegeven!",
+    "leaving": "Bezig met verlaten...",
+    "leave": "Verlaten",
+    "addNewMember": "Nieuw lid toevoegen",
+    "addNewMemberDesc": "Selecteer uit contacten of voer het adres handmatig in",
+    "fromContacts": "Uit contacten",
+    "enterAddress": "Adres invoeren",
+    "searchContacts": "Contacten zoeken...",
+    "noContactsAvailable": "Geen contacten beschikbaar (allemaal al lid)",
+    "noContactsFound": "Geen contacten gevonden",
+    "allContactsMembers": "Al uw contacten zijn al vault-leden. Gebruik «Adres invoeren» om een nieuw lid toe te voegen.",
+    "stellarAddress": "Stellar-adres",
+    "role": "Rol",
+    "adding": "Bezig met toevoegen...",
+    "changeThreshold": "Goedkeuringsdrempel wijzigen",
+    "requiredSignatures": "Vereiste handtekeningen: {{threshold}} van {{total}}",
+    "thresholdWarning": "Het wijzigen van de drempel heeft invloed op de veiligheid. Een hogere drempel vereist meer handtekeningen, maar kan de werking vertragen.",
+    "updating": "Bezig met bijwerken...",
+    "roles": {
+      "superAdmin": "Superbeheerder",
+      "admin": "Beheerder",
+      "executor": "Uitvoerder"
+    },
+    "roleOptions": {
+      "superAdmin": "Superbeheerder - Volledige controle",
+      "admin": "Beheerder - Leden beheren",
+      "executor": "Uitvoerder - Kan transacties uitvoeren"
+    },
+    "perms": {
+      "superAdmin": {
+        "1": "Volledige vault-controle",
+        "2": "Alle leden en rollen beheren",
+        "3": "Drempel wijzigen",
+        "4": "Transacties aanmaken en uitvoeren"
+      },
+      "admin": {
+        "1": "Uitvoerders beheren",
+        "2": "Drempel wijzigen",
+        "3": "Transacties aanmaken en goedkeuren",
+        "4": "Vergrendelingen beheren"
+      },
+      "executor": {
+        "1": "Transacties aanmaken",
+        "2": "Transacties goedkeuren",
+        "3": "Goedgekeurde transacties uitvoeren",
+        "4": "Alle activiteit bekijken"
+      }
+    },
+    "success": {
+      "memberAdded": "Lid succesvol toegevoegd!",
+      "memberRemoved": "Lid succesvol verwijderd!",
+      "roleUpdated": "Rol succesvol bijgewerkt!",
+      "thresholdUpdated": "Drempel succesvol bijgewerkt!",
+      "leftVault": "U hebt de vault succesvol verlaten!"
+    },
+    "errors": {
+      "invalidAddress": "Ongeldig Stellar-adres",
+      "alreadyMember": "Het adres is al een lid",
+      "addFailed": "Kan lid niet toevoegen",
+      "removeBreaksThreshold": "Kan lid niet verwijderen: zou de drempelvereiste schenden",
+      "lastSuperAdminRemove": "Kan de laatste superbeheerder niet verwijderen",
+      "removeFailed": "Kan lid niet verwijderen",
+      "needOneSuperAdmin": "Kan rol niet wijzigen: de vault moet ten minste één superbeheerder hebben",
+      "roleFailed": "Kan rol niet wijzigen",
+      "thresholdMin": "De drempel moet ten minste 1 zijn",
+      "thresholdMax": "De drempel mag het aantal leden niet overschrijden",
+      "thresholdFailed": "Kan drempel niet bijwerken",
+      "leaveLastSuperAdmin": "U bent de laatste superbeheerder. Wijs een andere superbeheerder toe voordat u vertrekt, of verwijder eerst alle andere leden.",
+      "leaveBreaksThreshold": "Kan niet verlaten: zou de drempelvereiste schenden. De huidige drempel is {{threshold}}, maar er zouden slechts {{remaining}} leden overblijven.",
+      "leaveFailed": "Kan vault niet verlaten"
+    },
+    "confirm": {
+      "removeMember": "{{name}} uit de vault verwijderen?",
+      "leaveDefault": "Weet u zeker dat u deze vault wilt verlaten? Deze actie kan niet ongedaan worden gemaakt.",
+      "leaveLastMember": "WAARSCHUWING: U bent het LAATSTE lid van deze vault. Bij vertrek wordt de vault permanent OPGEGEVEN. Eventuele resterende fondsen worden ontoegankelijk. Weet u het absoluut zeker?",
+      "leaveFinalWarning": "Dit is uw LAATSTE waarschuwing. De vault wordt permanent opgegeven. Doorgaan?"
+    }
+  },
+  "assets": {
+    "title": "Activa",
+    "subtitle": "Beheer de activa van uw vault",
+    "addToken": "Token toevoegen",
+    "authorize": "Autoriseren",
+    "totalBalance": "Totaalsaldo",
+    "remainingDailySpend": "Resterend daglimiet",
+    "yourAssets": "Uw activa",
+    "clickToManage": "Klik op een actief om het te beheren",
+    "noAssets": "Nog geen activa",
+    "noAssetsDesc": "Stort enkele tokens om te beginnen",
+    "makeFirstDeposit": "Eerste storting doen",
+    "availableBalance": "Beschikbaar saldo",
+    "actions": {
+      "deposit": "Storten",
+      "depositDesc": "Meer {{symbol}} aan de vault toevoegen",
+      "send": "Verzenden",
+      "sendDesc": "Een overdracht van {{symbol}} voorstellen",
+      "timeLock": "Tijdvergrendeling",
+      "timeLockDesc": "Vergrendelen tot een specifieke datum",
+      "vesting": "Vesting",
+      "vestingDesc": "Een vesting-schema met cliff aanmaken"
+    }
+  },
+  "locksCalendar": {
+    "calendarTitle": "Vergrendelingen- en vesting-kalender",
+    "summary": "{{timeLocks}} tijdvergrendelingen, {{vestings}} vestings",
+    "viewCalendar": "Kalender",
+    "viewList": "Lijst",
+    "filterType": "Type",
+    "filterStatus": "Status",
+    "timeLocks": "Tijdvergrendelingen",
+    "vestings": "Vestings",
+    "timeLock": "Tijdvergrendeling",
+    "vesting": "Vesting",
+    "noLocks": "Geen vergrendelingen of vestings om weer te geven",
+    "today": "Vandaag",
+    "now": "Nu",
+    "cliff": "Cliff",
+    "claimable": "Claimbaar",
+    "progress": "Voortgang",
+    "start": "Start",
+    "end": "Einde",
+    "unlock": "Ontgrendeling",
+    "beneficiary": "Begunstigde",
+    "locked": "vergrendeld",
+    "vestingLabel": "vesting",
+    "released": "Vrijgegeven",
+    "active": "Actief",
+    "completedCount": "{{count}} voltooid",
+    "status": {
+      "active": "Actief",
+      "partiallyReleased": "Gedeeltelijk vrijgegeven",
+      "fullyReleased": "Volledig vrijgegeven",
+      "cancelled": "Geannuleerd"
+    },
+    "statusFilter": {
+      "active": "Actief",
+      "completed": "Voltooid"
+    },
+    "events": {
+      "start": "start",
+      "cliff": "cliff",
+      "end": "einde"
+    }
+  },
+  "claim": {
+    "title": "Claim uw tokens",
+    "subtitleVault": "Vergrendelingen van vault {{address}} worden weergegeven",
+    "subtitleAll": "Bekijk en claim aan u toegewezen vergrendelingen",
+    "disconnect": "Verbinding verbreken",
+    "connectWallet": "Wallet verbinden",
+    "connectTitle": "Verbind uw wallet",
+    "connectDescVault": "Verbind uw wallet om alle tijdvergrendelingen en vesting-schema's te zien die aan u zijn toegewezen vanuit deze vault.",
+    "connectDescAll": "Verbind uw wallet om alle tijdvergrendelingen en vesting-schema's te zien die aan u zijn toegewezen in alle Stellar Vaults.",
+    "loadingVault": "Vergrendelingen van vault worden geladen...",
+    "loadingAll": "Vaults worden gescand op uw vergrendelingen...",
+    "scanProgress": "{{scanned}} van {{total}} vaults gecontroleerd",
+    "unknownVault": "Onbekende vault",
+    "tokensAmount": "{{amount}} tokens",
+    "claimNow": "Nu claimen",
+    "claiming": "Bezig met claimen...",
+    "refreshLocks": "Vergrendelingen vernieuwen",
+    "claimSuccess": "{{amount}} tokens succesvol geclaimd!",
+    "errorLoad": "Kan vergrendelingen niet laden",
+    "errorClaim": "Claimen mislukt",
+    "stats": {
+      "readyToClaim": "Klaar om te claimen",
+      "pending": "In behandeling",
+      "completed": "Voltooid"
+    },
+    "sections": {
+      "readyToClaim": "Klaar om te claimen",
+      "pending": "In behandeling"
+    },
+    "fields": {
+      "fromVault": "Van vault",
+      "totalAmount": "Totaalbedrag",
+      "description": "Beschrijving",
+      "timeRemaining": "Resterende tijd",
+      "unlockDate": "Ontgrendelingsdatum"
+    },
+    "types": {
+      "timeLock": "Tijdvergrendeling",
+      "vesting": "Vesting",
+      "unknown": "Onbekend"
+    },
+    "time": {
+      "unlocked": "Ontgrendeld",
+      "fullyVested": "Volledig vested",
+      "remaining": "{{days}}d {{hours}}u resterend",
+      "toCliff": "{{days}}d {{hours}}u tot cliff"
+    },
+    "empty": {
+      "title": "Geen vergrendelingen gevonden",
+      "descVault": "U hebt geen vergrendelingen toegewezen in deze vault.",
+      "descAll": "U hebt geen tijdvergrendelingen of vesting-schema's toegewezen."
+    }
+  },
+  "contacts": {
+    "title": "Contactenboek",
+    "subtitle": "Sla veelgebruikte adressen op voor snelle toegang",
+    "addContact": "Contact toevoegen",
+    "searchPlaceholder": "Contacten zoeken...",
+    "savedCount_one": "{{count}} contact opgeslagen",
+    "savedCount_other": "{{count}} contacten opgeslagen",
+    "confirmDelete": "«{{name}}» uit contacten verwijderen?",
+    "errors": {
+      "nameRequired": "Naam is verplicht",
+      "addressRequired": "Adres is verplicht",
+      "invalidAddress": "Ongeldig Stellar-adres",
+      "duplicate": "Dit adres staat al in uw contacten"
+    },
+    "empty": {
+      "noMatch": "Geen contacten komen overeen met uw zoekopdracht",
+      "none": "Nog geen contacten",
+      "addFirst": "Voeg uw eerste contact toe →"
+    },
+    "actions": {
+      "copy": "Adres kopiëren",
+      "edit": "Contact bewerken",
+      "delete": "Contact verwijderen"
+    },
+    "modal": {
+      "addTitle": "Nieuw contact toevoegen",
+      "editTitle": "Contact bewerken",
+      "nameLabel": "Naam *",
+      "namePlaceholder": "bijv. Alice, Treasury, Exchange",
+      "addressLabel": "Stellar-adres *",
+      "addressPlaceholder": "G...",
+      "addressLocked": "Adres kan niet worden gewijzigd",
+      "notesLabel": "Notities (optioneel)",
+      "notesPlaceholder": "Voeg notities over dit contact toe...",
+      "saveChanges": "Wijzigingen opslaan"
+    }
+  },
+  "dashboard": {
+    "stats": {
+      "totalBalance": "Totaalsaldo",
+      "threshold": "Drempel",
+      "signaturesRequired": "handtekeningen vereist",
+      "pending": "In behandeling",
+      "awaitingApproval": "in afwachting van goedkeuring",
+      "readyToExecute": "Klaar om uit te voeren",
+      "fullyApproved": "volledig goedgekeurd"
+    },
+    "activeProposals": "Actieve voorstellen",
+    "viewAll": "Alles bekijken",
+    "noProposals": "Nog geen voorstellen",
+    "createFirst": "Maak uw eerste transactie aan →",
+    "proposalLine": "{{type}}: {{amount}} XLM",
+    "toRecipient": "Aan {{address}}",
+    "approvalsCount": "{{count}}/{{threshold}} goedkeuringen",
+    "status": {
+      "pending": "In behandeling",
+      "approved": "Goedgekeurd",
+      "executed": "Uitgevoerd",
+      "rejected": "Afgewezen",
+      "unknown": "Onbekend"
+    },
+    "types": {
+      "transfer": "Overdracht",
+      "timeLock": "Tijdvergrendeling",
+      "vesting": "Vesting",
+      "unknown": "Onbekend"
+    }
+  },
+  "locks": {
+    "title": "Tijdvergrendelingen",
+    "subtitle": "Vergrendel activa tot een specifieke datum",
+    "bulkCreate": "Bulksgewijs aanmaken",
+    "createTimeLock": "Tijdvergrendeling aanmaken",
+    "creating": "Bezig met aanmaken...",
+    "createFirst": "Maak uw eerste tijdvergrendeling aan",
+    "empty": "Nog geen tijdvergrendelingen aangemaakt",
+    "archived": "Gearchiveerd",
+    "selectToken": "Token selecteren",
+    "available": "{{amount}} beschikbaar",
+    "quickSelect": "Snelkeuze:",
+    "beneficiaryPlaceholder": "Zoek contacten of voer een G...-adres in",
+    "descriptionPlaceholder": "bijv. Teamtoewijzing",
+    "optional": "Optioneel",
+    "revocableLabel": "Herroepbaar",
+    "revocableHint": "Beheerder kan annuleren en fondsen terugsturen naar de vault",
+    "feeWarning": "Er worden kosten van 10 XLM in rekening gebracht voor het aanmaken van de vergrendeling.",
+    "defaultDescription": "Tijdvergrendeling",
+    "lockNumber": "Vergrendeling #{{id}}",
+    "timeLockBadge": "Tijdvergrendeling",
+    "revocableBadge": "Herroepbaar",
+    "readyToClaim": "Klaar om te claimen",
+    "releasedLabel": "Vrijgegeven",
+    "you": "U",
+    "claim": "Claimen",
+    "cancel": "Annuleren",
+    "close": "Sluiten",
+    "confirmCancel": "Weet u zeker dat u deze vergrendeling wilt annuleren?",
+    "stats": {
+      "total": "Totaal aantal tijdvergrendelingen",
+      "active": "Actief",
+      "unlocked": "Ontgrendeld",
+      "yourLocks": "Uw vergrendelingen"
+    },
+    "sections": {
+      "yours": "Uw tijdvergrendelingen",
+      "active": "Actieve tijdvergrendelingen",
+      "pendingCompletion": "In afwachting van voltooiing"
+    },
+    "fields": {
+      "token": "Token",
+      "amount": "Bedrag",
+      "beneficiary": "Begunstigde",
+      "beneficiaryAddress": "Adres van begunstigde",
+      "remaining": "Resterend",
+      "timeStatus": "Tijdstatus",
+      "unlockDate": "Ontgrendelingsdatum",
+      "unlockDateTime": "Ontgrendelingsdatum en -tijd",
+      "creator": "Maker",
+      "description": "Beschrijving",
+      "descriptionOptional": "Beschrijving (optioneel)"
+    },
+    "statuses": {
+      "active": "Actief",
+      "partiallyReleased": "Gedeeltelijk vrijgegeven",
+      "fullyReleased": "Volledig vrijgegeven",
+      "cancelled": "Geannuleerd",
+      "unknown": "Onbekend"
+    },
+    "time": {
+      "unlocked": "Ontgrendeld",
+      "remainingDays": "{{days}}d {{hours}}u resterend",
+      "remainingHours": "{{hours}}u resterend"
+    },
+    "errors": {
+      "fillRequired": "Vul alle verplichte velden in",
+      "invalidBeneficiary": "Ongeldig adres van begunstigde",
+      "unlockFuture": "De ontgrendelingstijd moet in de toekomst liggen",
+      "createFailed": "Kan vergrendeling niet aanmaken",
+      "claimFailed": "Claimen mislukt",
+      "cancelFailed": "Kan vergrendeling niet annuleren",
+      "invalidAmount": "Ongeldig bedrag",
+      "tokenNotSelected": "Token niet geselecteerd",
+      "unlockRequired": "Ontgrendelingsdatum vereist",
+      "proposalFailed": "Kan voorstel niet aanmaken"
+    },
+    "bulk": {
+      "title": "Tijdvergrendelingen bulksgewijs aanmaken",
+      "subtitle": "Maak meerdere tijdvergrendelingen tegelijk aan (max. {{max}} per batch)",
+      "downloadTemplate": "Sjabloon downloaden",
+      "importCsv": "CSV importeren",
+      "statsTotal": "Totaal",
+      "statsPending": "In behandeling",
+      "statsSuccess": "Geslaagd",
+      "statsErrors": "Fouten",
+      "maxReachedAlert": "Maximaal {{max}} tijdvergrendelingen per batch om netwerkoverbelasting te voorkomen.",
+      "maxReachedWarning": "Maximale batchgrootte bereikt ({{max}} vergrendelingen). Verwerk deze voordat u er meer toevoegt.",
+      "csvTooMany": "De CSV bevat {{count}} items. Maximaal {{max}} per batch. Alleen de eerste {{max}} worden geïmporteerd.",
+      "duplicate": "Dupliceren",
+      "remove": "Verwijderen",
+      "addEntry": "Tijdvergrendeling toevoegen",
+      "processing": "Bezig met verwerken van {{current}} van {{total}}...",
+      "readyCount_one": "{{count}} vergrendeling klaar om aan te maken",
+      "readyCount_other": "{{count}} vergrendelingen klaar om aan te maken",
+      "feeTotal": "• Kosten: {{fee}} XLM in totaal",
+      "creatingProposals": "Bezig met aanmaken van voorstellen...",
+      "createCount_one": "{{count}} voorstel aanmaken",
+      "createCount_other": "{{count}} voorstellen aanmaken",
+      "defaultDescription": "Bulk-tijdvergrendeling"
+    }
+  },
+  "members": {
+    "title": "Vault-leden",
+    "subtitle_one": "{{count}} lid • Drempel: {{threshold}} van {{total}}",
+    "subtitle_other": "{{count}} leden • Drempel: {{threshold}} van {{total}}",
+    "searchPlaceholder": "Leden zoeken op adres, naam of rol...",
+    "manageHint": "Ga naar <strong>Instellingen → Leden en rollen</strong> om leden te beheren (toevoegen, verwijderen, rollen wijzigen)",
+    "you": "U",
+    "addToContacts": "Toevoegen aan contacten",
+    "noResults": "Geen leden gevonden die overeenkomen met uw zoekopdracht.",
+    "stats": {
+      "totalMembers": "Totaal aantal leden",
+      "superAdmins": "Superbeheerders",
+      "admins": "Beheerders",
+      "executors": "Uitvoerders"
+    },
+    "roles": {
+      "superAdmin": "Superbeheerder",
+      "admin": "Beheerder",
+      "executor": "Uitvoerder"
+    },
+    "permissions": {
+      "title": "Rolmachtigingen",
+      "superAdmin": "Volledige controle, inclusief het beheren van andere beheerders en kritieke instellingen",
+      "admin": "Kan vault-instellingen en leden beheren en transacties goedkeuren",
+      "executor": "Kan transacties aanmaken, goedkeuren en uitvoeren"
+    },
+    "addContactModal": {
+      "title": "Toevoegen aan contacten",
+      "addressLabel": "Adres",
+      "nameLabel": "Naam",
+      "namePlaceholder": "Voer een naam in voor dit contact",
+      "save": "Contact opslaan"
+    }
+  },
+  "publicVault": {
+    "defaultName": "Stellar Vault",
+    "publicViewBadge": "Openbare weergave",
+    "loading": "Vault-gegevens worden geladen...",
+    "noLocks": "Nog geen vergrendelingen aangemaakt",
+    "noAssets": "Geen activa gevonden",
+    "revocable": "Herroepbaar",
+    "released": "Vrijgegeven",
+    "allLocks": "Alle vergrendelingen ({{count}})",
+    "toBeneficiary": "Aan: {{address}}",
+    "errors": {
+      "title": "Kan vault niet laden",
+      "loadFailed": "Kan vault-gegevens niet laden"
+    },
+    "tabs": {
+      "overview": "Overzicht",
+      "locks": "Vergrendelingen",
+      "calendar": "Kalender",
+      "assets": "Activa"
+    },
+    "stats": {
+      "signers": "Ondertekenaars",
+      "threshold": "Drempel: {{count}}",
+      "totalLocks": "Totaal aantal vergrendelingen",
+      "activeCount": "{{count}} actief",
+      "assets": "Activa",
+      "tokensHeld": "tokens in bezit",
+      "lockedValue": "Vergrendelde waarde",
+      "totalLocked": "totaal vergrendeld"
+    },
+    "sections": {
+      "signers": "Ondertekenaars",
+      "recentLocks": "Recente vergrendelingen",
+      "assets": "Activa"
+    },
+    "fields": {
+      "amount": "Bedrag",
+      "beneficiary": "Begunstigde",
+      "unlockDate": "Ontgrendelingsdatum",
+      "timeRemaining": "Resterende tijd"
+    },
+    "status": {
+      "active": "Actief",
+      "partiallyReleased": "Gedeeltelijk vrijgegeven",
+      "fullyReleased": "Volledig vrijgegeven",
+      "cancelled": "Geannuleerd"
+    },
+    "lockType": {
+      "timeLock": "Tijdvergrendeling",
+      "vesting": "Vesting"
+    },
+    "time": {
+      "unlocked": "Ontgrendeld",
+      "cliffPassed": "Cliff gepasseerd",
+      "remaining": "{{days}}d {{hours}}u resterend",
+      "toCliff": "{{days}}d {{hours}}u tot cliff"
+    },
+    "footer": {
+      "title": "Stellar Vault - Openbare weergave",
+      "poweredBy": "Mogelijk gemaakt door Soroban"
+    }
+  },
+  "transactions": {
+    "title": "Transacties",
+    "subtitle": "Bekijk en beheer vault-voorstellen en -overdrachten",
+    "bulkTransfer": "Bulkoverdracht",
+    "newTransaction": "Nieuwe transactie",
+    "createFirst": "Eerste voorstel aanmaken",
+    "completedProposals": "Voltooide voorstellen",
+    "noHistory": "Geen transactiegeschiedenis gevonden",
+    "noHistoryNote": "Opmerking: Soroban-contracttransacties verschijnen via uitgevoerde voorstellen",
+    "received": "Ontvangen",
+    "sent": "Verzonden",
+    "onChainPayments_one": "{{count}} on-chain-betaling",
+    "onChainPayments_other": "{{count}} on-chain-betalingen",
+    "approvalsCount": "{{count}}/{{threshold}} goedkeuringen",
+    "rejectionsCount": "{{count}}/{{threshold}} afwijzingen",
+    "tabs": {
+      "proposals": "Voorstellen ({{count}})",
+      "history": "Geschiedenis ({{count}})"
+    },
+    "filters": {
+      "all": "Alle",
+      "pending": "In behandeling",
+      "approved": "Goedgekeurd"
+    },
+    "empty": {
+      "all": "Geen voorstellen gevonden",
+      "filtered": "Geen {{filter}} voorstellen gevonden"
+    },
+    "status": {
+      "pending": "In behandeling",
+      "approved": "Goedgekeurd",
+      "executed": "Uitgevoerd",
+      "rejected": "Afgewezen"
+    },
+    "types": {
+      "transfer": "Overdracht",
+      "timeLock": "Tijdvergrendeling",
+      "vesting": "Vesting"
+    },
+    "fields": {
+      "to": "Aan:",
+      "from": "Van:",
+      "by": "Door:",
+      "beneficiary": "Begunstigde:",
+      "created": "Aangemaakt:",
+      "approvals": "Goedkeuringen:",
+      "unlockDate": "Ontgrendelingsdatum:",
+      "cliffDate": "Cliff-datum:",
+      "endDate": "Einddatum:"
+    },
+    "actions": {
+      "approve": "Goedkeuren",
+      "execute": "Uitvoeren",
+      "reject": "Afwijzen",
+      "confirmReject": "Afwijzing bevestigen"
+    },
+    "bulk": {
+      "title": "Bulkoverdracht",
+      "subtitle": "Maak meerdere overdrachtsvoorstellen in batch aan (max. {{max}} per batch)",
+      "importCsv": "CSV importeren",
+      "downloadTemplate": "Sjabloon downloaden",
+      "csvHelp": "Hulp bij CSV-formaat",
+      "totalLabel": "Totaal:",
+      "successLabel": "Geslaagd:",
+      "failedLabel": "Mislukt:",
+      "csvFormatTitle": "CSV-formaat",
+      "csvFormatNote": "Gebruik «native» voor XLM of het volledige token-contractadres.",
+      "maxBatchWarning": "Maximaal {{max}} overdrachten per batch om netwerkoverbelasting te voorkomen. Maak een nieuwe batch aan voor meer.",
+      "recipientLabel": "Adres van ontvanger",
+      "amountLabel": "Bedrag",
+      "tokenLabel": "Token",
+      "duplicate": "Dupliceren",
+      "remove": "Verwijderen",
+      "addTransfer": "Overdracht toevoegen",
+      "processing": "Bezig met verwerken van {{current}} van {{total}}... ({{delay}}s vertraging tussen transacties)",
+      "readyCount_one": "{{count}} overdracht klaar",
+      "readyCount_other": "{{count}} overdrachten klaar",
+      "totalTokens": "• Totaal: ~{{amount}} tokens",
+      "creatingProposals": "Bezig met aanmaken van voorstellen...",
+      "createProposals_one": "{{count}} voorstel aanmaken",
+      "createProposals_other": "{{count}} voorstellen aanmaken",
+      "maxBatchAlert": "Maximaal {{max}} overdrachten per batch om netwerkoverbelasting te voorkomen.",
+      "maxBatchShortAlert": "Maximaal {{max}} overdrachten per batch.",
+      "csvTooManyAlert": "De CSV bevat {{count}} items. Maximaal {{max}} per batch. Alleen de eerste {{max}} worden geïmporteerd.",
+      "errors": {
+        "invalidRecipient": "Ongeldig adres van ontvanger",
+        "invalidAmount": "Ongeldig bedrag",
+        "noToken": "Token niet geselecteerd",
+        "transferUnavailable": "Overdrachtsfunctie niet beschikbaar",
+        "createFailed": "Kan voorstel niet aanmaken"
+      }
+    }
+  },
+  "vesting": {
+    "title": "Vesting-schema's",
+    "subtitle": "Token-vesting met cliff-perioden en geleidelijke vrijgave",
+    "bulkCreate": "Bulksgewijs aanmaken",
+    "createVesting": "Vesting aanmaken",
+    "createFirst": "Maak uw eerste vesting-schema aan",
+    "empty": "Nog geen vesting-schema's aangemaakt",
+    "archived": "Gearchiveerd",
+    "revocable": "Herroepbaar",
+    "badge": "Vesting",
+    "you": "U",
+    "claimButton": "💰 Claimen",
+    "cardTitle": "Vesting #{{id}}",
+    "claimableBadge": "{{amount}} claimbaar",
+    "vestedLabel": "Vested: {{vested}} / {{total}}",
+    "releasedLabel": "Vrijgegeven: {{released}}",
+    "daysValue": "{{count}} dagen",
+    "defaultDescription": "Vesting-schema",
+    "confirmCancel": "Weet u zeker dat u dit vesting-schema wilt annuleren?",
+    "stats": {
+      "totalVesting": "Totaal aantal vestings",
+      "active": "Actief",
+      "claimable": "Claimbaar",
+      "yourVesting": "Uw vesting"
+    },
+    "sections": {
+      "yours": "Uw vesting-schema's",
+      "active": "Actieve vesting-schema's",
+      "pendingCompletion": "In afwachting van voltooiing"
+    },
+    "status": {
+      "active": "Actief",
+      "partiallyReleased": "Gedeeltelijk vrijgegeven",
+      "fullyReleased": "Volledig vrijgegeven",
+      "cancelled": "Geannuleerd"
+    },
+    "time": {
+      "toCliff": "{{days}}d {{hours}}u tot cliff",
+      "fullyVested": "Volledig vested",
+      "remaining": "{{days}}d {{hours}}u resterend"
+    },
+    "interval": {
+      "daily": "Dagelijks",
+      "weekly": "Wekelijks",
+      "monthly": "Maandelijks",
+      "quarterly": "Per kwartaal"
+    },
+    "fields": {
+      "token": "Token",
+      "remaining": "Resterend",
+      "status": "Status",
+      "cliffDate": "Cliff-datum",
+      "endDate": "Einddatum",
+      "releaseInterval": "Vrijgave-interval",
+      "beneficiary": "Begunstigde",
+      "creator": "Maker",
+      "description": "Beschrijving"
+    },
+    "errors": {
+      "fillRequired": "Vul alle verplichte velden in",
+      "invalidBeneficiary": "Ongeldig adres van begunstigde",
+      "durationPositive": "De vesting-duur moet groter zijn dan 0",
+      "cliffShorter": "De cliff moet korter zijn dan de totale duur",
+      "createFailed": "Kan vesting niet aanmaken",
+      "claimFailed": "Claimen mislukt",
+      "cancelFailed": "Annuleren mislukt"
+    },
+    "modal": {
+      "title": "Vesting-schema aanmaken",
+      "token": "Token",
+      "selectToken": "Token selecteren",
+      "tokenOption": "{{symbol}} - {{amount}} beschikbaar",
+      "totalAmount": "Totaalbedrag",
+      "beneficiary": "Begunstigde",
+      "quickSelect": "Snelkeuze:",
+      "beneficiaryPlaceholder": "Zoek contacten of voer een G...-adres in",
+      "cliffDays": "Cliff (dagen)",
+      "cliffHint": "Geen vrijgave vóór de cliff",
+      "durationDays": "Duur (dagen)",
+      "durationHint": "Totale vesting-periode",
+      "intervalDays": "Interval (dagen)",
+      "intervalHint": "Vrijgavefrequentie",
+      "descriptionLabel": "Beschrijving (optioneel)",
+      "descriptionPlaceholder": "bijv. Werknemersvesting, Adviseurstoewijzing",
+      "revocableHint": "Beheerder kan annuleren en niet-vested fondsen terugsturen",
+      "previewTitle": "Vesting-voorbeeld",
+      "previewCliff": "• Cliff eindigt: {{date}}",
+      "previewVested": "• Volledig vested: {{date}}",
+      "previewReleases": "• Vrijgaves elke {{days}} dagen na de cliff",
+      "feeNotice": "⚠️ Er worden kosten van 0,1 XLM in rekening gebracht voor het aanmaken van het vesting-schema.",
+      "creating": "Bezig met aanmaken...",
+      "createButton": "Vesting-schema aanmaken"
+    },
+    "bulk": {
+      "title": "Vesting bulksgewijs aanmaken",
+      "subtitle": "Maak meerdere vesting-schema's tegelijk aan (max. {{max}} per batch)",
+      "downloadTemplate": "Sjabloon downloaden",
+      "importCsv": "CSV importeren",
+      "totalLabel": "Totaal:",
+      "pendingLabel": "In behandeling:",
+      "successLabel": "Geslaagd:",
+      "errorsLabel": "Fouten:",
+      "maxBatchWarning": "Maximale batchgrootte bereikt ({{max}} schema's). Verwerk deze voordat u er meer toevoegt.",
+      "beneficiaryLabel": "Adres van begunstigde",
+      "amountLabel": "Bedrag",
+      "tokenLabel": "Token",
+      "cliffLabel": "Cliff (dagen)",
+      "durationLabel": "Duur (dagen)",
+      "intervalLabel": "Interval (dagen)",
+      "descriptionLabel": "Beschrijving",
+      "optionalPlaceholder": "Optioneel",
+      "duplicate": "Dupliceren",
+      "remove": "Verwijderen",
+      "addSchedule": "Vesting-schema toevoegen",
+      "previewCliff": "Cliff: {{date}}",
+      "previewEnd": "Einde: {{date}}",
+      "previewReleases": "Vrijgaves elke {{days}} dagen",
+      "processing": "Bezig met verwerken van {{current}} van {{total}}...",
+      "readyCount_one": "{{count}} schema klaar om aan te maken",
+      "readyCount_other": "{{count}} schema's klaar om aan te maken",
+      "feeTotal": "• Kosten: {{fee}} XLM in totaal",
+      "creatingProposals": "Bezig met aanmaken van voorstellen...",
+      "createProposals_one": "{{count}} voorstel aanmaken",
+      "createProposals_other": "{{count}} voorstellen aanmaken",
+      "defaultDescription": "Bulk-vesting-schema",
+      "maxBatchAlert": "Maximaal {{max}} vesting-schema's per batch om netwerkoverbelasting te voorkomen.",
+      "csvTooManyAlert": "De CSV bevat {{count}} items. Maximaal {{max}} per batch. Alleen de eerste {{max}} worden geïmporteerd.",
+      "errors": {
+        "invalidBeneficiary": "Ongeldig adres van begunstigde",
+        "invalidAmount": "Ongeldig bedrag",
+        "noToken": "Token niet geselecteerd",
+        "durationPositive": "De vesting-duur moet groter zijn dan 0",
+        "invalidCliff": "Ongeldige cliff-periode",
+        "cliffShorter": "De cliff moet korter zijn dan de totale duur",
+        "invalidInterval": "Ongeldig vrijgave-interval",
+        "createFailed": "Kan voorstel niet aanmaken"
+      }
+    }
+  },
+  "createVault": {
+    "title": "Nieuwe vault aanmaken",
+    "defaultName": "Mijn vault",
+    "defaultNameNumbered": "Mijn vault {{number}}",
+    "vaultName": "Vault-naam",
+    "youOwner": "U (eigenaar)",
+    "add": "Toevoegen",
+    "addSignerPlaceholder": "Adres van ondertekenaar toevoegen (G...)",
+    "hideContacts": "Contacten verbergen",
+    "addFromContacts": "Toevoegen uit contacten",
+    "signers_one": "Ondertekenaars ({{count}})",
+    "signers_other": "Ondertekenaars ({{count}})",
+    "thresholdLabel": "Goedkeuringsdrempel: {{threshold}} van {{total}}",
+    "thresholdHint_one": "{{count}} handtekening vereist om transacties goed te keuren",
+    "thresholdHint_other": "{{count}} handtekeningen vereist om transacties goed te keuren",
+    "creating": "Bezig met aanmaken...",
+    "checking": "Bezig met controleren...",
+    "insufficientBalanceShort": "Onvoldoende saldo",
+    "createButton": "Vault aanmaken",
+    "balance": {
+      "insufficientTitle": "Onvoldoende XLM-saldo",
+      "needAtLeast": "U hebt ten minste <b>{{amount}} XLM</b> nodig om een vault aan te maken.",
+      "current": "Uw huidige saldo: <b>{{amount}} XLM</b>",
+      "coversFee": "Dit dekt de aanmaakkosten van {{fee}} XLM plus transactiekosten.",
+      "getFriendbot": "Testnet-XLM ophalen bij Friendbot",
+      "checking": "Saldo controleren..."
+    },
+    "fee": {
+      "creationFee": "Aanmaakkosten vault:",
+      "yourBalance": "Uw saldo:"
+    },
+    "errors": {
+      "invalidAddress": "Ongeldig Stellar-adres",
+      "signerExists": "Ondertekenaar al toegevoegd",
+      "insufficientBalance": "Onvoldoende XLM-saldo. U hebt ten minste {{amount}} XLM nodig.",
+      "signersBelowThreshold": "Het aantal ondertekenaars moet ten minste gelijk zijn aan de drempel",
+      "factoryNotConfigured": "Factory niet geconfigureerd",
+      "transactionFailed": "Transactie mislukt",
+      "noReturnValue": "Geen retourwaarde van transactie",
+      "parseFailed": "Kan vault-adres niet uit resultaat parseren",
+      "noAddress": "Kan vault-adres niet uit resultaat ophalen",
+      "invalidVaultAddress": "Ongeldig vault-adresformaat",
+      "createFailed": "Kan vault niet aanmaken"
+    }
+  },
+  "fiatRamp": {
+    "title": "Fiat in-/uitstap",
+    "subtitle": "Verplaats geld tussen fiat en USDC. De fondsen worden rechtstreeks in uw vault gestort.",
+    "soon": "Binnenkort",
+    "providers": {
+      "transak": {
+        "name": "Transak",
+        "blurb": "Kaart en bank → USDC, rechtstreeks geleverd aan de vault."
+      },
+      "moneygram": {
+        "name": "MoneyGram",
+        "blurb": "Contant storten/opnemen bij fysieke agentlocaties wereldwijd."
+      },
+      "stripe": {
+        "name": "Stripe",
+        "blurb": "Kaart en bank → USDC via Stripe, geleverd aan de vault."
+      }
+    },
+    "mode": {
+      "cashToVault": "Contant → Vault",
+      "vaultToCash": "Vault → Contant"
+    },
+    "fields": {
+      "anchor": "Anchor",
+      "amount": "Bedrag (USDC)",
+      "amountOptional": "Bedrag (USDC) — optioneel",
+      "amountWidgetPlaceholder": "Laat leeg om in de widget te kiezen",
+      "amountRangePlaceholder": "{{min}} – {{max}}",
+      "limits": "Limieten: {{min}}–{{max}} USDC per transactie",
+      "outOfRange": "Het bedrag moet tussen {{min}} en {{max}} USDC liggen."
+    },
+    "actions": {
+      "working": "Bezig…",
+      "buyWithTransak": "USDC kopen met Transak",
+      "buyWithStripe": "USDC kopen met Stripe",
+      "startDeposit": "Contante storting starten",
+      "startWithdrawal": "Contante opname starten"
+    },
+    "notEnabled": {
+      "noApiUrl": "API-URL niet geconfigureerd — stel REACT_APP_API_URL in zodra de server is geïmplementeerd.",
+      "serverDisabled": "Deze aanbieder is nog niet ingeschakeld op de server."
+    },
+    "status": {
+      "anchorStatus": "Anchor-status: {{status}}",
+      "creatingTransak": "Veilige Transak-sessie aanmaken…",
+      "openingTransak": "Transak openen…",
+      "transakClosed": "Transak-venster gesloten.",
+      "transakSuccess": "Transak-bestelling voltooid. USDC wordt geleverd aan de vault. Bestel-ID: {{orderId}}",
+      "creatingStripe": "Stripe-onramp-sessie aanmaken…",
+      "stripeOpened": "Stripe-onramp geopend.",
+      "authenticating": "Authenticatie met anchor…",
+      "openingCashIn": "Venster voor contante storting openen…",
+      "openingCashOut": "KYC-/contante opname-venster openen…",
+      "creatingProposals": "Multisig-voorstellen aanmaken (opname + 0,3% kosten)…",
+      "proposalsCreated": "Voorstellen aangemaakt. Opname #{{withdrawId}}, kosten #{{feeId}}. Verzamel goedkeuringen om uit te voeren."
+    },
+    "errors": {
+      "apiUrlMissing": "De API-URL is niet geconfigureerd (REACT_APP_API_URL).",
+      "sessionFailed": "Sessie mislukt ({{status}})",
+      "noWidgetUrl": "Geen widgetUrl geretourneerd door backend",
+      "transakFailed": "Transak-bestelling mislukt.",
+      "openTransakFailed": "Kan Transak niet openen",
+      "stripeSessionFailed": "Stripe-sessie mislukt ({{status}})",
+      "noClientSecret": "Geen clientSecret geretourneerd door backend",
+      "startStripeFailed": "Kan Stripe niet starten",
+      "depositFailed": "Kan storting niet starten",
+      "withdrawFailed": "Kan opname niet starten"
+    },
+    "summary": {
+      "title": "Samenvatting",
+      "amount": "Bedrag",
+      "platformFee": "Platformkosten ({{pct}}%)",
+      "youReceive": "U ontvangt in de vault",
+      "sentToAnchor": "Verzonden naar anchor",
+      "usdcValue": "{{value}} USDC",
+      "anchorFeesNote": "Anchor- en netwerkkosten worden afzonderlijk in rekening gebracht door {{provider}}.",
+      "theProvider": "de aanbieder"
+    },
+    "howItWorks": {
+      "title": "Hoe het werkt",
+      "transak": "Betaal met kaart of bankoverschrijving. Na de KYC levert Transak USDC op Stellar rechtstreeks aan uw vault-adres. Voor inkomende fondsen is geen multisig-goedkeuring nodig.",
+      "moneygram": "Stortingen komen rechtstreeks in de vault terecht. Opnames maken twee multisig-voorstellen aan — de overdracht en de platformkosten van 0,3% — die uw ondertekenaars moeten goedkeuren voordat fondsen de vault verlaten.",
+      "stripe": "Betaal met kaart of bank via Stripe. Stripe regelt de KYC en levert USDC op Stellar rechtstreeks aan uw vault-adres."
+    },
+    "destination": {
+      "title": "Bestemmingsvault"
+    }
+  },
+  "common": {
+    "copy": "Kopiëren",
+    "share": "Delen",
+    "loading": "Bezig met laden…",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
+    "save": "Opslaan",
+    "close": "Sluiten",
+    "refresh": "Vernieuwen",
+    "unknown": "Onbekend",
+    "change": "Wijzigen",
+    "open": "Openen",
+    "update": "Bijwerken",
+    "all": "Alle",
+    "notAvailable": "N.v.t."
+  }
+}
