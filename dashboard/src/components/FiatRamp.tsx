@@ -69,7 +69,10 @@ export const FiatRamp: React.FC<FiatRampProps> = ({
   onWithdrawProposed,
 }) => {
   const anchors = useMemo(() => getAnchors(), []);
-  const [provider, setProvider] = useState<Provider>('transak');
+  // Default to the first ENABLED provider so the initial selection is always clickable.
+  const [provider, setProvider] = useState<Provider>(
+    () => (PROVIDERS.find((p) => p.enabled)?.id ?? 'moneygram')
+  );
   const [mode, setMode] = useState<Mode>('deposit');
   const [anchorId, setAnchorId] = useState<string>(anchors[0]?.id ?? '');
   const [amount, setAmount] = useState<string>('');
