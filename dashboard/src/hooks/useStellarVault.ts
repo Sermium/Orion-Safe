@@ -1107,15 +1107,33 @@ export const useStellarVault = () => {
     try {
       setLoading(true);
       setError(null);
+
       const claimed = await stellar.claimLock(publicKey, vaultAddress, lockId);
       const claimedXLM = Number(claimed) / 10_000_000;
-      
-      // Get current lock to calculate new total
+
+      // Compute new released/total from local state (best-effort for the DB cache)
       const currentLock = locks.find(l => l.id === lockId || l.lock_id === lockId);
       const previousClaimed = currentLock?.total_claimed || '0';
       const newTotalClaimed = (BigInt(previousClaimed) + claimed).toString();
-      
-      await updateLockClaim(vaultAddress, lockId, claimed.toString(), newTotalClaimed);
+      const previousReleased = BigInt(currentLock?.released_amount ?? 0n);
+      const newReleased = previousReleased + claimed;
+
+      await updateLockClaim(vaultAddress, lockId, newReleased.toString(), newTotalClaimed);
+
+      // Authoritative deactivation: ask the contract whether the lock is now inactive,
+      // rather than trusting (possibly stale) local state.
+      try {
+        const onChainLock = await stellar.getLock(vaultAddress, lockId);
+        if (onChainLock && onChainLock.is_active === false) {
+          await deactivateLock(vaultAddress, lockId);
+        }
+      } catch (e) {
+        // Fallback to local computation if the chain read fails
+        const total = BigInt(currentLock?.total_amount ?? 0n);
+        if (total > 0n && newReleased >= total) {
+          await deactivateLock(vaultAddress, lockId);
+        }
+      }
 
       await insertTransaction({
         vault_address: vaultAddress,
@@ -1134,9 +1152,14 @@ export const useStellarVault = () => {
         action: 'lock_claimed',
         details: { lock_id: lockId, amount_claimed: claimed.toString() },
       });
-      
+
       setSuccess(`Claimed ${claimedXLM.toFixed(7)} from lock #${lockId}`);
+
+      // Fix 3: let the ledger/RPC settle so the reload reads post-claim state,
+      // avoiding the transient "still claimable" flash.
+      await new Promise(r => setTimeout(r, 1500));
       await loadVaultData();
+
       return claimed;
     } catch (err: any) {
       setError(err.message || 'Failed to claim lock');

@@ -276,8 +276,14 @@ const Locks: React.FC<LocksProps> = ({
 
   const handleClaim = async (lockId: number | bigint) => {
     setLoading(true); setError(null);
-    try { await onClaimLock(typeof lockId === 'bigint' ? Number(lockId) : lockId); onRefresh(); }
-    catch (err: any) { setError(err.message || t('locks.errors.claimFailed')); } finally { setLoading(false); }
+    try {
+      await onClaimLock(typeof lockId === 'bigint' ? Number(lockId) : lockId);
+      // hook already reloads after settle; no extra onRefresh() here
+    } catch (err: any) {
+      setError(err.message || t('locks.errors.claimFailed'));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = async (lockId: number | bigint) => {
