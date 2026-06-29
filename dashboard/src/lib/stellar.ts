@@ -749,6 +749,7 @@ export async function claimLock(
   vaultAddress: string,
   lockId: number
 ): Promise<bigint> {
+  console.log('CLAIM DEBUG (stellar) → lockId =', lockId, 'publicKey =', publicKey);
   const server = getServer();
   const contract = getContract(vaultAddress);
   const account = await server.getAccount(publicKey);

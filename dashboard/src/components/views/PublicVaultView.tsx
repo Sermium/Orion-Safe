@@ -206,6 +206,14 @@ const PublicVaultView: React.FC<PublicVaultViewProps> = ({ vaultAddress, onClose
 
   const getProgressPercent = (lock: Lock): number => {
     try {
+      if (getLockTypeString(lock.lock_type) === 'TimeLock') {
+        const now = Math.floor(Date.now() / 1000);
+        const start = safeNumber(lock.start_time);
+        const end = safeNumber(lock.end_time);
+        if (end <= start) return now >= end ? 100 : 0;
+        const pct = ((now - start) / (end - start)) * 100;
+        return Math.min(100, Math.max(0, Math.round(pct)));
+      }
       const total = safeBigInt(lock.total_amount);
       const released = safeBigInt(lock.released_amount);
       if (total === BigInt(0)) return 0;

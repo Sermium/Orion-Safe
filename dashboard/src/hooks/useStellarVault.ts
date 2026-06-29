@@ -1094,6 +1094,7 @@ export const useStellarVault = () => {
   };
 
   const claimLock = async (lockId: number) => {
+    console.log('CLAIM DEBUG (hook) → lockId =', lockId, 'type:', typeof lockId);
     if (!publicKey || !vaultAddress) return;
     try {
       setLoading(true);
