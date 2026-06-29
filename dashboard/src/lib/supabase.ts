@@ -192,7 +192,6 @@ export async function getLocks(vaultAddress: string) {
     .from('locks')
     .select('*')
     .eq('vault_address', vaultAddress)
-    .eq('is_active', true)  // Only return active (executed) locks
     .order('lock_id', { ascending: false });
   if (error) { console.error('getLocks error:', error); return []; }
   return data as LockRow[];
@@ -731,11 +730,14 @@ export async function deactivateLock(
   lockId: number,
   finalState: 'FullyReleased' | 'Cancelled' = 'FullyReleased'
 ) {
-  console.log('deactivateLock v2 → finalState =', finalState); // TEMP, remove later
   if (!supabase) return null;
   const { data, error } = await supabase
     .from('locks')
-    .update({ is_active: false, final_state: finalState })
+    .update({
+      is_active: false,
+      final_state: finalState,
+      updated_at: new Date().toISOString(),
+    })
     .eq('vault_address', vaultAddress)
     .eq('lock_id', lockId)
     .select()
@@ -849,4 +851,17 @@ export async function addSigner(
   });
   
   return data;
+}
+
+// All locks for a beneficiary, across all vaults, regardless of active state.
+// Single DB query — no chain calls. Used by the claim page.
+export async function getAllLocksForBeneficiary(beneficiaryAddress: string) {
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('locks')
+    .select('*, vaults(name)')
+    .eq('beneficiary_address', beneficiaryAddress)
+    .order('lock_id', { ascending: false });
+  if (error) { console.error('getAllLocksForBeneficiary error:', error); return []; }
+  return data ?? [];
 }

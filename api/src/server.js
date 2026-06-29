@@ -7,6 +7,7 @@ import proposals from "./routes/proposals.js";
 import locks from "./routes/locks.js";
 import signers from "./routes/signers.js";
 import onramp from "./routes/onramp.js";
+import { startReconciler } from "./reconciler.js";
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,8 @@ app.use(express.json());
 // Swagger UI at /api-docs  + raw spec at /api-docs.json
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.get("/api-docs.json", (_req, res) => res.json(openapiSpec));
+
+startReconciler(60_000_000);
 
 const v1 = express.Router();
 v1.use(vaults);

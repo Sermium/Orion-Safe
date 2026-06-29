@@ -54,4 +54,13 @@ router.get("/vaults/:id/tokens/:token/available", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// api/src/routes/locks.js
+import { reconcileLock } from "../reconciler.js";
+router.post("/vaults/:id/locks/:lockId/reconcile", async (req, res) => {
+  // respond immediately; do the work async
+  res.json({ queued: true });
+  reconcileLock(req.params.id, Number(req.params.lockId))
+    .catch(e => console.error("targeted reconcile", e.message));
+});
+
 export default router;

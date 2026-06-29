@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import * as stellar from '../../lib/stellar';
 import { getAllVaults, getVaultInfo } from '../../services/factoryService';
 import ConnectWalletModal from '../modals/ConnectWalletModal';
-import { updateLockClaim, deactivateLock } from '../../lib/supabase';
+import { updateLockClaim, deactivateLock, getAllLocksForBeneficiary } from '../../lib/supabase';
 
 interface Lock {
   id: number;
@@ -77,79 +77,42 @@ const ClaimPage: React.FC<ClaimPageProps> = ({
 
   const loadMyLocks = async () => {
     if (!publicKey) return;
-    
     setLoading(true);
     setError(null);
     setMyLocks([]);
-    
+
     try {
-      const foundLocks: Lock[] = [];
-      
-      // If filtering to a specific vault, only load that one
+      // Single DB query — fast. DB is kept in sync by the background reconciler.
+      let rows = await getAllLocksForBeneficiary(publicKey);
+
+      // If filtering to a specific vault, narrow client-side.
       if (filterVaultAddress) {
-        setTotalVaults(1);
-        setScannedVaults(0);
-        
-        try {
-          const vaultInfo = await getVaultInfo(filterVaultAddress);
-          const locks = await stellar.getLocks(filterVaultAddress);
-          
-          for (const lock of locks) {
-            if (lock.beneficiary === publicKey) {
-              foundLocks.push({
-                ...lock,
-                id: Number(lock.id),
-                vaultAddress: filterVaultAddress,
-                vaultName: vaultInfo?.name || t('claim.unknownVault'),
-                total_amount: BigInt(lock.total_amount),
-                released_amount: BigInt(lock.released_amount),
-                start_time: Number(lock.start_time),
-                end_time: Number(lock.end_time),
-                cliff_time: Number(lock.cliff_time),
-                release_intervals: Number(lock.release_intervals),
-              });
-            }
-          }
-          setScannedVaults(1);
-        } catch (err) {
-          console.error(`Failed to load locks from vault ${filterVaultAddress}:`, err);
-        }
-      } else {
-        // Load locks from all vaults
-        const allVaults = await getAllVaults();
-        setTotalVaults(allVaults.length);
-        
-        for (let i = 0; i < allVaults.length; i++) {
-          const vaultInfo = allVaults[i];
-          const vaultAddress = vaultInfo.vault_address;
-          setScannedVaults(i + 1);
-
-          try {
-            const locks = await stellar.getLocks(vaultAddress);
-
-            for (const lock of locks) {
-              if (lock.beneficiary === publicKey) {
-                foundLocks.push({
-                  ...lock,
-                  id: Number(lock.id),
-                  vaultAddress,
-                  vaultName: vaultInfo.name || t('claim.unknownVault'),
-                  total_amount: BigInt(lock.total_amount),
-                  released_amount: BigInt(lock.released_amount),
-                  start_time: Number(lock.start_time),
-                  end_time: Number(lock.end_time),
-                  cliff_time: Number(lock.cliff_time),
-                  release_intervals: Number(lock.release_intervals),
-                });
-              }
-            }
-          } catch (err) {
-            console.error(`Failed to load locks from vault ${vaultAddress}:`, err);
-          }
-        }
+        rows = rows.filter((r: any) => r.vault_address === filterVaultAddress);
       }
-      
-      setMyLocks(foundLocks);
+
+      const mapped: Lock[] = rows.map((row: any) => ({
+        id: Number(row.lock_id),
+        vaultAddress: row.vault_address,
+        vaultName: row.vaults?.name || t('claim.unknownVault'),
+        creator: row.created_by || '',
+        beneficiary: row.beneficiary_address,
+        token: row.token_address,
+        total_amount: BigInt(row.total_amount || '0'),
+        released_amount: BigInt(row.released_amount || '0'),
+        start_time: row.start_time ? Math.floor(new Date(row.start_time).getTime() / 1000) : 0,
+        end_time: row.end_time ? Math.floor(new Date(row.end_time).getTime() / 1000) : 0,
+        cliff_time: row.cliff_time ? Math.floor(new Date(row.cliff_time).getTime() / 1000) : 0,
+        release_intervals: Number(row.release_intervals || 0),
+        revocable: Boolean(row.revocable),
+        // Map is_active + final_state to the status strings ClaimPage expects
+        status: row.is_active
+          ? (BigInt(row.released_amount || '0') > 0n ? 'PartiallyReleased' : 'Active')
+          : (row.final_state === 'Cancelled' ? 'Cancelled' : 'FullyReleased'),
+        lock_type: Number(row.lock_type) === 0 ? 'TimeLock' : 'Vesting',
+        description: row.name || '',
+      }));
+
+      setMyLocks(mapped);
     } catch (err: any) {
       setError(err.message || t('claim.errorLoad'));
     } finally {

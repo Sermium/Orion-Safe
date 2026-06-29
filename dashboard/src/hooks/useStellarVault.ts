@@ -1120,6 +1120,12 @@ export const useStellarVault = () => {
 
       await updateLockClaim(vaultAddress, lockId, newReleased.toString(), newTotalClaimed);
 
+      fetch(`/vaults/${vaultAddress}/locks/${lockId}/reconcile`, { method: 'POST' })
+        .catch(() => {});
+
+      // then your existing reload (you can now drop the 1500ms delay if you want)
+      await loadVaultData();
+
       // Authoritative deactivation: ask the contract whether the lock is now inactive,
       // rather than trusting (possibly stale) local state.
       try {
@@ -1174,7 +1180,10 @@ export const useStellarVault = () => {
       const reclaimedXLM = Number(reclaimed) / 10_000_000;
       
       await deactivateLock(vaultAddress, lockId, 'Cancelled');
+      fetch(`/vaults/${vaultAddress}/locks/${lockId}/reconcile`, { method: 'POST' })
+        .catch(() => {});
 
+      await loadVaultData();
       await insertTransaction({
         vault_address: vaultAddress,
         tx_type: 'cancel_lock',
@@ -1194,6 +1203,7 @@ export const useStellarVault = () => {
       setSuccess(`Lock #${lockId} cancelled. ${reclaimedXLM.toFixed(7)} returned to vault.`);
       await loadVaultData();
       return reclaimed;
+      
     } catch (err: any) {
       setError(err.message || 'Failed to cancel lock');
       throw err;
