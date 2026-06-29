@@ -4,8 +4,7 @@ import {
   ExternalLink, Book, Shield, Layers, Users, Clock, Coins, 
   FileText, GitBranch, HelpCircle, Zap, AlertTriangle 
 } from 'lucide-react';
-import { docsEn } from '../../content/docs/en';
-import { docsFr } from '../../content/docs/fr';
+import { getDocsContent } from '../../content/docs';
 import { DocsContent } from '../../content/docs/types';
 
 // Petit helper : transforme **gras** et {{liens}} en JSX.
@@ -58,13 +57,19 @@ const Docs: React.FC = () => {
   const { i18n } = useTranslation();
   const [activeSection, setActiveSection] = useState('overview');
 
-  // Choix du contenu selon la langue active, fallback EN.
-  const c: DocsContent = i18n.language.startsWith('fr') ? docsFr : docsEn;
+  // Choix du contenu selon la langue active (16 langues), fallback EN.
+  const c: DocsContent = getDocsContent(i18n.language);
+
+  const isFr = i18n.language.toLowerCase().startsWith('fr');
 
   const LINKS = {
     freighter: { label: 'Freighter', href: 'https://www.freighter.app/' },
     friendbot: {
-      label: i18n.language.startsWith('fr') ? 'Friendbot du Stellar Laboratory' : 'Stellar Laboratory Friendbot',
+      label: isFr ? 'Friendbot du Stellar Laboratory' : 'Stellar Laboratory Friendbot',
+      href: 'https://laboratory.stellar.org/#account-creator?network=test',
+    },
+    laboratory: {
+      label: isFr ? 'Stellar Laboratory' : 'Stellar Laboratory',
       href: 'https://laboratory.stellar.org/#account-creator?network=test',
     },
   };
@@ -211,11 +216,11 @@ const Docs: React.FC = () => {
                 </div>
                 <div className="space-y-4">
                   {q.step4Steps.map((s, idx) => {
-                    const colors = ['purple', 'blue', 'green'];
-                    const color = colors[idx] || 'purple';
+                    const color = ['purple', 'blue', 'green'][idx] || 'purple';
+                    const { bg, text } = STEP_COLORS[color];
                     return (
                       <div key={idx} className="flex items-center gap-4 p-3 bg-gray-900/50 rounded-lg">
-                        <div className={`w-8 h-8 rounded-full bg-${color}-500/20 flex items-center justify-center text-${color}-400 text-sm`}>
+                        <div className={`w-8 h-8 rounded-full ${bg} flex items-center justify-center ${text} text-sm`}>
                           {idx + 1}
                         </div>
                         <div>
