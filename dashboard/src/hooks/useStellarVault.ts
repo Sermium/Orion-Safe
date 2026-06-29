@@ -397,7 +397,6 @@ export const useStellarVault = () => {
 
       const now = Math.floor(Date.now() / 1000);
 
-      // Validate TimeLock proposals
       if (proposal.proposal_type === 1) {
         if (!proposal.lock_end_time || proposal.lock_end_time <= 0) {
           setError('Cannot execute: TimeLock is missing unlock time. Please recreate this proposal.');
@@ -412,7 +411,6 @@ export const useStellarVault = () => {
         }
       }
 
-      // Validate Vesting proposals
       if (proposal.proposal_type === 2) {
         if (!proposal.lock_start_time || proposal.lock_start_time <= 0) {
           setError('Cannot execute: Vesting is missing start time. Please recreate this proposal.');
@@ -436,7 +434,6 @@ export const useStellarVault = () => {
         }
       }
 
-      // Validate Transfer proposals
       if (proposal.proposal_type === 0) {
         if (!proposal.recipient) {
           setError('Cannot execute: Transfer is missing recipient address.');
@@ -451,20 +448,31 @@ export const useStellarVault = () => {
       }
       // ==================== END VALIDATION ====================
 
-      const result = await stellar.executeProposal(publicKey, vaultAddress, proposalId, proposal);
-      const txHash = 'hash' in result ? (result as any).hash : undefined;
-
-      // The result contains the lock_id if it was a TimeLock or Vesting proposal
-      const lockId = typeof result === 'number' ? result :
-        (typeof result === 'object' && 'result' in result) ? Number(result.result) : 0;
+      // executeProposal now returns the real on-chain lock_id (or 0 for non-lock proposals)
+      const returnedLockId = await stellar.executeProposal(publicKey, vaultAddress, proposalId, proposal);
 
       await updateProposalStatus(vaultAddress, proposalId, 'Executed');
 
       // If this was a TimeLock or Vesting proposal, insert into locks table
       if (proposal.proposal_type === 1 || proposal.proposal_type === 2) {
+        // Prefer the lock_id returned by execute(); if it didn't come through,
+        // fall back to reading lock_count from the contract. NEVER use proposalId.
+        let realLockId = Number(returnedLockId);
+        if (!Number.isInteger(realLockId) || realLockId < 1) {
+          const freshConfig = await stellar.loadVaultConfig(vaultAddress);
+          realLockId = Number(freshConfig?.lock_count ?? 0);
+        }
+
+        if (!Number.isInteger(realLockId) || realLockId < 1) {
+          setError('Lock created on-chain, but its lock_id could not be resolved. The DB row was NOT written — please refresh.');
+          await loadVaultData();
+          setLoading(false);
+          return;
+        }
+
         await insertLock({
           vault_address: vaultAddress,
-          lock_id: lockId || proposalId,
+          lock_id: realLockId,
           lock_type: proposal.proposal_type === 1 ? 0 : 1,
           beneficiary_address: proposal.recipient,
           token_address: proposal.token,
@@ -472,7 +480,9 @@ export const useStellarVault = () => {
           released_amount: '0',
           start_time: new Date(proposal.lock_start_time * 1000).toISOString(),
           end_time: new Date(proposal.lock_end_time * 1000).toISOString(),
-          cliff_time: proposal.lock_cliff_time ? new Date(proposal.lock_cliff_time * 1000).toISOString() : new Date(proposal.lock_start_time * 1000).toISOString(),
+          cliff_time: proposal.lock_cliff_time
+            ? new Date(proposal.lock_cliff_time * 1000).toISOString()
+            : new Date(proposal.lock_start_time * 1000).toISOString(),
           release_intervals: proposal.lock_release_intervals || 0,
           revocable: proposal.lock_revocable || false,
           is_active: true,
@@ -484,18 +494,16 @@ export const useStellarVault = () => {
           vault_address: vaultAddress,
           actor_address: publicKey,
           action: proposal.proposal_type === 1 ? 'timelock_created' : 'vesting_created',
-          details: { proposal_id: proposalId, lock_id: lockId, beneficiary: proposal.recipient },
-          tx_hash: txHash,
+          details: { proposal_id: proposalId, lock_id: realLockId, beneficiary: proposal.recipient },
         });
 
-        setSuccess(`${proposal.proposal_type === 1 ? 'Time Lock' : 'Vesting'} #${lockId || proposalId} created!`);
+        setSuccess(`${proposal.proposal_type === 1 ? 'Time Lock' : 'Vesting'} #${realLockId} created!`);
       } else {
         await logActivity({
           vault_address: vaultAddress,
           actor_address: publicKey,
           action: 'proposal_executed',
           details: { proposal_id: proposalId },
-          tx_hash: txHash,
         });
 
         setSuccess(`Transaction #${proposalId} executed!`);

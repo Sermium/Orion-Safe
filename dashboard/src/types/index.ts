@@ -5,6 +5,8 @@
   tx_fee_amount?: bigint;
   tx_fee_token?: string;
   fee_recipient?: string;
+  proposal_count?: number; 
+  lock_count?: number; 
 }
 
 export type Role = 'SuperAdmin' | 'Admin' | 'Executor';

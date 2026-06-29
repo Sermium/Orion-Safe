@@ -82,7 +82,7 @@ export const loadVaultConfig = async (vaultAddress: string): Promise<VaultConfig
       .addOperation(contract.call('get_config'))
       .setTimeout(30)
       .build();
- 
+
     const sim = await server.simulateTransaction(tx);
     if (rpc.Api.isSimulationSuccess(sim) && sim.result?.retval) {
       const config = scValToNative(sim.result.retval);
@@ -90,6 +90,8 @@ export const loadVaultConfig = async (vaultAddress: string): Promise<VaultConfig
         name: config.name?.toString() || config.name,
         threshold: Number(config.threshold),
         signer_count: Number(config.signer_count),
+        proposal_count: Number(config.proposal_count ?? 0),
+        lock_count: Number(config.lock_count ?? 0),
       };
     }
     return null;
@@ -193,26 +195,52 @@ export const loadProposals = async (vaultAddress: string): Promise<Proposal[]> =
  
 export const loadLocks = async (vaultAddress: string): Promise<any[]> => {
   try {
-    const rows = await dbGetLocks(vaultAddress);
-    return rows.map((row: any) => ({
-      id: Number(row.lock_id),
-      lock_id: Number(row.lock_id),
-      creator: row.created_by || '',
-      beneficiary: row.beneficiary_address || '',
-      token: row.token_address || '',
-      total_amount: BigInt(row.total_amount || '0'),
-      released_amount: BigInt(row.released_amount || '0'),
-      lock_type: row.lock_type === 0 ? 'TimeLock' : 'Vesting',
-      status: row.is_active ? 'Active' : 'Cancelled',
-      created_at: row.created_at ? Math.floor(new Date(row.created_at).getTime() / 1000) : 0,
-      start_time: row.start_time ? Math.floor(new Date(row.start_time).getTime() / 1000) : 0,
-      end_time: row.end_time ? Math.floor(new Date(row.end_time).getTime() / 1000) : 0,
-      cliff_time: row.cliff_time ? Math.floor(new Date(row.cliff_time).getTime() / 1000) : 0,
-      release_intervals: Number(row.release_intervals || 0),
-      revocable: Boolean(row.revocable),
-      description: row.name || '',
-      total_claimed: row.total_claimed || '0',
-    }));
+    // Source of truth = chain. Read lock_count, then fetch each lock by id.
+    const config = await loadVaultConfig(vaultAddress);
+    const lockCount = Number(config?.lock_count ?? 0);
+
+    // Optional: pull DB rows once to enrich with names/descriptions (keyed by lock_id).
+    let dbByLockId: Record<number, any> = {};
+    try {
+      const rows = await dbGetLocks(vaultAddress);
+      for (const row of rows) {
+        dbByLockId[Number(row.lock_id)] = row;
+      }
+    } catch {
+      dbByLockId = {};
+    }
+
+    const locks: any[] = [];
+    for (let i = 1; i <= lockCount; i++) {
+      try {
+        const lock = await getLock(vaultAddress, i); // calls get_lock(i) on-chain
+        if (!lock) continue;
+
+        const row = dbByLockId[i] || {};
+        locks.push({
+          id: i,                 // the REAL on-chain lock id
+          lock_id: i,
+          creator: row.created_by || '',
+          beneficiary: lock.beneficiary,
+          token: lock.token,
+          total_amount: BigInt(lock.total_amount ?? '0'),
+          released_amount: BigInt(lock.released_amount ?? '0'),
+          lock_type: Number(lock.lock_type) === 0 ? 'TimeLock' : 'Vesting',
+          status: lock.is_active ? 'Active' : 'Cancelled',
+          created_at: row.created_at ? Math.floor(new Date(row.created_at).getTime() / 1000) : 0,
+          start_time: Number(lock.start_time ?? 0),
+          end_time: Number(lock.end_time ?? 0),
+          cliff_time: Number(lock.cliff_time ?? 0),
+          release_intervals: Number(lock.release_intervals ?? 0),
+          revocable: Boolean(lock.revocable),
+          description: row.name || '',
+          total_claimed: row.total_claimed || '0',
+        });
+      } catch {
+        // get_lock(i) reverted (e.g. #18) — skip this id
+      }
+    }
+    return locks;
   } catch (err) {
     console.error('loadLocks error:', err);
     return [];
@@ -436,12 +464,11 @@ export const executeProposal = async (
   vaultAddress: string,
   proposalId: number,
   proposal?: Proposal
-) => {
+): Promise<number> => {
   const server = getServer();
   const contract = getContract(vaultAddress);
   const account = await server.getAccount(publicKey);
- 
-  // If proposal details provided, use them; otherwise use defaults for transfer
+
   const pType = proposal?.proposal_type ?? 0;
   const token = proposal?.token || getNativeToken();
   const recipient = proposal?.recipient || publicKey;
@@ -452,22 +479,6 @@ export const executeProposal = async (
   const releaseIntervals = proposal?.lock_release_intervals ?? 0;
   const revocable = proposal?.lock_revocable ?? false;
 
-  console.log('executeProposal params:', {
-    publicKey,
-    vaultAddress,
-    proposalId,
-    pType,
-    token,
-    recipient,
-    amount: amount.toString(),
-    startTime,
-    endTime,
-    cliffTime,
-    releaseIntervals,
-    revocable,
-    proposal
-  });
- 
   const tx = new TransactionBuilder(account, {
     fee: '10000000',
     networkPassphrase: NETWORK_PASSPHRASE,
@@ -490,8 +501,14 @@ export const executeProposal = async (
     )
     .setTimeout(300)
     .build();
- 
-  return signAndSubmit(tx, server);
+
+  // execute() returns the new lock_id for TimeLock/VestingLock proposals,
+  // or 0u64 for all other proposal types.
+  const result = await signAndSubmit(tx, server);
+  if (result.status === 'SUCCESS' && 'returnValue' in result && result.returnValue) {
+    return Number(scValToNative(result.returnValue));
+  }
+  return 0;
 };
  
 // ============================================================================
