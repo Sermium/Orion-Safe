@@ -1125,13 +1125,13 @@ export const useStellarVault = () => {
       try {
         const onChainLock = await stellar.getLock(vaultAddress, lockId);
         if (onChainLock && onChainLock.is_active === false) {
-          await deactivateLock(vaultAddress, lockId);
+          await deactivateLock(vaultAddress, lockId, 'FullyReleased');
         }
       } catch (e) {
         // Fallback to local computation if the chain read fails
         const total = BigInt(currentLock?.total_amount ?? 0n);
         if (total > 0n && newReleased >= total) {
-          await deactivateLock(vaultAddress, lockId);
+          await deactivateLock(vaultAddress, lockId, 'FullyReleased');
         }
       }
 
@@ -1154,12 +1154,8 @@ export const useStellarVault = () => {
       });
 
       setSuccess(`Claimed ${claimedXLM.toFixed(7)} from lock #${lockId}`);
-
-      // Fix 3: let the ledger/RPC settle so the reload reads post-claim state,
-      // avoiding the transient "still claimable" flash.
       await new Promise(r => setTimeout(r, 1500));
       await loadVaultData();
-
       return claimed;
     } catch (err: any) {
       setError(err.message || 'Failed to claim lock');
@@ -1177,7 +1173,7 @@ export const useStellarVault = () => {
       const reclaimed = await stellar.cancelLock(publicKey, vaultAddress, lockId);
       const reclaimedXLM = Number(reclaimed) / 10_000_000;
       
-      await deactivateLock(vaultAddress, lockId);
+      await deactivateLock(vaultAddress, lockId, 'Cancelled');
 
       await insertTransaction({
         vault_address: vaultAddress,

@@ -726,24 +726,21 @@ export async function updateLockClaim(
   return data;
 }
 
-export async function deactivateLock(vaultAddress: string, lockId: number) {
+export async function deactivateLock(
+  vaultAddress: string,
+  lockId: number,
+  finalState: 'FullyReleased' | 'Cancelled' = 'FullyReleased'
+) {
+  console.log('deactivateLock v2 → finalState =', finalState); // TEMP, remove later
   if (!supabase) return null;
-  
   const { data, error } = await supabase
     .from('locks')
-    .update({
-      is_active: false,
-      updated_at: new Date().toISOString(),
-    })
+    .update({ is_active: false, final_state: finalState })
     .eq('vault_address', vaultAddress)
     .eq('lock_id', lockId)
     .select()
     .single();
-
-  if (error) {
-    console.error('deactivateLock error:', error);
-    return null;
-  }
+  if (error) { console.error('deactivateLock error:', error); return null; }
   return data;
 }
 

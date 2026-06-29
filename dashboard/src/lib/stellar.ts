@@ -217,16 +217,32 @@ export const loadLocks = async (vaultAddress: string): Promise<any[]> => {
         if (!lock) continue;
 
         const row = dbByLockId[i] || {};
+        const total = BigInt(lock.total_amount ?? '0');
+        const released = BigInt(lock.released_amount ?? '0');
+
+        // Derive status. On-chain, both a full claim and a cancellation leave the
+        // lock with is_active=false and released==total, so they are indistinguishable
+        // from chain data alone. We use the DB's final_state column as the tiebreaker.
+        let status: string;
+        if (lock.is_active) {
+          status = released > 0n ? 'PartiallyReleased' : 'Active';
+        } else if (row.final_state === 'Cancelled') {
+          status = 'Cancelled';
+        } else {
+          // final_state === 'FullyReleased', or missing (older rows) → completed
+          status = 'FullyReleased';
+        }
+
         locks.push({
           id: i,                 // the REAL on-chain lock id
           lock_id: i,
           creator: row.created_by || '',
           beneficiary: lock.beneficiary,
           token: lock.token,
-          total_amount: BigInt(lock.total_amount ?? '0'),
-          released_amount: BigInt(lock.released_amount ?? '0'),
+          total_amount: total,
+          released_amount: released,
           lock_type: Number(lock.lock_type) === 0 ? 'TimeLock' : 'Vesting',
-          status: lock.is_active ? 'Active' : 'Cancelled',
+          status,
           created_at: row.created_at ? Math.floor(new Date(row.created_at).getTime() / 1000) : 0,
           start_time: Number(lock.start_time ?? 0),
           end_time: Number(lock.end_time ?? 0),
@@ -246,6 +262,8 @@ export const loadLocks = async (vaultAddress: string): Promise<any[]> => {
     return [];
   }
 };
+
+
  
 // Alias for backward compatibility
 export const getLocks = loadLocks;
