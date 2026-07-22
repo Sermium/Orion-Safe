@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { Proposal } from '../../types';
@@ -24,6 +24,7 @@ interface TransactionsProps {
   onRefreshProposals?: () => Promise<void>;
   onCreateTransfer?: (recipient: string, token: string, amount: string) => Promise<void>;
   vaultBalance?: Array<{ symbol: string; balance: bigint; decimals: number; address?: string }>;
+  signers?: string[];
 }
 
 interface BulkTransferEntry {
@@ -106,7 +107,8 @@ export const Transactions: React.FC<TransactionsProps> = ({
   onNewTransaction,
   onRefreshProposals,
   onCreateTransfer,
-  vaultBalance = []
+  vaultBalance = [],
+  signers = []
 }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language || 'en';
@@ -491,6 +493,71 @@ export const Transactions: React.FC<TransactionsProps> = ({
     approved: t('transactions.filters.approved'),
   };
 
+  const renderSignatureFlow = (proposal: Proposal) => {
+    const list = signers || [];
+    if (list.length === 0) return null;
+
+    const approvals = proposal.approvals || [];
+    const rejections = proposal.cancel_approvals || [];
+
+    return (
+      <div className="mt-6 pt-6 border-t border-white/5">
+        <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+          {t('transactions.signatureFlow', 'Signature Status Flow')}
+        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          {list.map((signer, index) => {
+            const isApproved = approvals.includes(signer);
+            const isRejected = rejections.includes(signer);
+            const isPending = !isApproved && !isRejected;
+
+            let statusColor = 'border-white/10 text-gray-400 bg-white/[0.01]';
+            let icon = <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-500/80" />;
+            let statusText = t('transactions.status.pendingSign', 'Pending');
+            let glow = '';
+
+            if (isApproved) {
+              statusColor = 'border-emerald-500/30 text-emerald-400 bg-emerald-500/5';
+              icon = <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />;
+              statusText = t('transactions.status.signed', 'Approved');
+              glow = 'shadow-[0_0_12px_rgba(16,185,129,0.15)]';
+            } else if (isRejected) {
+              statusColor = 'border-rose-500/30 text-rose-400 bg-rose-500/5';
+              icon = <X className="w-3.5 h-3.5 text-rose-400" />;
+              statusText = t('transactions.status.rejectedSign', 'Rejected');
+              glow = 'shadow-[0_0_12px_rgba(244,63,94,0.15)]';
+            } else if (isPending && Number(proposal.status) !== 0) {
+              statusColor = 'border-white/5 text-gray-500 bg-white/[0.01]';
+              icon = <X className="w-3.5 h-3.5 text-gray-600" />;
+              statusText = t('transactions.status.notSigned', 'No signature');
+            }
+
+            const isCurrentUser = signer === publicKey;
+            const name = getContactName(signer) || truncateAddress(signer);
+
+            return (
+              <div key={signer} className="flex items-center">
+                <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border transition-all duration-300 ${statusColor} ${glow} ${isCurrentUser ? 'ring-1 ring-cyan-500/30' : ''}`}>
+                  <div className="flex-shrink-0">{icon}</div>
+                  <div className="text-left leading-none">
+                    <p className="text-xs font-medium text-white flex items-center gap-1.5">
+                      {name}
+                      {isCurrentUser && <span className="text-[9px] bg-cyan-500/20 text-cyan-400 px-1 py-0.2 rounded font-mono">You</span>}
+                    </p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">{statusText}</p>
+                  </div>
+                </div>
+                {index < list.length - 1 && (
+                  <div className={`hidden sm:block w-4 h-0.5 ${isApproved ? 'bg-emerald-500/30' : isRejected ? 'bg-rose-500/30' : 'bg-white/5'}`} />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -611,7 +678,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                 return (
                   <div
                     key={proposal.id}
-                    className="bg-gray-800/50 rounded-xl p-5 border border-gray-700 hover:border-gray-600 transition"
+                    className="bg-white/[0.02] backdrop-blur-md border border-white/10 hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(6,182,212,0.06)] rounded-xl p-5 transition duration-300"
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
@@ -733,6 +800,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
                         )}
                       </div>
                     </div>
+                    {renderSignatureFlow(proposal)}
                   </div>
                 );
               })}

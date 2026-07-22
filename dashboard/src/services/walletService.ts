@@ -90,19 +90,28 @@ const connectFreighter = async (): Promise<string> => {
     // Request access
     const accessObj = await freighterApi.requestAccess();
     if (accessObj.error) {
-      throw new Error(accessObj.error);
+      const msg = typeof accessObj.error === 'string' 
+        ? accessObj.error 
+        : (accessObj.error.message || 'User rejected request');
+      throw new Error(msg);
     }
     
     // Get address
     const addressObj = await freighterApi.getAddress();
     if (addressObj.error) {
-      throw new Error(addressObj.error);
+      const msg = typeof addressObj.error === 'string' 
+        ? addressObj.error 
+        : (addressObj.error.message || 'Failed to get address');
+      throw new Error(msg);
     }
     
     return addressObj.address;
   } catch (err: any) {
     console.error('Freighter connection error:', err);
-    throw new Error(err.message || 'Failed to connect to Freighter');
+    
+    // Handle nested error object
+    const errMsg = err.message || (typeof err === 'string' ? err : 'Failed to connect to Freighter');
+    throw new Error(errMsg);
   }
 };
 
@@ -183,7 +192,10 @@ export const signTransaction = async (xdr: string): Promise<string> => {
         networkPassphrase: NETWORK_PASSPHRASE,
       });
       if (result.error) {
-        throw new Error(result.error);
+        const msg = typeof result.error === 'string'
+          ? result.error
+          : (result.error.message || 'User rejected signing');
+        throw new Error(msg);
       }
       return result.signedTxXdr;
     }

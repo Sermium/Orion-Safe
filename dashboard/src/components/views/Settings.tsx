@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Settings as SettingsIcon, Users as UsersIcon, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { CopyIcon } from '../icons';
 import { VaultConfig, Role, SignerWithRole } from '../../types';
@@ -299,9 +300,9 @@ export const Settings: React.FC<SettingsProps> = ({
   };
 
   const tabs = [
-    { id: 'general' as const, label: t('settings.tabs.general'), icon: '⚙️' },
-    { id: 'members' as const, label: t('settings.tabs.members'), icon: '👥' },
-    { id: 'advanced' as const, label: t('settings.tabs.advanced'), icon: '🔧' },
+    { id: 'general' as const, label: t('settings.tabs.general'), icon: <SettingsIcon className="w-4 h-4" /> },
+    { id: 'members' as const, label: t('settings.tabs.members'), icon: <UsersIcon className="w-4 h-4" /> },
+    { id: 'advanced' as const, label: t('settings.tabs.advanced'), icon: <Wrench className="w-4 h-4" /> },
   ];
 
   return (

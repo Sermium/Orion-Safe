@@ -603,8 +603,7 @@ function App() {
                   <p className="text-gray-400">Loading vault data...</p>
                 </div>
               )}
-
-              {/* Show views once initialized */}
+{/* Show views once initialized */}
               {vault.isInitialized && (
                 <>
                   {activeView === 'dashboard' && (
@@ -618,6 +617,8 @@ function App() {
                       onViewTransactions={() => setActiveView('transactions')}
                       onNewTransaction={() => setShowNewTxModal(true)}
                       onSelectProposal={() => setActiveView('transactions')}
+                      vaultAddress={vault.vaultAddress}
+                      onDeposit={() => setShowDepositModal(true)}
                     />
                   )}
 
@@ -666,6 +667,7 @@ function App() {
                         await vault.propose(token, recipient, amount);
                       }}
                       vaultBalance={vault.vaultBalance}
+                      signers={vault.signers}
                     />
                   )}
 

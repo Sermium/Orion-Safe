@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BarChart3, Coins, Building2, Settings, AlertTriangle } from 'lucide-react';
 import { CopyIcon } from '../icons';
 import { truncateAddress } from '../../lib/stellar';
 import { 
@@ -118,10 +119,10 @@ export const Admin: React.FC<AdminProps> = ({ publicKey, onCopy }) => {
   };
 
   const tabs = [
-    { id: 'overview' as const, label: 'Overview', icon: '📊' },
-    { id: 'fees' as const, label: 'Fee Management', icon: '💰' },
-    { id: 'vaults' as const, label: 'All Vaults', icon: '🏦' },
-    { id: 'settings' as const, label: 'Factory Settings', icon: '⚙️' },
+    { id: 'overview' as const, label: 'Overview', icon: <BarChart3 className="w-4 h-4" /> },
+    { id: 'fees' as const, label: 'Fee Management', icon: <Coins className="w-4 h-4" /> },
+    { id: 'vaults' as const, label: 'All Vaults', icon: <Building2 className="w-4 h-4" /> },
+    { id: 'settings' as const, label: 'Factory Settings', icon: <Settings className="w-4 h-4" /> },
   ];
 
   if (loading) {
@@ -168,7 +169,9 @@ export const Admin: React.FC<AdminProps> = ({ publicKey, onCopy }) => {
       {/* Not Admin Warning */}
       {!isFactoryAdmin && (
         <div className="p-6 rounded-2xl bg-yellow-500/10 border border-yellow-500/20">
-          <h3 className="text-yellow-400 font-semibold mb-2">⚠️ Access Restricted</h3>
+          <h3 className="text-yellow-400 font-semibold mb-2 flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5" /> Access Restricted
+          </h3>
           <p className="text-gray-400">
             You are not the factory admin. Only the admin wallet can modify factory settings.
           </p>

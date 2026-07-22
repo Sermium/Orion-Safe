@@ -1,8 +1,8 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import { getContacts, Contact } from '../../services/contactsService';
-import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy } from 'lucide-react';
+import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, Clock, Wallet, Gift, Lock, Hourglass, Archive, AlertTriangle } from 'lucide-react';
 
 // Constants for batch limits
 const MAX_BATCH_SIZE = 10;
@@ -488,23 +488,48 @@ const Locks: React.FC<LocksProps> = ({
     const remaining = total - released;
 
     return (
-      <div className={'bg-gray-800 rounded-lg p-4 ' + (isArchived ? 'opacity-60 ' : '') + (showClaimButton && claimable ? 'border-2 border-green-500/50' : '')}>
+      <div className={'bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-xl p-5 hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(6,182,212,0.06)] transition-all duration-300 ' + (isArchived ? 'opacity-60 ' : '') + (showClaimButton && claimable ? 'border-2 border-green-500/30 shadow-[0_0_20px_rgba(16,185,129,0.05)]' : '')}>
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3 flex-wrap">
               <span className="text-lg font-semibold text-white">{t('locks.lockNumber', { id: getLockId(lock) })}</span>
               <span className={'px-2 py-1 rounded text-xs ' + getStatusColor(lock.status)}>{getStatusLabel(lock.status, t)}</span>
-              <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400">⏰ {t('locks.timeLockBadge')}</span>
+              <span className="px-2 py-1 rounded text-xs bg-purple-500/20 text-purple-400 flex items-center gap-1"><Clock className="w-3 h-3" /> {t('locks.timeLockBadge')}</span>
               {lock.revocable && !isArchived && <span className="px-2 py-1 rounded text-xs bg-orange-500/20 text-orange-400">{t('locks.revocableBadge')}</span>}
-              {showClaimButton && claimable && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse">✓ {t('locks.readyToClaim')}</span>}
+              {showClaimButton && claimable && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse flex items-center gap-1"><CheckCircle className="w-3 h-3" /> {t('locks.readyToClaim')}</span>}
             </div>
-            <div className="mb-3">
-              <div className="flex justify-between text-xs text-gray-400 mb-1">
+            <div className="mb-4">
+              <div className="flex justify-between text-xs text-gray-400 mb-2">
                 <span>{t('locks.releasedLabel')}: {formatAmount(released, getTokenDecimals(lock.token))} / {formatAmount(total, getTokenDecimals(lock.token))}</span>
-                <span>{getProgressPercent(lock)}%</span>
+                <span className="font-semibold text-cyan-400">{getProgressPercent(lock)}%</span>
               </div>
-              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div className={'h-full transition-all ' + (isArchived ? 'bg-gray-500' : showClaimButton ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-gradient-to-r from-purple-500 to-pink-500')} style={{ width: getProgressPercent(lock) + '%' }} />
+              
+              {/* Timeline Graphic */}
+              <div className="relative flex items-center justify-between mt-4 mb-2 px-1">
+                <div className="absolute left-0 right-0 h-0.5 bg-white/5 -z-10" />
+                <div className="absolute left-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 -z-10 transition-all duration-500" style={{ width: getProgressPercent(lock) + '%' }} />
+                
+                {/* Start Milestone */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-3 h-3 rounded-full border-2 bg-[#0d0b1e] z-10 transition-colors ${getProgressPercent(lock) > 0 ? 'border-purple-500 bg-purple-500' : 'border-white/20'}`} />
+                  <span className="text-[10px] text-gray-500 mt-1">Start</span>
+                </div>
+                
+                {/* Middle state (locked vs unlocked) */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center bg-[#0d0b1e] z-10 transition-all ${
+                    claimable ? 'border-green-500 text-green-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]' : 'border-purple-500 text-purple-400'
+                  }`}>
+                    {claimable ? <CheckCircle className="w-2.5 h-2.5" /> : <Lock className="w-2.5 h-2.5" />}
+                  </div>
+                  <span className="text-[10px] text-gray-500 mt-1">{claimable ? 'Unlocked' : 'Locked'}</span>
+                </div>
+                
+                {/* End Milestone */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-3 h-3 rounded-full border-2 bg-[#0d0b1e] z-10 transition-colors ${getProgressPercent(lock) === 100 ? 'border-cyan-500 bg-cyan-500' : 'border-white/20'}`} />
+                  <span className="text-[10px] text-gray-500 mt-1">End</span>
+                </div>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
@@ -526,7 +551,7 @@ const Locks: React.FC<LocksProps> = ({
           </div>
           {!isPublicView && !isArchived && (
             <div className="flex flex-col gap-2 ml-4">
-              {canUserClaim(lock) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-green-500/25">{loading ? '...' : `💰 ${t('locks.claim')}`}</button>}
+              {canUserClaim(lock) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-green-500/25">{loading ? '...' : <span className="flex items-center gap-1"><Wallet className="w-4 h-4" /> {t('locks.claim')}</span>}</button>}
               {canUserCancel(lock) && <button onClick={() => handleCancel(lock.id)} disabled={loading} className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded text-sm disabled:opacity-50 transition-colors">{t('locks.cancel')}</button>}
             </div>
           )}
@@ -539,7 +564,7 @@ const Locks: React.FC<LocksProps> = ({
     <div className="p-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">⏰ {t('locks.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2"><Clock className="w-6 h-6 text-purple-400" /> {t('locks.title')}</h1>
           <p className="text-gray-400 text-sm sm:text-base mt-1">{t('locks.subtitle')}</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
@@ -578,19 +603,19 @@ const Locks: React.FC<LocksProps> = ({
         <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('locks.stats.yourLocks')}</p><p className="text-2xl font-bold text-cyan-400">{locks.filter(l => l.beneficiary === publicKey).length}</p></div>
       </div>
 
-      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🎁</span>{t('locks.sections.yours')}</h2><div className="space-y-4">{myClaimableLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
-      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🔒</span>{t('locks.sections.active')}</h2><div className="space-y-4">{activeLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
-      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">⏳</span>{t('locks.sections.pendingCompletion')}</h2><div className="space-y-4">{pendingCompletion.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Gift className="w-5 h-5 text-purple-400" />{t('locks.sections.yours')}</h2><div className="space-y-4">{myClaimableLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
+      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Lock className="w-5 h-5 text-green-400" />{t('locks.sections.active')}</h2><div className="space-y-4">{activeLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Hourglass className="w-5 h-5 text-yellow-400" />{t('locks.sections.pendingCompletion')}</h2><div className="space-y-4">{pendingCompletion.map(lock => <LockCard key={getLockId(lock)} lock={lock} />)}</div></div>}
 
-      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><span className="text-3xl">⏰</span></div><p className="text-gray-400 mb-4">{t('locks.empty')}</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-white">{t('locks.createFirst')}</button>}</div>}
+      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><Clock className="w-8 h-8 text-gray-500" /></div><p className="text-gray-400 mb-4">{t('locks.empty')}</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-white">{t('locks.createFirst')}</button>}</div>}
 
-      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><span className="text-xl">📦</span><span className="text-lg font-semibold text-gray-300">{t('locks.archived')}</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><svg className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
+      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><Archive className="w-5 h-5 text-gray-400" /><span className="text-lg font-semibold text-gray-300">{t('locks.archived')}</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><svg className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <LockCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
 
       {/* Single Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 rounded-xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white">⏳ {t('locks.createTimeLock')}</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
+            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white flex items-center gap-2"><Hourglass className="w-5 h-5 text-purple-400" /> {t('locks.createTimeLock')}</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
             <div className="space-y-4">
               <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.token')}</label><select value={selectedToken} onChange={e => setSelectedToken(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none"><option value="">{t('locks.selectToken')}</option>{vaultBalance.map(token => <option key={token.address} value={token.address}>{token.symbol} - {t('locks.available', { amount: formatAmount(getAvailableBalance(token.address || ''), token.decimals) })}</option>)}</select></div>
               <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.amount')}</label><input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="0.00" step="any" min="0" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
@@ -604,7 +629,7 @@ const Locks: React.FC<LocksProps> = ({
               <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.unlockDateTime')}</label><input type="datetime-local" value={unlockDate} onChange={e => setUnlockDate(e.target.value)} min={new Date().toISOString().slice(0,16)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
               <div><label className="block text-sm text-gray-400 mb-1">{t('locks.fields.descriptionOptional')}</label><input type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder={t('locks.descriptionPlaceholder')} maxLength={32} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-purple-500 focus:outline-none" /></div>
               <div className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg"><input type="checkbox" id="revocable" checked={revocable} onChange={e => setRevocable(e.target.checked)} className="w-4 h-4 rounded" /><label htmlFor="revocable" className="text-gray-300 flex-1"><span className="font-medium">{t('locks.revocableLabel')}</span><p className="text-xs text-gray-500">{t('locks.revocableHint')}</p></label></div>
-              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded">⚠️ {t('locks.feeWarning')}</p>
+              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded flex items-center gap-1.5"><AlertTriangle className="w-4 h-4 text-yellow-500 shrink-0" /> {t('locks.feeWarning')}</p>
               {error && <p className="text-red-400 text-sm">{error}</p>}
               <button onClick={handleCreateLock} disabled={loading || !selectedToken || !beneficiary || !amount || !unlockDate} className="w-full py-3 bg-purple-600 hover:bg-purple-500 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg text-white font-semibold transition-colors">{loading ? t('locks.creating') : t('locks.createTimeLock')}</button>
             </div>
@@ -625,7 +650,7 @@ const Locks: React.FC<LocksProps> = ({
             <div className="p-6 border-b border-gray-800">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="min-w-0">
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">⏰ {t('locks.bulk.title')}</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2"><Clock className="w-6 h-6 text-purple-400" /> {t('locks.bulk.title')}</h2>
                   <p className="text-gray-400 text-sm mt-1">{t('locks.bulk.subtitle', { max: MAX_BATCH_SIZE })}</p>
                 </div>
 

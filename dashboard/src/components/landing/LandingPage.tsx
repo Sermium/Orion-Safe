@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Lock, Clock, TrendingUp, Coins, Users, Globe, Link, Gem, Puzzle, Laptop, Smartphone, Gift } from 'lucide-react';
 
 interface LandingPageProps {
   loading: boolean;
@@ -9,42 +10,42 @@ interface LandingPageProps {
 
 const features = [
   {
-    icon: '🔐',
+    icon: <Lock className="w-10 h-10 text-cyan-400" />,
     title: 'Multi-Signature Security',
     description: 'Require multiple approvals for transactions. Set custom thresholds like 2-of-3 or 3-of-5 to ensure no single point of failure.',
   },
   {
-    icon: '⏰',
+    icon: <Clock className="w-10 h-10 text-cyan-400" />,
     title: 'Time-Locked Assets',
     description: 'Lock tokens until a specific date. Perfect for savings goals, escrow arrangements, or preventing impulsive decisions.',
   },
   {
-    icon: '📈',
+    icon: <TrendingUp className="w-10 h-10 text-cyan-400" />,
     title: 'Vesting Schedules',
     description: 'Create vesting schedules with cliff periods for team tokens, investor allocations, or gradual fund release over time.',
   },
   {
-    icon: '💰',
+    icon: <Coins className="w-10 h-10 text-cyan-400" />,
     title: 'Spend Limits',
     description: 'Set daily spending limits per asset. Transactions exceeding limits require additional approvals for extra security.',
   },
   {
-    icon: '👥',
+    icon: <Users className="w-10 h-10 text-cyan-400" />,
     title: 'Role-Based Access',
     description: 'Assign SuperAdmin, Admin, or Executor roles to team members. Control who can propose, approve, or execute transactions.',
   },
   {
-    icon: '🌍',
+    icon: <Globe className="w-10 h-10 text-cyan-400" />,
     title: 'Public Claim Access',
     description: 'Beneficiaries can claim their vested or unlocked tokens directly via a public link—no wallet connection to your vault required.',
   },
   {
-    icon: '🔗',
+    icon: <Link className="w-10 h-10 text-cyan-400" />,
     title: 'Public Sharing',
     description: 'Share a read-only public view of your vault with anyone. Perfect for transparency, audits, or investor reporting.',
   },
   {
-    icon: '💎',
+    icon: <Gem className="w-10 h-10 text-cyan-400" />,
     title: 'Multi-Asset Support',
     description: 'Manage XLM, USDC, EURC, and any Stellar token in one vault. Full control over all your digital assets.',
   },
@@ -58,10 +59,10 @@ const stats = [
 ];
 
 const wallets = [
-  { name: 'Freighter', icon: '🦊', description: 'Browser extension', recommended: true },
-  { name: 'xBull', icon: '🐂', description: 'Mobile & Desktop' },
-  { name: 'Albedo', icon: '🌟', description: 'Web-based signer' },
-  { name: 'LOBSTR', icon: '🦞', description: 'Mobile wallet' },
+  { name: 'Freighter', icon: <Puzzle className="w-10 h-10 text-cyan-400" />, description: 'Browser extension', recommended: true },
+  { name: 'xBull', icon: <Laptop className="w-10 h-10 text-cyan-400" />, description: 'Mobile & Desktop' },
+  { name: 'Albedo', icon: <Globe className="w-10 h-10 text-cyan-400" />, description: 'Web-based signer' },
+  { name: 'LOBSTR', icon: <Smartphone className="w-10 h-10 text-cyan-400" />, description: 'Mobile wallet' },
 ];
 
 export const LandingPage: React.FC<LandingPageProps> = ({
@@ -72,9 +73,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Stabilize star coordinates to prevent jumps on re-render
+  const [stars] = useState(() => 
+    [...Array(20)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: 5 + Math.random() * 10,
+    }))
+  );
 
   useEffect(() => {
     setIsVisible(true);
+
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -83,18 +106,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div 
-      className="min-h-screen bg-[#060a12] text-white overflow-hidden"
+      className="min-h-screen bg-[#060a12] text-white"
       onMouseMove={handleMouseMove}
     >
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Big Static Constellation */}
         <div 
-          className="absolute w-[800px] h-[800px] rounded-full opacity-20 blur-3xl"
+          className="absolute w-[800px] h-[800px] rounded-full blur-3xl animate-pulse-slow pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, rgba(6,182,212,0.25) 0%, transparent 70%)',
+            left: '50%',
+            top: '30%',
+          }}
+        />
+        {/* Interactive Cursor Glow */}
+        <div 
+          className="absolute w-[300px] h-[300px] rounded-full opacity-35 blur-2xl pointer-events-none"
           style={{
             background: 'radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%)',
-            left: mousePosition.x - 400,
-            top: mousePosition.y - 400,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out',
+            left: mousePosition.x - 150,
+            top: mousePosition.y - 150,
+            transition: 'left 0.15s ease-out, top 0.15s ease-out',
           }}
         />
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
@@ -112,23 +145,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         />
         
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
+        {stars.map((star, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-float"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              animationDelay: `${star.delay}s`,
+              animationDuration: `${star.duration}s`,
             }}
           />
         ))}
       </div>
 
       {/* Header */}
-      <header className="relative z-10 border-b border-gray-800/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className={`sticky top-0 z-50 transition-all duration-300 border-b ${
+        isScrolled 
+          ? 'bg-[#060a12]/90 backdrop-blur-md border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)]' 
+          : 'bg-transparent border-transparent'
+      }`}>
+        <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? 'py-3' : 'py-5'
+        }`}>
           <div className="flex items-center gap-3">
             <img src="/logovault.png" alt="Orion Safe" className="w-10 h-10 rounded-xl" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             <span className="text-xl font-bold">
@@ -212,7 +251,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {stats.map((stat, index) => (
                 <div 
                   key={index}
-                  className="p-4 bg-gray-900/50 border border-gray-800 rounded-xl backdrop-blur"
+                  className="p-4 bg-white/[0.02] border border-white/10 rounded-xl backdrop-blur-md hover:border-cyan-500/20 hover:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
@@ -244,9 +283,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="group p-6 bg-gray-900/50 border border-gray-800 hover:border-cyan-500/50 rounded-xl transition-all duration-300 hover:-translate-y-1"
+                className="group p-6 bg-white/[0.02] backdrop-blur-md border border-white/10 hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] rounded-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.04]"
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                <div className="mb-4">{feature.icon}</div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-cyan-400 transition">
                   {feature.title}
                 </h3>
@@ -265,7 +304,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm mb-4">
-                ⏰ Time Controls
+                <Clock className="w-4 h-4" /> Time Controls
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
@@ -307,11 +346,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </li>
               </ul>
             </div>
-            <div className="bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(6,182,212,0.05)] transition-all duration-500">
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-xl hover:border-cyan-500/20 transition-all duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center text-cyan-400">⏰</div>
+                    <div className="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center text-cyan-400">
+                      <Clock className="w-5 h-5" />
+                    </div>
                     <div>
                       <div className="font-medium">Team Allocation</div>
                       <div className="text-sm text-gray-500">1,000,000 XLM</div>
@@ -322,9 +363,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <div className="text-xs text-gray-500">12 months</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-xl hover:border-cyan-500/20 transition-all duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400">🔒</div>
+                    <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400">
+                      <Lock className="w-5 h-5" />
+                    </div>
                     <div>
                       <div className="font-medium">Escrow Deposit</div>
                       <div className="text-sm text-gray-500">50,000 USDC</div>
@@ -335,9 +378,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <div className="text-xs text-gray-500">Until Dec 2025</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-xl hover:border-cyan-500/20 transition-all duration-300">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-teal-500/20 rounded-full flex items-center justify-center text-teal-400">📈</div>
+                    <div className="w-10 h-10 bg-teal-500/20 rounded-full flex items-center justify-center text-teal-400">
+                      <TrendingUp className="w-5 h-5" />
+                    </div>
                     <div>
                       <div className="font-medium">Advisor Tokens</div>
                       <div className="text-sm text-gray-500">250,000 XLM</div>
@@ -358,11 +403,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <section id="public" className="relative z-10 py-24 bg-gradient-to-b from-transparent via-gray-900/50 to-transparent">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1 bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+            <div className="order-2 md:order-1 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(20,184,166,0.05)] transition-all duration-500">
               <div className="space-y-6">
-                <div className="p-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl">
+                <div className="p-4 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300 rounded-xl">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center text-cyan-400">🔗</div>
+                    <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center text-cyan-400">
+                      <Link className="w-4 h-4" />
+                    </div>
                     <span className="font-medium">Public Vault View</span>
                   </div>
                   <div className="text-sm text-gray-400 font-mono bg-gray-800/50 p-2 rounded break-all">
@@ -370,9 +417,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   </div>
                   <p className="text-xs text-gray-500 mt-2">Anyone with this link can view vault balances, transactions, and lock status</p>
                 </div>
-                <div className="p-4 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 border border-teal-500/20 rounded-xl">
+                <div className="p-4 bg-gradient-to-r from-teal-500/5 to-cyan-500/5 border border-teal-500/10 hover:border-teal-500/30 transition-all duration-300 rounded-xl">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-teal-500/20 rounded-lg flex items-center justify-center text-teal-400">🎁</div>
+                    <div className="w-8 h-8 bg-teal-500/20 rounded-lg flex items-center justify-center text-teal-400">
+                      <Gift className="w-4 h-4" />
+                    </div>
                     <span className="font-medium">Claim Link</span>
                   </div>
                   <div className="text-sm text-gray-400 font-mono bg-gray-800/50 p-2 rounded break-all">
@@ -384,7 +433,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
             <div className="order-1 md:order-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/10 border border-teal-500/20 rounded-full text-teal-400 text-sm mb-4">
-                🌍 Transparency
+                <Globe className="w-4 h-4" /> Transparency
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
@@ -448,8 +497,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {wallets.map((wallet, index) => (
               <div
                 key={index}
-                className={`relative p-6 bg-gray-900/50 border rounded-xl text-center transition-all hover:-translate-y-1 ${
-                  wallet.recommended ? 'border-cyan-500/50' : 'border-gray-800 hover:border-cyan-500/30'
+                className={`relative p-6 bg-white/[0.02] backdrop-blur-md border rounded-xl text-center transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.04] ${
+                  wallet.recommended 
+                    ? 'border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:border-cyan-500/60' 
+                    : 'border-white/10 hover:border-cyan-500/30'
                 }`}
               >
                 {wallet.recommended && (
@@ -457,7 +508,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     Recommended
                   </div>
                 )}
-                <div className="text-4xl mb-3">{wallet.icon}</div>
+                <div className="mb-3 flex justify-center">{wallet.icon}</div>
                 <h3 className="font-semibold mb-1">{wallet.name}</h3>
                 <p className="text-gray-500 text-sm">{wallet.description}</p>
               </div>
@@ -502,7 +553,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Built with Soroban on Stellar. Open source and free to use.
             </p>
             <div className="flex items-center gap-6">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
+              <a href="https://github.com/Sermium/Orion-Safe" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
                 GitHub
               </a>
               <a href="https://docs.stellar.org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
@@ -540,6 +591,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         }
         .animate-slide-up {
           animation: slide-up 0.3s ease-out;
+        }
+        @keyframes pulse-slow {
+          0%, 100% { transform: scale(1) translate(-50%, -50%); opacity: 0.8; }
+          50% { transform: scale(1.15) translate(-50%, -50%); opacity: 1; }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 12s ease-in-out infinite;
         }
       `}</style>
     </div>

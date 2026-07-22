@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getContacts, Contact } from '../../services/contactsService';
-import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, RefreshCw } from 'lucide-react';
+import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, RefreshCw, TrendingUp, Wallet, Gift, BarChart3, Hourglass, Archive, AlertTriangle, ChevronDown, Clock } from 'lucide-react';
 
 // Constants for batch limits
 const MAX_BATCH_SIZE = 10;
@@ -559,34 +559,63 @@ const Vesting: React.FC<VestingProps> = ({
     const vestedAmount = getVestedAmount(lock);
 
     return (
-      <div className={'bg-gray-800 rounded-lg p-4 ' + (isArchived ? 'opacity-60 ' : '') + (showClaimButton && claimable && claimableAmount > BigInt(0) ? 'border-2 border-cyan-500/50' : '')}>
+      <div className={'bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-xl p-5 hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(6,182,212,0.06)] transition-all duration-300 ' + (isArchived ? 'opacity-60 ' : '') + (showClaimButton && claimable && claimableAmount > BigInt(0) ? 'border-2 border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.05)]' : '')}>
         <div className="flex justify-between items-start">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3 flex-wrap">
               <span className="text-lg font-semibold text-white">{t('vesting.cardTitle', { id: getLockId(lock) })}</span>
               <span className={'px-2 py-1 rounded text-xs ' + getStatusColor(lock.status)}>{getStatusLabel(lock.status)}</span>
-              <span className="px-2 py-1 rounded text-xs bg-cyan-500/20 text-cyan-400">📈 {t('vesting.badge')}</span>
+              <span className="px-2 py-1 rounded text-xs bg-cyan-500/20 text-cyan-400 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> {t('vesting.badge')}</span>
               {lock.revocable && !isArchived && <span className="px-2 py-1 rounded text-xs bg-orange-500/20 text-orange-400">{t('vesting.revocable')}</span>}
-              {showClaimButton && claimable && claimableAmount > BigInt(0) && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse">✓ {t('vesting.claimableBadge', { amount: formatAmount(claimableAmount, getTokenDecimals(lock.token)) })}</span>}
+              {showClaimButton && claimable && claimableAmount > BigInt(0) && <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400 animate-pulse flex items-center gap-1"><CheckCircle className="w-3 h-3" /> {t('vesting.claimableBadge', { amount: formatAmount(claimableAmount, getTokenDecimals(lock.token)) })}</span>}
             </div>
 
-            <div className="mb-3">
-              <div className="flex justify-between text-xs text-gray-400 mb-1">
+            <div className="mb-4">
+              <div className="flex justify-between text-xs text-gray-400 mb-2">
                 <span>{t('vesting.vestedLabel', { vested: formatAmount(vestedAmount, getTokenDecimals(lock.token)), total: formatAmount(total, getTokenDecimals(lock.token)) })}</span>
-                <span>{Math.min(100, Math.floor(Number(vestedAmount * BigInt(100) / total)))}%</span>
+                <span className="font-semibold text-cyan-400">{Math.min(100, Math.floor(Number(vestedAmount * BigInt(100) / total)))}%</span>
               </div>
-              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div className={'h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all'} style={{ width: Math.min(100, Number(vestedAmount * BigInt(100) / total)) + '%' }} />
+              
+              {/* Timeline Graphic */}
+              <div className="relative flex items-center justify-between mt-4 mb-2 px-1">
+                <div className="absolute left-0 right-0 h-0.5 bg-white/5 -z-10" />
+                <div className="absolute left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 -z-10 transition-all duration-500" style={{ width: Math.min(100, Number(vestedAmount * BigInt(100) / total)) + '%' }} />
+                
+                {/* Start Node */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-3 h-3 rounded-full border-2 bg-[#0d0b1e] z-10 border-cyan-500 bg-cyan-500`} />
+                  <span className="text-[10px] text-gray-500 mt-1">Start</span>
+                </div>
+                
+                {/* Cliff Node */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center bg-[#0d0b1e] z-10 transition-all ${
+                    Date.now() / 1000 >= Number(lock.cliff_time) 
+                      ? 'border-cyan-400 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)] bg-cyan-500/10' 
+                      : 'border-white/20 text-gray-500'
+                  }`}>
+                    {Date.now() / 1000 >= Number(lock.cliff_time) ? <CheckCircle className="w-2.5 h-2.5" /> : <Clock className="w-2.5 h-2.5" />}
+                  </div>
+                  <span className="text-[10px] text-gray-500 mt-1">Cliff</span>
+                </div>
+                
+                {/* End Node */}
+                <div className="flex flex-col items-center">
+                  <div className={`w-3 h-3 rounded-full border-2 bg-[#0d0b1e] z-10 transition-colors ${
+                    Date.now() / 1000 >= Number(lock.end_time) ? 'border-blue-500 bg-blue-500' : 'border-white/20'
+                  }`} />
+                  <span className="text-[10px] text-gray-500 mt-1">End</span>
+                </div>
               </div>
             </div>
 
-            <div className="mb-3">
+            <div className="mb-4">
               <div className="flex justify-between text-xs text-gray-400 mb-1">
                 <span>{t('vesting.releasedLabel', { released: formatAmount(released, getTokenDecimals(lock.token)) })}</span>
-                <span>{getProgressPercent(lock)}%</span>
+                <span className="font-semibold text-green-400">{getProgressPercent(lock)}%</span>
               </div>
-              <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
-                <div className={'h-full bg-green-500 transition-all'} style={{ width: getProgressPercent(lock) + '%' }} />
+              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-500" style={{ width: getProgressPercent(lock) + '%' }} />
               </div>
             </div>
 
@@ -611,7 +640,7 @@ const Vesting: React.FC<VestingProps> = ({
           </div>
           {!isPublicView && !isArchived && (
             <div className="flex flex-col gap-2 ml-4">
-              {canUserClaim(lock) && claimableAmount > BigInt(0) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-cyan-500/25">{loading ? '...' : t('vesting.claimButton')}</button>}
+              {canUserClaim(lock) && claimableAmount > BigInt(0) && <button onClick={() => handleClaim(lock.id)} disabled={loading} className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 rounded-lg text-white font-semibold disabled:opacity-50 transition-all shadow-lg shadow-cyan-500/25">{loading ? '...' : <span className="flex items-center gap-1"><Wallet className="w-4 h-4" /> {t('vesting.claimButton').replace('💰', '').trim()}</span>}</button>}
               {canUserCancel(lock) && <button onClick={() => handleCancel(lock.id)} disabled={loading} className="px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded text-sm disabled:opacity-50 transition-colors">{t('common.cancel')}</button>}
             </div>
           )}
@@ -624,7 +653,7 @@ const Vesting: React.FC<VestingProps> = ({
     <div className="p-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">📈 {t('vesting.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2"><TrendingUp className="w-6 h-6 text-cyan-400" /> {t('vesting.title')}</h1>
           <p className="text-gray-400 text-sm sm:text-base mt-1">{t('vesting.subtitle')}</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
@@ -663,19 +692,19 @@ const Vesting: React.FC<VestingProps> = ({
         <div className="bg-gray-800 rounded-lg p-4"><p className="text-gray-400 text-sm">{t('vesting.stats.yourVesting')}</p><p className="text-2xl font-bold text-purple-400">{locks.filter(l => l.beneficiary === publicKey).length}</p></div>
       </div>
 
-      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">🎁</span>{t('vesting.sections.yours')}</h2><div className="space-y-4">{myClaimableLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
-      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">📊</span>{t('vesting.sections.active')}</h2><div className="space-y-4">{activeLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} />)}</div></div>}
-      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><span className="text-2xl">⏳</span>{t('vesting.sections.pendingCompletion')}</h2><div className="space-y-4">{pendingCompletion.map(lock => <VestingCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {myClaimableLocks.length > 0 && !isPublicView && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Gift className="w-5 h-5 text-purple-400" />{t('vesting.sections.yours')}</h2><div className="space-y-4">{myClaimableLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} showClaimButton={true} />)}</div></div>}
+      {activeLocks.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><BarChart3 className="w-5 h-5 text-green-400" />{t('vesting.sections.active')}</h2><div className="space-y-4">{activeLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} />)}</div></div>}
+      {pendingCompletion.length > 0 && <div className="mb-8"><h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><Hourglass className="w-5 h-5 text-yellow-400" />{t('vesting.sections.pendingCompletion')}</h2><div className="space-y-4">{pendingCompletion.map(lock => <VestingCard key={getLockId(lock)} lock={lock} />)}</div></div>}
 
-      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><span className="text-3xl">📈</span></div><p className="text-gray-400 mb-4">{t('vesting.empty')}</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white">{t('vesting.createFirst')}</button>}</div>}
+      {locks.length === 0 && <div className="bg-gray-800 rounded-lg p-8 text-center"><div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-700/50 flex items-center justify-center"><TrendingUp className="w-8 h-8 text-gray-500" /></div><p className="text-gray-400 mb-4">{t('vesting.empty')}</p>{isAdmin && !isPublicView && <button onClick={() => setShowCreateModal(true)} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white">{t('vesting.createFirst')}</button>}</div>}
 
-      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><span className="text-xl">📦</span><span className="text-lg font-semibold text-gray-300">{t('vesting.archived')}</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><svg className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
+      {archivedLocks.length > 0 && <div className="mt-8"><button onClick={() => setShowArchived(!showArchived)} className="w-full flex items-center justify-between p-4 bg-gray-800/50 hover:bg-gray-800 rounded-lg transition-colors"><div className="flex items-center gap-2"><Archive className="w-5 h-5 text-gray-400" /><span className="text-lg font-semibold text-gray-300">{t('vesting.archived')}</span><span className="px-2 py-0.5 bg-gray-700 text-gray-400 rounded text-sm">{archivedLocks.length}</span></div><ChevronDown className={'w-5 h-5 text-gray-400 transition-transform ' + (showArchived ? 'rotate-180' : '')} /></button>{showArchived && <div className="mt-4 space-y-4">{archivedLocks.map(lock => <VestingCard key={getLockId(lock)} lock={lock} isArchived={true} />)}</div>}</div>}
 
       {/* Single Create Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
           <div className="bg-gray-900 rounded-xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white">📈 {t('vesting.modal.title')}</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
+            <div className="flex justify-between items-center mb-6"><h2 className="text-xl font-bold text-white flex items-center gap-2"><TrendingUp className="w-5 h-5 text-cyan-400" /> {t('vesting.modal.title')}</h2><button onClick={() => { setShowCreateModal(false); resetForm(); }} className="text-gray-400 hover:text-white">✕</button></div>
             <div className="space-y-4">
               <div><label className="block text-sm text-gray-400 mb-1">{t('vesting.modal.token')}</label><select value={selectedToken} onChange={e => setSelectedToken(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-cyan-500 focus:outline-none"><option value="">{t('vesting.modal.selectToken')}</option>{vaultBalance.map(token => <option key={token.address} value={token.address}>{t('vesting.modal.tokenOption', { symbol: token.symbol, amount: formatAmount(getAvailableBalance(token.address || ''), token.decimals) })}</option>)}</select></div>
               <div><label className="block text-sm text-gray-400 mb-1">{t('vesting.modal.totalAmount')}</label><input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="0.00" step="any" min="0" className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:border-cyan-500 focus:outline-none" /></div>
@@ -701,7 +730,7 @@ const Vesting: React.FC<VestingProps> = ({
                   <p>{t('vesting.modal.previewReleases', { days: releaseIntervalDays || '0' })}</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded">{t('vesting.modal.feeNotice')}</p>
+              <p className="text-xs text-gray-500 p-2 bg-gray-800/50 rounded flex items-center gap-1.5"><AlertTriangle className="w-4 h-4 text-yellow-500 shrink-0" /> {t('vesting.modal.feeNotice').replace('⚠️', '').trim()}</p>
               {error && <p className="text-red-400 text-sm">{error}</p>}
               <button onClick={handleCreateVesting} disabled={loading || !selectedToken || !beneficiary || !amount} className="w-full py-3 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-700 disabled:cursor-not-allowed rounded-lg text-white font-semibold transition-colors">{loading ? t('vesting.modal.creating') : t('vesting.modal.createButton')}</button>
             </div>
@@ -724,7 +753,7 @@ const Vesting: React.FC<VestingProps> = ({
             <div className="p-6 border-b border-gray-800">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="min-w-0">
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">📈 {t('vesting.bulk.title')}</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2"><TrendingUp className="w-6 h-6 text-cyan-400" /> {t('vesting.bulk.title')}</h2>
                   <p className="text-gray-400 text-sm mt-1">{t('vesting.bulk.subtitle', { max: MAX_BATCH_SIZE })}</p>
                 </div>
 

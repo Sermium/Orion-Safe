@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActiveView, VaultConfig } from '../../types';
 import { VaultInfo } from '../../services/factoryService';
@@ -246,10 +246,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const itemClasses = (active: boolean, centered: boolean) =>
-    `w-full flex items-center ${centered ? 'justify-center' : 'justify-between'} px-3 py-2 rounded-lg transition-all ${
+    `relative w-full flex items-center ${centered ? 'justify-center' : 'justify-between'} px-3 py-2 rounded-lg transition-all duration-300 ${
       active
-        ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-400 border border-cyan-500/30'
-        : 'text-blue-300/70 hover:bg-blue-900/30 hover:text-white'
+        ? 'bg-white/[0.04] text-cyan-400 border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]'
+        : 'text-gray-400 hover:bg-white/[0.02] hover:text-white border border-transparent'
     }`;
 
   // Renders the grouped nav. `mobile` flag controls click handler + always-expanded layout.
@@ -274,6 +274,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className={itemClasses(activeView === item.id, isCollapsed)}
               title={isCollapsed ? item.label : undefined}
             >
+              {activeView === item.id && (
+                <div className="absolute left-0 top-2 bottom-2 w-0.75 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r" />
+              )}
               <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
                 {item.icon}
                 {!isCollapsed && <span className="text-sm font-medium">{item.label}</span>}
@@ -305,6 +308,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
           className={itemClasses(activeView === 'docs', isCollapsed)}
           title={isCollapsed ? t('nav.docs') : undefined}
         >
+          {activeView === 'docs' && (
+            <div className="absolute left-0 top-2 bottom-2 w-0.75 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r" />
+          )}
           <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
             <DocsIcon />
             {!isCollapsed && <span className="text-sm font-medium">{t('nav.docs')}</span>}
@@ -318,6 +324,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className={itemClasses(activeView === 'admin', isCollapsed)}
             title={isCollapsed ? t('nav.admin') : undefined}
           >
+            {activeView === 'admin' && (
+              <div className="absolute left-0 top-2 bottom-2 w-0.75 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r" />
+            )}
             <div className={`flex items-center ${isCollapsed ? '' : 'space-x-2.5'}`}>
               <AdminIcon />
               {!isCollapsed && <span className="text-sm font-medium">{t('nav.admin')}</span>}
@@ -518,7 +527,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Desktop Sidebar
   const DesktopSidebar = () => (
     <aside 
-      className={`hidden lg:flex flex-col h-screen bg-[#0a0e1a] border-r border-blue-900/30 transition-all duration-300 ${
+      className={`hidden lg:flex flex-col h-screen bg-[#070913] border-r border-white/[0.04] transition-all duration-300 ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >
@@ -567,19 +576,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <p className="text-xs text-blue-400/60 mb-2">{t('sidebar.currentVault')}</p>
           <button
             onClick={() => setShowVaultDropdown(!showVaultDropdown)}
-            className="w-full flex items-center justify-between p-3 bg-blue-900/20 rounded-lg hover:bg-blue-900/30 transition-colors border border-blue-800/30"
+            className="w-full flex items-center justify-between p-3 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 rounded-lg border border-white/10"
           >
             <div className="text-left truncate">
               <p className="text-sm font-medium text-white truncate">{vaultConfig?.name || t('sidebar.selectVault')}</p>
               {vaultAddress && (
-                <p className="text-xs text-blue-400/60 font-mono">{truncateAddress(vaultAddress)}</p>
+                <p className="text-xs text-gray-500 font-mono">{truncateAddress(vaultAddress)}</p>
               )}
             </div>
             <ChevronDownIcon />
           </button>
           
           {showVaultDropdown && (
-            <div className="mt-2 bg-blue-900/30 rounded-lg overflow-hidden max-h-48 overflow-y-auto border border-blue-800/30">
+            <div className="mt-2 bg-gray-950/80 backdrop-blur-md rounded-lg overflow-hidden max-h-48 overflow-y-auto border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
               {userVaults.map((v) => (
                 <button
                   key={v.vault_address}
@@ -587,8 +596,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     onSelectVault(v.vault_address);
                     setShowVaultDropdown(false);
                   }}
-                  className={`w-full p-3 text-left hover:bg-blue-800/30 transition-colors ${
-                    v.vault_address === vaultAddress ? 'bg-blue-600/20 border-l-2 border-cyan-400' : ''
+                  className={`w-full p-3 text-left hover:bg-white/[0.03] transition-colors ${
+                    v.vault_address === vaultAddress ? 'bg-cyan-500/10 border-l-2 border-cyan-400' : ''
                   }`}
                 >
                   <p className="text-sm font-medium text-white truncate">{v.name}</p>
@@ -600,7 +609,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   onCreateVault();
                   setShowVaultDropdown(false);
                 }}
-                className="w-full p-3 text-left hover:bg-blue-800/30 transition-colors border-t border-blue-800/30 flex items-center space-x-2 text-cyan-400"
+                className="w-full p-3 text-left hover:bg-white/[0.03] transition-colors border-t border-white/10 flex items-center space-x-2 text-cyan-400"
               >
                 <PlusIcon />
                 <span className="text-sm">{t('sidebar.createNewVault')}</span>
