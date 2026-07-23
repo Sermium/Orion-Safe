@@ -180,7 +180,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <a href="#features" className="text-gray-400 hover:text-cyan-400 transition">Features</a>
             <a href="#locks" className="text-gray-400 hover:text-cyan-400 transition">Locks & Vesting</a>
             <a href="#public" className="text-gray-400 hover:text-cyan-400 transition">Public Access</a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">GitHub</a>
+            <a href="https://github.com/Sermium/Orion-Safe" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">GitHub</a>
             <a href="https://docs.stellar.org" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">Docs</a>
           </nav>
 

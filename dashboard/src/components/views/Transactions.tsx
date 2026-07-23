@@ -6,7 +6,7 @@ import { formatAmount, truncateAddress } from '../../lib/utils';
 import { getAccountPayments, PaymentRecord } from '../../services/transactionHistoryService';
 import { getContacts, Contact } from '../../services/contactsService';
 import { SUPPORTED_TOKENS, NATIVE_TOKEN } from '../../config';
-import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Plus, Trash2, Upload, Download, AlertCircle, CheckCircle, Loader2, X, Copy, AlertTriangle, RefreshCw, Check, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface TransactionsProps {
   vaultAddress: string | null;
@@ -119,6 +119,7 @@ export const Transactions: React.FC<TransactionsProps> = ({
   const [contacts, setContacts] = useState<Contact[]>(() => getContacts());
   const [processingId, setProcessingId] = useState<number | null>(null);
   const [refreshingProposals, setRefreshingProposals] = useState(false);
+  const [expandedHistoryId, setExpandedHistoryId] = useState<number | null>(null);
 
   // Bulk transfer state
   const [showBulkModal, setShowBulkModal] = useState(false);
@@ -558,6 +559,91 @@ export const Transactions: React.FC<TransactionsProps> = ({
     );
   };
 
+  const renderAuditTimeline = (proposal: Proposal) => {
+    const approvals = proposal.approvals || [];
+    const rejections = proposal.cancel_approvals || [];
+    const isExecuted = Number(proposal.status) === 2;
+    const isRejected = Number(proposal.status) === 3;
+
+    return (
+      <div className="mt-5 pt-4 border-t border-white/5 space-y-4 text-xs" onClick={(e) => e.stopPropagation()}>
+        <p className="font-semibold uppercase tracking-wider text-gray-500 text-[9px]">
+          On-Chain Audit Trail
+        </p>
+        
+        <div className="relative pl-6 space-y-4 border-l border-white/10 ml-3">
+          {/* Node 1: Creation */}
+          <div className="relative">
+            <div className="absolute -left-[32px] top-0.5 w-5 h-5 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+            </div>
+            <div>
+              <p className="font-semibold text-white">Proposal Initiated</p>
+              <p className="text-gray-400 mt-0.5">
+                Created by signer on {formatDate(proposal.created_at)}
+              </p>
+            </div>
+          </div>
+
+          {/* Node 2: Approvers */}
+          {approvals.length > 0 && (
+            <div className="relative">
+              <div className="absolute -left-[32px] top-0.5 w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+                <Check className="w-3 h-3 text-emerald-400" />
+              </div>
+              <div>
+                <p className="font-semibold text-white">Signatures Collected</p>
+                <p className="text-gray-400 mt-0.5">
+                  Approved by: {approvals.map(a => getContactName(a) || truncateAddress(a)).join(', ')}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Node 3: Executed or Rejected */}
+          <div className="relative">
+            <div className={`absolute -left-[32px] top-0.5 w-5 h-5 rounded-full flex items-center justify-center ${
+              isExecuted 
+                ? 'bg-emerald-500/10 border border-emerald-500/30' 
+                : 'bg-rose-500/10 border border-rose-500/30'
+            }`}>
+              {isExecuted ? <Check className="w-3 h-3 text-emerald-400" /> : <X className="w-3 h-3 text-rose-400" />}
+            </div>
+            <div>
+              <p className="font-semibold text-white">
+                {isExecuted ? 'Proposal Executed' : 'Proposal Cancelled/Rejected'}
+              </p>
+              <p className="text-gray-400 mt-0.5">
+                {isExecuted 
+                  ? 'Assets released and transaction broadcasted on Stellar.' 
+                  : 'Proposal was closed/rejected.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Node 4: Explorer Link */}
+          <div className="relative">
+            <div className="absolute -left-[32px] top-0.5 w-5 h-5 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+              <ExternalLink className="w-2.5 h-2.5 text-gray-400" />
+            </div>
+            <div>
+              <p className="font-semibold text-white">Stellar Explorer Audit</p>
+              <a 
+                href={`https://stellar.expert/explorer/testnet/account/${vaultAddress}`}
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-cyan-400 hover:text-cyan-300 transition flex items-center gap-1 mt-1 font-medium"
+              >
+                <span>View Ledger Account</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -816,46 +902,54 @@ export const Transactions: React.FC<TransactionsProps> = ({
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-white mb-3">{t('transactions.completedProposals')}</h3>
               <div className="space-y-3">
-                {completedProposals.map((proposal) => (
-                  <div
-                    key={proposal.id}
-                    className="bg-gray-800/50 rounded-xl p-4 border border-gray-700"
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          Number(proposal.status) === 2 ? 'bg-green-500/20' : 'bg-red-500/20'
-                        }`}>
-                          <svg className={`w-5 h-5 ${Number(proposal.status) === 2 ? 'text-green-400' : 'text-red-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            {Number(proposal.status) === 2 ? (
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            ) : (
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            )}
-                          </svg>
+                {completedProposals.map((proposal) => {
+                  const isExpanded = expandedHistoryId === proposal.id;
+                  const isExecuted = Number(proposal.status) === 2;
+                  
+                  return (
+                    <div
+                      key={proposal.id}
+                      className="bg-white/[0.02] backdrop-blur-md border border-white/10 hover:border-cyan-500/25 transition duration-300 rounded-xl p-4 cursor-pointer"
+                      onClick={() => setExpandedHistoryId(isExpanded ? null : proposal.id)}
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center border ${
+                            isExecuted 
+                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
+                              : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                          }`}>
+                            {isExecuted ? <CheckCircle className="w-5 h-5" /> : <X className="w-5 h-5" />}
+                          </div>
+                          <div>
+                            <div className="text-white font-semibold text-sm">
+                              #{proposal.id} - {formatAmount(BigInt(proposal.amount), 7)} {getTokenSymbol(proposal.token)}
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1 flex items-center gap-1.5">
+                              <span className="text-gray-500">{t('transactions.fields.to')}</span> 
+                              <span>{formatAddressWithContact(proposal.recipient)}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="text-white font-medium">
-                            #{proposal.id} - {formatAmount(BigInt(proposal.amount), 7)} {getTokenSymbol(proposal.token)}
+                        <div className="flex items-center gap-4">
+                          <div className="text-right">
+                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${
+                              isExecuted
+                                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.05)]'
+                                : 'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.05)]'
+                            }`}>
+                              {isExecuted ? t('transactions.status.executed') : t('transactions.status.rejected')}
+                            </span>
+                            <div className="text-gray-500 text-[10px] mt-1">{formatDate(proposal.created_at)}</div>
                           </div>
-                          <div className="text-sm text-gray-400">
-                            {t('transactions.fields.to')} {formatAddressWithContact(proposal.recipient)}
-                          </div>
+                          {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
                         </div>
                       </div>
-                      <div className="text-right">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          Number(proposal.status) === 2
-                            ? 'bg-green-500/20 text-green-400'
-                            : 'bg-red-500/20 text-red-400'
-                        }`}>
-                          {Number(proposal.status) === 2 ? t('transactions.status.executed') : t('transactions.status.rejected')}
-                        </span>
-                        <div className="text-gray-500 text-sm mt-1">{formatDate(proposal.created_at)}</div>
-                      </div>
+                      
+                      {isExpanded && renderAuditTimeline(proposal)}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

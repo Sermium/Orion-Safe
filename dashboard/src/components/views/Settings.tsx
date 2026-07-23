@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Settings as SettingsIcon, Users as UsersIcon, Wrench } from 'lucide-react';
+import { Settings as SettingsIcon, Users as UsersIcon, Wrench, AlertCircle, Copy, Check, ExternalLink, X, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { CopyIcon } from '../icons';
 import { VaultConfig, Role, SignerWithRole } from '../../types';
 import { truncateAddress } from '../../lib/utils';
 import { getContacts, getContactByAddress, Contact } from '../../services/contactsService';
@@ -325,15 +324,15 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
       )}
 
-      <div className="flex gap-2 border-b border-gray-700 pb-2 overflow-x-auto">
+      <div className="flex gap-2 border-b border-white/10 pb-2 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-lg transition flex items-center gap-2 whitespace-nowrap ${
+            className={`px-4 py-2.5 rounded-xl transition duration-300 flex items-center gap-2 border whitespace-nowrap text-sm ${
               activeTab === tab.id
-                ? 'bg-purple-500/20 text-purple-400'
-                : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                ? 'bg-white/[0.04] text-cyan-400 border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]'
+                : 'text-gray-400 border-transparent hover:text-white hover:bg-white/[0.02]'
             }`}
           >
             <span>{tab.icon}</span>
@@ -385,7 +384,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     onClick={() => onCopy(vaultAddress)}
                     className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition ml-2"
                   >
-                    <CopyIcon />
+                    <Copy className="w-4 h-4" />
                   </button>
                 )}
               </div>
@@ -434,7 +433,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   onClick={() => onCopy(publicKey)}
                   className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition"
                 >
-                  <CopyIcon />
+                  <Copy className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -549,7 +548,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
                           title={t('settings.copyAddress')}
                         >
-                          <CopyIcon />
+                          <Copy className="w-4 h-4" />
                         </button>
 
                         {isAdmin && onRemoveSigner && signer !== publicKey && (
@@ -692,30 +691,31 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           {isSigner && onLeaveVault && (
-            <div className="rounded-2xl bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/20 p-6">
-              <h3 className="text-lg font-semibold text-red-400 mb-4">⚠️ {t('settings.dangerZone')}</h3>
+            <div className="rounded-2xl bg-rose-950/10 border border-rose-500/20 p-6 shadow-[0_4px_30px_rgba(244,63,94,0.05)]">
+              <h3 className="text-base font-bold text-rose-400 mb-4 flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-rose-400" />
+                {t('settings.dangerZone')}
+              </h3>
 
-              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-semibold text-red-400">{t('settings.leaveVault')}</p>
-                    <p className="text-sm text-gray-400">
-                      {t('settings.leaveVaultDesc')}
-                      {signers.length === 1 && (
-                        <span className="block text-red-400 mt-1">
-                          ⚠️ {t('settings.leaveLastWarning')}
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleLeaveVault}
-                    disabled={loading}
-                    className="px-4 py-2 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition disabled:opacity-50"
-                  >
-                    {loading ? t('settings.leaving') : t('settings.leave')}
-                  </button>
+              <div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="max-w-xl">
+                  <p className="font-semibold text-rose-300 text-sm">{t('settings.leaveVault')}</p>
+                  <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                    {t('settings.leaveVaultDesc')}
+                    {signers.length === 1 && (
+                      <span className="block text-rose-400 font-medium mt-1">
+                        ⚠️ {t('settings.leaveLastWarning')}
+                      </span>
+                    )}
+                  </p>
                 </div>
+                <button
+                  onClick={handleLeaveVault}
+                  disabled={loading}
+                  className="px-4 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 transition font-semibold text-sm disabled:opacity-40 whitespace-nowrap self-start sm:self-center"
+                >
+                  {loading ? t('settings.leaving') : t('settings.leave')}
+                </button>
               </div>
             </div>
           )}
@@ -895,49 +895,78 @@ export const Settings: React.FC<SettingsProps> = ({
       )}
 
       {showThresholdModal && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#12131a] rounded-2xl border border-gray-700 w-full max-w-md">
-            <div className="p-6 border-b border-gray-700">
-              <h3 className="text-xl font-bold">{t('settings.changeThreshold')}</h3>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-950/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-white">{t('settings.changeThreshold')}</h3>
+              <button
+                onClick={() => setShowThresholdModal(false)}
+                className="text-slate-400 hover:text-white transition-colors p-1"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
                   {t('settings.requiredSignatures', { threshold: newThreshold, total: signers.length })}
                 </label>
+                
+                {/* Tactical grid of signer circles */}
+                <div className="flex justify-center gap-2 py-4">
+                  {[...Array(signers.length)].map((_, idx) => {
+                    const active = idx < newThreshold;
+                    return (
+                      <div 
+                        key={idx} 
+                        className={`w-9 h-9 rounded-xl border flex items-center justify-center font-mono font-bold text-xs transition-all duration-300 ${
+                          active 
+                            ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.15)] scale-105' 
+                            : 'bg-white/[0.01] border-white/5 text-gray-500'
+                        }`}
+                      >
+                        {idx + 1}
+                      </div>
+                    );
+                  })}
+                </div>
+
                 <input
                   type="range"
                   min="1"
                   max={signers.length}
                   value={newThreshold}
                   onChange={(e) => setNewThreshold(parseInt(e.target.value))}
-                  className="w-full accent-purple-500"
+                  className="w-full accent-cyan-500 cursor-pointer"
                 />
-                <div className="flex justify-between text-xs text-gray-500 mt-1">
-                  <span>1</span>
-                  <span>{signers.length}</span>
+                <div className="flex justify-between text-[10px] text-gray-500 mt-1.5 font-mono">
+                  <span>1 signature</span>
+                  <span>{signers.length} signatures</span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
-                <p className="text-yellow-400 text-sm">
-                  ⚠️ {t('settings.thresholdWarning')}
-                </p>
+              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-start gap-2.5 shadow-[0_0_15px_rgba(245,158,11,0.05)]">
+                <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-xs text-amber-400 font-semibold leading-normal">
+                    ⚠️ {t('settings.thresholdWarning')}
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-700 flex gap-3">
+            <div className="mt-6 flex gap-3">
               <button
                 onClick={() => setShowThresholdModal(false)}
-                className="flex-1 px-4 py-3 rounded-xl bg-gray-700 hover:bg-gray-600 transition"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/10 transition text-sm font-medium"
               >
                 {t('common.cancel')}
               </button>
               <button
                 onClick={handleThresholdChange}
                 disabled={loading || newThreshold === vaultConfig?.threshold}
-                className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 transition font-medium"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-40 text-white transition text-sm font-semibold shadow-lg shadow-cyan-500/10"
               >
                 {loading ? t('settings.updating') : t('common.update')}
               </button>

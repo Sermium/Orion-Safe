@@ -536,6 +536,12 @@ function App() {
           onRefresh={vault.loadVaultData}
           onDeposit={() => setShowDepositModal(true)}
           onNewTransaction={() => setShowNewTxModal(true)}
+          proposals={vault.proposals}
+          locks={vault.locks}
+          onSelectProposal={(id) => {
+            // Optional callback to select a proposal
+            setActiveView('transactions');
+          }}
         />
 
         <div className="flex-1 overflow-auto p-6">
