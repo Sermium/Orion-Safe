@@ -5,10 +5,12 @@ on:
     paths:
       - 'contracts/**'
       - '.github/workflows/contracts.yml'
+      - '.github/scripts/**'
   pull_request:
     paths:
       - 'contracts/**'
       - '.github/workflows/contracts.yml'
+      - '.github/scripts/**'
   workflow_dispatch:
 
 defaults:
