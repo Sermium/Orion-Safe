@@ -30,10 +30,19 @@ jobs:
         with:
           workspaces: contracts
 
-      # The factory's tests contractimport! the vault wasm, so it has to exist
-      # before the host-target test build runs.
-      - name: Build contracts (wasm)
-        run: cargo build --release --target wasm32v1-none
+      # Built one crate at a time so a failure names the crate directly, and
+      # compiler errors are echoed as workflow annotations. Annotations render
+      # inline on the PR and are readable without pulling the full job log.
+      - name: Build vault (wasm)
+        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault
+
+      - name: Build factory (wasm)
+        if: always()
+        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault-factory
+
+      - name: Build registry (wasm)
+        if: always()
+        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault-registry
 
       - name: Report wasm sizes and hashes
         run: |
