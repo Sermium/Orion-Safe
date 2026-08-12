@@ -35,8 +35,17 @@ jobs:
       - name: Build contracts (wasm)
         run: cargo build --release --target wasm32v1-none
 
-      - name: Report wasm sizes
-        run: ls -l target/wasm32v1-none/release/*.wasm
+      - name: Report wasm sizes and hashes
+        run: |
+          ls -l target/wasm32v1-none/release/*.wasm
+          sha256sum target/wasm32v1-none/release/*.wasm
+
+      # Local builds are blocked on the maintainer's machine by Smart App Control,
+      # so CI is the source of deployable artifacts.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wasm
+          path: contracts/target/wasm32v1-none/release/*.wasm
 
       - name: Test
         run: cargo test --workspace -- --nocapture
