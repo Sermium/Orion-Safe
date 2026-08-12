@@ -477,25 +477,23 @@ export const executeCancelProposal = rejectProposal;
 // New contract requires all proposal params to be passed at execution
 // ============================================================================
  
+/**
+ * Executes an approved proposal.
+ *
+ * Takes only the proposal id. The operation itself is read from contract
+ * storage, so what executes is exactly what the signers approved — the client
+ * cannot influence the recipient, amount or token. Previously these were passed
+ * as arguments and reconstructed from the local database, which meant a missing
+ * record silently substituted defaults.
+ */
 export const executeProposal = async (
   publicKey: string,
   vaultAddress: string,
-  proposalId: number,
-  proposal?: Proposal
+  proposalId: number
 ): Promise<number> => {
   const server = getServer();
   const contract = getContract(vaultAddress);
   const account = await server.getAccount(publicKey);
-
-  const pType = proposal?.proposal_type ?? 0;
-  const token = proposal?.token || getNativeToken();
-  const recipient = proposal?.recipient || publicKey;
-  const amount = proposal?.amount ? BigInt(proposal.amount) : BigInt(0);
-  const startTime = proposal?.lock_start_time ?? 0;
-  const endTime = proposal?.lock_end_time ?? 0;
-  const cliffTime = proposal?.lock_cliff_time ?? 0;
-  const releaseIntervals = proposal?.lock_release_intervals ?? 0;
-  const revocable = proposal?.lock_revocable ?? false;
 
   const tx = new TransactionBuilder(account, {
     fee: '10000000',
@@ -505,16 +503,7 @@ export const executeProposal = async (
       contract.call(
         'execute',
         new Address(publicKey).toScVal(),
-        nativeToScVal(proposalId, { type: 'u64' }),
-        nativeToScVal(pType, { type: 'u32' }),
-        new Address(token).toScVal(),
-        new Address(recipient).toScVal(),
-        nativeToScVal(amount, { type: 'i128' }),
-        nativeToScVal(startTime, { type: 'u64' }),
-        nativeToScVal(endTime, { type: 'u64' }),
-        nativeToScVal(cliffTime, { type: 'u64' }),
-        nativeToScVal(releaseIntervals, { type: 'u64' }),
-        nativeToScVal(revocable, { type: 'bool' })
+        nativeToScVal(proposalId, { type: 'u64' })
       )
     )
     .setTimeout(300)
@@ -810,34 +799,55 @@ export async function claimLock(
   return BigInt(0);
 }
  
-export async function cancelLock(
+/**
+ * Proposes cancellation of a revocable lock.
+ *
+ * Revoking a lock frees committed funds, so it requires the same signing
+ * threshold as moving them: this creates a CancelLock proposal that other
+ * signers must approve before it can be executed. The contract's unilateral
+ * `cancel_lock` entry point was removed — a single Admin could previously free a
+ * beneficiary's committed funds with no second approval.
+ *
+ * Returns the proposal id. The lock is not released until the proposal reaches
+ * threshold and is executed.
+ */
+export async function proposeCancelLock(
   publicKey: string,
   vaultAddress: string,
   lockId: number
-): Promise<bigint> {
+): Promise<number> {
   const server = getServer();
   const contract = getContract(vaultAddress);
   const account = await server.getAccount(publicKey);
- 
+
   const tx = new TransactionBuilder(account, {
     fee: '10000000',
     networkPassphrase: NETWORK_PASSPHRASE,
   })
     .addOperation(
       contract.call(
-        'cancel_lock',
+        'propose',
         new Address(publicKey).toScVal(),
-        nativeToScVal(lockId, { type: 'u64' })
+        nativeToScVal(7, { type: 'u32' }),               // proposal_type: CancelLock
+        new Address(getNativeToken()).toScVal(),          // token (unused)
+        new Address(publicKey).toScVal(),                 // recipient (unused)
+        nativeToScVal(BigInt(lockId), { type: 'i128' }),  // amount carries the lock id
+        nativeToScVal(0, { type: 'u64' }),                // start_time
+        nativeToScVal(0, { type: 'u64' }),                // end_time
+        nativeToScVal(0, { type: 'u64' }),                // cliff_time
+        nativeToScVal(0, { type: 'u64' }),                // release_intervals
+        nativeToScVal(false, { type: 'bool' }),           // revocable
+        nativeToScVal('cancel_lock', { type: 'symbol' })  // description
       )
     )
     .setTimeout(300)
     .build();
- 
+
   const result = await signAndSubmit(tx, server);
   if (result.status === 'SUCCESS' && 'returnValue' in result && result.returnValue) {
-    return BigInt(scValToNative(result.returnValue));
+    return Number(scValToNative(result.returnValue));
   }
-  return BigInt(0);
+  return 0;
 }
  
 // ============================================================================

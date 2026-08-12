@@ -448,8 +448,11 @@ export const useStellarVault = () => {
       }
       // ==================== END VALIDATION ====================
 
-      // executeProposal now returns the real on-chain lock_id (or 0 for non-lock proposals)
-      const returnedLockId = await stellar.executeProposal(publicKey, vaultAddress, proposalId, proposal);
+      // The contract reads the operation from its own storage, so no payload is
+      // passed. The validation above is a pre-flight courtesy only — the chain
+      // is authoritative. Returns the real on-chain lock_id, or 0 for non-lock
+      // proposals.
+      const returnedLockId = await stellar.executeProposal(publicKey, vaultAddress, proposalId);
 
       await updateProposalStatus(vaultAddress, proposalId, 'Executed');
 
@@ -1171,41 +1174,50 @@ export const useStellarVault = () => {
     }
   };
 
+  /**
+   * Requests cancellation of a revocable lock.
+   *
+   * This creates a proposal rather than cancelling immediately — freeing
+   * committed funds needs the same threshold as spending them. The lock stays
+   * active, and the beneficiary's entitlement intact, until enough signers
+   * approve and someone executes.
+   */
   const cancelLock = async (lockId: number) => {
     if (!publicKey || !vaultAddress) return;
     try {
       setLoading(true);
       setError(null);
-      const reclaimed = await stellar.cancelLock(publicKey, vaultAddress, lockId);
-      const reclaimedXLM = Number(reclaimed) / 10_000_000;
-      
-      await deactivateLock(vaultAddress, lockId, 'Cancelled');
-      fetch(`/vaults/${vaultAddress}/locks/${lockId}/reconcile`, { method: 'POST' })
-        .catch(() => {});
+      const proposalId = await stellar.proposeCancelLock(publicKey, vaultAddress, lockId);
 
+      // Deliberately not deactivating the lock here: it is still active until
+      // the proposal executes. Marking it cancelled now would show beneficiaries
+      // a commitment that has not actually been revoked.
       await loadVaultData();
       await insertTransaction({
         vault_address: vaultAddress,
         tx_type: 'cancel_lock',
-        amount: reclaimed.toString(),
-        status: 'executed',
+        amount: '0',
+        status: 'pending',
         created_by: publicKey,
-        metadata: { lock_id: lockId },
+        metadata: { lock_id: lockId, proposal_id: proposalId },
       });
 
       await logActivity({
         vault_address: vaultAddress,
         actor_address: publicKey,
-        action: 'lock_cancelled',
-        details: { lock_id: lockId, amount_reclaimed: reclaimed.toString() },
+        action: 'lock_cancel_proposed',
+        details: { lock_id: lockId, proposal_id: proposalId },
       });
-      
-      setSuccess(`Lock #${lockId} cancelled. ${reclaimedXLM.toFixed(7)} returned to vault.`);
+
+      setSuccess(
+        `Cancellation of lock #${lockId} proposed as transaction #${proposalId}. ` +
+        `It needs approval from other signers before the funds are released.`
+      );
       await loadVaultData();
-      return reclaimed;
-      
+      return proposalId;
+
     } catch (err: any) {
-      setError(err.message || 'Failed to cancel lock');
+      setError(err.message || 'Failed to propose lock cancellation');
       throw err;
     } finally {
       setLoading(false);
