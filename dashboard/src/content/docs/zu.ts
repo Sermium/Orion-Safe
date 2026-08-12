@@ -305,7 +305,7 @@ export const docsZu: DocsContent = {
     statusTitle: 'Isimo Sezokuphepha',
     statuses: [
       { color: 'green', text: 'Yakhelwe kunethiwekhi ye-Stellar ehlolwe kakhulu (kusukela ngo-2015)' },
-      { color: 'green', text: 'Ukuhlanganiswa kohlaka lwe-OpenZeppelin Smart Account' },
+      { color: 'green', text: 'Izinkontileka zomthombo ovulekile ezinendawo encane engahlolwa' },
       { color: 'yellow', text: 'Ukuhlolwa kwezokuphepha kochwepheshe kuhleliwe ngaphambi kwe-mainnet (ikota yesi-4 ka-2026)' },
       { color: 'gray', text: 'Uhlelo lomklomelo wezinambuzane luzayo ngemva kokwethulwa kwe-mainnet' },
     ],

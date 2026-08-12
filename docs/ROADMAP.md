@@ -1,4 +1,4 @@
-# Stellar Vault Roadmap
+# Orion Safe Roadmap
 
 Our journey to becoming the leading treasury infrastructure on Stellar.
 
@@ -96,7 +96,7 @@ The dashboard and core contracts are deployed on Stellar testnet at:
 ## How to Follow Progress
 
 - 🔔 **Watch** this repo for updates
-- 📋 Check [GitHub Issues](https://github.com/Sermium/Stellar_Vault/issues) for detailed tickets
+- 📋 Check [GitHub Issues](https://github.com/Sermium/Orion-Safe/issues) for detailed tickets
 - 🐦 Follow us on Twitter (coming soon)
 
 ---

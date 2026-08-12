@@ -55,3 +55,8 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Grant/funding working documents - internal only, never publish
+docs/scf*/
+docs/grants/
+*_INTERNAL.md

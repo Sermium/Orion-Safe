@@ -305,7 +305,7 @@ export const docsPl: DocsContent = {
     statusTitle: 'Status Bezpieczeństwa',
     statuses: [
       { color: 'green', text: 'Zbudowane na sprawdzonej w boju sieci Stellar (od 2015 roku)' },
-      { color: 'green', text: 'Integracja frameworka Smart Account od OpenZeppelin' },
+      { color: 'green', text: 'Kontrakty open source o minimalnej powierzchni audytowalnej' },
       { color: 'yellow', text: 'Profesjonalny audyt bezpieczeństwa planowany przed mainnetem (Q4 2026)' },
       { color: 'gray', text: 'Program nagród za błędy po uruchomieniu mainnetu' },
     ],

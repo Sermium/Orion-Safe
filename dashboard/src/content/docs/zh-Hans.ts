@@ -305,7 +305,7 @@ export const docsZhHans: DocsContent = {
     statusTitle: '安全状态',
     statuses: [
       { color: 'green', text: '构建于经受考验的 Stellar 网络（自 2015 年）' },
-      { color: 'green', text: '集成 OpenZeppelin Smart Account 框架' },
+      { color: 'green', text: '开源合约，可审计范围最小化' },
       { color: 'yellow', text: '计划在主网上线前进行专业安全审计（2026 年第四季度）' },
       { color: 'gray', text: '漏洞赏金计划将在主网上线后推出' },
     ],

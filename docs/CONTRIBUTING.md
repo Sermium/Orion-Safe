@@ -1,6 +1,6 @@
-# Contributing to Stellar Vault
+# Contributing to Orion Safe
 
-Thank you for your interest in contributing to Stellar Vault! We welcome contributions from the community.
+Thank you for your interest in contributing to Orion Safe! We welcome contributions from the community.
 
 ## How to Contribute
 
@@ -17,7 +17,7 @@ Thank you for your interest in contributing to Stellar Vault! We welcome contrib
 
 1. Open an issue with the `enhancement` label
 2. Describe the feature and use case
-3. Explain why it benefits Stellar Vault users
+3. Explain why it benefits Orion Safe users
 
 ### Code Contributions
 
@@ -100,8 +100,8 @@ Prerequisites
 
 ## Setup Steps
 Clone the repository
-- git clone https://github.com/Sermium/Stellar_Vault.git
-- cd Stellar_Vault
+- git clone https://github.com/Sermium/Orion-Safe.git
+- cd Orion-Safe
 Install Rust dependencies
 - cd contracts
 - cargo build
@@ -127,4 +127,4 @@ stellar-vault/
 - Open a GitHub Discussion for general questions
 - Join our community channels (coming soon)
 
-Thank you for contributing to Stellar Vault!
+Thank you for contributing to Orion Safe!

@@ -305,7 +305,7 @@ export const docsAm: DocsContent = {
     statusTitle: 'የደህንነት ሁኔታ',
     statuses: [
       { color: 'green', text: 'በተፈተነ የStellar አውታረ መረብ ላይ የተገነባ (ከ2015 ጀምሮ)' },
-      { color: 'green', text: 'የOpenZeppelin Smart Account ማዕቀፍ ውህደት' },
+      { color: 'green', text: 'ክፍት ምንጭ ኮንትራቶች፣ አነስተኛ ሊመረመር የሚችል ስፋት' },
       { color: 'yellow', text: 'ሙያዊ የደህንነት ኦዲት ከmainnet በፊት ታቅዷል (2026 4ኛ ሩብ)' },
       { color: 'gray', text: 'የሳንካ ሽልማት ፕሮግራም ከmainnet ጅምር በኋላ ይመጣል' },
     ],

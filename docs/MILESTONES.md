@@ -1,4 +1,4 @@
-## Orion Safe - Development Milestones
+## Orion Safe — Development Milestones
 
 # Overview
 This document tracks all development milestones from initial concept to mainnet launch.
@@ -19,7 +19,7 @@ Contract ID	    CDH3LYVDC22E2PF2JMSEHVEA3XI7YU2ICAVNUGC5O6EZ4WC3UWBOPF4P
 Wallet (alice)	GAKGT2Y47BCTOTBREDAUJFPYVR2AU4G2ELY4QNKIPTCTAS7QZPXFEFZO
 
 Status	 Milestone
-✅	    Stellar Vault smart contract written
+✅	    Vault smart contract written
 ✅	    Contract compiled (9 functions)
 ✅	    Deployed to Stellar Testnet
 ✅	    Vault initialized and working
@@ -105,18 +105,21 @@ Status	 Milestone
 ✅	    GitHub repository public
 ✅	    Live demo available
 
-Submission Details
-Item	            Value
-Track	            Open Track
-Requested Amount	$150,000
-Timeline	        6 months (May - October 2026)
-Final Deliverable	Mainnet launch
+Submission History
+Round	    Requested	    Outcome
+SCF #43	    $150,000	    Did not advance past panel review
+SCF #44	    $112,500	    Did not advance past panel review
+SCF #45	    $90,000	        In preparation (deadline 16 August 2026)
+
+Panel feedback on #44 centred on novelty, team capacity, budget size relative to demonstrated
+capacity, and a build thinner than the documentation claimed. The #45 scope is narrower, the budget
+is costed bottom-up in person-months, and the overstated claims have been corrected — see
+docs/VERIFICATION.md for the full record.
 
 # Phase 4: Tranche 1 (Planned)
-Target: May 25, 2026
+Target: award acceptance + 2 months
 
 Status	     Milestone
-⏳	        OpenZeppelin Smart Account integration
 ⏳	        SpendLimitPolicy contract
 ⏳	        AllowlistPolicy contract
 ⏳	        Policy configuration storage
@@ -124,10 +127,10 @@ Status	     Milestone
 ⏳	        Updated documentation
 
 # Phase 5: Tranche 2 (Planned)
-Target: July 25, 2026
+Target: award acceptance + 4 months
 
 Status	 Milestone
-⏳	    5-role system (Admin, Proposer, Voter, Executor, Spender)
+⏳	    Add Voter and Spender roles (SuperAdmin/Admin/Executor already implemented)
 ⏳	    Enterprise dashboard UI
 ⏳	    Policy configuration interface
 ⏳	    Native USDC optimization
@@ -135,13 +138,12 @@ Status	 Milestone
 ⏳	    3+ beta partners onboarded
 
 # Phase 6: Tranche 3 (Planned)
-Target: October 25, 2026
+Target: award acceptance + 6 months
 
 Status	 Milestone
 ⏳	    Security hardening
 ⏳	    Professional security audit
 ⏳	    Mainnet contract deployment
-⏳	    Stellar DEX integration
 ⏳	    Compliance/audit trail features
 ⏳	    TypeScript SDK release
 ⏳	    Full documentation
@@ -157,17 +159,17 @@ Phase 3: SCF Submission	        ✅ Complete	    100%
 Phase 4: Tranche 1	            ⏳ Pending	    0%
 Phase 5: Tranche 2	            ⏳ Pending	    0%
 Phase 6: Tranche 3	            ⏳ Pending	    0%
-Overall Progress: Phases 0-3 Complete | Awaiting SCF Award Decision
+Overall Progress: Phases 0-3 Complete | Preparing SCF #45 submission
 
 # Key Metrics
 Contracts Deployed
 Factory: 1
 Test Vaults: 4+
-Functions: 20+
+Public contract functions: 51 (vault 23, factory 14, registry 14)
 
 # Dashboard Features
-Views: 10 (Dashboard, Assets, Transactions, Members, Contacts, Locks, Vesting, Settings, Admin, ClaimPage)
-Modals: 6 (NewTransaction, Deposit, CreateVault, Trustline, AddToken, ConnectWallet)
+Views: 13 (Dashboard, Assets, Transactions, Members, Contacts, Locks, Vesting, Calendar, Settings, Admin, Docs, PublicVault, ClaimPage)
+Modals: 10 (NewTransaction, Deposit, CreateVault, Trustline, AddToken, ConnectWallet, AuthorizeToken, BulkLock, ContactBook, ManageMembers)
 Wallet Integrations: 4
 
 # Database
@@ -179,4 +181,6 @@ Proposals Executed: 6+
 Locks Created: 2 (TimeLock + Vesting)
 Claims Tested: 1+
 
-Last Updated: April 26, 2026 Status: SCF #43 Submitted - Awaiting Decision
+Last Updated: 7 August 2026
+Status: Preparing SCF #45 submission. Testnet live and unaudited; contracts pending
+redeployment after the 2026-08-07 payload-binding fix (see docs/VERIFICATION.md).

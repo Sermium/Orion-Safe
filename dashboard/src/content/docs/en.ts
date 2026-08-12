@@ -305,7 +305,7 @@ export const docsEn: DocsContent = {
     statusTitle: 'Security Status',
     statuses: [
       { color: 'green', text: 'Built on battle-tested Stellar network (since 2015)' },
-      { color: 'green', text: 'OpenZeppelin Smart Account framework integration' },
+      { color: 'green', text: 'Open-source contracts with a minimal auditable surface' },
       { color: 'yellow', text: 'Professional security audit planned before mainnet (Q4 2026)' },
       { color: 'gray', text: 'Bug bounty program coming after mainnet launch' },
     ],

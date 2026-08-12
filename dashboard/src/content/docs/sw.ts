@@ -305,7 +305,7 @@ export const docsSw: DocsContent = {
     statusTitle: 'Hali ya Usalama',
     statuses: [
       { color: 'green', text: 'Imejengwa kwenye mtandao wa Stellar uliojaribiwa kwa vita (tangu 2015)' },
-      { color: 'green', text: 'Muunganisho wa mfumo wa OpenZeppelin Smart Account' },
+      { color: 'green', text: 'Mikataba ya chanzo huria yenye eneo dogo linaloweza kukaguliwa' },
       { color: 'yellow', text: 'Ukaguzi wa kitaalam wa usalama umepangwa kabla ya mtandao mkuu (robo ya 4 ya 2026)' },
       { color: 'gray', text: 'Programu ya zawadi ya hitilafu inakuja baada ya uzinduzi wa mtandao mkuu' },
     ],

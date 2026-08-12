@@ -305,7 +305,7 @@ export const docsRo: DocsContent = {
     statusTitle: 'Stare de Securitate',
     statuses: [
       { color: 'green', text: 'Construit pe rețeaua Stellar testată în practică (din 2015)' },
-      { color: 'green', text: 'Integrarea framework-ului Smart Account de la OpenZeppelin' },
+      { color: 'green', text: 'Contracte open source cu o suprafață auditabilă minimă' },
       { color: 'yellow', text: 'Audit de securitate profesional planificat înainte de mainnet (Q4 2026)' },
       { color: 'gray', text: 'Program de recompense pentru erori după lansarea pe mainnet' },
     ],

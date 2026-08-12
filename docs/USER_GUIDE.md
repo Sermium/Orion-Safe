@@ -1,4 +1,4 @@
-﻿# Stellar Vault User Guide
+﻿# Orion Safe User Guide
 
 This guide covers all vault operations in detail.
 
@@ -147,7 +147,7 @@ Day 425: ~2,083 more tokens unlock
 ### Adding a New Signer
 1. Go to **Members** → **Add Signer**
 2. Enter their wallet address
-3. Assign a role (SuperAdmin, Admin, Executor, Viewer)
+3. Assign a role (SuperAdmin, Admin, or Executor)
 4. Submit for approval (requires existing signer threshold)
 
 ### Removing a Signer

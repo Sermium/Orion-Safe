@@ -71,7 +71,7 @@ C-004	Email notifications	               ❌ Not Started	     Pending approval a
 C-005	Mobile responsive design	          🔄 Partial	      Basic support
 C-006	Dark/light theme toggle	          ❌ Not Started	     Currently dark only
 C-007	Transaction export (CSV)	          ❌ Not Started	     Accounting integration
-C-008	Spending limits policy	          ❌ Not Started	     OpenZeppelin integration
+C-008	Spending limits policy	          ❌ Not Started	     Standalone policy contract
 C-009	Factory admin panel	               ✅ Done	          Manage fees, WASM
 C-010	Proposal templates	               ❌ Not Started	     Quick recurring payments
 C-011	Address book import/export	     ❌ Not Started	     Backup contacts
@@ -99,7 +99,7 @@ W-008	DAO voting	                    Different product	     N/A
 W-009	NFT support	                    Focus on fungible tokens	Phase 5
 W-010	Hardware wallet direct	          Via Freighter supported	Phase 3
 W-011	5-role system	                    Planned for Tranche 2	Tranche 2
-W-012	OpenZeppelin full integration	     Planned for Tranche 1-2	Tranche 1-2
+W-012	External smart-account framework	 Not adopted - see docs/adr/0001	     N/A
 
 ## Priority Matrix
 
@@ -131,12 +131,12 @@ Release Status: ✅ TESTNET LIVE - SCF #43 SUBMITTED
 ### Tranche 0 (Upon Approval) - 10% / $15,000
 ✅ Testnet already deployed
 ✅ Core functionality complete
-Begin OpenZeppelin integration
+Begin policy engine work
 
 ### Tranche 1 (May 2026) - 20% / $30,000
 Deliverable	               Description	                                                  Budget
-Technical Architecture	     Complete system design with OpenZeppelin	                    $5,000
-OpenZeppelin Integration	     Smart Account Framework (Context Rules, Signers, Policies)	     $12,000
+Technical Architecture	     Complete system design	                                        $5,000
+Policy Engine Core	          Policy contract interface, vault integration, storage	     $12,000
 Testnet Smart Contracts	     Deploy enhanced vault contracts with policy engine	          $8,000
 Core Spending Policies	     Daily limits, max transaction amounts, destination whitelists	$5,000
 Key Deliverable: Public Testnet Launch with policy-enabled vaults
@@ -179,8 +179,7 @@ Contacts global instead of per-wallet	          Added wallet-specific storage ke
 - Contract TTL extension (testnet)
 - USDC/EURC trustlines for demo
 # Tranche 1 Focus
-- OpenZeppelin Smart Account integration
-- Policy engine (SpendLimit, TimeLock, RateLimit)
+- Policy engine (SpendLimit, Allowlist)
 - Enhanced role system (5 roles)
 - Contract events for indexing
 # Tranche 2 Focus

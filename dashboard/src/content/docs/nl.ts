@@ -305,7 +305,7 @@ export const docsNl: DocsContent = {
     statusTitle: 'Beveiligingsstatus',
     statuses: [
       { color: 'green', text: 'Gebouwd op het in de praktijk beproefde Stellar-netwerk (sinds 2015)' },
-      { color: 'green', text: 'Integratie van het OpenZeppelin Smart Account-framework' },
+      { color: 'green', text: 'Open-source contracten met een minimaal auditeerbaar oppervlak' },
       { color: 'yellow', text: 'Professionele beveiligingsaudit gepland vóór de mainnet (Q4 2026)' },
       { color: 'gray', text: 'Bug-bountyprogramma komt na de mainnet-lancering' },
     ],

@@ -1,10 +1,10 @@
-#### Stellar Vault — Technical Architecture Document
+#### Orion Safe — Technical Architecture Document
 
 1. Overview
-Stellar Vault is an enterprise-grade treasury management platform built natively on Soroban, leveraging the OpenZeppelin Smart Account framework. It provides programmable multi-signature vaults with policy enforcement, role-based access control, and native USDC support.
+Orion Safe is a treasury management platform built natively on Soroban with no framework dependencies beyond `soroban-sdk`. It provides programmable multi-signature vaults with policy enforcement, role-based access control, and native USDC support.
 
 ┌─────────────────────────────────────────────────────────────┐
-│                     STELLAR VAULT                           │
+│                        ORION SAFE                           │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │   ┌─────────────────────────────────────────────────────┐   │
@@ -18,7 +18,7 @@ Stellar Vault is an enterprise-grade treasury management platform built natively
 │   ┌─────────────────────────────────────────────────────┐   │
 │   │           SMART CONTRACT (C...)                     │   │
 │   │   • Multisig logic (M-of-N)                         │   │
-│   │   • Spending policies                               │   │
+│   │   • Locked vs. spendable balance segregation        │   │
 │   │   • Role-based access                               │   │
 │   │   • Signs transactions on behalf of vault account   │   │
 │   └─────────────────────────────────────────────────────┘   │
@@ -34,146 +34,186 @@ Stellar Vault is an enterprise-grade treasury management platform built natively
 └─────────────────────────────────────────────────────────────┘
 
 ## Design Principles
-- Security-first: Built on OpenZeppelin's audited Smart Account framework
+- Security-first: Minimal trusted surface — three contracts, no external framework, small enough to audit properly
 - Enterprise-native: Designed for institutional workflows and compliance requirements
 - Modular: Extensible architecture allowing custom policies and integrations
 - Stellar-optimized: Leverages Stellar's native capabilities (low fees, fast finality, native USDC)
 
 2. System Architecture
+
+Legend: ✅ implemented · ⏳ planned
+
 ┌─────────────────────────────────────────────────────────────────────┐
-│                         STELLAR VAULT                               │
+│                            ORION SAFE                               │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐             │
-│   │   Web App   │    │   SDK/API   │    │   CLI Tool  │             │
-│   │ (Dashboard) │    │             │    │             │             │
+│   │   Web App   │    │  Indexer /  │    │  TS Client  │             │
+│   │ (Dashboard) │    │  Reconciler │    │             │             │
+│   │      ✅     │    │      ✅     │    │      ⏳     │             │
 │   └──────┬──────┘    └──────┬──────┘    └──────┬──────┘             │
 │          │                  │                  │                    │
 │          └──────────────────┼──────────────────┘                    │
 │                             │                                       │
 │                             ▼                                       │
 │   ┌─────────────────────────────────────────────────────────────┐   │
-│   │                    SOROBAN SMART CONTRACTS                  │   │
+│   │                   SOROBAN SMART CONTRACTS                   │   │
+│   │                  (soroban-sdk only, no framework)           │   │
 │   ├─────────────────────────────────────────────────────────────┤   │
 │   │                                                             │   │
-│   │  ┌─────────────────────────────────────────────────────┐    │   │
-│   │  │           OPENZEPPELIN SMART ACCOUNT                │    │   │
-│   │  │  ┌─────────────┬─────────────┬─────────────┐        │    │   │
-│   │  │  │   Signers   │   Context   │  Policies   │        │    │   │
-│   │  │  │  & Verifiers│    Rules    │             │        │    │   │
-│   │  │  └─────────────┴─────────────┴─────────────┘        │    │   │
-│   │  └─────────────────────────────────────────────────────┘    │   │
-│   │                             │                               │   │
-│   │  ┌──────────────────────────┴───────────────────────────┐   │   │
-│   │  │              STELLAR VAULT MODULES                   │   │   |
-│   │  ├───────────────┬───────────────┬──────────────────────┤   │   │
-│   │  │ Policy Engine │  Role Manager │  Treasury Operations │   │   │
-│   │  │               │               │                      │   │   │
-│   │  │ • Spend Limits│ • Admin       │ • USDC Integration   │   │   │
-│   │  │ • Time Locks  │ • Proposer    │ • DEX Operations     │   │   │
-│   │  │ • Rate Limits │ • Voter       │ • Batch Transfers    │   │   │
-│   │  │ • Allowlists  │ • Executor    │ • Audit Trail        │   │   │
-│   │  │               │ • Spender     │                      │   │   │
-│   │  └───────────────┴───────────────┴──────────────────────┘   │   │
+│   │  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐    │   │
+│   │  │   REGISTRY ✅ │─▶│   FACTORY  ✅ │─▶│    VAULT   ✅ │    │   │
+│   │  │ • versioning  │  │ • deployment  │  │ • signers     │    │   │
+│   │  │ • capability  │  │ • fees        │  │ • roles       │    │   │
+│   │  │   discovery   │  │ • WASM upgrade│  │ • proposals   │    │   │
+│   │  └───────────────┘  └───────────────┘  │ • locks       │    │   │
+│   │                                        │ • vesting     │    │   │
+│   │                                        └───────┬───────┘    │   │
+│   │                                                │            │   │
+│   │                          cross-contract call   │            │   │
+│   │                          from execute()        ▼            │   │
+│   │                     ┌──────────────────────────────────┐    │   │
+│   │                     │        POLICY CONTRACTS          │    │   │
+│   │                     ├──────────────┬───────────────────┤    │   │
+│   │                     │ SpendLimit ⏳│ Allowlist      ⏳ │    │   │
+│   │                     │ RoleLimit  ⏳│                   │    │   │
+│   │                     └──────────────┴───────────────────┘    │   │
 │   │                                                             │   │
 │   └─────────────────────────────────────────────────────────────┘   │
 │                                 │                                   │
 │                                 ▼                                   │
 │   ┌─────────────────────────────────────────────────────────────┐   │
-│   │                    STELLAR NETWORK                          │   │
-│   │         • Native USDC  • Stellar DEX  • Anchors             │   │
+│   │                      STELLAR NETWORK                        │   │
+│   │      • Native USDC   • Contract events   • Anchors          │   │
 │   └─────────────────────────────────────────────────────────────┘   │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 
-3. OpenZeppelin Smart Account Integration
-Stellar Vault is built on top of the OpenZeppelin Smart Account framework for Stellar, released in December 2025. This provides a battle-tested foundation for account abstraction on Soroban.
+Time-locking and vesting are implemented inside the vault rather than as policy contracts, because
+they hold state that must outlive any individual policy — see §5.
 
-## Framework Components
-The OpenZeppelin framework provides three core primitives that we extend:
+3. Authorization Model
 
-## WHO: Signers & Verifiers
-Controls who can authorize transactions.
+Orion Safe uses an **on-chain proposal queue**, not a per-transaction authorization hook. This is
+the central architectural decision and it is deliberate — see
+[ADR 0001](./docs/adr/0001-no-smart-account-framework.md) for why we do not build on a smart-account
+framework.
 
-// Supported signer types
-pub enum SignerType {
-    Ed25519(BytesN<32>),           // Standard Stellar keypair
-    P256(BytesN<65>),              // Passkey/WebAuthn support
-    SorobanAccount(Address),       // Other smart contracts
-    MultiSig(Vec<SignerType>, u32) // M-of-N configuration
-}
+## Proposal lifecycle
 
-## Stellar Vault Extension:
+Authorization accumulates across multiple independently-signed transactions rather than resolving
+inside a single `__check_auth` call:
 
-- Role-tagged signers (each signer assigned one or more roles)
-- Hierarchical signer groups for organizational structure
-- Recovery signers with time-delayed activation
+    propose()   →  writes a proposal to contract storage, emits ProposalCreated
+    approve()   →  separate transaction, separate signature, emits ProposalApproved
+    reject()    →  separate transaction, recorded explicitly, emits ProposalRejected
+    execute()   →  runs the operation once threshold is met, emits ProposalExecuted
 
-## WHAT: Context Rules
-Defines the scope of what actions are permitted.
+The consequence that matters: **every approval and rejection is an on-chain event**, attributable to
+a signer and timestamped by the ledger. That record is what the compliance audit trail is built
+from. A signature-collection model — where approvals are gathered off-chain and submitted together
+— cannot produce it, and has no way to express an explicit rejection at all.
 
-// Context rule configuration
-pub struct ContextRule {
-    pub contract: Address,      // Target contract (or wildcard)
-    pub function: Symbol,       // Function name (or wildcard)
-    pub parameters: ParamRules, // Parameter constraints
-}
+## WHO: Signers
 
-## Stellar Vault Extension:
+Controls who can authorize. Implemented in `contracts/vault/src/lib.rs`.
 
-- Pre-configured rules for common treasury operations
-- USDC-specific context rules
-- Stellar DEX interaction rules
+| Signer type | Status |
+|---|---|
+| Ed25519 — standard Stellar keypair | Implemented |
+| Soroban account — contract as signer | Implemented |
+| P256 / WebAuthn passkey | Planned, via Soroban's native `secp256r1_verify` host function (CAP-0051, Protocol 21) |
+
+Each signer carries exactly one role. Threshold is M-of-N over the signer set.
+
+## WHAT: Roles
+
+Defines what each signer may do. Enforced at every mutating entry point.
+
+**Implemented today** — `Role` enum in `contracts/vault/src/lib.rs:17`:
+
+| Role | May |
+|---|---|
+| SuperAdmin | Everything, including role assignment and threshold changes |
+| Admin | Manage members, propose, approve, execute |
+| Executor | Propose, approve, execute |
+
+**Planned** — the two additional roles that separate proposal rights from spending rights:
+
+| Role | May | Status |
+|---|---|---|
+| Voter | Approve and reject only — no execution rights | Planned |
+| Spender | Direct transfers within policy limits, no proposal required | Planned, depends on RoleLimitPolicy |
+
+Splitting `Executor` into propose / approve / execute rights is a contract change, not a UI change.
 
 ## HOW: Policies
-Enforces constraints on transactions.
 
-// Policy interface
-pub trait Policy {
-    fn validate(
-        env: &Env,
-        context: &TransactionContext,
-        signers: &Vec<Address>
-    ) -> Result<(), PolicyError>;
-}
+Policy contracts are called from `execute()` before an operation runs. They are separate deployed
+contracts rather than vault-internal logic, so they can be swapped without redeploying the vault.
 
-## Stellar Vault Extension:
+    // Policy interface — read-only precheck, typed rejection
+    pub trait Policy {
+        fn check(
+            env: &Env,
+            context: &OperationContext,
+            signers: &Vec<Address>,
+        ) -> Result<(), PolicyError>;
+    }
 
-- SpendLimitPolicy
-- TimeLockPolicy
-- RateLimitPolicy
-- AllowlistPolicy
-- ThresholdPolicy (role-based approval thresholds)
+This signature intentionally mirrors the shape of OpenZeppelin's policy trait. We do not take the
+dependency, but keeping the shape compatible means our policies could later be adapted to plug into
+OZ smart accounts without a rewrite.
+
+| Policy | Status |
+|---|---|
+| SpendLimitPolicy — per-period caps | Planned (Tranche #1) |
+| AllowlistPolicy — destination restrictions | Planned (Tranche #2) |
+| RoleLimitPolicy — per-role spending caps | Planned (Tranche #2) |
+
+Time-locking and vesting are **not** policies. They are implemented directly in the vault, because
+they hold state that must survive independently of any policy contract — see §5.
+
+## Locked vs. spendable balance
+
+The vault tracks committed funds separately from available funds:
+
+    get_token_locked(token)      → total committed to active locks and vesting schedules
+    get_available_balance(token) → total balance minus locked
+
+`execute()` checks against available balance, not total balance. Once funds are committed to a
+beneficiary, no later proposal can spend them — **including one that clears the signing threshold**.
+This invariant cannot be expressed by Stellar's native multisig, and no framework provides it.
 
 4. Smart Contract Architecture
 
 ## Contract Structure
 
-stellar-vault-contracts/
+Current layout (as built):
+
+contracts/
 ├── vault/
-│   ├── src/
-│   │   ├── lib.rs              # Main vault contract
-│   │   ├── storage.rs          # State management
-│   │   └── events.rs           # Event definitions
-│   └── Cargo.toml
-├── policies/
-│   ├── spend_limit/
-│   │   └── src/lib.rs          # Spending limit policy
-│   ├── time_lock/
-│   │   └── src/lib.rs          # Time lock policy
-│   ├── rate_limit/
-│   │   └── src/lib.rs          # Rate limiting policy
-│   └── allowlist/
-│       └── src/lib.rs          # Destination allowlist
-├── roles/
-│   └── src/lib.rs              # Role management contract
-└── treasury/
-    └── src/lib.rs              # Treasury operations (USDC, DEX)
+│   └── src/lib.rs              # Vault: signers, roles, proposals, locks, vesting (800 LOC)
+├── factory/
+│   └── src/lib.rs              # Vault deployment, fees, WASM upgrade path (313 LOC)
+├── registry/
+│   └── src/lib.rs              # Factory versioning and capability discovery (373 LOC)
+└── Cargo.toml                  # Workspace — sole dependency: soroban-sdk
+
+Planned additions (funded scope):
+
+contracts/policies/
+├── spend_limit/src/lib.rs      # Per-period spending caps        (Tranche #1)
+├── allowlist/src/lib.rs        # Destination restrictions        (Tranche #2)
+└── role_limit/src/lib.rs       # Per-role spending caps          (Tranche #2)
+
+Role management and treasury operations live inside the vault contract rather than in separate
+contracts — splitting them would add cross-contract call overhead to every proposal for no
+isolation benefit, since they share the vault's storage anyway.
 
 ## Core Vault Contract
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Address, Env, Vec, BytesN, Symbol};
-use openzeppelin_smart_account::{SmartAccount, Signer, Policy, ContextRule};
 
 #[contract]
 pub struct StellarVault;
@@ -189,8 +229,8 @@ impl StellarVault {
         policies: Vec<Address>,
     ) -> Result<(), VaultError> {
         // Store vault configuration
-        // Initialize OpenZeppelin SmartAccount
-        // Set up default policies
+        // Register signers with their roles, validate threshold
+        // Attach policy contracts
     }
 
     /// Propose a transaction
@@ -305,12 +345,21 @@ impl TimeLockPolicy {
 5. Role-Based Access Control
 
 ## Role Definitions
-Role	    Description	            Permissions
-Admin	    Vault administrator	    Modify policies, manage members, change thresholds
-Proposer	Transaction initiator	Create transaction proposals
-Voter	    Approval authority	    Approve or reject proposals
-Executor	Transaction executor	Execute approved transactions
-Spender	    Direct spender	        Transfer funds within policy limits
+
+Implemented today — the `Role` enum in `contracts/vault/src/lib.rs`. Privilege is ordered by
+discriminant, and `require_role(caller, max_role)` admits any role at or above the level given.
+
+Role	        Description	            Permissions
+SuperAdmin	    Vault owner	            Everything: role assignment, threshold changes, member management
+Admin	        Vault administrator	    Manage members, propose, approve, execute
+Executor	    Signer	                Propose, approve, reject, execute
+
+Planned. Both split rights that `Executor` currently bundles together, so each is a contract change
+rather than a UI change:
+
+Role	        Description	            Permissions	                                    Status
+Voter	        Approval authority	    Approve or reject only — no execution	        Planned
+Spender	        Direct spender	        Transfer within policy limits, no proposal	    Planned, needs RoleLimitPolicy
 
 ## Role Assignment
 pub struct RoleConfig {
@@ -346,7 +395,7 @@ pub struct RoleConstraints {
 6. USDC Integration
 
 ## Native USDC Support
-Stellar Vault provides first-class support for Circle's USDC on Stellar:
+Orion Safe provides first-class support for Circle's USDC on Stellar:
 
 impl StellarVault {
     /// USDC-optimized transfer
@@ -381,9 +430,9 @@ impl StellarVault {
 Stellar                         Feature	How We Use It
 Sub-second finality	            Real-time treasury operations, instant policy enforcement
 $0.00001 fees	                Cost-effective for high-volume enterprise operations
-Native multisig	                Foundation for our smart account signers
+Contract events	                The audit trail — every approval and rejection, timestamped by the ledger
 Protocol 23 optimizations	    Efficient cross-contract calls for policy validation
-Stellar DEX	                    Built-in swap and liquidity operations
+secp256r1_verify host function	Passkey signers without an external verifier contract (planned)
 Anchor network	                Fiat on/off ramp integrations
 
 ## Soroban-Specific Design
@@ -411,9 +460,10 @@ pub struct TransactionEvent {
 
 ## Security Model
 Smart Contract Security
-- Built on audited OpenZeppelin framework
-- Professional security audit before mainnet (provided by SCF)
-- Formal verification of critical policy logic
+- Minimal trusted surface: three contracts, ~1,600 lines, no external framework dependencies
+- Target of ≥85% line coverage on contract code, published and CI-gated
+- Professional third-party security audit before mainnet (funded by Sermium — audits are not an
+  eligible SCF budget category)
 
 Access Control Security
 - Role separation prevents single points of failure
@@ -430,7 +480,7 @@ Threat	                Mitigation
 Compromised signer	    M-of-N threshold, role separation
 Malicious proposal	    Voter approval required, policy validation
 Unauthorized spend	    Spend limits, allowlists, role verification
-Smart contract bug	    OpenZeppelin base, professional audit, upgradability
+Smart contract bug	    Small auditable surface, ≥85% test coverage, professional audit, upgradability
 Key loss	            Recovery mechanism with time delay
 
 9. Dashboard Architecture
@@ -444,7 +494,7 @@ Key loss	            Recovery mechanism with time delay
 
 ## Dashboard Features
 ┌─────────────────────────────────────────────────────────────┐
-│                    STELLAR VAULT DASHBOARD                  │
+│                    ORION SAFE DASHBOARD                    │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌─────────────────────────────────────────────────────┐    │
@@ -492,9 +542,9 @@ Key loss	            Recovery mechanism with time delay
 
 11. References
 
-- OpenZeppelin Stellar Contracts
 - Soroban Documentation
 - Stellar Protocol 23
+- CAP-0051 — secp256r1 verification (passkey signers)
 - Circle USDC on Stellar
 
 Document Version: 1.0 Last Updated: March 2026 

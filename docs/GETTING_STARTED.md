@@ -1,12 +1,12 @@
-# Getting Started with Stellar Vault
+# Getting Started with Orion Safe
 
-Welcome to Stellar Vault! This guide will help you set up and use your first multi-signature treasury vault in under 10 minutes.
+Welcome to Orion Safe! This guide will help you set up and use your first multi-signature treasury vault in under 10 minutes.
 
 ---
 
-## What is Stellar Vault?
+## What is Orion Safe?
 
-Think of Stellar Vault as a **shared bank account** for your team, DAO, or organization — but with superpowers:
+Think of Orion Safe as a **shared bank account** for your team, DAO, or organization — but with superpowers:
 
 - **Multiple approvers required** — No single person can move funds alone
 - **Spending rules** — Set daily limits, require extra approvals for large transfers
@@ -56,14 +56,20 @@ Send tokens to your vault address:
 
 ## Understanding Roles
 
+Three roles exist today. Privilege is hierarchical — each role can do everything the one below it can.
+
 | Role | What They Can Do |
 |------|------------------|
-| **SuperAdmin** | Everything — add/remove signers, change rules, manage vault |
-| **Admin** | Create proposals, manage time-locks and vesting schedules |
-| **Executor** | Approve and execute proposals (but not create them) |
-| **Viewer** | See all vault activity (read-only access) |
+| **SuperAdmin** | Everything — assign roles, change the threshold, add and remove signers |
+| **Admin** | Manage members, plus everything an Executor can do |
+| **Executor** | Create proposals, approve, reject, and execute |
 
-> 🔐 **Best Practice:** Use different roles for different team members. Your CEO might be SuperAdmin, finance team as Admins, and board members as Executors.
+> 🔐 **Best practice:** keep SuperAdmin to one or two people. Note that all three roles can currently
+> propose and execute — the split between "may approve" and "may execute" arrives with the `Voter`
+> and `Spender` roles, which are planned but not yet implemented.
+
+Vault activity is public on-chain, so read-only access needs no role at all — anyone with the vault
+address can inspect it.
 
 ---
 
@@ -81,7 +87,7 @@ Lock tokens until a specific date. Perfect for:
 ### 📈 Vesting Schedules
 Release tokens gradually over time with cliff periods. Set up once, and it runs automatically.
 
-### 💸 Spending Limits (Coming Soon)
+### 💸 Spending Limits (Not Yet Built)
 Set daily/weekly/monthly limits. Transactions within limits auto-approve; larger ones need full sign-off.
 
 ---
@@ -99,8 +105,8 @@ Set daily/weekly/monthly limits. Transactions within limits auto-approve; larger
 
 ## FAQ
 
-**Q: Is Stellar Vault safe?**  
-A: Yes. Built on OpenZeppelin's audited Smart Account framework, the same security standard used by billions of dollars on Ethereum.
+**Q: Is Orion Safe safe?**  
+A: The contracts are open source and deliberately small — three contracts, about 1,600 lines, with no external framework dependencies — so the code you have to trust is code you can actually read. A third-party audit is a hard gate before mainnet, but is not yet scheduled. The current testnet deployment is unaudited; don't put real value at risk on it.
 
 **Q: What tokens can I store?**  
 A: Any Stellar asset — XLM, USDC, EURC, and thousands of other tokens.
@@ -120,7 +126,7 @@ A: The dashboard is fully responsive. Use it on any device through your mobile b
 
 - 📖 [Full Documentation](./README.md)
 - 🏗️ [Technical Architecture](./ARCHITECTURE.md)
-- 🐛 [Report Issues](https://github.com/Sermium/Stellar_Vault/issues)
+- 🐛 [Report Issues](https://github.com/Sermium/Orion-Safe/issues)
 - 📧 [Contact Us](mailto:support@orionsafe.io)
 
 ---

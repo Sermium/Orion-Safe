@@ -364,7 +364,7 @@ Settings	            ✅ Threshold, roles, leave vault
 
 # 7.2 Planned Features (SCF Tranches)
 Feature	                        Tranche
-OpenZeppelin Policy Engine	    1
+Policy Engine (contract interface)	1
 Spending Limits	                1
 Destination Allowlists	        1
 5-Role System	                2
@@ -388,7 +388,6 @@ TypeScript SDK	                3
 ✅ SCF #43 submission
 
 # Tranche 1: Policy Engine (May 2026)
-- OpenZeppelin Smart Account integration
 - SpendLimitPolicy contract
 - AllowlistPolicy contract
 - Policy configuration storage
@@ -445,7 +444,6 @@ Current Status: Testnet live, SCF #43 submitted, awaiting award decision.
 
 # References
 - Stellar Development Foundation. "Soroban Smart Contracts." https://soroban.stellar.org
-- OpenZeppelin. "Smart Account Framework for Stellar." December 2025.
 - Gnosis Safe. "Multi-Signature Wallet Design Patterns."
 - Circle. "USDC on Stellar." https://www.circle.com/en/usdc/stellar
 
@@ -460,7 +458,7 @@ Explorer: https://stellar.expert/explorer/testnet/contract/CBJ4BFOUDMQWFPCBALQTO
 # Appendix B: Dashboard URLs
 Environment	            URL
 Production (Testnet)	https://stellar-vault-eta.vercel.app
-GitHub Repository	    https://github.com/Sermium/Stellar_Vault
+GitHub Repository	    https://github.com/Sermium/Orion-Safe
 
 # Appendix C: SCF #43 Submission
 Field	            Value

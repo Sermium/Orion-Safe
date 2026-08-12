@@ -305,7 +305,7 @@ export const docsCs: DocsContent = {
     statusTitle: 'Stav Bezpečnosti',
     statuses: [
       { color: 'green', text: 'Postaveno na praxí ověřené síti Stellar (od roku 2015)' },
-      { color: 'green', text: 'Integrace frameworku Smart Account od OpenZeppelin' },
+      { color: 'green', text: 'Otevřené kontrakty s minimální auditovatelnou plochou' },
       { color: 'yellow', text: 'Profesionální bezpečnostní audit plánován před mainnetem (Q4 2026)' },
       { color: 'gray', text: 'Program odměn za chyby přichází po spuštění mainnetu' },
     ],

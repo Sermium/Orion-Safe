@@ -305,7 +305,7 @@ export const docsAf: DocsContent = {
     statusTitle: 'Sekuriteitstatus',
     statuses: [
       { color: 'green', text: 'Gebou op beproefde Stellar-netwerk (sedert 2015)' },
-      { color: 'green', text: 'OpenZeppelin Smart Account-raamwerk-integrasie' },
+      { color: 'green', text: 'Oopbron-kontrakte met minimale ouditeerbare oppervlak' },
       { color: 'yellow', text: 'Professionele sekuriteitsoudit beplan voor hoofnet (K4 2026)' },
       { color: 'gray', text: 'Foutbeloningsprogram kom ná hoofnet-bekendstelling' },
     ],
