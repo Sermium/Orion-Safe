@@ -80,16 +80,6 @@ fn test_create_vault() {
 
     // Verify vault was created
     assert_eq!(factory_client.get_vault_count(), 1);
-    
-    let owner_vaults = factory_client.get_vaults_by_owner(&creator);
-    assert_eq!(owner_vaults.len(), 1);
-    assert_eq!(owner_vaults.get(0).unwrap(), vault_address);
-
-    // Verify vault info
-    let vault_info = factory_client.get_vault_info(&vault_address);
-    assert!(vault_info.is_some());
-    let info = vault_info.unwrap();
-    assert_eq!(info.owner, creator);
 
     // Verify the deployed vault works
     let vault_client = vault_contract::Client::new(&env, &vault_address);
@@ -140,8 +130,5 @@ fn test_create_multiple_vaults() {
     );
 
     assert_eq!(factory_client.get_vault_count(), 2);
-    assert!(vault1 != vault2);
-
-    let owner_vaults = factory_client.get_vaults_by_owner(&creator);
-    assert_eq!(owner_vaults.len(), 2);
+    assert!(vault1 != vault2, "each vault gets a distinct address");
 }

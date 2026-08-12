@@ -31,6 +31,10 @@ pub enum ProposalType {
     RemoveSigner = 4,
     SetRole = 5,
     SetThreshold = 6,
+    /// Revoke a lock created with `revocable = true`. The lock id travels in the
+    /// payload's `amount` field, matching how AddSigner/SetRole/SetThreshold
+    /// already encode their operand.
+    CancelLock = 7,
 }
 
 #[contracttype]
@@ -78,12 +82,31 @@ pub struct ProposalCore {
     pub is_rejected: bool,
 }
 
+/// The operation a proposal authorizes.
+///
+/// Persisted at propose() time and read back at execute() time. Signers approve
+/// *this*, not merely a ProposalType — without it, an approved "transfer 100 to
+/// Alice" could be executed as "transfer everything to Bob".
+#[contracttype]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ProposalPayload {
+    pub token: Address,
+    pub recipient: Address,
+    pub amount: i128,
+    pub start_time: u64,
+    pub end_time: u64,
+    pub cliff_time: u64,
+    pub release_intervals: u64,
+    pub revocable: bool,
+}
+
 #[contracttype]
 pub enum StorageKey {
     Config,
     Signers,
     SignerRole(Address),
     Proposal(u64),
+    ProposalPayload(u64),
     ProposalApproval(u64, Address),
     ProposalRejection(u64, Address),
     Lock(u64),
@@ -118,6 +141,7 @@ pub enum VaultError {
     InvalidTimeRange = 23,
     InsufficientBalance = 24,
     AlreadyRejected = 26,
+    CannotLeaveAsLastSigner = 27,
 }
 
 // ============ CONTRACT ============
@@ -332,14 +356,13 @@ impl StellarVault {
         Self::require_signer(&env, &signer)?;
         let mut config: VaultConfig = env.storage().instance().get(&StorageKey::Config).unwrap();
         let signers: Vec<Address> = env.storage().instance().get(&StorageKey::Signers).unwrap();
+        // Leaving as the sole signer used to be permitted, which emptied the
+        // signer set and permanently bricked the vault: with no signers, nothing
+        // can be proposed, approved or executed ever again, and add_signer needs
+        // a SuperAdmin who no longer exists. Any balance not already committed to
+        // a lock became unrecoverable. Add a second signer before leaving.
         if signers.len() == 1 {
-            Self::collect_fee(&env, &signer)?;
-            env.storage().instance().set(&StorageKey::Signers, &Vec::<Address>::new(&env));
-            config.signer_count = 0;
-            env.storage().instance().set(&StorageKey::Config, &config);
-            env.storage().instance().remove(&StorageKey::SignerRole(signer.clone()));
-            env.events().publish((Symbol::new(&env, "signer_left"),), signer);
-            return Ok(());
+            return Err(VaultError::CannotLeaveAsLastSigner);
         }
         let role = Self::get_role_internal(&env, &signer);
         if role == Role::SuperAdmin && Self::count_super_admins(&env) <= 1 {
@@ -395,6 +418,22 @@ impl StellarVault {
                 return Err(VaultError::InsufficientBalance);
             }
         }
+        // Fail a cancellation early rather than after signers have spent fees
+        // approving something that can never execute.
+        if proposal_type == ProposalType::CancelLock {
+            if amount < 1 {
+                return Err(VaultError::LockNotFound);
+            }
+            let lock: LockCore = env.storage().instance()
+                .get(&StorageKey::Lock(amount as u64))
+                .ok_or(VaultError::LockNotFound)?;
+            if !lock.is_active {
+                return Err(VaultError::LockNotActive);
+            }
+            if !lock.revocable {
+                return Err(VaultError::LockNotRevocable);
+            }
+        }
         Self::collect_fee(&env, &proposer)?;
         let mut config: VaultConfig = env.storage().instance().get(&StorageKey::Config).unwrap();
         config.proposal_count += 1;
@@ -406,7 +445,21 @@ impl StellarVault {
             is_executed: false,
             is_rejected: false,
         };
+        // The payload is persisted, not just emitted. execute() reads it back
+        // rather than trusting arguments, so approvals bind to this exact
+        // operation.
+        let payload = ProposalPayload {
+            token: token.clone(),
+            recipient: recipient.clone(),
+            amount,
+            start_time,
+            end_time,
+            cliff_time,
+            release_intervals,
+            revocable,
+        };
         env.storage().instance().set(&StorageKey::Proposal(proposal_id), &proposal);
+        env.storage().instance().set(&StorageKey::ProposalPayload(proposal_id), &payload);
         env.storage().instance().set(&StorageKey::ProposalApproval(proposal_id, proposer.clone()), &true);
         env.storage().instance().set(&StorageKey::Config, &config);
         env.events().publish(
@@ -463,19 +516,14 @@ impl StellarVault {
         Ok(())
     }
 
+    /// Executes a proposal that has reached threshold.
+    ///
+    /// Takes only the proposal id. The operation to perform is read from
+    /// storage, so what executes is exactly what the signers approved.
     pub fn execute(
         env: Env,
         executor: Address,
         proposal_id: u64,
-        proposal_type: ProposalType,
-        token: Address,
-        recipient: Address,
-        amount: i128,
-        start_time: u64,
-        end_time: u64,
-        cliff_time: u64,
-        release_intervals: u64,
-        revocable: bool,
     ) -> Result<u64, VaultError> {
         executor.require_auth();
         Self::require_initialized(&env)?;
@@ -489,21 +537,51 @@ impl StellarVault {
         if proposal.is_rejected {
             return Err(VaultError::AlreadyRejected);
         }
-        if proposal.proposal_type != proposal_type {
-            return Err(VaultError::NotAuthorized);
-        }
         let config: VaultConfig = env.storage().instance().get(&StorageKey::Config).unwrap();
-        if proposal.approval_count < config.threshold {
+        // Count approvals from signers who are *currently* in the signer set,
+        // rather than trusting the stored tally. A signer removed after
+        // approving — say, because their key leaked — must stop counting toward
+        // threshold. Iterating the signer set is bounded; iterating proposals to
+        // purge stale approvals at removal time would not be.
+        if Self::effective_approvals(&env, proposal_id) < config.threshold {
             return Err(VaultError::NotEnoughApprovals);
         }
+        let payload: ProposalPayload = env.storage().instance()
+            .get(&StorageKey::ProposalPayload(proposal_id))
+            .ok_or(VaultError::ProposalNotFound)?;
+        let proposal_type = proposal.proposal_type;
+        let ProposalPayload {
+            token, recipient, amount,
+            start_time, end_time, cliff_time, release_intervals, revocable,
+        } = payload;
         Self::collect_fee(&env, &executor)?;
         let result = match proposal_type {
             ProposalType::Transfer => {
+                // Re-check at execution time. Balance and locked totals can both
+                // have moved since the proposal was raised, and committed funds
+                // must stay committed even for a proposal that met threshold.
                 let token_client = token::Client::new(&env, &token);
+                let balance = token_client.balance(&env.current_contract_address());
+                let locked: i128 = env.storage().instance()
+                    .get(&StorageKey::TokenLocked(token.clone()))
+                    .unwrap_or(0);
+                if balance - locked < amount {
+                    return Err(VaultError::InsufficientBalance);
+                }
                 token_client.transfer(&env.current_contract_address(), &recipient, &amount);
                 0u64
             }
             ProposalType::TimeLock | ProposalType::VestingLock => {
+                // Same re-check: two locks proposed against the same balance
+                // must not both succeed.
+                let token_client = token::Client::new(&env, &token);
+                let balance = token_client.balance(&env.current_contract_address());
+                let locked: i128 = env.storage().instance()
+                    .get(&StorageKey::TokenLocked(token.clone()))
+                    .unwrap_or(0);
+                if balance - locked < amount {
+                    return Err(VaultError::InsufficientBalance);
+                }
                 Self::create_lock_internal(
                     &env, proposal_type, recipient.clone(), token.clone(), amount,
                     start_time, end_time, cliff_time, release_intervals, revocable,
@@ -525,6 +603,10 @@ impl StellarVault {
             }
             ProposalType::SetThreshold => {
                 Self::execute_set_threshold_internal(&env, amount as u32)?;
+                0u64
+            }
+            ProposalType::CancelLock => {
+                Self::cancel_lock_internal(&env, amount as u64, &executor)?;
                 0u64
             }
         };
@@ -614,10 +696,11 @@ impl StellarVault {
         Ok(available)
     }
 
-    pub fn cancel_lock(env: Env, caller: Address, lock_id: u64) -> Result<i128, VaultError> {
-        caller.require_auth();
-        Self::require_initialized(&env)?;
-        Self::require_role(&env, &caller, Role::Admin)?;
+    /// Revokes a lock. Reachable only through an executed `CancelLock` proposal,
+    /// so revocation requires the same signing threshold as moving funds. It was
+    /// previously a public entry point gated on `Role::Admin` alone, which let a
+    /// single Admin free committed funds without any second approval.
+    fn cancel_lock_internal(env: &Env, lock_id: u64, caller: &Address) -> Result<i128, VaultError> {
         let mut lock: LockCore = env.storage().instance()
             .get(&StorageKey::Lock(lock_id))
             .ok_or(VaultError::LockNotFound)?;
@@ -627,7 +710,6 @@ impl StellarVault {
         if !lock.revocable {
             return Err(VaultError::LockNotRevocable);
         }
-        Self::collect_fee(&env, &caller)?;
         let remaining = lock.total_amount - lock.released_amount;
         lock.released_amount = lock.total_amount;
         lock.is_active = false;
@@ -636,8 +718,26 @@ impl StellarVault {
             .unwrap_or(0);
         env.storage().instance().set(&StorageKey::TokenLocked(lock.token.clone()), &(current_locked - remaining));
         env.storage().instance().set(&StorageKey::Lock(lock_id), &lock);
-        env.events().publish((Symbol::new(&env, "lock_cancelled"),), (lock_id, caller, remaining));
+        env.events().publish(
+            (Symbol::new(env, "lock_cancelled"),),
+            (lock_id, caller.clone(), remaining),
+        );
         Ok(remaining)
+    }
+
+    /// Approvals from signers currently in the signer set.
+    ///
+    /// `ProposalCore.approval_count` is a running tally of every approval ever
+    /// recorded and is kept for display. This is the number that gates execution.
+    fn effective_approvals(env: &Env, proposal_id: u64) -> u32 {
+        let signers: Vec<Address> = env.storage().instance().get(&StorageKey::Signers).unwrap();
+        let mut count = 0u32;
+        for s in signers.iter() {
+            if env.storage().instance().has(&StorageKey::ProposalApproval(proposal_id, s)) {
+                count += 1;
+            }
+        }
+        count
     }
 
     fn calculate_available(lock: &LockCore, current_time: u64) -> i128 {
@@ -755,6 +855,27 @@ impl StellarVault {
             .ok_or(VaultError::ProposalNotFound)
     }
 
+    /// Approvals that currently count toward threshold — i.e. those given by
+    /// addresses still in the signer set. Differs from
+    /// `ProposalCore.approval_count` whenever a signer has been removed since
+    /// approving. This is the number execute() enforces against.
+    pub fn get_effective_approvals(env: Env, proposal_id: u64) -> Result<u32, VaultError> {
+        Self::require_initialized(&env)?;
+        if !env.storage().instance().has(&StorageKey::Proposal(proposal_id)) {
+            return Err(VaultError::ProposalNotFound);
+        }
+        Ok(Self::effective_approvals(&env, proposal_id))
+    }
+
+    /// The exact operation a proposal authorizes. Signers should read this
+    /// before approving — it is what execute() will act on.
+    pub fn get_proposal_payload(env: Env, proposal_id: u64) -> Result<ProposalPayload, VaultError> {
+        Self::require_initialized(&env)?;
+        env.storage().instance()
+            .get(&StorageKey::ProposalPayload(proposal_id))
+            .ok_or(VaultError::ProposalNotFound)
+    }
+
     pub fn get_lock(env: Env, lock_id: u64) -> Result<LockCore, VaultError> {
         Self::require_initialized(&env)?;
         env.storage().instance()
@@ -799,3 +920,6 @@ impl StellarVault {
         false
     }
 }
+
+#[cfg(test)]
+mod test;

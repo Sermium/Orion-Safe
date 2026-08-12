@@ -1,0 +1,81 @@
+name: contracts
+
+on:
+  push:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/contracts.yml'
+  pull_request:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/contracts.yml'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: contracts
+
+jobs:
+  test:
+    name: build + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: contracts
+
+      # The factory's tests contractimport! the vault wasm, so it has to exist
+      # before the host-target test build runs.
+      - name: Build contracts (wasm)
+        run: cargo build --release --target wasm32v1-none
+
+      - name: Report wasm sizes
+        run: ls -l target/wasm32v1-none/release/*.wasm
+
+      - name: Test
+        run: cargo test --workspace -- --nocapture
+
+  coverage:
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+          components: llvm-tools-preview
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: contracts
+
+      - uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Build contracts (wasm)
+        run: cargo build --release --target wasm32v1-none
+
+      - name: Line coverage
+        run: cargo llvm-cov --workspace --summary-only
+
+      # Written to disk so the report can be published alongside the
+      # verification page rather than living only in CI logs.
+      - name: Coverage report (lcov)
+        run: cargo llvm-cov --workspace --lcov --output-path lcov.info
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: contracts/lcov.info
+
+      # Deliverable 1.3 raises this gate to 85. Left ungated until the suite
+      # reaches that level, so the number is reported honestly in the meantime
+      # rather than being quietly skipped.
+      - name: Coverage floor
+        run: cargo llvm-cov --workspace --summary-only --fail-under-lines 1

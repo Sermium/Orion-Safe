@@ -312,3 +312,6 @@ impl VaultFactory {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod test;
