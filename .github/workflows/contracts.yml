@@ -34,15 +34,15 @@ jobs:
       # compiler errors are echoed as workflow annotations. Annotations render
       # inline on the PR and are readable without pulling the full job log.
       - name: Build vault (wasm)
-        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/cargo-annotate.sh" build --release --target wasm32v1-none -p stellar-vault
 
       - name: Build factory (wasm)
         if: always()
-        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault-factory
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/cargo-annotate.sh" build --release --target wasm32v1-none -p stellar-vault-factory
 
       - name: Build registry (wasm)
         if: always()
-        run: bash .github/scripts/cargo-annotate.sh build --release --target wasm32v1-none -p stellar-vault-registry
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/cargo-annotate.sh" build --release --target wasm32v1-none -p stellar-vault-registry
 
       - name: Report wasm sizes and hashes
         run: |
@@ -61,6 +61,8 @@ jobs:
 
   coverage:
     name: coverage
+    # No point measuring coverage until the workspace builds and tests pass.
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
