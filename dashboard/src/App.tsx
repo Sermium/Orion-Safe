@@ -30,6 +30,7 @@ import { AddTokenModal } from './components/modals/AddTokenModal';
 import ConnectWalletModal from './components/modals/ConnectWalletModal';
 import PublicVaultView from './components/views/PublicVaultView';
 import ClaimPage from './components/views/ClaimPage';
+import { ViewSkeleton, VaultListSkeleton } from './components/skeletons/ViewSkeletons';
 
 // ==================== VAULT INDEX HELPERS ====================
 
@@ -592,24 +593,16 @@ function App() {
           )}
 
           {/* Loading State */}
-          {loadingVaults && !hasSelectedVault && (
-            <div className="flex flex-col items-center justify-center min-h-[60vh]">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mb-4"></div>
-              <p className="text-gray-400">Loading your vaults...</p>
-            </div>
-          )}
+          {loadingVaults && !hasSelectedVault && <VaultListSkeleton />}
 
           {/* Vault Selected - Show Normal Views */}
           {hasSelectedVault && (
             <>
-              {/* Show loading while vault data loads */}
-              {vault.loading && !vault.isInitialized && (
-                <div className="flex flex-col items-center justify-center min-h-[60vh]">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mb-4"></div>
-                  <p className="text-gray-400">Loading vault data...</p>
-                </div>
-              )}
-{/* Show views once initialized */}
+              {/* Skeleton of the active view while vault data loads, so the page
+                  keeps its shape instead of jumping from a spinner to content. */}
+              {vault.loading && !vault.isInitialized && <ViewSkeleton view={activeView} />}
+
+              {/* Show views once initialized */}
               {vault.isInitialized && (
                 <>
                   {activeView === 'dashboard' && (

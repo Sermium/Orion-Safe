@@ -12,3 +12,33 @@ body {
   background-color: #0D0B1E;
   color: white;
 }
+
+/* Skeleton placeholders shown while view data loads. */
+@keyframes orion-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background-color: rgba(55, 65, 81, 0.45);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: orion-shimmer 1.6s ease-in-out infinite;
+}
+
+/* Staggered start so long lists ripple instead of pulsing as one block. */
+.skeleton-delay-1 { animation-delay: 0.08s; }
+.skeleton-delay-2 { animation-delay: 0.16s; }
+.skeleton-delay-3 { animation-delay: 0.24s; }
+.skeleton-delay-4 { animation-delay: 0.32s; }
+.skeleton-delay-5 { animation-delay: 0.40s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
