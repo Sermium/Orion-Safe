@@ -3,7 +3,7 @@
 Every factual claim we make about Orion Safe, with the command to check it. If a number here is
 wrong, it is a bug — please open an issue.
 
-Last verified: **2026-08-07**, against testnet ledger 4,073,825.
+Last verified: **2026-09-04**, against testnet ledger 4,495,419.
 
 ---
 
@@ -11,11 +11,17 @@ Last verified: **2026-08-07**, against testnet ledger 4,073,825.
 
 All on **Stellar testnet**. Nothing is deployed to mainnet.
 
-| Contract | Address | WASM hash |
-|---|---|---|
-| Factory | `CCNGOW6UCZKELBAR377HDHWAJJLKD6SJHUFCDT4UM6M2AYPSOEBYLDVA` | `796d5c1b…dd810df1` |
-| Vault (current) | `CBJ4BFOUDMQWFPCBALQTO2565STNGFMGQWDYVQ7MBWRZF5WSI2Z4VT5W` | `f434965d…ebe475ec` |
-| Vault (initial) | `CDH3LYVDC22E2PF2JMSEHVEA3XI7YU2ICAVNUGC5O6EZ4WC3UWBOPF4P` | `5bf11f2b…f63c5f90` |
+| Contract | Address | WASM hash | Last on-chain activity |
+|---|---|---|---|
+| Factory | `CCNGOW6UCZKELBAR377HDHWAJJLKD6SJHUFCDT4UM6M2AYPSOEBYLDVA` | `796d5c1b…dd810df1` | 2026-06-15 (ledger 3,100,465) |
+| Vault (current) | `CBJ4BFOUDMQWFPCBALQTO2565STNGFMGQWDYVQ7MBWRZF5WSI2Z4VT5W` | `f434965d…ebe475ec` | 2026-04-08 (ledger 1,926,506) |
+| Vault (initial) | `CDH3LYVDC22E2PF2JMSEHVEA3XI7YU2ICAVNUGC5O6EZ4WC3UWBOPF4P` | `5bf11f2b…f63c5f90` | 2026-03-14 (ledger 1,504,158) |
+
+These columns mean different things, and an earlier version of this page conflated them. The
+addresses were confirmed **live** on 2026-09-04 — that is a verification date, not a deployment
+date. The last column is the ledger that last modified each contract, converted to its close time:
+the vault has seen no on-chain activity since April, the factory none since June. Per-contract
+deployment dates are visible on Stellar Expert.
 
 Full hashes:
 
@@ -63,7 +69,7 @@ privilege-escalation bug.
 
 | Claim | Value | Command |
 |---|---|---|
-| Commits on `main` | **53** | `git rev-list --count main` |
+| Commits on `main` | **55** (newest 2026-07-23) | `git rev-list --count origin/main` |
 | Contributors | **1 primary** (52 commits), 1 occasional (2 commits) | `git shortlog -sn --all` |
 | First commit | 2026-03-14 | `git log --reverse --format=%ad --date=short \| head -1` |
 | Rust contract code | **1,615 lines** across 3 crates | `wc -l contracts/*/src/lib.rs` |
@@ -73,9 +79,32 @@ privilege-escalation bug.
 | TypeScript / JavaScript | **~26,600 lines** (dashboard + API) | `find dashboard/src api/src -name '*.ts*' -o -name '*.js' \| xargs wc -l` |
 | Licence | MIT, all code | `cat LICENSE` |
 
+### Development has not been continuous
+
+An earlier version of this page described development as continuous since March. It has not been.
+The honest cadence, and the gaps, since both are checkable:
+
+| Month | Commits on `main` |
+|---|---|
+| 2026-03 | 14 |
+| 2026-04 | 20 |
+| 2026-05 | **2** |
+| 2026-06 | 17 |
+| 2026-07 | **2** (newest 2026-07-23) |
+| 2026-08 | 0 on `main` |
+
+```bash
+git log --format=%ad --date=format:'%Y-%m' origin/main | sort | uniq -c
+```
+
+May and July were near-dormant, and `main` has had no commits since 23 July. On-chain the picture is
+the same: the vault has not been touched since 8 April and the factory not since 15 June. Work in
+August happened on a branch rather than on `main` — see the security changelog below — but a reviewer
+reading `main` is right to see a project that paused.
+
 ### Commit history is not tidy
 
-36 of the 53 commits are named `e` or `debug`. That is poor practice and we are not going to rewrite
+36 of the 55 commits are named `e` or `debug`. That is poor practice and we are not going to rewrite
 history to hide it — a force-push to relabel old commits would be worse than the untidiness. Commit
 messages from 2026-08 onward follow a conventional format.
 
@@ -167,7 +196,7 @@ We have overstated things. Rather than quietly editing, the record:
 
 | Claim | Where | Reality |
 |---|---|---|
-| "200+ commits" | SCF #44 submission | 53 on `main` today; ~39 at the time |
+| "200+ commits" | SCF #44 submission | 55 on `main`; ~39 at the time |
 | "Built on OpenZeppelin's Smart Account framework" | README, site, whitepaper, architecture doc | Never true in code. `contracts/Cargo.toml` has only ever declared `soroban-sdk`. Removed everywhere, and the decision not to adopt it is recorded in [ADR 0001](./adr/0001-no-smart-account-framework.md) |
 | "5-role system" | README, whitepaper, architecture doc | Three roles implemented; two planned |
 | "5 contract tests" | internal notes | Zero were running — the modules were unwired |
