@@ -59,7 +59,23 @@ jobs:
           path: contracts/target/wasm32v1-none/release/*.wasm
 
       - name: Test
+        env:
+          CARGO_ANNOTATE_LOG: ${{ runner.temp }}/test.log
         run: bash "$GITHUB_WORKSPACE/.github/scripts/cargo-annotate.sh" test --workspace -- --nocapture
+
+      # cargo test exits 0 when a crate contains no tests at all, which is how
+      # the missing `mod test;` declarations went unnoticed for months. Fail if
+      # the number of passing tests drops below what we know exists.
+      - name: Guard against unwired test modules
+        env:
+          MIN_TESTS: '42'
+        run: |
+          total=$(grep -oE "test result: ok. [0-9]+ passed" "${{ runner.temp }}/test.log" | grep -oE "[0-9]+" | awk '{s+=$1} END {print s+0}')
+          echo "tests passed: $total (minimum expected: $MIN_TESTS)"
+          if [ "$total" -lt "$MIN_TESTS" ]; then
+            echo "::error::Only $total tests ran; expected at least $MIN_TESTS. A test module may have become unwired."
+            exit 1
+          fi
 
   coverage:
     name: coverage
@@ -80,8 +96,13 @@ jobs:
 
       - uses: taiki-e/install-action@cargo-llvm-cov
 
+      # Vault first: the factory embeds the vault wasm via contractimport!, a
+      # dependency cargo cannot see, so a single workspace build can race.
       - name: Build contracts (wasm)
-        run: cargo build --release --target wasm32v1-none
+        run: |
+          cargo build --release --target wasm32v1-none -p stellar-vault
+          cargo build --release --target wasm32v1-none -p stellar-vault-factory
+          cargo build --release --target wasm32v1-none -p stellar-vault-registry
 
       - name: Line coverage
         run: cargo llvm-cov --workspace --summary-only

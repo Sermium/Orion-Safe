@@ -6,7 +6,7 @@
 # Usage: cargo-annotate.sh <cargo args...>
 set -uo pipefail
 
-log="$(mktemp)"
+log="${CARGO_ANNOTATE_LOG:-$(mktemp)}"
 cargo "$@" 2>&1 | tee "$log"
 status=${PIPESTATUS[0]}
 
