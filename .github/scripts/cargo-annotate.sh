@@ -18,11 +18,11 @@ if [ "$status" -ne 0 ]; then
 
   # Grab the first diagnostics plus their context. Fall back to the tail of the
   # log if nothing matches, so a failure never produces an empty annotation.
-  lines="$(grep -nE '^(error|warning: unused|thread .* panicked)' "$log" | head -n 5 || true)"
+  lines="$(grep -nE '^(error|failures:|test result: FAILED|thread .* panicked)' "$log" | head -n 5 || true)"
   if [ -z "$lines" ]; then
     body="$(tail -n 25 "$log")"
   else
-    body="$(grep -E -A 8 '^error' "$log" | head -n 40)"
+    body="$(grep -E -A 8 '^(error|failures:|test result: FAILED|thread .* panicked)' "$log" | head -n 40)"
   fi
 
   # One annotation per line; GitHub caps these per step, so keep it short.

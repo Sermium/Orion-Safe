@@ -59,7 +59,7 @@ jobs:
           path: contracts/target/wasm32v1-none/release/*.wasm
 
       - name: Test
-        run: cargo test --workspace -- --nocapture
+        run: bash "$GITHUB_WORKSPACE/.github/scripts/cargo-annotate.sh" test --workspace -- --nocapture
 
   coverage:
     name: coverage
