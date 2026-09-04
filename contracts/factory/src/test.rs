@@ -9,7 +9,7 @@ use soroban_sdk::{
 // Import the vault contract for testing
 mod vault_contract {
     soroban_sdk::contractimport!(
-        file = "../../target/wasm32v1-none/release/stellar_vault.wasm"
+        file = "../target/wasm32v1-none/release/stellar_vault.wasm"
     );
 }
 

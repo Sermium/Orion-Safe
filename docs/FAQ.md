@@ -66,7 +66,7 @@ Any Stellar asset:
 - Any SEP-41 compatible token
 
 ### How many signers can a vault have?
-The contract sets no hard cap. Practical limits come from transaction size and the cost of iterating the signer list, so large signer sets are untested — treat anything beyond about 10 as unvalidated.
+Up to **20** at creation — the factory rejects more than that. Adding signers afterwards goes through the vault, which enforces no limit of its own, so a vault can grow past 20 that way. That asymmetry is unintentional and will be reconciled. Either way, large signer sets are untested: practical limits come from transaction size and the cost of iterating the signer list, so treat anything beyond about 10 as unvalidated.
 
 ### Can I have multiple vaults?
 Yes! Create as many vaults as you need — one for operations, one for reserves, one for each project, etc.

@@ -54,7 +54,7 @@ const MAX_SIGNERS: u32 = 20;
  
 mod vault {
     soroban_sdk::contractimport!(
-        file = "../target/wasm32-unknown-unknown/release/stellar_vault.wasm"
+        file = "../target/wasm32v1-none/release/stellar_vault.wasm"
     );
 }
  
