@@ -36,7 +36,7 @@ fn test_factory_initialize() {
         &admin,
     );
 
-    let config = factory_client.get_config();
+    let config = factory_client.get_config().expect("factory should be initialized");
     assert_eq!(config.admin, admin);
     assert_eq!(config.fee_amount, 0);
     assert_eq!(config.total_vaults_created, 0);
