@@ -50,7 +50,6 @@ fn test_create_vault() {
     let admin = Address::generate(&env);
     let fee_token = Address::generate(&env);
     let creator = Address::generate(&env);
-    let signer1 = Address::generate(&env);
 
     let factory_id = env.register(VaultFactory, ());
     let factory_client = VaultFactoryClient::new(&env, &factory_id);
@@ -68,7 +67,8 @@ fn test_create_vault() {
     );
 
     // Create signers vec
-    let signers = Vec::from_array(&env, [signer1.clone()]);
+    // create_vault requires the creator to be one of the vault signers.
+    let signers = Vec::from_array(&env, [creator.clone()]);
 
     // Create vault
     let vault_address = factory_client.create_vault(
@@ -96,7 +96,6 @@ fn test_create_multiple_vaults() {
     let admin = Address::generate(&env);
     let fee_token = Address::generate(&env);
     let creator = Address::generate(&env);
-    let signer1 = Address::generate(&env);
 
     let factory_id = env.register(VaultFactory, ());
     let factory_client = VaultFactoryClient::new(&env, &factory_id);
@@ -111,7 +110,8 @@ fn test_create_multiple_vaults() {
         &admin,
     );
 
-    let signers = Vec::from_array(&env, [signer1.clone()]);
+    // create_vault requires the creator to be one of the vault signers.
+    let signers = Vec::from_array(&env, [creator.clone()]);
 
     // Create first vault
     let vault1 = factory_client.create_vault(
